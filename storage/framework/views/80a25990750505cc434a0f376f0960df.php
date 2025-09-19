@@ -44,25 +44,28 @@
             <div class="md:w-48">
                 <select name="date_filter" onchange="this.form.submit()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <option value="">Semua Tanggal</option>
-                    <option value="today" <?php echo e(($selectedDateFilter ?? '') == 'today' ? 'selected' : ''); ?>>Hari Ini</option>
-                    <option value="yesterday" <?php echo e(($selectedDateFilter ?? '') == 'yesterday' ? 'selected' : ''); ?>>Kemarin</option>
-                    <option value="this_week" <?php echo e(($selectedDateFilter ?? '') == 'this_week' ? 'selected' : ''); ?>>Minggu Ini</option>
-                    <option value="last_week" <?php echo e(($selectedDateFilter ?? '') == 'last_week' ? 'selected' : ''); ?>>Minggu Lalu</option>
-                    <option value="this_month" <?php echo e(($selectedDateFilter ?? '') == 'this_month' ? 'selected' : ''); ?>>Bulan Ini</option>
-                    <option value="last_month" <?php echo e(($selectedDateFilter ?? '') == 'last_month' ? 'selected' : ''); ?>>Bulan Lalu</option>
-                    <option value="custom" <?php echo e(($selectedDateFilter ?? '') == 'custom' ? 'selected' : ''); ?>>Custom Range</option>
+                    <option value="custom" <?php echo e(($selectedDateFilter ?? '') == 'custom' ? 'selected' : ''); ?>>Filter Tanggal</option>
                 </select>
             </div>
             
-            <!-- Custom Date Range (muncul jika custom dipilih) -->
+            <!-- Custom Date Range (muncul jika Filter Tanggal dipilih) -->
             <?php if(($selectedDateFilter ?? '') == 'custom'): ?>
-            <div class="md:w-64 flex gap-2">
-                <input type="date" name="date_from" value="<?php echo e($dateFrom ?? ''); ?>" 
-                       class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                       placeholder="Dari Tanggal">
-                <input type="date" name="date_to" value="<?php echo e($dateTo ?? ''); ?>" 
-                       class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                       placeholder="Sampai Tanggal">
+            <div class="md:w-80 flex gap-2">
+                <div class="flex-1">
+                    <label class="block text-xs text-gray-600 mb-1">Dari Tanggal</label>
+                    <input type="date" name="date_from" value="<?php echo e($dateFrom ?? ''); ?>" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                </div>
+                <div class="flex-1">
+                    <label class="block text-xs text-gray-600 mb-1">Sampai Tanggal</label>
+                    <input type="date" name="date_to" value="<?php echo e($dateTo ?? ''); ?>" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                </div>
+                <div class="flex items-end">
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
+                        Filter
+                    </button>
+                </div>
             </div>
             <?php endif; ?>
             
@@ -125,25 +128,8 @@
                             <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
-                                <?php if($selectedDateFilter == 'custom'): ?>
-                                    Tanggal: <?php echo e($dateFrom ?? ''); ?> - <?php echo e($dateTo ?? ''); ?>
+                            Tanggal: <?php echo e($dateFrom ?? ''); ?> - <?php echo e($dateTo ?? ''); ?>
 
-                                <?php elseif($selectedDateFilter == 'today'): ?>
-                                    Tanggal: Hari Ini
-                                <?php elseif($selectedDateFilter == 'yesterday'): ?>
-                                    Tanggal: Kemarin
-                                <?php elseif($selectedDateFilter == 'this_week'): ?>
-                                    Tanggal: Minggu Ini
-                                <?php elseif($selectedDateFilter == 'last_week'): ?>
-                                    Tanggal: Minggu Lalu
-                                <?php elseif($selectedDateFilter == 'this_month'): ?>
-                                    Tanggal: Bulan Ini
-                                <?php elseif($selectedDateFilter == 'last_month'): ?>
-                                    Tanggal: Bulan Lalu
-                                <?php else: ?>
-                                    Tanggal: <?php echo e($selectedDateFilter ?? 'Periode Tidak Diketahui'); ?>
-
-                                <?php endif; ?>
                         </span>
                         <?php endif; ?>
                     </div>

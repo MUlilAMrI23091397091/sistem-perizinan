@@ -40,13 +40,22 @@
             
             <!-- Custom Date Range (muncul jika Filter Tanggal dipilih) -->
             @if(($selectedDateFilter ?? '') == 'custom')
-            <div class="md:w-64 flex gap-2">
-                <input type="date" name="date_from" value="{{ $dateFrom ?? '' }}" 
-                       class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                       placeholder="Dari Tanggal">
-                <input type="date" name="date_to" value="{{ $dateTo ?? '' }}" 
-                       class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                       placeholder="Sampai Tanggal">
+            <div class="md:w-80 flex gap-2">
+                <div class="flex-1">
+                    <label class="block text-xs text-gray-600 mb-1">Dari Tanggal</label>
+                    <input type="date" name="date_from" value="{{ $dateFrom ?? '' }}" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                </div>
+                <div class="flex-1">
+                    <label class="block text-xs text-gray-600 mb-1">Sampai Tanggal</label>
+                    <input type="date" name="date_to" value="{{ $dateTo ?? '' }}" 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                </div>
+                <div class="flex items-end">
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
+                        Filter
+                    </button>
+                </div>
             </div>
             @endif
             
