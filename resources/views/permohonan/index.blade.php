@@ -34,17 +34,11 @@
             <div class="md:w-48">
                 <select name="date_filter" onchange="this.form.submit()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <option value="">Semua Tanggal</option>
-                    <option value="today" {{ ($selectedDateFilter ?? '') == 'today' ? 'selected' : '' }}>Hari Ini</option>
-                    <option value="yesterday" {{ ($selectedDateFilter ?? '') == 'yesterday' ? 'selected' : '' }}>Kemarin</option>
-                    <option value="this_week" {{ ($selectedDateFilter ?? '') == 'this_week' ? 'selected' : '' }}>Minggu Ini</option>
-                    <option value="last_week" {{ ($selectedDateFilter ?? '') == 'last_week' ? 'selected' : '' }}>Minggu Lalu</option>
-                    <option value="this_month" {{ ($selectedDateFilter ?? '') == 'this_month' ? 'selected' : '' }}>Bulan Ini</option>
-                    <option value="last_month" {{ ($selectedDateFilter ?? '') == 'last_month' ? 'selected' : '' }}>Bulan Lalu</option>
-                    <option value="custom" {{ ($selectedDateFilter ?? '') == 'custom' ? 'selected' : '' }}>Custom Range</option>
+                    <option value="custom" {{ ($selectedDateFilter ?? '') == 'custom' ? 'selected' : '' }}>Filter Tanggal</option>
                 </select>
             </div>
             
-            <!-- Custom Date Range (muncul jika custom dipilih) -->
+            <!-- Custom Date Range (muncul jika Filter Tanggal dipilih) -->
             @if(($selectedDateFilter ?? '') == 'custom')
             <div class="md:w-64 flex gap-2">
                 <input type="date" name="date_from" value="{{ $dateFrom ?? '' }}" 
@@ -114,23 +108,7 @@
                             <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
-                                @if($selectedDateFilter == 'custom')
-                                    Tanggal: {{ $dateFrom ?? '' }} - {{ $dateTo ?? '' }}
-                                @elseif($selectedDateFilter == 'today')
-                                    Tanggal: Hari Ini
-                                @elseif($selectedDateFilter == 'yesterday')
-                                    Tanggal: Kemarin
-                                @elseif($selectedDateFilter == 'this_week')
-                                    Tanggal: Minggu Ini
-                                @elseif($selectedDateFilter == 'last_week')
-                                    Tanggal: Minggu Lalu
-                                @elseif($selectedDateFilter == 'this_month')
-                                    Tanggal: Bulan Ini
-                                @elseif($selectedDateFilter == 'last_month')
-                                    Tanggal: Bulan Lalu
-                                @else
-                                    Tanggal: {{ $selectedDateFilter ?? 'Periode Tidak Diketahui' }}
-                                @endif
+                            Tanggal: {{ $dateFrom ?? '' }} - {{ $dateTo ?? '' }}
                         </span>
                         @endif
                     </div>

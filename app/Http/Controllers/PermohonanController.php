@@ -43,45 +43,12 @@ class PermohonanController extends Controller
         }
 
         // Terapkan filter tanggal
-        if ($selectedDateFilter) {
-            $now = Carbon::now();
-            
-            switch ($selectedDateFilter) {
-                case 'today':
-                    $permohonans->whereDate('created_at', $now->toDateString());
-                    break;
-                case 'yesterday':
-                    $permohonans->whereDate('created_at', $now->subDay()->toDateString());
-                    break;
-                case 'this_week':
-                    $permohonans->whereBetween('created_at', [
-                        $now->startOfWeek()->toDateTimeString(),
-                        $now->endOfWeek()->toDateTimeString()
-                    ]);
-                    break;
-                case 'last_week':
-                    $permohonans->whereBetween('created_at', [
-                        $now->subWeek()->startOfWeek()->toDateTimeString(),
-                        $now->subWeek()->endOfWeek()->toDateTimeString()
-                    ]);
-                    break;
-                case 'this_month':
-                    $permohonans->whereMonth('created_at', $now->month)
-                               ->whereYear('created_at', $now->year);
-                    break;
-                case 'last_month':
-                    $lastMonth = $now->subMonth();
-                    $permohonans->whereMonth('created_at', $lastMonth->month)
-                               ->whereYear('created_at', $lastMonth->year);
-                    break;
-                case 'custom':
-                    if ($dateFrom) {
-                        $permohonans->whereDate('created_at', '>=', $dateFrom);
-                    }
-                    if ($dateTo) {
-                        $permohonans->whereDate('created_at', '<=', $dateTo);
-                    }
-                    break;
+        if ($selectedDateFilter == 'custom') {
+            if ($dateFrom) {
+                $permohonans->whereDate('created_at', '>=', $dateFrom);
+            }
+            if ($dateTo) {
+                $permohonans->whereDate('created_at', '<=', $dateTo);
             }
         }
 
