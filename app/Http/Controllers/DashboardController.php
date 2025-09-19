@@ -45,8 +45,7 @@ class DashboardController extends Controller
         
         // Ambil parameter dari request
         $selectedDateFilter = $request->query('date_filter');
-        $dateFrom = $request->query('date_from');
-        $dateTo = $request->query('date_to');
+        $customDate = $request->query('custom_date');
         
         // Query dasar
         $permohonans = Permohonan::with('user');
@@ -84,11 +83,8 @@ class DashboardController extends Controller
                                ->whereYear('created_at', $lastMonth->year);
                     break;
                 case 'custom':
-                    if ($dateFrom) {
-                        $permohonans->whereDate('created_at', '>=', $dateFrom);
-                    }
-                    if ($dateTo) {
-                        $permohonans->whereDate('created_at', '<=', $dateTo);
+                    if ($customDate) {
+                        $permohonans->whereDate('created_at', $customDate);
                     }
                     break;
             }
@@ -105,6 +101,6 @@ class DashboardController extends Controller
             'ditolak' => $permohonans->where('status', 'Ditolak')->count(),
         ];
 
-        return view('statistik', compact('stats', 'selectedDateFilter', 'dateFrom', 'dateTo'));
+        return view('statistik', compact('stats', 'selectedDateFilter', 'customDate'));
     }
 }
