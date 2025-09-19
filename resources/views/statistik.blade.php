@@ -64,18 +64,20 @@
                                 </svg>
                                 @if($selectedDateFilter == 'custom')
                                     Periode: {{ $dateFrom ?? '' }} - {{ $dateTo ?? '' }}
+                                @elseif($selectedDateFilter == 'today')
+                                    Periode: Hari Ini
+                                @elseif($selectedDateFilter == 'yesterday')
+                                    Periode: Kemarin
+                                @elseif($selectedDateFilter == 'this_week')
+                                    Periode: Minggu Ini
+                                @elseif($selectedDateFilter == 'last_week')
+                                    Periode: Minggu Lalu
+                                @elseif($selectedDateFilter == 'this_month')
+                                    Periode: Bulan Ini
+                                @elseif($selectedDateFilter == 'last_month')
+                                    Periode: Bulan Lalu
                                 @else
-                                    @php
-                                        $dateLabels = [
-                                            'today' => 'Hari Ini',
-                                            'yesterday' => 'Kemarin',
-                                            'this_week' => 'Minggu Ini',
-                                            'last_week' => 'Minggu Lalu',
-                                            'this_month' => 'Bulan Ini',
-                                            'last_month' => 'Bulan Lalu'
-                                        ];
-                                    @endphp
-                                    Periode: {{ $dateLabels[$selectedDateFilter] ?? $selectedDateFilter }}
+                                    Periode: {{ $selectedDateFilter ?? 'Periode Tidak Diketahui' }}
                                 @endif
                             </span>
                         </div>
