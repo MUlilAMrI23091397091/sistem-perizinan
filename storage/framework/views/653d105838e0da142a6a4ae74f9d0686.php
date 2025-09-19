@@ -1,48 +1,14 @@
-<x-sidebar-layout>
-    <x-slot name="header">Statistik Permohonan</x-slot>
-
-    <!-- Filter Section -->
-    <div class="mb-6 bg-white rounded-lg shadow-sm p-6">
-        <form method="GET" action="{{ route('statistik') }}" class="flex flex-col md:flex-row gap-4">
-            <!-- Filter Tanggal -->
-            <div class="md:w-64">
-                <select name="date_filter" onchange="this.form.submit()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Semua Tanggal</option>
-                    <option value="today" {{ ($selectedDateFilter ?? '') == 'today' ? 'selected' : '' }}>Hari Ini</option>
-                    <option value="yesterday" {{ ($selectedDateFilter ?? '') == 'yesterday' ? 'selected' : '' }}>Kemarin</option>
-                    <option value="this_week" {{ ($selectedDateFilter ?? '') == 'this_week' ? 'selected' : '' }}>Minggu Ini</option>
-                    <option value="last_week" {{ ($selectedDateFilter ?? '') == 'last_week' ? 'selected' : '' }}>Minggu Lalu</option>
-                    <option value="this_month" {{ ($selectedDateFilter ?? '') == 'this_month' ? 'selected' : '' }}>Bulan Ini</option>
-                    <option value="last_month" {{ ($selectedDateFilter ?? '') == 'last_month' ? 'selected' : '' }}>Bulan Lalu</option>
-                    <option value="custom" {{ ($selectedDateFilter ?? '') == 'custom' ? 'selected' : '' }}>Custom Range</option>
-                </select>
-            </div>
-            
-            <!-- Custom Date Range (muncul jika custom dipilih) -->
-            @if(($selectedDateFilter ?? '') == 'custom')
-            <div class="md:w-64 flex gap-2">
-                <input type="date" name="date_from" value="{{ $dateFrom ?? '' }}" 
-                       class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                       placeholder="Dari Tanggal">
-                <input type="date" name="date_to" value="{{ $dateTo ?? '' }}" 
-                       class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                       placeholder="Sampai Tanggal">
-            </div>
-            @endif
-            
-            <!-- Reset Filter -->
-            @if($selectedDateFilter)
-            <div>
-                <a href="{{ route('statistik') }}" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 flex items-center">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                    </svg>
-                    Reset
-                </a>
-            </div>
-            @endif
-        </form>
-    </div>
+<?php if (isset($component)) { $__componentOriginal1f7b3c69a858611a4ccc5f2ea9729c12 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1f7b3c69a858611a4ccc5f2ea9729c12 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sidebar-layout','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('sidebar-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+     <?php $__env->slot('header', null, []); ?> Statistik Permohonan <?php $__env->endSlot(); ?>
 
     <!-- Header Section -->
     <div class="mb-8">
@@ -56,30 +22,6 @@
                     <div>
                         <h1 class="text-2xl font-bold text-gray-900">Statistik Permohonan</h1>
                         <p class="text-gray-600">Visualisasi data permohonan dalam bentuk grafik</p>
-                        @if($selectedDateFilter)
-                        <div class="mt-2">
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                                @if($selectedDateFilter == 'custom')
-                                    Periode: {{ $dateFrom ?? '' }} - {{ $dateTo ?? '' }}
-                                @else
-                                    @php
-                                        $dateLabels = [
-                                            'today' => 'Hari Ini',
-                                            'yesterday' => 'Kemarin',
-                                            'this_week' => 'Minggu Ini',
-                                            'last_week' => 'Minggu Lalu',
-                                            'this_month' => 'Bulan Ini',
-                                            'last_month' => 'Bulan Lalu'
-                                        ];
-                                    @endphp
-                                    Periode: {{ $dateLabels[$selectedDateFilter] ?? $selectedDateFilter }}
-                                @endif
-                            </span>
-                        </div>
-                        @endif
                     </div>
                 </div>
             </div>
@@ -100,7 +42,7 @@
                         <div class="ml-5 w-0 flex-1">
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Total Permohonan</dt>
-                                <dd class="text-lg font-medium text-gray-900">{{ $stats['totalPermohonan'] }}</dd>
+                                <dd class="text-lg font-medium text-gray-900"><?php echo e($stats['totalPermohonan']); ?></dd>
                             </dl>
                         </div>
                     </div>
@@ -120,7 +62,7 @@
                         <div class="ml-5 w-0 flex-1">
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Diterima</dt>
-                                <dd class="text-lg font-medium text-gray-900">{{ $stats['diterima'] }}</dd>
+                                <dd class="text-lg font-medium text-gray-900"><?php echo e($stats['diterima']); ?></dd>
                             </dl>
                         </div>
                     </div>
@@ -140,7 +82,7 @@
                         <div class="ml-5 w-0 flex-1">
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Dikembalikan</dt>
-                                <dd class="text-lg font-medium text-gray-900">{{ $stats['dikembalikan'] }}</dd>
+                                <dd class="text-lg font-medium text-gray-900"><?php echo e($stats['dikembalikan']); ?></dd>
                             </dl>
                         </div>
                     </div>
@@ -160,7 +102,7 @@
                         <div class="ml-5 w-0 flex-1">
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Ditolak</dt>
-                                <dd class="text-lg font-medium text-gray-900">{{ $stats['ditolak'] }}</dd>
+                                <dd class="text-lg font-medium text-gray-900"><?php echo e($stats['ditolak']); ?></dd>
                             </dl>
                         </div>
                     </div>
@@ -209,7 +151,7 @@
 
         <!-- Back Button -->
         <div class="mt-8 flex justify-center">
-            <a href="{{ route('dashboard') }}" 
+            <a href="<?php echo e(route('dashboard')); ?>" 
                class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
@@ -224,7 +166,7 @@
     
     <script>
         // Data untuk chart dari PHP
-        const statsData = JSON.parse('{!! json_encode($stats) !!}');
+        const statsData = JSON.parse('<?php echo json_encode($stats); ?>');
 
         // Data untuk chart
         const chartData = {
@@ -320,4 +262,14 @@
             }
         });
     </script>
-</x-sidebar-layout>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1f7b3c69a858611a4ccc5f2ea9729c12)): ?>
+<?php $attributes = $__attributesOriginal1f7b3c69a858611a4ccc5f2ea9729c12; ?>
+<?php unset($__attributesOriginal1f7b3c69a858611a4ccc5f2ea9729c12); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1f7b3c69a858611a4ccc5f2ea9729c12)): ?>
+<?php $component = $__componentOriginal1f7b3c69a858611a4ccc5f2ea9729c12; ?>
+<?php unset($__componentOriginal1f7b3c69a858611a4ccc5f2ea9729c12); ?>
+<?php endif; ?>
+<?php /**PATH C:\xampp\htdocs\sistem-perizinan\resources\views/statistik.blade.php ENDPATH**/ ?>
