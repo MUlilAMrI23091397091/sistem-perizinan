@@ -176,6 +176,24 @@
                                     @error('sektor')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
+                                @if(in_array($user->role, ['admin', 'pd_teknis']))
+                                <div>
+                                    <label for="kbli" class="block font-medium text-sm text-gray-700">KBLI</label>
+                                    <input id="kbli" name="kbli" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        value="{{ old('kbli') }}" placeholder="Masukkan nomor KBLI" />
+                                    @error('kbli')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                                </div>
+
+                                <div>
+                                    <label for="inputan_teks" class="block font-medium text-sm text-gray-700">Inputan Teks</label>
+                                    <textarea id="inputan_teks" name="inputan_teks" rows="3"
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        placeholder="Masukkan teks tambahan">{{ old('inputan_teks') }}</textarea>
+                                    @error('inputan_teks')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                                </div>
+                                @endif
+
                                 <div>
                                     <label for="modal_usaha" class="block font-medium text-sm text-gray-700">Modal Usaha</label>
                                     <input id="modal_usaha" name="modal_usaha" type="number"

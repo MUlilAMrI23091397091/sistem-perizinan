@@ -138,6 +138,18 @@
                                         <span class="text-gray-500">-</span>
                                     @endif
                                 </div>
+
+                                @if(in_array(Auth::user()->role, ['admin', 'pd_teknis']))
+                                <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">KBLI</label>
+                                    <p class="text-gray-900">{{ $permohonan->kbli ?? '-' }}</p>
+                                </div>
+
+                                <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">Inputan Teks</label>
+                                    <p class="text-gray-900">{{ $permohonan->inputan_teks ?? '-' }}</p>
+                                </div>
+                                @endif
                             </div>
                             
                             <!-- Right Column -->

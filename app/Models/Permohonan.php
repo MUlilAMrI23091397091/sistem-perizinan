@@ -21,6 +21,8 @@ class Permohonan extends Model
         'nib',
         'alamat_perusahaan',
         'sektor',
+        'kbli',
+        'inputan_teks',
         'modal_usaha',
         'jenis_proyek',
         'no_proyek',
