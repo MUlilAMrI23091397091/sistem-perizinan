@@ -30,18 +30,17 @@ class PermohonanSeeder extends Seeder
         }
 
         $sektors = [
-            'Pergudangan dan Penyimpanan',
-            'Perdagangan Besar Barang Logam Untuk Bahan Konstruksi',
-            'Pergudangan dan Penyimpanan Lainnya',
-            'Perdagangan Eceran',
-            'Industri Makanan',
-            'Jasa Konstruksi',
-            'Transportasi',
-            'Pariwisata'
+            'Perdagangan',
+            'Kesehatan',
+            'Perhubungan',
+            'Pertanian',
+            'Perindustrian',
+            'KKPR',
+            'Ketenagakerjaan'
         ];
 
         $kbliCodes = ['52101', '46631', '52109', '46900', '47111', '47211', '47301', '47411'];
-        $statuses = ['Diterima', 'Dikembalikan', 'Ditolak', 'Menunggu'];
+        $statuses = ['Diterima', 'Dikembalikan', 'Ditolak'];
         $verifikasiStatus = ['Mikro', 'Kecil', 'Menengah', 'Besar'];
         $jenisProyek = ['Utama', 'Pendukung', 'Tambahan'];
 
