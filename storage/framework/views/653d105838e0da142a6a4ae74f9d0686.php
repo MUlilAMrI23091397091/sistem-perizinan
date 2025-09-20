@@ -27,17 +27,12 @@
                 </select>
             </div>
             
-            <!-- Custom Date Range (muncul jika Custom Range dipilih) -->
+            <!-- Custom Date (muncul jika Custom Range dipilih) -->
             <?php if(($selectedDateFilter ?? '') == 'custom'): ?>
-            <div class="md:w-96 flex gap-3 items-end">
+            <div class="md:w-64 flex gap-3 items-end">
                 <div class="flex-1">
-                    <label class="block text-xs font-medium text-gray-700 mb-2">Dari Tanggal</label>
-                    <input type="date" name="date_from" value="<?php echo e($dateFrom ?? ''); ?>" 
-                           class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm shadow-sm">
-                </div>
-                <div class="flex-1">
-                    <label class="block text-xs font-medium text-gray-700 mb-2">Sampai Tanggal</label>
-                    <input type="date" name="date_to" value="<?php echo e($dateTo ?? ''); ?>" 
+                    <label class="block text-xs font-medium text-gray-700 mb-2">Pilih Tanggal</label>
+                    <input type="date" name="custom_date" value="<?php echo e($customDate ?? ''); ?>" 
                            class="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm shadow-sm">
                 </div>
                 <div class="flex gap-2">
@@ -84,7 +79,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                 </svg>
                                 <?php if($selectedDateFilter == 'custom'): ?>
-                                    Periode: <?php echo e($dateFrom ?? ''); ?> - <?php echo e($dateTo ?? ''); ?>
+                                    Periode: <?php echo e($customDate ?? ''); ?>
 
                                 <?php elseif($selectedDateFilter == 'today'): ?>
                                     Periode: Hari Ini
