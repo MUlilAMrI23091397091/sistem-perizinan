@@ -842,6 +842,8 @@
                                 <option value="">Pilih Jenis Proyek</option>
                                 <option value="Utama" <?php if(old('jenis_proyek') == 'Utama'): echo 'selected'; endif; ?>>Utama</option>
                                 <option value="Pendukung" <?php if(old('jenis_proyek') == 'Pendukung'): echo 'selected'; endif; ?>>Pendukung</option>
+                                <option value="Pendukung UMKU" <?php if(old('jenis_proyek') == 'Pendukung UMKU'): echo 'selected'; endif; ?>>Pendukung UMKU</option>
+                                <option value="Kantor Cabang" <?php if(old('jenis_proyek') == 'Kantor Cabang'): echo 'selected'; endif; ?>>Kantor Cabang</option>
                             </select>
                             <?php if (isset($component)) { $__componentOriginalf94ed9c5393ef72725d159fe01139746 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalf94ed9c5393ef72725d159fe01139746 = $attributes; } ?>

@@ -202,6 +202,8 @@
                                 <option value="">Pilih Jenis Proyek</option>
                                 <option value="Utama" @selected(old('jenis_proyek') == 'Utama')>Utama</option>
                                 <option value="Pendukung" @selected(old('jenis_proyek') == 'Pendukung')>Pendukung</option>
+                                <option value="Pendukung UMKU" @selected(old('jenis_proyek') == 'Pendukung UMKU')>Pendukung UMKU</option>
+                                <option value="Kantor Cabang" @selected(old('jenis_proyek') == 'Kantor Cabang')>Kantor Cabang</option>
                             </select>
                             <x-input-error :messages="$errors->get('jenis_proyek')" class="mt-2" />
                         </div>
