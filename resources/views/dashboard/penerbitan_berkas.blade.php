@@ -250,7 +250,109 @@
             </div>
 
             <!-- Kolom TTD -->
-            <div class="bg-white shadow-sm rounded-lg p-6">
+            <div class="bg-white shadow-sm rounded-lg p-6" x-data="{ editTTD: false }">
+                <!-- Header dengan tombol edit -->
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-lg font-medium text-gray-900">Tanda Tangan Digital</h3>
+                    <button @click="editTTD = !editTTD" 
+                            class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                        </svg>
+                        <span x-text="editTTD ? 'Selesai Edit' : 'Edit TTD'"></span>
+                    </button>
+                </div>
+
+                <!-- Form Edit TTD (Hidden by default) -->
+                <div x-show="editTTD" x-transition class="mb-6 p-4 bg-gray-50 rounded-lg">
+                    <form method="POST" action="{{ route('ttd-settings.update') }}" class="space-y-6">
+                        @csrf
+                        @method('PUT')
+                        
+                        <!-- Mengetahui Section -->
+                        <div class="border-b border-gray-200 pb-6">
+                            <h4 class="text-md font-medium text-gray-900 mb-4">Bagian Mengetahui</h4>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <x-input-label for="mengetahui_title" value="Judul" />
+                                    <x-text-input id="mengetahui_title" class="block mt-1 w-full" type="text" name="mengetahui_title" :value="old('mengetahui_title', $ttdSettings->mengetahui_title)" required />
+                                </div>
+
+                                <div>
+                                    <x-input-label for="mengetahui_jabatan" value="Jabatan" />
+                                    <x-text-input id="mengetahui_jabatan" class="block mt-1 w-full" type="text" name="mengetahui_jabatan" :value="old('mengetahui_jabatan', $ttdSettings->mengetahui_jabatan)" required />
+                                </div>
+
+                                <div>
+                                    <x-input-label for="mengetahui_unit" value="Unit Kerja" />
+                                    <x-text-input id="mengetahui_unit" class="block mt-1 w-full" type="text" name="mengetahui_unit" :value="old('mengetahui_unit', $ttdSettings->mengetahui_unit)" required />
+                                </div>
+
+                                <div>
+                                    <x-input-label for="mengetahui_nama" value="Nama Lengkap" />
+                                    <x-text-input id="mengetahui_nama" class="block mt-1 w-full" type="text" name="mengetahui_nama" :value="old('mengetahui_nama', $ttdSettings->mengetahui_nama)" required />
+                                </div>
+
+                                <div>
+                                    <x-input-label for="mengetahui_pangkat" value="Pangkat/Golongan" />
+                                    <x-text-input id="mengetahui_pangkat" class="block mt-1 w-full" type="text" name="mengetahui_pangkat" :value="old('mengetahui_pangkat', $ttdSettings->mengetahui_pangkat)" required />
+                                </div>
+
+                                <div>
+                                    <x-input-label for="mengetahui_nip" value="NIP" />
+                                    <x-text-input id="mengetahui_nip" class="block mt-1 w-full" type="text" name="mengetahui_nip" :value="old('mengetahui_nip', $ttdSettings->mengetahui_nip)" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Menyetujui Section -->
+                        <div class="pb-6">
+                            <h4 class="text-md font-medium text-gray-900 mb-4">Bagian Menyetujui</h4>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <x-input-label for="menyetujui_title" value="Judul & Tanggal" />
+                                    <x-text-input id="menyetujui_title" class="block mt-1 w-full" type="text" name="menyetujui_title" :value="old('menyetujui_title', $ttdSettings->menyetujui_title)" required />
+                                    <p class="text-xs text-gray-500 mt-1">Gunakan {{ date('d F Y') }} untuk tanggal otomatis</p>
+                                </div>
+
+                                <div>
+                                    <x-input-label for="menyetujui_jabatan" value="Jabatan" />
+                                    <x-text-input id="menyetujui_jabatan" class="block mt-1 w-full" type="text" name="menyetujui_jabatan" :value="old('menyetujui_jabatan', $ttdSettings->menyetujui_jabatan)" required />
+                                </div>
+
+                                <div>
+                                    <x-input-label for="menyetujui_nama" value="Nama Lengkap" />
+                                    <x-text-input id="menyetujui_nama" class="block mt-1 w-full" type="text" name="menyetujui_nama" :value="old('menyetujui_nama', $ttdSettings->menyetujui_nama)" required />
+                                </div>
+
+                                <div>
+                                    <x-input-label for="menyetujui_pangkat" value="Pangkat/Golongan" />
+                                    <x-text-input id="menyetujui_pangkat" class="block mt-1 w-full" type="text" name="menyetujui_pangkat" :value="old('menyetujui_pangkat', $ttdSettings->menyetujui_pangkat)" required />
+                                </div>
+
+                                <div>
+                                    <x-input-label for="menyetujui_nip" value="NIP" />
+                                    <x-text-input id="menyetujui_nip" class="block mt-1 w-full" type="text" name="menyetujui_nip" :value="old('menyetujui_nip', $ttdSettings->menyetujui_nip)" required />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="flex items-center justify-end space-x-4 pt-4 border-t border-gray-200">
+                            <button type="button" @click="editTTD = false" 
+                                    class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Batal
+                            </button>
+                            <x-primary-button>
+                                {{ __('Simpan Pengaturan') }}
+                            </x-primary-button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Tampilan TTD -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Mengetahui -->
                     <div class="text-center">
