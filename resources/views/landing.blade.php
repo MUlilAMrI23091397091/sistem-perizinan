@@ -243,6 +243,7 @@
                                 <option value="admin" @selected(old('role') == 'admin')>Admin</option>
                                 <option value="dpmptsp" @selected(old('role') == 'dpmptsp')>DPMPTSP</option>
                                 <option value="pd_teknis" @selected(old('role') == 'pd_teknis')>PD Teknis</option>
+                                <option value="penerbitan_berkas" @selected(old('role') == 'penerbitan_berkas')>Penerbitan Berkas</option>
                             </select>
                             @error('role')
                                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>

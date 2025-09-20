@@ -59,6 +59,7 @@
                                         <option value="admin" @selected(old('role') == 'admin')>Admin</option>
                                         <option value="pd_teknis" @selected(old('role') == 'pd_teknis')>PD Teknis</option>
                                         <option value="dpmptsp" @selected(old('role') == 'dpmptsp')>DPMPTSP</option>
+                                        <option value="penerbitan_berkas" @selected(old('role') == 'penerbitan_berkas')>Penerbitan Berkas</option>
                                     </select>
                                     <x-input-error :messages="$errors->get('role')" class="mt-2" />
                                 </div>

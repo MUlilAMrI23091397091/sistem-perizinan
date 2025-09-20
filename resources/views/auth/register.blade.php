@@ -97,6 +97,7 @@
                             <option value="" disabled selected class="text-gray-400">Select Role</option>
                             <option value="pd_teknis">Staff PD Teknis</option>
                             <option value="dpmtsp">Staff DPMTSP</option>
+                            <option value="penerbitan_berkas">Staff Penerbitan Berkas</option>
                         </select>
                     </div>
 
