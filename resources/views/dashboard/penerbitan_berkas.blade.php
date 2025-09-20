@@ -1,164 +1,277 @@
 <x-sidebar-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard Penerbitan Berkas') }}
-        </h2>
+        Dashboard Penerbitan Berkas
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <!-- Stats Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="ml-5 w-0 flex-1">
-                                <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Total Permohonan</dt>
-                                    <dd class="text-lg font-medium text-gray-900">{{ $stats['totalPermohonan'] }}</dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header dengan Judul Laporan -->
+            <div class="mb-8">
+                <h1 class="text-2xl font-bold text-center text-gray-900 mb-2">
+                    PERIZINAN BERUSAHA DISETUJUI
+                </h1>
+                <h2 class="text-xl font-semibold text-center text-gray-800 mb-1">
+                    DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU
+                </h2>
+                <h3 class="text-lg font-medium text-center text-gray-700">
+                    KOTA SURABAYA TAHUN {{ date('Y') }}
+                </h3>
+            </div>
 
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="ml-5 w-0 flex-1">
-                                <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Diterima</dt>
-                                    <dd class="text-lg font-medium text-gray-900">{{ $stats['diterima'] }}</dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-yellow-500 rounded-md flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="ml-5 w-0 flex-1">
-                                <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Dikembalikan</dt>
-                                    <dd class="text-lg font-medium text-gray-900">{{ $stats['dikembalikan'] }}</dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-red-500 rounded-md flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="ml-5 w-0 flex-1">
-                                <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Ditolak</dt>
-                                    <dd class="text-lg font-medium text-gray-900">{{ $stats['ditolak'] }}</dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Tabel Data Permohonan -->
+            <div class="bg-white shadow-sm rounded-lg overflow-hidden mb-8">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 3%;">NO</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 12%;">NO. PERMOHONAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 12%;">NO. PROYEK</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 10%;">TANGGAL PERMOHONAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 8%;">NIB</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 6%;">KBLI</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 12%;">NAMA USAHA</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 12%;">KEGIATAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 8%;">JENIS PERUSAHAAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 10%;">PEMILIK</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 8%;">MODAL USAHA</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 12%;">ALAMAT</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 6%;">JENIS PROYEK</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 12%;">NAMA PERIZINAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 8%;">SKALA USAHA</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 8%;">RISIKO</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 15%;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @if($permohonans->count() > 0)
+                                @foreach($permohonans as $index => $permohonan)
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $index + 1 }}</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->no_permohonan ?? '-' }}</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->no_proyek ?? '-' }}</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {{ $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->format('d F Y') : '-' }}
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->nib ?? '-' }}</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->kbli ?? '-' }}</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->nama_usaha ?? '-' }}</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->inputan_teks ?? '-' }}</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->jenis_pelaku_usaha ?? '-' }}</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->nama_usaha ?? '-' }}</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {{ $permohonan->modal_usaha ? 'Rp ' . number_format($permohonan->modal_usaha, 0, ',', '.') : '-' }}
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->alamat_perusahaan ?? '-' }}</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->jenis_proyek ?? '-' }}</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->inputan_teks ?? '-' }}</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        @if($permohonan->modal_usaha)
+                                            @if($permohonan->modal_usaha <= 1000000000)
+                                                Mikro
+                                            @elseif($permohonan->modal_usaha <= 5000000000)
+                                                Usaha Kecil
+                                            @elseif($permohonan->modal_usaha <= 10000000000)
+                                                Usaha Menengah
+                                            @else
+                                                Usaha Besar
+                                            @endif
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">Menengah Tinggi</td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU<br>
+                                        No: BAP/OSS/IX/{{ $permohonan->no_permohonan ?? 'N/A' }}/436.7.15/{{ date('Y') }}<br>
+                                        tanggal BAP: {{ date('d F Y') }}
+                                    </td>
+                                </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="17" class="px-4 py-8 text-center text-sm text-gray-500">
+                                        <div class="flex flex-col items-center">
+                                            <svg class="w-12 h-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                            <h3 class="mt-2 text-sm font-medium text-gray-900">Tidak ada data permohonan</h3>
+                                            <p class="mt-1 text-sm text-gray-500">Belum ada data permohonan yang tersedia.</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <!-- Recent Permohonan -->
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">Data Permohonan Terbaru</h3>
+            <!-- Form Input Data Baru -->
+            <div class="bg-white shadow-sm rounded-lg p-6 mb-8">
+                <h3 class="text-lg font-medium text-gray-900 mb-6">Tambah Data Permohonan Baru</h3>
+                
+                <form method="POST" action="{{ route('permohonan.store') }}" class="space-y-6">
+                    @csrf
                     
-                    @if($permohonans->count() > 0)
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No. Permohonan</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Usaha</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sektor</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Dibuat</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    @foreach($permohonans as $permohonan)
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            {{ $permohonan->no_permohonan ?? '-' }}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            {{ $permohonan->nama_usaha ?? '-' }}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            {{ $permohonan->sektor ?? '-' }}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            @if($permohonan->status == 'Diterima')
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                                    Diterima
-                                                </span>
-                                            @elseif($permohonan->status == 'Dikembalikan')
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                                                    Dikembalikan
-                                                </span>
-                                            @elseif($permohonan->status == 'Ditolak')
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                                    Ditolak
-                                                </span>
-                                            @else
-                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                                    Menunggu
-                                                </span>
-                                            @endif
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                            {{ $permohonan->created_at->setTimezone('Asia/Jakarta')->format('d M Y') }}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                            <a href="{{ route('permohonan.show', $permohonan) }}" class="text-indigo-600 hover:text-indigo-900">Lihat</a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- No. Permohonan -->
+                        <div>
+                            <x-input-label for="no_permohonan" value="No. Permohonan" />
+                            <x-text-input id="no_permohonan" class="block mt-1 w-full" type="text" name="no_permohonan" :value="old('no_permohonan')" required />
+                            <x-input-error :messages="$errors->get('no_permohonan')" class="mt-2" />
                         </div>
-                    @else
-                        <div class="text-center py-12">
-                            <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                            </svg>
-                            <h3 class="mt-2 text-sm font-medium text-gray-900">Tidak ada permohonan</h3>
-                            <p class="mt-1 text-sm text-gray-500">Belum ada data permohonan yang tersedia.</p>
+
+                        <!-- No. Proyek -->
+                        <div>
+                            <x-input-label for="no_proyek" value="No. Proyek" />
+                            <x-text-input id="no_proyek" class="block mt-1 w-full" type="text" name="no_proyek" :value="old('no_proyek')" required />
+                            <x-input-error :messages="$errors->get('no_proyek')" class="mt-2" />
                         </div>
-                    @endif
+
+                        <!-- Tanggal Permohonan -->
+                        <div>
+                            <x-input-label for="tanggal_permohonan" value="Tanggal Permohonan" />
+                            <x-text-input id="tanggal_permohonan" class="block mt-1 w-full" type="date" name="tanggal_permohonan" :value="old('tanggal_permohonan')" required />
+                            <x-input-error :messages="$errors->get('tanggal_permohonan')" class="mt-2" />
+                        </div>
+
+                        <!-- NIB -->
+                        <div>
+                            <x-input-label for="nib" value="NIB" />
+                            <x-text-input id="nib" class="block mt-1 w-full" type="text" name="nib" :value="old('nib')" required />
+                            <x-input-error :messages="$errors->get('nib')" class="mt-2" />
+                        </div>
+
+                        <!-- KBLI -->
+                        <div>
+                            <x-input-label for="kbli" value="KBLI" />
+                            <x-text-input id="kbli" class="block mt-1 w-full" type="text" name="kbli" :value="old('kbli')" required />
+                            <x-input-error :messages="$errors->get('kbli')" class="mt-2" />
+                        </div>
+
+                        <!-- Nama Usaha -->
+                        <div>
+                            <x-input-label for="nama_usaha" value="Nama Usaha" />
+                            <x-text-input id="nama_usaha" class="block mt-1 w-full" type="text" name="nama_usaha" :value="old('nama_usaha')" required />
+                            <x-input-error :messages="$errors->get('nama_usaha')" class="mt-2" />
+                        </div>
+
+                        <!-- Kegiatan -->
+                        <div>
+                            <x-input-label for="inputan_teks" value="Kegiatan" />
+                            <x-text-input id="inputan_teks" class="block mt-1 w-full" type="text" name="inputan_teks" :value="old('inputan_teks')" required />
+                            <x-input-error :messages="$errors->get('inputan_teks')" class="mt-2" />
+                        </div>
+
+                        <!-- Jenis Perusahaan -->
+                        <div>
+                            <x-input-label for="jenis_pelaku_usaha" value="Jenis Perusahaan" />
+                            <select name="jenis_pelaku_usaha" id="jenis_pelaku_usaha" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                                <option value="">Pilih Jenis Perusahaan</option>
+                                <option value="Orang Perseorangan" @selected(old('jenis_pelaku_usaha') == 'Orang Perseorangan')>Orang Perseorangan</option>
+                                <option value="Badan Usaha" @selected(old('jenis_pelaku_usaha') == 'Badan Usaha')>Badan Usaha</option>
+                            </select>
+                            <x-input-error :messages="$errors->get('jenis_pelaku_usaha')" class="mt-2" />
+                        </div>
+
+                        <!-- Pemilik -->
+                        <div>
+                            <x-input-label for="pemilik" value="Pemilik" />
+                            <x-text-input id="pemilik" class="block mt-1 w-full" type="text" name="pemilik" :value="old('pemilik')" required />
+                            <x-input-error :messages="$errors->get('pemilik')" class="mt-2" />
+                        </div>
+
+                        <!-- Modal Usaha -->
+                        <div>
+                            <x-input-label for="modal_usaha" value="Modal Usaha" />
+                            <x-text-input id="modal_usaha" class="block mt-1 w-full" type="number" name="modal_usaha" :value="old('modal_usaha')" required />
+                            <x-input-error :messages="$errors->get('modal_usaha')" class="mt-2" />
+                        </div>
+
+                        <!-- Alamat -->
+                        <div>
+                            <x-input-label for="alamat_perusahaan" value="Alamat" />
+                            <x-text-input id="alamat_perusahaan" class="block mt-1 w-full" type="text" name="alamat_perusahaan" :value="old('alamat_perusahaan')" required />
+                            <x-input-error :messages="$errors->get('alamat_perusahaan')" class="mt-2" />
+                        </div>
+
+                        <!-- Jenis Proyek -->
+                        <div>
+                            <x-input-label for="jenis_proyek" value="Jenis Proyek" />
+                            <select name="jenis_proyek" id="jenis_proyek" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                                <option value="">Pilih Jenis Proyek</option>
+                                <option value="Utama" @selected(old('jenis_proyek') == 'Utama')>Utama</option>
+                                <option value="Pendukung" @selected(old('jenis_proyek') == 'Pendukung')>Pendukung</option>
+                            </select>
+                            <x-input-error :messages="$errors->get('jenis_proyek')" class="mt-2" />
+                        </div>
+
+                        <!-- Nama Perizinan -->
+                        <div>
+                            <x-input-label for="nama_perizinan" value="Nama Perizinan" />
+                            <x-text-input id="nama_perizinan" class="block mt-1 w-full" type="text" name="nama_perizinan" :value="old('nama_perizinan')" required />
+                            <x-input-error :messages="$errors->get('nama_perizinan')" class="mt-2" />
+                        </div>
+
+                        <!-- Skala Usaha -->
+                        <div>
+                            <x-input-label for="skala_usaha" value="Skala Usaha" />
+                            <select name="skala_usaha" id="skala_usaha" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                                <option value="">Pilih Skala Usaha</option>
+                                <option value="Mikro" @selected(old('skala_usaha') == 'Mikro')>Mikro</option>
+                                <option value="Usaha Kecil" @selected(old('skala_usaha') == 'Usaha Kecil')>Usaha Kecil</option>
+                                <option value="Usaha Menengah" @selected(old('skala_usaha') == 'Usaha Menengah')>Usaha Menengah</option>
+                                <option value="Usaha Besar" @selected(old('skala_usaha') == 'Usaha Besar')>Usaha Besar</option>
+                            </select>
+                            <x-input-error :messages="$errors->get('skala_usaha')" class="mt-2" />
+                        </div>
+
+                        <!-- Risiko -->
+                        <div>
+                            <x-input-label for="risiko" value="Risiko" />
+                            <select name="risiko" id="risiko" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                                <option value="">Pilih Risiko</option>
+                                <option value="Rendah" @selected(old('risiko') == 'Rendah')>Rendah</option>
+                                <option value="Menengah Rendah" @selected(old('risiko') == 'Menengah Rendah')>Menengah Rendah</option>
+                                <option value="Menengah Tinggi" @selected(old('risiko') == 'Menengah Tinggi')>Menengah Tinggi</option>
+                                <option value="Tinggi" @selected(old('risiko') == 'Tinggi')>Tinggi</option>
+                            </select>
+                            <x-input-error :messages="$errors->get('risiko')" class="mt-2" />
+                        </div>
+                    </div>
+
+                    <!-- Tombol Submit -->
+                    <div class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200">
+                        <x-primary-button>
+                            {{ __('Simpan Data') }}
+                        </x-primary-button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Kolom TTD -->
+            <div class="bg-white shadow-sm rounded-lg p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Mengetahui -->
+                    <div class="text-center">
+                        <p class="text-sm text-gray-600 mb-4">Mengetahui</p>
+                        <p class="text-sm text-gray-600 mb-2">Koordinator Ketua Tim Kerja</p>
+                        <p class="text-sm text-gray-600 mb-4">Pelayanan Terpadu Satu Pintu</p>
+                        <div class="h-20 border-b border-gray-300 mb-2"></div>
+                        <p class="text-sm font-medium text-gray-900">Yohanes Franklin, S.H.</p>
+                        <p class="text-sm text-gray-600">Penata Tk.1</p>
+                        <p class="text-sm text-gray-600">NIP: 198502182010011008</p>
+                    </div>
+
+                    <!-- Menyetujui -->
+                    <div class="text-center">
+                        <p class="text-sm text-gray-600 mb-4">Surabaya, {{ date('d F Y') }}</p>
+                        <p class="text-sm text-gray-600 mb-2">Ketua Tim Kerja Pelayanan Perizinan Berusaha</p>
+                        <div class="h-20 border-b border-gray-300 mb-2"></div>
+                        <p class="text-sm font-medium text-gray-900">Ulvia Zulvia, ST</p>
+                        <p class="text-sm text-gray-600">Penata Tk. 1</p>
+                        <p class="text-sm text-gray-600">NIP: 197710132006042012</p>
+                    </div>
                 </div>
             </div>
         </div>
