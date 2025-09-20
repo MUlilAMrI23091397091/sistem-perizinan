@@ -116,7 +116,7 @@
 
                             <!-- Menyetujui Preview -->
                             <div class="text-center">
-                                <p class="text-sm text-gray-600 mb-4">{{ str_replace('{{ date("d F Y") }}', date('d F Y'), $ttdSettings->menyetujui_title) }}</p>
+                                <p class="text-sm text-gray-600 mb-4">{{ $menyetujuiTitle }}</p>
                                 <p class="text-sm text-gray-600 mb-2">{{ $ttdSettings->menyetujui_jabatan }}</p>
                                 <div class="h-20 border-b border-gray-300 mb-2"></div>
                                 <p class="text-sm font-medium text-gray-900">{{ $ttdSettings->menyetujui_nama }}</p>

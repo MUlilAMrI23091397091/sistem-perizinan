@@ -11,7 +11,11 @@ class TtdSettingController extends Controller
     public function index()
     {
         $ttdSettings = TtdSetting::getSettings();
-        return view('ttd-settings.index', compact('ttdSettings'));
+        
+        // Proses title menyetujui untuk mengganti placeholder tanggal
+        $menyetujuiTitle = str_replace('{{ date("d F Y") }}', date('d F Y'), $ttdSettings->menyetujui_title);
+        
+        return view('ttd-settings.index', compact('ttdSettings', 'menyetujuiTitle'));
     }
 
     public function update(Request $request)
