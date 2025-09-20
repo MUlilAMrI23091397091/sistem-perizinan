@@ -254,23 +254,23 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Mengetahui -->
                     <div class="text-center">
-                        <p class="text-sm text-gray-600 mb-4">Mengetahui</p>
-                        <p class="text-sm text-gray-600 mb-2">Koordinator Ketua Tim Kerja</p>
-                        <p class="text-sm text-gray-600 mb-4">Pelayanan Terpadu Satu Pintu</p>
+                        <p class="text-sm text-gray-600 mb-4">{{ $ttdSettings->mengetahui_title }}</p>
+                        <p class="text-sm text-gray-600 mb-2">{{ $ttdSettings->mengetahui_jabatan }}</p>
+                        <p class="text-sm text-gray-600 mb-4">{{ $ttdSettings->mengetahui_unit }}</p>
                         <div class="h-20 border-b border-gray-300 mb-2"></div>
-                        <p class="text-sm font-medium text-gray-900">Yohanes Franklin, S.H.</p>
-                        <p class="text-sm text-gray-600">Penata Tk.1</p>
-                        <p class="text-sm text-gray-600">NIP: 198502182010011008</p>
+                        <p class="text-sm font-medium text-gray-900">{{ $ttdSettings->mengetahui_nama }}</p>
+                        <p class="text-sm text-gray-600">{{ $ttdSettings->mengetahui_pangkat }}</p>
+                        <p class="text-sm text-gray-600">NIP: {{ $ttdSettings->mengetahui_nip }}</p>
                     </div>
 
                     <!-- Menyetujui -->
                     <div class="text-center">
-                        <p class="text-sm text-gray-600 mb-4">Surabaya, {{ date('d F Y') }}</p>
-                        <p class="text-sm text-gray-600 mb-2">Ketua Tim Kerja Pelayanan Perizinan Berusaha</p>
+                        <p class="text-sm text-gray-600 mb-4">{{ str_replace('{{ date("d F Y") }}', date('d F Y'), $ttdSettings->menyetujui_title) }}</p>
+                        <p class="text-sm text-gray-600 mb-2">{{ $ttdSettings->menyetujui_jabatan }}</p>
                         <div class="h-20 border-b border-gray-300 mb-2"></div>
-                        <p class="text-sm font-medium text-gray-900">Ulvia Zulvia, ST</p>
-                        <p class="text-sm text-gray-600">Penata Tk. 1</p>
-                        <p class="text-sm text-gray-600">NIP: 197710132006042012</p>
+                        <p class="text-sm font-medium text-gray-900">{{ $ttdSettings->menyetujui_nama }}</p>
+                        <p class="text-sm text-gray-600">{{ $ttdSettings->menyetujui_pangkat }}</p>
+                        <p class="text-sm text-gray-600">NIP: {{ $ttdSettings->menyetujui_nip }}</p>
                     </div>
                 </div>
             </div>

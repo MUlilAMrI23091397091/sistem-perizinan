@@ -61,6 +61,17 @@
                     Penerbitan Berkas
                 </a>
                 <?php endif; ?>
+
+                <!-- TTD Settings -->
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('admin')): ?>
+                <a href="<?php echo e(route('ttd-settings.index')); ?>" 
+                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg <?php echo e(request()->routeIs('ttd-settings.*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'); ?>">
+                    <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                    Pengaturan TTD
+                </a>
+                <?php endif; ?>
             </div>
         </nav>
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\JenisUsahaController; // ✅ Tambahkan ini
+use App\Http\Controllers\TtdSettingController;
 use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +53,10 @@ Route::middleware('auth')->group(function () {
 
         // ✅ Rute resource Jenis Usaha
         Route::resource('jenis-usaha', JenisUsahaController::class);
+
+        // ✅ Rute TTD Settings
+        Route::get('/ttd-settings', [TtdSettingController::class, 'index'])->name('ttd-settings.index');
+        Route::put('/ttd-settings', [TtdSettingController::class, 'update'])->name('ttd-settings.update');
     });
 });
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Permohonan;
+use App\Models\TtdSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -119,6 +120,9 @@ class DashboardController extends Controller
             'ditolak' => $permohonans->where('status', 'Ditolak')->count(),
         ];
 
-        return view('dashboard.penerbitan_berkas', compact('permohonans', 'stats'));
+        // Ambil data TTD settings
+        $ttdSettings = TtdSetting::getSettings();
+
+        return view('dashboard.penerbitan_berkas', compact('permohonans', 'stats', 'ttdSettings'));
     }
 }
