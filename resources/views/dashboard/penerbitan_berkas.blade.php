@@ -19,72 +19,149 @@
             </div>
 
             <!-- Tabel Data Permohonan -->
-            <div class="bg-white shadow-sm rounded-lg overflow-hidden mb-8">
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 mb-8">
+                <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-900 flex items-center">
+                                <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                Data Permohonan
+                            </h3>
+                        </div>
+                    </div>
+                </div>
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 3%;">NO</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 12%;">NO. PERMOHONAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 12%;">NO. PROYEK</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 10%;">TANGGAL PERMOHONAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 8%;">NIB</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 6%;">KBLI</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 12%;">NAMA USAHA</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 12%;">KEGIATAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 8%;">JENIS PERUSAHAAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 10%;">PEMILIK</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 8%;">MODAL USAHA</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 12%;">ALAMAT</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 6%;">JENIS PROYEK</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 12%;">NAMA PERIZINAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 8%;">SKALA USAHA</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 8%;">RISIKO</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider" style="width: 15%;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 3%;">NO</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 12%;">NO. PERMOHONAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 12%;">NO. PROYEK</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 10%;">TANGGAL PERMOHONAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 8%;">NIB</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 6%;">KBLI</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 12%;">NAMA USAHA</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 12%;">KEGIATAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 8%;">JENIS PERUSAHAAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 10%;">PEMILIK</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 8%;">MODAL USAHA</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 12%;">ALAMAT</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 6%;">JENIS PROYEK</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 12%;">NAMA PERIZINAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 8%;">SKALA USAHA</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 8%;">RISIKO</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 15%;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @if($permohonans->count() > 0)
                                 @foreach($permohonans as $index => $permohonan)
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $index + 1 }}</td>
-                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->no_permohonan ?? '-' }}</td>
-                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->no_proyek ?? '-' }}</td>
+                                <tr class="hover:bg-blue-50 transition-colors duration-200">
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        <div class="flex items-center">
+                                            <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                                            {{ $index + 1 }}
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <span class="font-mono text-xs">{{ $permohonan->no_permohonan ?? '-' }}</span>
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <span class="font-mono text-xs">{{ $permohonan->no_proyek ?? '-' }}</span>
+                                    </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {{ $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->format('d F Y') : '-' }}
                                     </td>
-                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->nib ?? '-' }}</td>
-                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->kbli ?? '-' }}</td>
-                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->nama_usaha ?? '-' }}</td>
-                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->inputan_teks ?? '-' }}</td>
-                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->jenis_pelaku_usaha ?? '-' }}</td>
-                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->nama_usaha ?? '-' }}</td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        {{ $permohonan->modal_usaha ? 'Rp ' . number_format($permohonan->modal_usaha, 0, ',', '.') : '-' }}
+                                        <span class="font-mono text-xs">{{ $permohonan->nib ?? '-' }}</span>
                                     </td>
-                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->alamat_perusahaan ?? '-' }}</td>
-                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->jenis_proyek ?? '-' }}</td>
-                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{{ $permohonan->inputan_teks ?? '-' }}</td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        @if($permohonan->modal_usaha)
-                                            @if($permohonan->modal_usaha <= 1000000000)
-                                                Mikro
-                                            @elseif($permohonan->modal_usaha <= 5000000000)
-                                                Usaha Kecil
-                                            @elseif($permohonan->modal_usaha <= 10000000000)
-                                                Usaha Menengah
-                                            @else
-                                                Usaha Besar
-                                            @endif
+                                        <span class="font-mono text-xs">{{ $permohonan->kbli ?? '-' }}</span>
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <div class="max-w-xs">
+                                            <p class="font-medium text-gray-900 truncate">{{ $permohonan->nama_usaha ?? '-' }}</p>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <div class="max-w-xs">
+                                            <p class="text-gray-900 truncate">{{ $permohonan->inputan_teks ?? '-' }}</p>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm">
+                                        @if($permohonan->jenis_pelaku_usaha)
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                                {{ $permohonan->jenis_pelaku_usaha }}
+                                            </span>
                                         @else
-                                            -
+                                            <span class="text-gray-400 text-xs">-</span>
                                         @endif
                                     </td>
-                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">Menengah Tinggi</td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU<br>
-                                        No: BAP/OSS/IX/{{ $permohonan->no_permohonan ?? 'N/A' }}/436.7.15/{{ date('Y') }}<br>
-                                        tanggal BAP: {{ date('d F Y') }}
+                                        <div class="max-w-xs">
+                                            <p class="text-gray-900 truncate">{{ $permohonan->pemilik ?? '-' }}</p>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        @if($permohonan->modal_usaha)
+                                            <span class="font-mono text-xs">Rp {{ number_format($permohonan->modal_usaha, 0, ',', '.') }}</span>
+                                        @else
+                                            <span class="text-gray-400 text-xs">-</span>
+                                        @endif
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <div class="max-w-xs">
+                                            <p class="text-gray-900 truncate">{{ $permohonan->alamat_perusahaan ?? '-' }}</p>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm">
+                                        @if($permohonan->jenis_proyek)
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                {{ $permohonan->jenis_proyek }}
+                                            </span>
+                                        @else
+                                            <span class="text-gray-400 text-xs">-</span>
+                                        @endif
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <div class="max-w-xs">
+                                            <p class="text-gray-900 truncate">{{ $permohonan->nama_perizinan ?? '-' }}</p>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm">
+                                        @if($permohonan->modal_usaha)
+                                            @php
+                                                $skala = '';
+                                                if($permohonan->modal_usaha <= 1000000000) {
+                                                    $skala = 'Mikro';
+                                                } elseif($permohonan->modal_usaha <= 5000000000) {
+                                                    $skala = 'Usaha Kecil';
+                                                } elseif($permohonan->modal_usaha <= 10000000000) {
+                                                    $skala = 'Usaha Menengah';
+                                                } else {
+                                                    $skala = 'Usaha Besar';
+                                                }
+                                            @endphp
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                                                {{ $skala }}
+                                            </span>
+                                        @else
+                                            <span class="text-gray-400 text-xs">-</span>
+                                        @endif
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm">
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                            Menengah Tinggi
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        <div class="text-xs">
+                                            <p class="font-medium">DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU</p>
+                                            <p class="font-mono">No: BAP/OSS/IX/{{ $permohonan->no_permohonan ?? 'N/A' }}/436.7.15/{{ date('Y') }}</p>
+                                            <p class="text-gray-600">tanggal BAP: {{ date('d F Y') }}</p>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -107,8 +184,15 @@
             </div>
 
             <!-- Form Input Data Baru -->
-            <div class="bg-white shadow-sm rounded-lg p-6 mb-8">
-                <h3 class="text-lg font-medium text-gray-900 mb-6">Tambah Data Permohonan Baru</h3>
+            <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6 mb-8">
+                <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-green-50 to-emerald-50 mb-6 -m-6">
+                    <h3 class="text-xl font-semibold text-gray-900 flex items-center">
+                        <svg class="w-6 h-6 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        Tambah Data Permohonan Baru
+                    </h3>
+                </div>
                 
                 <form method="POST" action="{{ route('permohonan.store') }}" class="space-y-6">
                     @csrf
@@ -252,17 +336,24 @@
             </div>
 
             <!-- Kolom TTD -->
-            <div class="bg-white shadow-sm rounded-lg p-6" x-data="{ editTTD: false }">
+            <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6" x-data="{ editTTD: false }">
                 <!-- Header dengan tombol edit -->
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-lg font-medium text-gray-900">Tanda Tangan Digital</h3>
-                    <button @click="editTTD = !editTTD" 
-                            class="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-                        </svg>
-                        <span x-text="editTTD ? 'Selesai Edit' : 'Edit TTD'"></span>
-                    </button>
+                <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-violet-50 mb-6 -m-6">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-semibold text-gray-900 flex items-center">
+                            <svg class="w-6 h-6 text-purple-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                            </svg>
+                            Tanda Tangan Digital
+                        </h3>
+                        <button @click="editTTD = !editTTD" 
+                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-purple-700 bg-purple-100 hover:bg-purple-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                            </svg>
+                            <span x-text="editTTD ? 'Selesai Edit' : 'Edit TTD'"></span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Form Edit TTD (Hidden by default) -->
