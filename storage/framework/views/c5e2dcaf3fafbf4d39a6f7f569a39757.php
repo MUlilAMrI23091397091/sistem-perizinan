@@ -1472,9 +1472,18 @@
 <?php endif; ?>
                                     <input id="mengetahui_photo" class="block mt-1 w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100" type="file" name="mengetahui_photo" accept="image/*" />
                                     <?php if($ttdSettings->mengetahui_photo): ?>
-                                        <div class="mt-2">
-                                            <p class="text-xs text-gray-500">Foto saat ini:</p>
-                                            <img src="<?php echo e(asset('storage/ttd_photos/' . $ttdSettings->mengetahui_photo)); ?>" alt="TTD Mengetahui" class="w-20 h-20 object-cover rounded border">
+                                        <div class="mt-2 p-3 bg-gray-50 rounded-lg">
+                                            <p class="text-xs text-gray-500 mb-2">Foto saat ini:</p>
+                                            <div class="flex items-center space-x-3">
+                                                <img src="<?php echo e(asset('storage/ttd_photos/' . $ttdSettings->mengetahui_photo)); ?>" alt="TTD Mengetahui" class="w-20 h-20 object-cover rounded border">
+                                                <div>
+                                                    <p class="text-sm text-gray-700"><?php echo e($ttdSettings->mengetahui_photo); ?></p>
+                                                    <label class="inline-flex items-center mt-2">
+                                                        <input type="checkbox" name="delete_mengetahui_photo" value="1" class="rounded border-gray-300 text-red-600 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50">
+                                                        <span class="ml-2 text-sm text-red-600">Hapus foto ini</span>
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                     <?php endif; ?>
                                     <?php if (isset($component)) { $__componentOriginalf94ed9c5393ef72725d159fe01139746 = $component; } ?>
@@ -1745,9 +1754,18 @@
 <?php endif; ?>
                                     <input id="menyetujui_photo" class="block mt-1 w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100" type="file" name="menyetujui_photo" accept="image/*" />
                                     <?php if($ttdSettings->menyetujui_photo): ?>
-                                        <div class="mt-2">
-                                            <p class="text-xs text-gray-500">Foto saat ini:</p>
-                                            <img src="<?php echo e(asset('storage/ttd_photos/' . $ttdSettings->menyetujui_photo)); ?>" alt="TTD Menyetujui" class="w-20 h-20 object-cover rounded border">
+                                        <div class="mt-2 p-3 bg-gray-50 rounded-lg">
+                                            <p class="text-xs text-gray-500 mb-2">Foto saat ini:</p>
+                                            <div class="flex items-center space-x-3">
+                                                <img src="<?php echo e(asset('storage/ttd_photos/' . $ttdSettings->menyetujui_photo)); ?>" alt="TTD Menyetujui" class="w-20 h-20 object-cover rounded border">
+                                                <div>
+                                                    <p class="text-sm text-gray-700"><?php echo e($ttdSettings->menyetujui_photo); ?></p>
+                                                    <label class="inline-flex items-center mt-2">
+                                                        <input type="checkbox" name="delete_menyetujui_photo" value="1" class="rounded border-gray-300 text-red-600 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50">
+                                                        <span class="ml-2 text-sm text-red-600">Hapus foto ini</span>
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                     <?php endif; ?>
                                     <?php if (isset($component)) { $__componentOriginalf94ed9c5393ef72725d159fe01139746 = $component; } ?>

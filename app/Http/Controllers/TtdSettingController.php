@@ -42,6 +42,11 @@ class TtdSettingController extends Controller
         
         // Handle upload foto mengetahui
         if ($request->hasFile('mengetahui_photo')) {
+            // Hapus foto lama jika ada
+            if ($ttdSettings->mengetahui_photo && \Storage::disk('public')->exists('ttd_photos/' . $ttdSettings->mengetahui_photo)) {
+                \Storage::disk('public')->delete('ttd_photos/' . $ttdSettings->mengetahui_photo);
+            }
+            
             $file = $request->file('mengetahui_photo');
             $filename = 'mengetahui_ttd_' . time() . '.' . $file->getClientOriginalExtension();
             $file->storeAs('public/ttd_photos', $filename);
@@ -50,10 +55,31 @@ class TtdSettingController extends Controller
         
         // Handle upload foto menyetujui
         if ($request->hasFile('menyetujui_photo')) {
+            // Hapus foto lama jika ada
+            if ($ttdSettings->menyetujui_photo && \Storage::disk('public')->exists('ttd_photos/' . $ttdSettings->menyetujui_photo)) {
+                \Storage::disk('public')->delete('ttd_photos/' . $ttdSettings->menyetujui_photo);
+            }
+            
             $file = $request->file('menyetujui_photo');
             $filename = 'menyetujui_ttd_' . time() . '.' . $file->getClientOriginalExtension();
             $file->storeAs('public/ttd_photos', $filename);
             $data['menyetujui_photo'] = $filename;
+        }
+        
+        // Handle hapus foto mengetahui
+        if ($request->has('delete_mengetahui_photo') && $request->delete_mengetahui_photo == '1') {
+            if ($ttdSettings->mengetahui_photo && \Storage::disk('public')->exists('ttd_photos/' . $ttdSettings->mengetahui_photo)) {
+                \Storage::disk('public')->delete('ttd_photos/' . $ttdSettings->mengetahui_photo);
+            }
+            $data['mengetahui_photo'] = null;
+        }
+        
+        // Handle hapus foto menyetujui
+        if ($request->has('delete_menyetujui_photo') && $request->delete_menyetujui_photo == '1') {
+            if ($ttdSettings->menyetujui_photo && \Storage::disk('public')->exists('ttd_photos/' . $ttdSettings->menyetujui_photo)) {
+                \Storage::disk('public')->delete('ttd_photos/' . $ttdSettings->menyetujui_photo);
+            }
+            $data['menyetujui_photo'] = null;
         }
         
         $ttdSettings->update($data);
