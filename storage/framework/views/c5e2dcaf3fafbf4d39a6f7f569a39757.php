@@ -752,12 +752,20 @@
 <?php endif; ?>
                             <select name="jenis_badan_usaha" id="jenis_badan_usaha" class="block mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm text-gray-700">
                                 <option value="">Pilih Jenis Badan Usaha</option>
-                                <option value="PT" <?php if(old('jenis_badan_usaha') == 'PT'): echo 'selected'; endif; ?>>PT (Perseroan Terbatas)</option>
-                                <option value="CV" <?php if(old('jenis_badan_usaha') == 'CV'): echo 'selected'; endif; ?>>CV (Commanditaire Vennootschap)</option>
-                                <option value="Firma" <?php if(old('jenis_badan_usaha') == 'Firma'): echo 'selected'; endif; ?>>Firma</option>
-                                <option value="Perseroan Komanditer" <?php if(old('jenis_badan_usaha') == 'Perseroan Komanditer'): echo 'selected'; endif; ?>>Perseroan Komanditer</option>
+                                <option value="Perseroan Terbatas (PT)" <?php if(old('jenis_badan_usaha') == 'Perseroan Terbatas (PT)'): echo 'selected'; endif; ?>>Perseroan Terbatas (PT)</option>
+                                <option value="Perseroan Terbatas (PT) Perorangan" <?php if(old('jenis_badan_usaha') == 'Perseroan Terbatas (PT) Perorangan'): echo 'selected'; endif; ?>>Perseroan Terbatas (PT) Perorangan</option>
+                                <option value="Persekutuan Komanditer (CV/Commanditaire Vennootschap)" <?php if(old('jenis_badan_usaha') == 'Persekutuan Komanditer (CV/Commanditaire Vennootschap)'): echo 'selected'; endif; ?>>Persekutuan Komanditer (CV/Commanditaire Vennootschap)</option>
+                                <option value="Persekutuan Firma (FA / Venootschap Onder Firma)" <?php if(old('jenis_badan_usaha') == 'Persekutuan Firma (FA / Venootschap Onder Firma)'): echo 'selected'; endif; ?>>Persekutuan Firma (FA / Venootschap Onder Firma)</option>
                                 <option value="Persekutuan Perdata" <?php if(old('jenis_badan_usaha') == 'Persekutuan Perdata'): echo 'selected'; endif; ?>>Persekutuan Perdata</option>
-                                <option value="Badan Usaha Lainnya" <?php if(old('jenis_badan_usaha') == 'Badan Usaha Lainnya'): echo 'selected'; endif; ?>>Badan Usaha Lainnya</option>
+                                <option value="Perusahaan Umum (Perum)" <?php if(old('jenis_badan_usaha') == 'Perusahaan Umum (Perum)'): echo 'selected'; endif; ?>>Perusahaan Umum (Perum)</option>
+                                <option value="Perusahaan Umum Daerah (Perumda)" <?php if(old('jenis_badan_usaha') == 'Perusahaan Umum Daerah (Perumda)'): echo 'selected'; endif; ?>>Perusahaan Umum Daerah (Perumda)</option>
+                                <option value="Badan Hukum Lainnya" <?php if(old('jenis_badan_usaha') == 'Badan Hukum Lainnya'): echo 'selected'; endif; ?>>Badan Hukum Lainnya</option>
+                                <option value="Koperasi" <?php if(old('jenis_badan_usaha') == 'Koperasi'): echo 'selected'; endif; ?>>Koperasi</option>
+                                <option value="Persekutuan dan Perkumpulan" <?php if(old('jenis_badan_usaha') == 'Persekutuan dan Perkumpulan'): echo 'selected'; endif; ?>>Persekutuan dan Perkumpulan</option>
+                                <option value="Yayasan" <?php if(old('jenis_badan_usaha') == 'Yayasan'): echo 'selected'; endif; ?>>Yayasan</option>
+                                <option value="Badan Layanan Umum" <?php if(old('jenis_badan_usaha') == 'Badan Layanan Umum'): echo 'selected'; endif; ?>>Badan Layanan Umum</option>
+                                <option value="BUM Desa" <?php if(old('jenis_badan_usaha') == 'BUM Desa'): echo 'selected'; endif; ?>>BUM Desa</option>
+                                <option value="BUM Desa Bersama" <?php if(old('jenis_badan_usaha') == 'BUM Desa Bersama'): echo 'selected'; endif; ?>>BUM Desa Bersama</option>
                             </select>
                             <?php if (isset($component)) { $__componentOriginalf94ed9c5393ef72725d159fe01139746 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalf94ed9c5393ef72725d159fe01139746 = $attributes; } ?>

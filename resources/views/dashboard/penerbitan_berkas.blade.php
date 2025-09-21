@@ -281,12 +281,20 @@
                             <x-input-label for="jenis_badan_usaha" value="Jenis Badan Usaha" />
                             <select name="jenis_badan_usaha" id="jenis_badan_usaha" class="block mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm text-gray-700">
                                 <option value="">Pilih Jenis Badan Usaha</option>
-                                <option value="PT" @selected(old('jenis_badan_usaha') == 'PT')>PT (Perseroan Terbatas)</option>
-                                <option value="CV" @selected(old('jenis_badan_usaha') == 'CV')>CV (Commanditaire Vennootschap)</option>
-                                <option value="Firma" @selected(old('jenis_badan_usaha') == 'Firma')>Firma</option>
-                                <option value="Perseroan Komanditer" @selected(old('jenis_badan_usaha') == 'Perseroan Komanditer')>Perseroan Komanditer</option>
+                                <option value="Perseroan Terbatas (PT)" @selected(old('jenis_badan_usaha') == 'Perseroan Terbatas (PT)')>Perseroan Terbatas (PT)</option>
+                                <option value="Perseroan Terbatas (PT) Perorangan" @selected(old('jenis_badan_usaha') == 'Perseroan Terbatas (PT) Perorangan')>Perseroan Terbatas (PT) Perorangan</option>
+                                <option value="Persekutuan Komanditer (CV/Commanditaire Vennootschap)" @selected(old('jenis_badan_usaha') == 'Persekutuan Komanditer (CV/Commanditaire Vennootschap)')>Persekutuan Komanditer (CV/Commanditaire Vennootschap)</option>
+                                <option value="Persekutuan Firma (FA / Venootschap Onder Firma)" @selected(old('jenis_badan_usaha') == 'Persekutuan Firma (FA / Venootschap Onder Firma)')>Persekutuan Firma (FA / Venootschap Onder Firma)</option>
                                 <option value="Persekutuan Perdata" @selected(old('jenis_badan_usaha') == 'Persekutuan Perdata')>Persekutuan Perdata</option>
-                                <option value="Badan Usaha Lainnya" @selected(old('jenis_badan_usaha') == 'Badan Usaha Lainnya')>Badan Usaha Lainnya</option>
+                                <option value="Perusahaan Umum (Perum)" @selected(old('jenis_badan_usaha') == 'Perusahaan Umum (Perum)')>Perusahaan Umum (Perum)</option>
+                                <option value="Perusahaan Umum Daerah (Perumda)" @selected(old('jenis_badan_usaha') == 'Perusahaan Umum Daerah (Perumda)')>Perusahaan Umum Daerah (Perumda)</option>
+                                <option value="Badan Hukum Lainnya" @selected(old('jenis_badan_usaha') == 'Badan Hukum Lainnya')>Badan Hukum Lainnya</option>
+                                <option value="Koperasi" @selected(old('jenis_badan_usaha') == 'Koperasi')>Koperasi</option>
+                                <option value="Persekutuan dan Perkumpulan" @selected(old('jenis_badan_usaha') == 'Persekutuan dan Perkumpulan')>Persekutuan dan Perkumpulan</option>
+                                <option value="Yayasan" @selected(old('jenis_badan_usaha') == 'Yayasan')>Yayasan</option>
+                                <option value="Badan Layanan Umum" @selected(old('jenis_badan_usaha') == 'Badan Layanan Umum')>Badan Layanan Umum</option>
+                                <option value="BUM Desa" @selected(old('jenis_badan_usaha') == 'BUM Desa')>BUM Desa</option>
+                                <option value="BUM Desa Bersama" @selected(old('jenis_badan_usaha') == 'BUM Desa Bersama')>BUM Desa Bersama</option>
                             </select>
                             <x-input-error :messages="$errors->get('jenis_badan_usaha')" class="mt-2" />
                         </div>
