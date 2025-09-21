@@ -144,10 +144,10 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 $sheet->getStyle('A2:Q' . $lastRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $sheet->getStyle('A2:Q' . $lastRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 
-                // Add TTD section after data - VERTICAL LAYOUT
+                // Add TTD section after data - SIDE BY SIDE LAYOUT
                 $ttdRow = $lastRow + 3;
                 
-                // TTD Mengetahui (atas)
+                // TTD Mengetahui (kiri)
                 $sheet->setCellValue('A' . $ttdRow, 'Mengetahui');
                 $sheet->getStyle('A' . $ttdRow)->getFont()->setBold(true);
                 $sheet->setCellValue('A' . ($ttdRow + 1), 'Koordinator Ketua Tim Kerja');
@@ -160,17 +160,16 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 // Add signature line for Mengetahui
                 $sheet->setCellValue('A' . ($ttdRow + 6), '_________________________');
                 
-                // TTD Menyetujui (bawah)
-                $menyetujuiRow = $ttdRow + 8;
-                $sheet->setCellValue('A' . $menyetujuiRow, 'Surabaya, ' . date('d F Y'));
-                $sheet->setCellValue('A' . ($menyetujuiRow + 1), 'Ketua Tim Kerja Pelayanan Perizinan Berusaha');
-                $sheet->setCellValue('A' . ($menyetujuiRow + 2), 'Ulvia Zulvia, ST');
-                $sheet->getStyle('A' . ($menyetujuiRow + 2))->getFont()->setBold(true);
-                $sheet->setCellValue('A' . ($menyetujuiRow + 3), 'Penata Tk. 1');
-                $sheet->setCellValue('A' . ($menyetujuiRow + 4), 'NIP 197710132006042012');
+                // TTD Menyetujui (kanan)
+                $sheet->setCellValue('J' . $ttdRow, 'Surabaya, ' . date('d F Y'));
+                $sheet->setCellValue('J' . ($ttdRow + 1), 'Ketua Tim Kerja Pelayanan Perizinan Berusaha');
+                $sheet->setCellValue('J' . ($ttdRow + 2), 'Ulvia Zulvia, ST');
+                $sheet->getStyle('J' . ($ttdRow + 2))->getFont()->setBold(true);
+                $sheet->setCellValue('J' . ($ttdRow + 3), 'Penata Tk. 1');
+                $sheet->setCellValue('J' . ($ttdRow + 4), 'NIP 197710132006042012');
                 
                 // Add signature line for Menyetujui
-                $sheet->setCellValue('A' . ($menyetujuiRow + 5), '_________________________');
+                $sheet->setCellValue('J' . ($ttdRow + 5), '_________________________');
             },
         ];
     }
