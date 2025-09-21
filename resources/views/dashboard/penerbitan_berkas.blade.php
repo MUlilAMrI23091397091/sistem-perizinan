@@ -437,19 +437,6 @@
                             </select>
                             <x-input-error :messages="$errors->get('risiko')" class="mt-2" />
                         </div>
-
-                        <!-- Status -->
-                        <div>
-                            <x-input-label for="status" value="Status" />
-                            <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
-                                <option value="">Pilih Status</option>
-                                <option value="Diterima" @selected(old('status') == 'Diterima')>Diterima</option>
-                                <option value="Dikembalikan" @selected(old('status') == 'Dikembalikan')>Dikembalikan</option>
-                                <option value="Ditolak" @selected(old('status') == 'Ditolak')>Ditolak</option>
-                                <option value="Menunggu" @selected(old('status') == 'Menunggu')>Menunggu</option>
-                            </select>
-                            <x-input-error :messages="$errors->get('status')" class="mt-2" />
-                        </div>
                     </div>
 
                     <!-- Tombol Submit -->
@@ -791,18 +778,6 @@
                             <x-input-label for="edit_risiko" value="Risiko" />
                             <x-text-input id="edit_risiko" class="block mt-1 w-full" type="text" name="risiko" />
                         </div>
-
-                        <!-- Status -->
-                        <div>
-                            <x-input-label for="edit_status" value="Status" />
-                            <select name="status" id="edit_status" class="block mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm text-gray-700" required>
-                                <option value="">Pilih Status</option>
-                                <option value="Diterima">Diterima</option>
-                                <option value="Dikembalikan">Dikembalikan</option>
-                                <option value="Ditolak">Ditolak</option>
-                                <option value="Menunggu">Menunggu</option>
-                            </select>
-                        </div>
                     </div>
 
                     <div class="flex items-center justify-end space-x-4 pt-6">
@@ -902,7 +877,6 @@
                     document.getElementById('edit_nama_perizinan').value = data.nama_perizinan || '';
                     document.getElementById('edit_skala_usaha').value = data.skala_usaha || '';
                     document.getElementById('edit_risiko').value = data.risiko || '';
-                    document.getElementById('edit_status').value = data.status || '';
 
                     // Update form action
                     document.getElementById('editForm').action = `/penerbitan-berkas/${id}`;

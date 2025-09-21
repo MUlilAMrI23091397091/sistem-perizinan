@@ -159,7 +159,7 @@ class DashboardController extends Controller
             'skala_usaha' => 'nullable|string',
             'risiko' => 'nullable|string',
             'verifikator' => 'nullable|string',
-            'status' => 'required|in:Dikembalikan,Diterima,Ditolak,Menunggu',
+            'status' => 'nullable|string|in:Dikembalikan,Diterima,Ditolak,Menunggu',
         ];
 
         // Jika jenis pelaku usaha adalah Badan Usaha, jenis_badan_usaha wajib diisi
@@ -175,6 +175,11 @@ class DashboardController extends Controller
         // Jika jenis_pelaku_usaha adalah 'Orang Perseorangan', set jenis_badan_usaha ke null
         if ($validated['jenis_pelaku_usaha'] === 'Orang Perseorangan') {
             $validated['jenis_badan_usaha'] = null;
+        }
+
+        // Set default status jika tidak ada
+        if (empty($validated['status'])) {
+            $validated['status'] = 'Menunggu';
         }
 
         $permohonan = Permohonan::create($validated);
@@ -225,7 +230,7 @@ class DashboardController extends Controller
             'skala_usaha' => 'nullable|string',
             'risiko' => 'nullable|string',
             'verifikator' => 'nullable|string',
-            'status' => 'required|in:Dikembalikan,Diterima,Ditolak,Menunggu',
+            'status' => 'nullable|string|in:Dikembalikan,Diterima,Ditolak,Menunggu',
         ];
 
         // Jika jenis pelaku usaha adalah Badan Usaha, jenis_badan_usaha wajib diisi
