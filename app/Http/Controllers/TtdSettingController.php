@@ -5,11 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\TtdSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TtdSettingController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
+        
+        // Cek authorization - hanya admin dan penerbitan_berkas yang bisa akses
+        if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk mengakses halaman ini.');
+        }
+        
         $ttdSettings = TtdSetting::getSettings();
         
         // Proses title menyetujui untuk mengganti placeholder tanggal
@@ -20,6 +28,13 @@ class TtdSettingController extends Controller
 
     public function update(Request $request)
     {
+        $user = Auth::user();
+        
+        // Cek authorization - hanya admin dan penerbitan_berkas yang bisa update
+        if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk melakukan aksi ini.');
+        }
+        
         $request->validate([
             'mengetahui_title' => 'required|string|max:255',
             'mengetahui_jabatan' => 'required|string|max:255',

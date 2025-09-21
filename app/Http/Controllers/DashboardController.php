@@ -15,7 +15,7 @@ class DashboardController extends Controller
     public function __invoke(Request $request)
     {
         $user = Auth::user();
-        
+
         // Ambil data permohonan
         $permohonans = Permohonan::with('user')->get();
         
@@ -56,7 +56,7 @@ class DashboardController extends Controller
         
         // Terapkan filter tanggal
         if ($selectedDateFilter) {
-            $now = \Carbon\Carbon::now();
+            $now = Carbon::now();
             
             switch ($selectedDateFilter) {
                 case 'today':
@@ -180,5 +180,83 @@ class DashboardController extends Controller
         $permohonan = Permohonan::create($validated);
 
         return redirect()->route('penerbitan-berkas')->with('success', 'Data permohonan berhasil ditambahkan!');
+    }
+
+    public function editPenerbitanBerkas($id)
+    {
+        $user = Auth::user();
+        
+        // Cek authorization - hanya admin dan penerbitan_berkas yang bisa edit
+        if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+        
+        $permohonan = Permohonan::findOrFail($id);
+        
+        return response()->json($permohonan);
+    }
+
+    public function updatePenerbitanBerkas(Request $request, $id)
+    {
+        $user = Auth::user();
+        
+        // Cek authorization - hanya admin dan penerbitan_berkas yang bisa update
+        if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk melakukan aksi ini.');
+        }
+        
+        $permohonan = Permohonan::findOrFail($id);
+        
+        $rules = [
+            'no_permohonan' => 'nullable|string|unique:permohonans,no_permohonan,' . $id,
+            'no_proyek' => 'nullable|string',
+            'tanggal_permohonan' => 'nullable|date',
+            'nib' => 'nullable|string|max:20',
+            'kbli' => 'nullable|string',
+            'nama_usaha' => 'nullable|string',
+            'inputan_teks' => 'nullable|string',
+            'jenis_pelaku_usaha' => 'required|string|in:Orang Perseorangan,Badan Usaha',
+            'jenis_badan_usaha' => 'nullable|string',
+            'pemilik' => 'nullable|string',
+            'modal_usaha' => 'nullable|numeric',
+            'alamat_perusahaan' => 'nullable|string',
+            'jenis_proyek' => 'nullable|string|in:Utama,Pendukung,Pendukung UMKU,Kantor Cabang',
+            'nama_perizinan' => 'nullable|string',
+            'skala_usaha' => 'nullable|string',
+            'risiko' => 'nullable|string',
+            'verifikator' => 'nullable|string',
+            'status' => 'required|in:Dikembalikan,Diterima,Ditolak,Menunggu',
+        ];
+
+        // Jika jenis pelaku usaha adalah Badan Usaha, jenis_badan_usaha wajib diisi
+        if ($request->jenis_pelaku_usaha === 'Badan Usaha') {
+            $rules['jenis_badan_usaha'] = 'required|string';
+        }
+
+        $validated = $request->validate($rules);
+        
+        // Jika jenis_pelaku_usaha adalah 'Orang Perseorangan', set jenis_badan_usaha ke null
+        if ($validated['jenis_pelaku_usaha'] === 'Orang Perseorangan') {
+            $validated['jenis_badan_usaha'] = null;
+        }
+
+        $permohonan->update($validated);
+
+        return redirect()->route('penerbitan-berkas')->with('success', 'Data permohonan berhasil diperbarui!');
+    }
+
+    public function destroyPenerbitanBerkas($id)
+    {
+        $user = Auth::user();
+        
+        // Cek authorization - hanya admin dan penerbitan_berkas yang bisa delete
+        if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk melakukan aksi ini.');
+        }
+        
+        $permohonan = Permohonan::findOrFail($id);
+        $permohonan->delete();
+
+        return redirect()->route('penerbitan-berkas')->with('success', 'Data permohonan berhasil dihapus!');
     }
 }

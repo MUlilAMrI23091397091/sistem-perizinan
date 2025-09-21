@@ -14,6 +14,7 @@
         <nav class="mt-6 px-4">
             <div class="space-y-2">
                 <!-- Dashboard -->
+                @if(auth()->user()->role !== 'penerbitan_berkas')
                 <a href="{{ route('dashboard') }}" 
                    class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('dashboard') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -21,6 +22,7 @@
                     </svg>
                     Dashboard
                 </a>
+                @endif
 
                 <!-- Manajemen Staff -->
                 @can('admin')
@@ -34,6 +36,7 @@
                 @endcan
 
                 <!-- Permohonan -->
+                @if(auth()->user()->role !== 'penerbitan_berkas')
                 <a href="{{ route('permohonan.index') }}" 
                    class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('permohonan.*') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,8 +44,10 @@
                     </svg>
                     Permohonan
                 </a>
+                @endif
 
                 <!-- Statistik -->
+                @if(auth()->user()->role !== 'penerbitan_berkas')
                 <a href="{{ route('statistik') }}" 
                    class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('statistik') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -50,9 +55,10 @@
                     </svg>
                     Statistik
                 </a>
+                @endif
 
                 <!-- Penerbitan Berkas -->
-                @can('admin')
+                @if(in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']))
                 <a href="{{ route('penerbitan-berkas') }}" 
                    class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('penerbitan-berkas') ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -60,7 +66,7 @@
                     </svg>
                     Penerbitan Berkas
                 </a>
-                @endcan
+                @endif
 
             </div>
         </nav>

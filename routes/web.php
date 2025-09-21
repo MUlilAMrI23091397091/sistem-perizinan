@@ -32,6 +32,15 @@ Route::get('/penerbitan-berkas/export/excel', [DashboardController::class, 'expo
 Route::post('/penerbitan-berkas', [DashboardController::class, 'storePenerbitanBerkas'])
     ->middleware(['auth', 'verified'])
     ->name('penerbitan-berkas.store');
+Route::get('/penerbitan-berkas/{id}/edit', [DashboardController::class, 'editPenerbitanBerkas'])
+    ->middleware(['auth', 'verified'])
+    ->name('penerbitan-berkas.edit');
+Route::put('/penerbitan-berkas/{id}', [DashboardController::class, 'updatePenerbitanBerkas'])
+    ->middleware(['auth', 'verified'])
+    ->name('penerbitan-berkas.update');
+Route::delete('/penerbitan-berkas/{id}', [DashboardController::class, 'destroyPenerbitanBerkas'])
+    ->middleware(['auth', 'verified'])
+    ->name('penerbitan-berkas.destroy');
 
 Route::middleware('auth')->group(function () {
     // Profile

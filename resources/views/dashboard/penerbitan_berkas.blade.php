@@ -3,20 +3,63 @@
         Dashboard Penerbitan Berkas
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header dengan Judul Laporan -->
-            <div class="mb-8">
-                <h1 class="text-2xl font-bold text-center text-gray-900 mb-2">
-                    PERIZINAN BERUSAHA DISETUJUI
-                </h1>
-                <h2 class="text-xl font-semibold text-center text-gray-800 mb-1">
-                    DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU
-                </h2>
-                <h3 class="text-lg font-medium text-center text-gray-700">
-                    KOTA SURABAYA TAHUN {{ date('Y') }}
-                </h3>
-            </div>
+    @section('head')
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+    @endsection
+
+    <!-- Header dengan Judul Laporan -->
+    <div class="mb-8">
+        <h1 class="text-2xl font-bold text-center text-gray-900 mb-2">
+            PERIZINAN BERUSAHA DISETUJUI
+        </h1>
+        <h2 class="text-xl font-semibold text-center text-gray-800 mb-1">
+            DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU
+        </h2>
+        <h3 class="text-lg font-medium text-center text-gray-700">
+            KOTA SURABAYA TAHUN {{ date('Y') }}
+        </h3>
+    </div>
+
+            <!-- Notifikasi Success/Error -->
+            @if(session('success'))
+                <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg relative" role="alert">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="font-medium">{{ session('success') }}</span>
+                    </div>
+                </div>
+            @endif
+
+            @if(session('error'))
+                <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
+                    <div class="flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="font-medium">{{ session('error') }}</span>
+                    </div>
+                </div>
+            @endif
+
+            @if($errors->any())
+                <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
+                    <div class="flex items-start">
+                        <svg class="w-5 h-5 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                        </svg>
+                        <div>
+                            <span class="font-medium">Terjadi kesalahan:</span>
+                            <ul class="mt-1 list-disc list-inside text-sm">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             <!-- Tabel Data Permohonan -->
             <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 mb-8">
@@ -51,8 +94,11 @@
                                 <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 6%;">JENIS PROYEK</th>
                                 <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 12%;">NAMA PERIZINAN</th>
                                 <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 8%;">SKALA USAHA</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 8%;">RISIKO</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 15%;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
+                                  <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 8%;">RISIKO</th>
+                                  <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 15%;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
+                                  @if(in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']))
+                                  <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 8%;">AKSI</th>
+                                  @endif
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
@@ -163,11 +209,36 @@
                                             <p class="text-gray-600">tanggal BAP: {{ date('d F Y') }}</p>
                                         </div>
                                     </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        @if(in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']))
+                                        <div class="flex items-center space-x-2">
+                                            <!-- Edit Button -->
+                                            <button data-edit-id="{{ $permohonan->id }}" 
+                                                    class="edit-btn inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                                Edit
+                                            </button>
+                                            
+                                            <!-- Delete Button -->
+                                            <button data-delete-id="{{ $permohonan->id }}" 
+                                                    class="delete-btn inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200">
+                                                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                                Hapus
+                                            </button>
+                                        </div>
+                                        @else
+                                        <span class="text-gray-400 text-xs">Tidak ada akses</span>
+                                        @endif
+                                    </td>
                                 </tr>
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="17" class="px-4 py-8 text-center text-sm text-gray-500">
+                                    <td colspan="{{ in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']) ? '18' : '17' }}" class="px-4 py-8 text-center text-sm text-gray-500">
                                         <div class="flex flex-col items-center">
                                             <svg class="w-12 h-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -183,7 +254,6 @@
                     </div>
                 </div>
 
-            <!-- Form Input Data Baru -->
             <!-- Export Button -->
             <div class="mb-4 flex flex-wrap gap-3">
                 <a href="{{ route('penerbitan-berkas.export.excel') }}" 
@@ -202,6 +272,8 @@
                 </a>
             </div>
 
+            <!-- Form Input Data Baru -->
+            @if(in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']))
             <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6 mb-8">
                 <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-green-50 to-emerald-50 mb-6 -m-6">
                     <h3 class="text-xl font-semibold text-gray-900 flex items-center">
@@ -365,6 +437,19 @@
                             </select>
                             <x-input-error :messages="$errors->get('risiko')" class="mt-2" />
                         </div>
+
+                        <!-- Status -->
+                        <div>
+                            <x-input-label for="status" value="Status" />
+                            <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                                <option value="">Pilih Status</option>
+                                <option value="Diterima" @selected(old('status') == 'Diterima')>Diterima</option>
+                                <option value="Dikembalikan" @selected(old('status') == 'Dikembalikan')>Dikembalikan</option>
+                                <option value="Ditolak" @selected(old('status') == 'Ditolak')>Ditolak</option>
+                                <option value="Menunggu" @selected(old('status') == 'Menunggu')>Menunggu</option>
+                            </select>
+                            <x-input-error :messages="$errors->get('status')" class="mt-2" />
+                        </div>
                     </div>
 
                     <!-- Tombol Submit -->
@@ -375,8 +460,10 @@
                     </div>
                 </form>
             </div>
+            @endif
 
             <!-- Kolom TTD -->
+            @if(in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']))
             <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6" x-data="{ editTTD: false }">
                 <!-- Header dengan tombol edit -->
                 <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-violet-50 mb-6 -m-6">
@@ -562,6 +649,175 @@
             </div>
         </div>
     </div>
+    @endif
+
+    <!-- Edit Modal -->
+    @if(in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']))
+    <div id="editModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+        <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-medium text-gray-900">Edit Data Permohonan</h3>
+                    <button onclick="closeEditModal()" class="text-gray-400 hover:text-gray-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <form id="editForm" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- No. Permohonan -->
+                        <div>
+                            <x-input-label for="edit_no_permohonan" value="No. Permohonan" />
+                            <x-text-input id="edit_no_permohonan" class="block mt-1 w-full" type="text" name="no_permohonan" required />
+                        </div>
+
+                        <!-- No. Proyek -->
+                        <div>
+                            <x-input-label for="edit_no_proyek" value="No. Proyek" />
+                            <x-text-input id="edit_no_proyek" class="block mt-1 w-full" type="text" name="no_proyek" />
+                        </div>
+
+                        <!-- Tanggal Permohonan -->
+                        <div>
+                            <x-input-label for="edit_tanggal_permohonan" value="Tanggal Permohonan" />
+                            <x-text-input id="edit_tanggal_permohonan" class="block mt-1 w-full" type="date" name="tanggal_permohonan" />
+                        </div>
+
+                        <!-- NIB -->
+                        <div>
+                            <x-input-label for="edit_nib" value="NIB" />
+                            <x-text-input id="edit_nib" class="block mt-1 w-full" type="text" name="nib" />
+                        </div>
+
+                        <!-- KBLI -->
+                        <div>
+                            <x-input-label for="edit_kbli" value="KBLI" />
+                            <x-text-input id="edit_kbli" class="block mt-1 w-full" type="text" name="kbli" />
+                        </div>
+
+                        <!-- Nama Usaha -->
+                        <div>
+                            <x-input-label for="edit_nama_usaha" value="Nama Usaha" />
+                            <x-text-input id="edit_nama_usaha" class="block mt-1 w-full" type="text" name="nama_usaha" required />
+                        </div>
+
+                        <!-- Kegiatan -->
+                        <div class="md:col-span-2">
+                            <x-input-label for="edit_inputan_teks" value="Kegiatan" />
+                            <textarea id="edit_inputan_teks" name="inputan_teks" rows="3" class="block mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm"></textarea>
+                        </div>
+
+                        <!-- Jenis Perusahaan -->
+                        <div>
+                            <x-input-label for="edit_jenis_pelaku_usaha" value="Jenis Perusahaan" />
+                            <select name="jenis_pelaku_usaha" id="edit_jenis_pelaku_usaha" class="block mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm text-gray-700">
+                                <option value="">Pilih Jenis Perusahaan</option>
+                                <option value="Orang Perseorangan">Orang Perseorangan</option>
+                                <option value="Badan Usaha">Badan Usaha</option>
+                            </select>
+                        </div>
+
+                        <!-- Jenis Badan Usaha (conditional) -->
+                        <div id="edit_jenis_badan_usaha_container" style="display: none;">
+                            <x-input-label for="edit_jenis_badan_usaha" value="Jenis Badan Usaha" />
+                            <select name="jenis_badan_usaha" id="edit_jenis_badan_usaha" class="block mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm text-gray-700">
+                                <option value="">Pilih Jenis Badan Usaha</option>
+                                <option value="Perseroan Terbatas (PT)">Perseroan Terbatas (PT)</option>
+                                <option value="Perseroan Terbatas (PT) Perorangan">Perseroan Terbatas (PT) Perorangan</option>
+                                <option value="Persekutuan Komanditer (CV/Commanditaire Vennootschap)">Persekutuan Komanditer (CV/Commanditaire Vennootschap)</option>
+                                <option value="Persekutuan Firma (FA / Venootschap Onder Firma)">Persekutuan Firma (FA / Venootschap Onder Firma)</option>
+                                <option value="Persekutuan Perdata">Persekutuan Perdata</option>
+                                <option value="Perusahaan Umum (Perum)">Perusahaan Umum (Perum)</option>
+                                <option value="Perusahaan Umum Daerah (Perumda)">Perusahaan Umum Daerah (Perumda)</option>
+                                <option value="Badan Hukum Lainnya">Badan Hukum Lainnya</option>
+                                <option value="Koperasi">Koperasi</option>
+                                <option value="Persekutuan dan Perkumpulan">Persekutuan dan Perkumpulan</option>
+                                <option value="Yayasan">Yayasan</option>
+                                <option value="Badan Layanan Umum">Badan Layanan Umum</option>
+                                <option value="BUM Desa">BUM Desa</option>
+                                <option value="BUM Desa Bersama">BUM Desa Bersama</option>
+                            </select>
+                        </div>
+
+                        <!-- Pemilik -->
+                        <div>
+                            <x-input-label for="edit_pemilik" value="Pemilik" />
+                            <x-text-input id="edit_pemilik" class="block mt-1 w-full" type="text" name="pemilik" />
+                        </div>
+
+                        <!-- Modal Usaha -->
+                        <div>
+                            <x-input-label for="edit_modal_usaha" value="Modal Usaha" />
+                            <x-text-input id="edit_modal_usaha" class="block mt-1 w-full" type="number" name="modal_usaha" />
+                        </div>
+
+                        <!-- Alamat Perusahaan -->
+                        <div class="md:col-span-2">
+                            <x-input-label for="edit_alamat_perusahaan" value="Alamat Perusahaan" />
+                            <textarea id="edit_alamat_perusahaan" name="alamat_perusahaan" rows="2" class="block mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm"></textarea>
+                        </div>
+
+                        <!-- Jenis Proyek -->
+                        <div>
+                            <x-input-label for="edit_jenis_proyek" value="Jenis Proyek" />
+                            <select name="jenis_proyek" id="edit_jenis_proyek" class="block mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm text-gray-700">
+                                <option value="">Pilih Jenis Proyek</option>
+                                <option value="Utama">Utama</option>
+                                <option value="Pendukung">Pendukung</option>
+                                <option value="Pendukung UMKU">Pendukung UMKU</option>
+                                <option value="Kantor Cabang">Kantor Cabang</option>
+                            </select>
+                        </div>
+
+                        <!-- Nama Perizinan -->
+                        <div>
+                            <x-input-label for="edit_nama_perizinan" value="Nama Perizinan" />
+                            <x-text-input id="edit_nama_perizinan" class="block mt-1 w-full" type="text" name="nama_perizinan" />
+                        </div>
+
+                        <!-- Skala Usaha -->
+                        <div>
+                            <x-input-label for="edit_skala_usaha" value="Skala Usaha" />
+                            <x-text-input id="edit_skala_usaha" class="block mt-1 w-full" type="text" name="skala_usaha" />
+                        </div>
+
+                        <!-- Risiko -->
+                        <div>
+                            <x-input-label for="edit_risiko" value="Risiko" />
+                            <x-text-input id="edit_risiko" class="block mt-1 w-full" type="text" name="risiko" />
+                        </div>
+
+                        <!-- Status -->
+                        <div>
+                            <x-input-label for="edit_status" value="Status" />
+                            <select name="status" id="edit_status" class="block mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm text-gray-700" required>
+                                <option value="">Pilih Status</option>
+                                <option value="Diterima">Diterima</option>
+                                <option value="Dikembalikan">Dikembalikan</option>
+                                <option value="Ditolak">Ditolak</option>
+                                <option value="Menunggu">Menunggu</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-end space-x-4 pt-6">
+                        <button type="button" onclick="closeEditModal()" class="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                            Batal
+                        </button>
+                        <button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                            Simpan Perubahan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @endif
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -586,6 +842,125 @@
 
             // Initialize on page load
             toggleJenisBadanUsaha();
+
+            // Edit modal functionality (only for authorized users)
+            const userRole = '{{ auth()->user()->role }}';
+            if (['admin', 'penerbitan_berkas'].includes(userRole)) {
+                const editJenisPelakuUsaha = document.getElementById('edit_jenis_pelaku_usaha');
+                const editJenisBadanUsahaContainer = document.getElementById('edit_jenis_badan_usaha_container');
+                const editJenisBadanUsaha = document.getElementById('edit_jenis_badan_usaha');
+
+                function toggleEditJenisBadanUsaha() {
+                    if (editJenisPelakuUsaha.value === 'Badan Usaha') {
+                        editJenisBadanUsahaContainer.style.display = 'block';
+                        editJenisBadanUsaha.required = true;
+                    } else {
+                        editJenisBadanUsahaContainer.style.display = 'none';
+                        editJenisBadanUsaha.required = false;
+                        editJenisBadanUsaha.value = '';
+                    }
+                }
+
+                editJenisPelakuUsaha.addEventListener('change', toggleEditJenisBadanUsaha);
+
+                // Add event listeners for edit and delete buttons
+                document.addEventListener('click', function(e) {
+                    if (e.target.closest('.edit-btn')) {
+                        const id = e.target.closest('.edit-btn').getAttribute('data-edit-id');
+                        editPermohonan(id);
+                    }
+                    if (e.target.closest('.delete-btn')) {
+                        const id = e.target.closest('.delete-btn').getAttribute('data-delete-id');
+                        deletePermohonan(id);
+                    }
+                });
+            }
         });
+
+        // Global functions for edit and delete (only for authorized users)
+        const userRole = '{{ auth()->user()->role }}';
+        if (['admin', 'penerbitan_berkas'].includes(userRole)) {
+        function editPermohonan(id) {
+            // Fetch data via AJAX
+            fetch(`/penerbitan-berkas/${id}/edit`)
+                .then(response => response.json())
+                .then(data => {
+                    // Populate form fields
+                    document.getElementById('edit_no_permohonan').value = data.no_permohonan || '';
+                    document.getElementById('edit_no_proyek').value = data.no_proyek || '';
+                    document.getElementById('edit_tanggal_permohonan').value = data.tanggal_permohonan || '';
+                    document.getElementById('edit_nib').value = data.nib || '';
+                    document.getElementById('edit_kbli').value = data.kbli || '';
+                    document.getElementById('edit_nama_usaha').value = data.nama_usaha || '';
+                    document.getElementById('edit_inputan_teks').value = data.inputan_teks || '';
+                    document.getElementById('edit_jenis_pelaku_usaha').value = data.jenis_pelaku_usaha || '';
+                    document.getElementById('edit_jenis_badan_usaha').value = data.jenis_badan_usaha || '';
+                    document.getElementById('edit_pemilik').value = data.pemilik || '';
+                    document.getElementById('edit_modal_usaha').value = data.modal_usaha || '';
+                    document.getElementById('edit_alamat_perusahaan').value = data.alamat_perusahaan || '';
+                    document.getElementById('edit_jenis_proyek').value = data.jenis_proyek || '';
+                    document.getElementById('edit_nama_perizinan').value = data.nama_perizinan || '';
+                    document.getElementById('edit_skala_usaha').value = data.skala_usaha || '';
+                    document.getElementById('edit_risiko').value = data.risiko || '';
+                    document.getElementById('edit_status').value = data.status || '';
+
+                    // Update form action
+                    document.getElementById('editForm').action = `/penerbitan-berkas/${id}`;
+
+                    // Toggle jenis badan usaha
+                    toggleEditJenisBadanUsaha();
+
+                    // Show modal
+                    document.getElementById('editModal').classList.remove('hidden');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Gagal memuat data permohonan');
+                });
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.add('hidden');
+        }
+
+        function deletePermohonan(id) {
+            if (confirm('Apakah Anda yakin ingin menghapus data permohonan ini?')) {
+                // Create form for DELETE request
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = `/penerbitan-berkas/${id}`;
+                
+                const csrfToken = document.createElement('input');
+                csrfToken.type = 'hidden';
+                csrfToken.name = '_token';
+                csrfToken.value = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                
+                const methodField = document.createElement('input');
+                methodField.type = 'hidden';
+                methodField.name = '_method';
+                methodField.value = 'DELETE';
+                
+                form.appendChild(csrfToken);
+                form.appendChild(methodField);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        }
+
+        function toggleEditJenisBadanUsaha() {
+            const editJenisPelakuUsaha = document.getElementById('edit_jenis_pelaku_usaha');
+            const editJenisBadanUsahaContainer = document.getElementById('edit_jenis_badan_usaha_container');
+            const editJenisBadanUsaha = document.getElementById('edit_jenis_badan_usaha');
+
+            if (editJenisPelakuUsaha.value === 'Badan Usaha') {
+                editJenisBadanUsahaContainer.style.display = 'block';
+                editJenisBadanUsaha.required = true;
+            } else {
+                editJenisBadanUsahaContainer.style.display = 'none';
+                editJenisBadanUsaha.required = false;
+                editJenisBadanUsaha.value = '';
+            }
+        }
+        }
     </script>
 </x-sidebar-layout>
