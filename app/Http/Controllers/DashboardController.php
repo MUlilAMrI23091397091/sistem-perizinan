@@ -16,8 +16,32 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        // Ambil data permohonan
-        $permohonans = Permohonan::with('user')->get();
+        // Ambil data permohonan berdasarkan role
+        if ($user->role === 'admin') {
+            // Admin melihat semua data
+            $permohonans = Permohonan::with('user')->get();
+        } elseif ($user->role === 'dpmptsp') {
+            // DPMPTSP melihat semua permohonan kecuali yang dibuat oleh penerbitan_berkas
+            $permohonans = Permohonan::with('user')
+                ->whereHas('user', function($query) {
+                    $query->where('role', '!=', 'penerbitan_berkas');
+                })->get();
+        } elseif ($user->role === 'pd_teknis') {
+            // PD Teknis melihat semua permohonan kecuali yang dibuat oleh penerbitan_berkas
+            $permohonans = Permohonan::with('user')
+                ->whereHas('user', function($query) {
+                    $query->where('role', '!=', 'penerbitan_berkas');
+                })->get();
+        } elseif ($user->role === 'penerbitan_berkas') {
+            // Penerbitan Berkas hanya melihat data yang dibuat oleh role penerbitan_berkas
+            $permohonans = Permohonan::with('user')
+                ->whereHas('user', function($query) {
+                    $query->where('role', 'penerbitan_berkas');
+                })->get();
+        } else {
+            // Default untuk role lain
+            $permohonans = Permohonan::with('user')->get();
+        }
         
         // Hitung statistik
         $stats = [
@@ -53,6 +77,25 @@ class DashboardController extends Controller
         
         // Query dasar
         $permohonans = Permohonan::with('user');
+        
+        // Filter berdasarkan peran
+        if ($user->role === 'dpmptsp') {
+            // DPMPTSP melihat semua permohonan kecuali yang dibuat oleh penerbitan_berkas
+            $permohonans->whereHas('user', function($query) {
+                $query->where('role', '!=', 'penerbitan_berkas');
+            });
+        } elseif ($user->role === 'pd_teknis') {
+            // PD Teknis melihat semua permohonan kecuali yang dibuat oleh penerbitan_berkas
+            $permohonans->whereHas('user', function($query) {
+                $query->where('role', '!=', 'penerbitan_berkas');
+            });
+        } elseif ($user->role === 'penerbitan_berkas') {
+            // Penerbitan Berkas hanya melihat data yang dibuat oleh role penerbitan_berkas
+            $permohonans->whereHas('user', function($query) {
+                $query->where('role', 'penerbitan_berkas');
+            });
+        }
+        // Admin melihat semua permohonan secara default
         
         // Terapkan filter tanggal
         if ($selectedDateFilter) {
@@ -112,8 +155,17 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         
-        // Ambil data permohonan
-        $permohonans = Permohonan::with('user')->get();
+        // Ambil data permohonan berdasarkan role
+        if ($user->role === 'admin') {
+            // Admin melihat semua data
+            $permohonans = Permohonan::with('user')->get();
+        } else {
+            // Penerbitan Berkas hanya melihat data yang dibuat oleh role penerbitan_berkas
+            $permohonans = Permohonan::with('user')
+                ->whereHas('user', function($query) {
+                    $query->where('role', 'penerbitan_berkas');
+                })->get();
+        }
         
         // Hitung statistik
         $stats = [

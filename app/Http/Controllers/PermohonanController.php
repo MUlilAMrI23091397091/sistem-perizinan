@@ -32,10 +32,20 @@ class PermohonanController extends Controller
 
         // Filter berdasarkan peran
         if ($user->role === 'dpmptsp') {
-            // DPMPTSP melihat semua permohonan
+            // DPMPTSP melihat semua permohonan kecuali yang dibuat oleh penerbitan_berkas
+            $permohonans->whereHas('user', function($query) {
+                $query->where('role', '!=', 'penerbitan_berkas');
+            });
         } elseif ($user->role === 'pd_teknis') {
-            // PD Teknis melihat semua permohonan (bisa diubah nanti jika perlu filter)
-            // $permohonans->where('verifikator', $user->name); // Dikomentari sementara
+            // PD Teknis melihat semua permohonan kecuali yang dibuat oleh penerbitan_berkas
+            $permohonans->whereHas('user', function($query) {
+                $query->where('role', '!=', 'penerbitan_berkas');
+            });
+        } elseif ($user->role === 'penerbitan_berkas') {
+            // Penerbitan Berkas hanya melihat data yang dibuat oleh role penerbitan_berkas
+            $permohonans->whereHas('user', function($query) {
+                $query->where('role', 'penerbitan_berkas');
+            });
         }
         // Admin melihat semua permohonan secara default
 
