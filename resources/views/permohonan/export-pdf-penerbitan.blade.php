@@ -164,6 +164,8 @@
                 <div class="ttd-text" style="font-weight: bold;">Mengetahui</div>
                 <div class="ttd-text">Koordinator Ketua Tim Kerja</div>
                 <div class="ttd-text">Pelayanan Terpadu Satu Pintu</div>
+                <!-- Tambahkan spacing seperti referensi -->
+                <div style="height: 20px;"></div>
                 <div class="ttd-line">
                     @if($ttdSettings->mengetahui_photo)
                         <img src="{{ public_path('storage/ttd_photos/' . $ttdSettings->mengetahui_photo) }}" alt="TTD Mengetahui" class="ttd-photo">
@@ -178,6 +180,8 @@
             <div class="ttd-item">
                 <div class="ttd-text" style="font-weight: bold;">{{ $menyetujuiTitle }}</div>
                 <div class="ttd-text">Ketua Tim Kerja Pelayanan Perizinan Berusaha</div>
+                <!-- Tambahkan spacing seperti referensi -->
+                <div style="height: 20px;"></div>
                 <div class="ttd-line">
                     @if($ttdSettings->menyetujui_photo)
                         <img src="{{ public_path('storage/ttd_photos/' . $ttdSettings->menyetujui_photo) }}" alt="TTD Menyetujui" class="ttd-photo">
