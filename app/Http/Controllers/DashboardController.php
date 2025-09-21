@@ -8,6 +8,7 @@ use App\Exports\PenerbitanBerkasExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -134,5 +135,50 @@ class DashboardController extends Controller
     public function exportPenerbitanBerkasExcel()
     {
         return Excel::download(new PenerbitanBerkasExport, 'data_penerbitan_berkas_' . date('Y-m-d_H-i-s') . '.xlsx');
+    }
+
+    public function storePenerbitanBerkas(Request $request)
+    {
+        $user = Auth::user();
+        
+        $rules = [
+            'no_permohonan' => 'nullable|string|unique:permohonans,no_permohonan',
+            'no_proyek' => 'nullable|string',
+            'tanggal_permohonan' => 'nullable|date',
+            'nib' => 'nullable|string|max:20',
+            'kbli' => 'nullable|string',
+            'nama_usaha' => 'nullable|string',
+            'inputan_teks' => 'nullable|string',
+            'jenis_pelaku_usaha' => 'required|string|in:Orang Perseorangan,Badan Usaha',
+            'jenis_badan_usaha' => 'nullable|string',
+            'pemilik' => 'nullable|string',
+            'modal_usaha' => 'nullable|numeric',
+            'alamat_perusahaan' => 'nullable|string',
+            'jenis_proyek' => 'nullable|string|in:Utama,Pendukung,Pendukung UMKU,Kantor Cabang',
+            'nama_perizinan' => 'nullable|string',
+            'skala_usaha' => 'nullable|string',
+            'risiko' => 'nullable|string',
+            'verifikator' => 'nullable|string',
+            'status' => 'required|in:Dikembalikan,Diterima,Ditolak,Menunggu',
+        ];
+
+        // Jika jenis pelaku usaha adalah Badan Usaha, jenis_badan_usaha wajib diisi
+        if ($request->jenis_pelaku_usaha === 'Badan Usaha') {
+            $rules['jenis_badan_usaha'] = 'required|string';
+        }
+
+        $validated = $request->validate($rules);
+        
+        // Tambahkan user_id ke data yang akan disimpan
+        $validated['user_id'] = $user->id;
+        
+        // Jika jenis_pelaku_usaha adalah 'Orang Perseorangan', set jenis_badan_usaha ke null
+        if ($validated['jenis_pelaku_usaha'] === 'Orang Perseorangan') {
+            $validated['jenis_badan_usaha'] = null;
+        }
+
+        $permohonan = Permohonan::create($validated);
+
+        return redirect()->route('penerbitan-berkas')->with('success', 'Data permohonan berhasil ditambahkan!');
     }
 }

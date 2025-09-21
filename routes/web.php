@@ -29,6 +29,9 @@ Route::get('/penerbitan-berkas', [DashboardController::class, 'penerbitanBerkas'
 Route::get('/penerbitan-berkas/export/excel', [DashboardController::class, 'exportPenerbitanBerkasExcel'])
     ->middleware(['auth', 'verified'])
     ->name('penerbitan-berkas.export.excel');
+Route::post('/penerbitan-berkas', [DashboardController::class, 'storePenerbitanBerkas'])
+    ->middleware(['auth', 'verified'])
+    ->name('penerbitan-berkas.store');
 
 Route::middleware('auth')->group(function () {
     // Profile

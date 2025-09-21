@@ -212,7 +212,7 @@
                     </h3>
                 </div>
                 
-                <form method="POST" action="{{ route('permohonan.store') }}" class="space-y-6">
+                <form method="POST" action="{{ route('penerbitan-berkas.store') }}" class="space-y-6">
                     @csrf
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -274,6 +274,21 @@
                                 <option value="Badan Usaha" @selected(old('jenis_pelaku_usaha') == 'Badan Usaha')>Badan Usaha</option>
                             </select>
                             <x-input-error :messages="$errors->get('jenis_pelaku_usaha')" class="mt-2" />
+                        </div>
+
+                        <!-- Jenis Badan Usaha (conditional) -->
+                        <div id="jenis_badan_usaha_container" style="display: none;">
+                            <x-input-label for="jenis_badan_usaha" value="Jenis Badan Usaha" />
+                            <select name="jenis_badan_usaha" id="jenis_badan_usaha" class="block mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm text-gray-700">
+                                <option value="">Pilih Jenis Badan Usaha</option>
+                                <option value="PT" @selected(old('jenis_badan_usaha') == 'PT')>PT (Perseroan Terbatas)</option>
+                                <option value="CV" @selected(old('jenis_badan_usaha') == 'CV')>CV (Commanditaire Vennootschap)</option>
+                                <option value="Firma" @selected(old('jenis_badan_usaha') == 'Firma')>Firma</option>
+                                <option value="Perseroan Komanditer" @selected(old('jenis_badan_usaha') == 'Perseroan Komanditer')>Perseroan Komanditer</option>
+                                <option value="Persekutuan Perdata" @selected(old('jenis_badan_usaha') == 'Persekutuan Perdata')>Persekutuan Perdata</option>
+                                <option value="Badan Usaha Lainnya" @selected(old('jenis_badan_usaha') == 'Badan Usaha Lainnya')>Badan Usaha Lainnya</option>
+                            </select>
+                            <x-input-error :messages="$errors->get('jenis_badan_usaha')" class="mt-2" />
                         </div>
 
                         <!-- Pemilik -->
@@ -539,4 +554,30 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const jenisPelakuUsaha = document.getElementById('jenis_pelaku_usaha');
+            const jenisBadanUsahaContainer = document.getElementById('jenis_badan_usaha_container');
+            const jenisBadanUsaha = document.getElementById('jenis_badan_usaha');
+
+            // Function to toggle jenis badan usaha dropdown
+            function toggleJenisBadanUsaha() {
+                if (jenisPelakuUsaha.value === 'Badan Usaha') {
+                    jenisBadanUsahaContainer.style.display = 'block';
+                    jenisBadanUsaha.required = true;
+                } else {
+                    jenisBadanUsahaContainer.style.display = 'none';
+                    jenisBadanUsaha.required = false;
+                    jenisBadanUsaha.value = '';
+                }
+            }
+
+            // Event listener for jenis pelaku usaha change
+            jenisPelakuUsaha.addEventListener('change', toggleJenisBadanUsaha);
+
+            // Initialize on page load
+            toggleJenisBadanUsaha();
+        });
+    </script>
 </x-sidebar-layout>

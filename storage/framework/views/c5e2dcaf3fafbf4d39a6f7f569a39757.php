@@ -227,7 +227,7 @@
                     </h3>
                 </div>
                 
-                <form method="POST" action="<?php echo e(route('permohonan.store')); ?>" class="space-y-6">
+                <form method="POST" action="<?php echo e(route('penerbitan-berkas.store')); ?>" class="space-y-6">
                     <?php echo csrf_field(); ?>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -716,6 +716,59 @@
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['messages' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($errors->get('jenis_pelaku_usaha')),'class' => 'mt-2']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalf94ed9c5393ef72725d159fe01139746)): ?>
+<?php $attributes = $__attributesOriginalf94ed9c5393ef72725d159fe01139746; ?>
+<?php unset($__attributesOriginalf94ed9c5393ef72725d159fe01139746); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalf94ed9c5393ef72725d159fe01139746)): ?>
+<?php $component = $__componentOriginalf94ed9c5393ef72725d159fe01139746; ?>
+<?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
+<?php endif; ?>
+                        </div>
+
+                        <!-- Jenis Badan Usaha (conditional) -->
+                        <div id="jenis_badan_usaha_container" style="display: none;">
+                            <?php if (isset($component)) { $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'jenis_badan_usaha','value' => 'Jenis Badan Usaha']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('input-label'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['for' => 'jenis_badan_usaha','value' => 'Jenis Badan Usaha']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
+<?php $attributes = $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
+<?php unset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
+<?php $component = $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
+<?php unset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
+<?php endif; ?>
+                            <select name="jenis_badan_usaha" id="jenis_badan_usaha" class="block mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm text-gray-700">
+                                <option value="">Pilih Jenis Badan Usaha</option>
+                                <option value="PT" <?php if(old('jenis_badan_usaha') == 'PT'): echo 'selected'; endif; ?>>PT (Perseroan Terbatas)</option>
+                                <option value="CV" <?php if(old('jenis_badan_usaha') == 'CV'): echo 'selected'; endif; ?>>CV (Commanditaire Vennootschap)</option>
+                                <option value="Firma" <?php if(old('jenis_badan_usaha') == 'Firma'): echo 'selected'; endif; ?>>Firma</option>
+                                <option value="Perseroan Komanditer" <?php if(old('jenis_badan_usaha') == 'Perseroan Komanditer'): echo 'selected'; endif; ?>>Perseroan Komanditer</option>
+                                <option value="Persekutuan Perdata" <?php if(old('jenis_badan_usaha') == 'Persekutuan Perdata'): echo 'selected'; endif; ?>>Persekutuan Perdata</option>
+                                <option value="Badan Usaha Lainnya" <?php if(old('jenis_badan_usaha') == 'Badan Usaha Lainnya'): echo 'selected'; endif; ?>>Badan Usaha Lainnya</option>
+                            </select>
+                            <?php if (isset($component)) { $__componentOriginalf94ed9c5393ef72725d159fe01139746 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalf94ed9c5393ef72725d159fe01139746 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error','data' => ['messages' => $errors->get('jenis_badan_usaha'),'class' => 'mt-2']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('input-error'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['messages' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($errors->get('jenis_badan_usaha')),'class' => 'mt-2']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalf94ed9c5393ef72725d159fe01139746)): ?>
@@ -1865,6 +1918,32 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const jenisPelakuUsaha = document.getElementById('jenis_pelaku_usaha');
+            const jenisBadanUsahaContainer = document.getElementById('jenis_badan_usaha_container');
+            const jenisBadanUsaha = document.getElementById('jenis_badan_usaha');
+
+            // Function to toggle jenis badan usaha dropdown
+            function toggleJenisBadanUsaha() {
+                if (jenisPelakuUsaha.value === 'Badan Usaha') {
+                    jenisBadanUsahaContainer.style.display = 'block';
+                    jenisBadanUsaha.required = true;
+                } else {
+                    jenisBadanUsahaContainer.style.display = 'none';
+                    jenisBadanUsaha.required = false;
+                    jenisBadanUsaha.value = '';
+                }
+            }
+
+            // Event listener for jenis pelaku usaha change
+            jenisPelakuUsaha.addEventListener('change', toggleJenisBadanUsaha);
+
+            // Initialize on page load
+            toggleJenisBadanUsaha();
+        });
+    </script>
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal1f7b3c69a858611a4ccc5f2ea9729c12)): ?>
