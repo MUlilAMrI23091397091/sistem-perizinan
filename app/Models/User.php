@@ -7,6 +7,23 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string|null $role
+ * @property string|null $jenis_pelaku_usaha
+ * @property string|null $jenis_badan_usaha
+ * @property string|null $nama_usaha
+ * @property string|null $nik
+ * @property string|null $npwp
+ * @property string|null $alamat
+ * @property string|null $no_telepon
+ * @property string|null $sektor
+ * @property string|null $jenis_proyek
+ * @property string|null $verifikator
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Permohonan> $permohonans
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */

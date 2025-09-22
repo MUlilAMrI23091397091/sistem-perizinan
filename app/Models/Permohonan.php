@@ -5,6 +5,39 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property string|null $no_permohonan
+ * @property string|null $nama_usaha
+ * @property string|null $pemilik
+ * @property string|null $jenis_perusahaan
+ * @property string|null $jenis_pelaku_usaha
+ * @property string|null $jenis_badan_usaha
+ * @property string|null $nik
+ * @property \Carbon\CarbonInterface|null $tanggal_permohonan
+ * @property string|null $nib
+ * @property string|null $alamat_perusahaan
+ * @property string|null $sektor
+ * @property string|null $kbli
+ * @property string|null $inputan_teks
+ * @property float|int|string|null $modal_usaha
+ * @property string|null $jenis_proyek
+ * @property string|null $no_proyek
+ * @property string|null $nama_perizinan
+ * @property string|null $skala_usaha
+ * @property string|null $risiko
+ * @property string|null $verifikator
+ * @property string|null $verifikasi_dpmptsp
+ * @property string|null $verifikasi_pd_teknis
+ * @property string|null $status
+ * @property string|null $keterangan_pengembalian
+ * @property string|null $keterangan_menghubungi
+ * @property string|null $keterangan_perbaikan
+ * @property string|null $keterangan_terbit
+ * @property string|null $pemroses_dan_tgl_surat
+ * @property-read \App\Models\User $user
+ */
 class Permohonan extends Model
 {
     use HasFactory;
