@@ -155,17 +155,11 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         
-        // Ambil data permohonan berdasarkan role
-        if ($user->role === 'admin') {
-            // Admin melihat semua data
-            $permohonans = Permohonan::with('user')->get();
-        } else {
-            // Penerbitan Berkas hanya melihat data yang dibuat oleh role penerbitan_berkas
-            $permohonans = Permohonan::with('user')
-                ->whereHas('user', function($query) {
-                    $query->where('role', 'penerbitan_berkas');
-                })->get();
-        }
+        // Semua user (admin dan penerbitan_berkas) hanya melihat data yang dibuat oleh role penerbitan_berkas
+        $permohonans = Permohonan::with('user')
+            ->whereHas('user', function($query) {
+                $query->where('role', 'penerbitan_berkas');
+            })->get();
         
         // Hitung statistik
         $stats = [
