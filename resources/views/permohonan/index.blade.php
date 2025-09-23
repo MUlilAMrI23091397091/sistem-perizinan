@@ -27,15 +27,15 @@
     </div>
 
     <!-- Search dan Filter -->
-    <div class="mb-6 bg-white rounded-lg shadow-sm p-6">
-        <form method="GET" action="{{ route('permohonan.index') }}" class="flex flex-col md:flex-row gap-4 items-center">
+    <div class="mb-6 bg-white rounded-xl shadow-sm p-6">
+        <form method="GET" action="{{ route('permohonan.index') }}" class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
             <!-- Search -->
-            <div class="flex-1">
-                <div class="flex">
+            <div class="md:col-span-5 col-span-12">
+                <div class="flex h-11">
                     <input type="text" name="search" value="{{ $searchQuery ?? '' }}" 
                            placeholder="Cari berdasarkan No. Permohonan atau Nama Usaha..."
                            class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700">
+                    <button type="submit" class="px-4 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 flex items-center justify-center">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
@@ -44,8 +44,8 @@
             </div>
             
             <!-- Filter Sektor -->
-            <div class="md:w-48">
-                <select name="sektor" onchange="this.form.submit()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <div class="md:col-span-3 col-span-12">
+                <select name="sektor" onchange="this.form.submit()" class="w-full h-11 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <option value="">Semua Sektor</option>
                     @foreach($sektors ?? [] as $sektor)
                         <option value="{{ $sektor }}" {{ ($selectedSektor ?? '') == $sektor ? 'selected' : '' }}>
@@ -56,8 +56,8 @@
             </div>
             
             <!-- Filter Periode -->
-            <div class="md:w-48">
-                <select name="date_filter" onchange="this.form.submit()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <div class="md:col-span-2 col-span-12">
+                <select name="date_filter" onchange="this.form.submit()" class="w-full h-11 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <option value="">Semua Periode</option>
                     <option value="today" {{ ($selectedDateFilter ?? '') == 'today' ? 'selected' : '' }}>Hari Ini</option>
                     <option value="yesterday" {{ ($selectedDateFilter ?? '') == 'yesterday' ? 'selected' : '' }}>Kemarin</option>
@@ -71,18 +71,14 @@
             
             <!-- Custom Date (muncul jika Custom Range dipilih) -->
             @if(($selectedDateFilter ?? '') == 'custom')
-            <div class="flex flex-col md:flex-row gap-4 items-center">
-                <div class="flex-1 md:w-48">
+            <div class="md:col-span-12 col-span-12 grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                <div class="md:col-span-3 col-span-12">
                     <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                           class="w-full h-11 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
                 </div>
-                <div class="flex gap-2">
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium transition-colors">
-                        Filter
-                    </button>
-                    <a href="{{ route('permohonan.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium transition-colors">
-                        Reset
-                    </a>
+                <div class="md:col-span-9 col-span-12 flex gap-2 md:justify-end">
+                    <button type="submit" class="h-11 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium transition-colors">Filter</button>
+                    <a href="{{ route('permohonan.index') }}" class="h-11 px-4 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium transition-colors">Reset</a>
                 </div>
             </div>
             @endif
@@ -100,8 +96,8 @@
             @endif
             
             <!-- Tambah Permohonan -->
-            <div>
-                <a href="{{ route('permohonan.create') }}" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex items-center">
+            <div class="md:col-span-2 col-span-12 md:justify-self-end">
+                <a href="{{ route('permohonan.create') }}" class="w-full md:w-auto inline-flex items-center justify-center h-11 bg-green-600 text-white px-4 rounded-lg hover:bg-green-700">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                     </svg>
