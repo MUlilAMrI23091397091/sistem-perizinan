@@ -151,30 +151,44 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 $sheet->setCellValue('D' . $ttdRow, 'Mengetahui');
                 $sheet->getStyle('D' . $ttdRow)->getFont()->setBold(true);
                 $sheet->getStyle('D' . $ttdRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('D' . $ttdRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 $sheet->setCellValue('D' . ($ttdRow + 1), 'Koordinator Ketua Tim Kerja');
                 $sheet->getStyle('D' . ($ttdRow + 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('D' . ($ttdRow + 1))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 $sheet->setCellValue('D' . ($ttdRow + 2), 'Pelayanan Terpadu Satu Pintu');
                 $sheet->getStyle('D' . ($ttdRow + 2))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                // Tambahkan baris kosong untuk spacing
-                $sheet->setCellValue('D' . ($ttdRow + 4), 'Yohanes Franklin, S.H.');
-                $sheet->getStyle('D' . ($ttdRow + 4))->getFont()->setBold(true);
-                $sheet->setCellValue('D' . ($ttdRow + 5), 'Penata Tk.1');
-                $sheet->setCellValue('D' . ($ttdRow + 6), 'NIP: 198502182010011008');
+                $sheet->getStyle('D' . ($ttdRow + 2))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                // Tambahkan 3 baris kosong untuk spacing (ttdRow+3, +4, +5)
+                $sheet->setCellValue('D' . ($ttdRow + 6), 'Yohanes Franklin, S.H.');
+                $sheet->getStyle('D' . ($ttdRow + 6))->getFont()->setBold(true);
+                $sheet->getStyle('D' . ($ttdRow + 6))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('D' . ($ttdRow + 6))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->setCellValue('D' . ($ttdRow + 7), 'Penata Tk.1');
+                $sheet->getStyle('D' . ($ttdRow + 7))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('D' . ($ttdRow + 7))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->setCellValue('D' . ($ttdRow + 8), 'NIP: 198502182010011008');
+                $sheet->getStyle('D' . ($ttdRow + 8))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('D' . ($ttdRow + 8))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 
                 // TTD Menyetujui (kanan) - di bawah kolom SKALA USAHA (kolom O)
                 $sheet->setCellValue('O' . $ttdRow, 'Surabaya, ' . date('d F Y'));
                 $sheet->getStyle('O' . $ttdRow)->getFont()->setBold(true);
-                $sheet->getStyle('O' . $ttdRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                $sheet->getStyle('O' . $ttdRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('O' . $ttdRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 $sheet->setCellValue('O' . ($ttdRow + 1), 'Ketua Tim Kerja Pelayanan Perizinan Berusaha');
-                $sheet->getStyle('O' . ($ttdRow + 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
-                // Tambahkan baris kosong untuk spacing
-                $sheet->setCellValue('O' . ($ttdRow + 3), 'Ulvia Zulvia, ST');
-                $sheet->getStyle('O' . ($ttdRow + 3))->getFont()->setBold(true);
-                $sheet->getStyle('O' . ($ttdRow + 3))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
-                $sheet->setCellValue('O' . ($ttdRow + 4), 'Penata Tk. 1');
-                $sheet->getStyle('O' . ($ttdRow + 4))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
-                $sheet->setCellValue('O' . ($ttdRow + 5), 'NIP: 197710132006042012');
-                $sheet->getStyle('O' . ($ttdRow + 5))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT);
+                $sheet->getStyle('O' . ($ttdRow + 1))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('O' . ($ttdRow + 1))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                // Tambahkan 3 baris kosong untuk spacing (ttdRow+2, +3, +4)
+                $sheet->setCellValue('O' . ($ttdRow + 6), 'Ulvia Zulvia, ST');
+                $sheet->getStyle('O' . ($ttdRow + 6))->getFont()->setBold(true);
+                $sheet->getStyle('O' . ($ttdRow + 6))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('O' . ($ttdRow + 6))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->setCellValue('O' . ($ttdRow + 7), 'Penata Tk. 1');
+                $sheet->getStyle('O' . ($ttdRow + 7))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('O' . ($ttdRow + 7))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->setCellValue('O' . ($ttdRow + 8), 'NIP: 197710132006042012');
+                $sheet->getStyle('O' . ($ttdRow + 8))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('O' . ($ttdRow + 8))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
             },
         ];
     }
