@@ -1,30 +1,7 @@
 <x-sidebar-layout>
     <x-slot name="header">Daftar Permohonan</x-slot>
 
-    <!-- Export Buttons -->
-    <div class="mb-4 flex flex-wrap gap-3">
-        <a href="{{ route('permohonan.export.excel') }}" 
-           class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-            </svg>
-            Ekspor Excel
-        </a>
-        <a href="{{ route('permohonan.export.pdf') }}" 
-           class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-            </svg>
-            Ekspor PDF Lengkap
-        </a>
-        <a href="{{ route('permohonan.export.pdf-compact') }}" 
-           class="inline-flex items-center px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-            </svg>
-            Ekspor PDF Ringkasan
-        </a>
-    </div>
+    
 
     <!-- Search dan Filter -->
     <div class="mb-6 bg-white rounded-xl shadow-sm p-6">
@@ -111,13 +88,37 @@
     <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
         <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
             <div class="flex items-center justify-between">
-                <div>
+                <div class="flex items-center gap-4">
                     <h3 class="text-xl font-semibold text-gray-900 flex items-center">
                         <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
                         Daftar Permohonan
                     </h3>
+                    <!-- Export Buttons moved here -->
+                    <div class="hidden md:flex flex-wrap gap-2">
+                        <a href="{{ route('permohonan.export.excel') }}" 
+                           class="inline-flex items-center px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            Ekspor Excel
+                        </a>
+                        <a href="{{ route('permohonan.export.pdf') }}" 
+                           class="inline-flex items-center px-3 py-1.5 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            PDF Lengkap
+                        </a>
+                        <a href="{{ route('permohonan.export.pdf-compact') }}" 
+                           class="inline-flex items-center px-3 py-1.5 bg-orange-600 text-white rounded-md hover:bg-orange-700 text-sm">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            PDF Ringkasan
+                        </a>
+                    </div>
                     @if($searchQuery || $selectedSektor || $selectedDateFilter)
                     <div class="mt-2 flex flex-wrap gap-2">
                         @if($searchQuery)
@@ -163,9 +164,14 @@
                     </div>
                     @endif
                 </div>
-                <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
-                    {{ $permohonans->total() }} Data
-                </span>
+                <div class="flex items-center gap-3">
+                    <div class="md:hidden flex flex-wrap gap-2">
+                        <a href="{{ route('permohonan.export.excel') }}" class="inline-flex items-center px-3 py-1.5 bg-green-600 text-white rounded-md text-sm">Excel</a>
+                        <a href="{{ route('permohonan.export.pdf') }}" class="inline-flex items-center px-3 py-1.5 bg-red-600 text-white rounded-md text-sm">PDF</a>
+                        <a href="{{ route('permohonan.export.pdf-compact') }}" class="inline-flex items-center px-3 py-1.5 bg-orange-600 text-white rounded-md text-sm">Ringkas</a>
+                    </div>
+                    <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">{{ $permohonans->total() }} Data</span>
+                </div>
             </div>
         </div>
         
