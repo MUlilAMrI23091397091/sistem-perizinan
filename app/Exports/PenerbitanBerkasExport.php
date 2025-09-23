@@ -17,6 +17,10 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 
 class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithColumnWidths, WithEvents, WithDrawings
 {
+    /**
+     * Counter untuk kolom NO agar berurutan 1..n
+     */
+    private int $rowNumber = 0;
     public function collection()
     {
         return PenerbitanBerkas::with('user')->orderBy('created_at', 'desc')->get();
@@ -60,7 +64,7 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                    'tanggal BAP: ' . date('d');
 
         return [
-            $row->id,
+            ++$this->rowNumber,
             $row->no_permohonan ?? '-',
             $row->no_proyek ?? '-',
             $tanggalPermohonan,
