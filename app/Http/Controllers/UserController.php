@@ -34,8 +34,16 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', 'in:admin,pd_teknis,dpmptsp,penerbitan_berkas'],
+            'role' => ['required', 'in:pd_teknis,dpmptsp,penerbitan_berkas'],
         ]);
+
+        // Cek apakah sudah ada admin
+        $adminExists = User::where('role', 'admin')->exists();
+        
+        // Jika role yang dipilih adalah admin dan sudah ada admin, tolak
+        if ($request->role === 'admin' && $adminExists) {
+            return back()->withErrors(['role' => 'Role admin sudah ada dan tidak dapat dibuat lagi.']);
+        }
 
         User::create([
             'name' => $request->name,
@@ -60,6 +68,14 @@ class UserController extends Controller
             'role' => ['required', 'in:admin,pd_teknis,dpmptsp,penerbitan_berkas'],
             'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
         ]);
+
+        // Cek apakah sudah ada admin dan user yang diupdate bukan admin yang sudah ada
+        $adminExists = User::where('role', 'admin')->where('id', '!=', $user->id)->exists();
+        
+        // Jika role yang dipilih adalah admin dan sudah ada admin lain, tolak
+        if ($request->role === 'admin' && $adminExists) {
+            return back()->withErrors(['role' => 'Role admin sudah ada dan tidak dapat dibuat lagi.']);
+        }
 
         $user->name = $request->name;
         $user->email = $request->email;

@@ -56,7 +56,6 @@
                                     <x-input-label for="role" value="Role" />
                                     <select name="role" id="role" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
                                         <option value="">Pilih Role</option>
-                                        <option value="admin" @selected(old('role') == 'admin')>Admin</option>
                                         <option value="pd_teknis" @selected(old('role') == 'pd_teknis')>PD Teknis</option>
                                         <option value="dpmptsp" @selected(old('role') == 'dpmptsp')>DPMPTSP</option>
                                         <option value="penerbitan_berkas" @selected(old('role') == 'penerbitan_berkas')>Penerbitan Berkas</option>

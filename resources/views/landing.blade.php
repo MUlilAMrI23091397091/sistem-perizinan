@@ -175,7 +175,7 @@
                         Buat akun baru untuk memulai.
                     </p>
 
-                    <form method="POST" action="{{ route('register') }}" class="space-y-4">
+                    <form method="POST" action="{{ route('landing.register') }}" class="space-y-4">
                         @csrf
                         <div>
                             <input
@@ -240,7 +240,6 @@
                                 required
                             >
                                 <option value="">Pilih Role</option>
-                                <option value="admin" @selected(old('role') == 'admin')>Admin</option>
                                 <option value="dpmptsp" @selected(old('role') == 'dpmptsp')>DPMPTSP</option>
                                 <option value="pd_teknis" @selected(old('role') == 'pd_teknis')>PD Teknis</option>
                                 <option value="penerbitan_berkas" @selected(old('role') == 'penerbitan_berkas')>Penerbitan Berkas</option>
