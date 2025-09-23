@@ -77,11 +77,44 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-xl font-semibold text-gray-900 flex items-center">
-                                <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                </svg>
-                                Data Permohonan
+                                 <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                 </svg>
+                                 Data Permohonan
                             </h3>
+                        </div>
+                        <div>
+                            <form method="GET" action="<?php echo e(route('penerbitan-berkas')); ?>" class="flex items-end gap-3">
+                                <div class="hidden">
+                                    <input type="hidden" name="page" value="<?php echo e(request('page')); ?>" />
+                                </div>
+                                <div class="w-48">
+                                    <select name="date_filter" onchange="this.form.submit()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                                        <option value="">Semua Periode</option>
+                                        <option value="today" <?php if(($selectedDateFilter ?? '')==='today'): echo 'selected'; endif; ?>>Hari Ini</option>
+                                        <option value="yesterday" <?php if(($selectedDateFilter ?? '')==='yesterday'): echo 'selected'; endif; ?>>Kemarin</option>
+                                        <option value="this_week" <?php if(($selectedDateFilter ?? '')==='this_week'): echo 'selected'; endif; ?>>Minggu Ini</option>
+                                        <option value="last_week" <?php if(($selectedDateFilter ?? '')==='last_week'): echo 'selected'; endif; ?>>Minggu Lalu</option>
+                                        <option value="this_month" <?php if(($selectedDateFilter ?? '')==='this_month'): echo 'selected'; endif; ?>>Bulan Ini</option>
+                                        <option value="last_month" <?php if(($selectedDateFilter ?? '')==='last_month'): echo 'selected'; endif; ?>>Bulan Lalu</option>
+                                        <option value="custom" <?php if(($selectedDateFilter ?? '')==='custom'): echo 'selected'; endif; ?>>Custom</option>
+                                    </select>
+                                </div>
+                                <?php if(($selectedDateFilter ?? '')==='custom'): ?>
+                                <div>
+                                    <input type="date" name="custom_date" value="<?php echo e($customDate ?? ''); ?>" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
+                                </div>
+                                <?php endif; ?>
+                                <div class="flex">
+                                    <input type="text" name="search" value="<?php echo e($search ?? ''); ?>" placeholder="Cari berdasarkan No. Permohonan atau Nama Usaha..." class="w-64 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
+                                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <a href="<?php echo e(route('penerbitan-berkas')); ?>" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm">Reset</a>
+                            </form>
                         </div>
                     </div>
                 </div>

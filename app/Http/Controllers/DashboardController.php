@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Permohonan;
+use App\Models\PenerbitanBerkas;
 use App\Models\TtdSetting;
 use App\Exports\PenerbitanBerkasExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -33,11 +34,8 @@ class DashboardController extends Controller
                     $query->where('role', '!=', 'penerbitan_berkas');
                 })->get();
         } elseif ($user->role === 'penerbitan_berkas') {
-            // Penerbitan Berkas hanya melihat data yang dibuat oleh role penerbitan_berkas
-            $permohonans = Permohonan::with('user')
-                ->whereHas('user', function($query) {
-                    $query->where('role', 'penerbitan_berkas');
-                })->get();
+            // Penerbitan Berkas melihat modul khususnya sendiri (data terpisah)
+            return $this->penerbitanBerkas($request);
         } else {
             // Default untuk role lain
             $permohonans = Permohonan::with('user')->get();
@@ -151,15 +149,77 @@ class DashboardController extends Controller
         return view('statistik', compact('stats', 'selectedDateFilter', 'customDate'));
     }
 
-    public function penerbitanBerkas()
+    public function penerbitanBerkas(Request $request)
     {
         $user = Auth::user();
-        
-        // Semua user (admin dan penerbitan_berkas) hanya melihat data yang dibuat oleh role penerbitan_berkas
-        $permohonans = Permohonan::with('user')
-            ->whereHas('user', function($query) {
-                $query->where('role', 'penerbitan_berkas');
-            })->get();
+
+        // Batasi akses hanya admin dan penerbitan_berkas
+        if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {
+            return redirect()->route('dashboard')->with('error', 'Tidak memiliki akses ke Penerbitan Berkas.');
+        }
+
+        // Filters
+        $selectedDateFilter = $request->query('date_filter');
+        $customDate = $request->query('custom_date');
+        $search = $request->query('search');
+
+        $query = PenerbitanBerkas::with('user');
+
+        // Filter tanggal
+        if ($selectedDateFilter) {
+            $now = Carbon::now();
+            switch ($selectedDateFilter) {
+                case 'today':
+                    $query->whereDate('created_at', $now->toDateString());
+                    break;
+                case 'yesterday':
+                    $query->whereDate('created_at', $now->subDay()->toDateString());
+                    break;
+                case 'this_week':
+                    $query->whereBetween('created_at', [
+                        $now->startOfWeek()->toDateTimeString(),
+                        $now->endOfWeek()->toDateTimeString(),
+                    ]);
+                    break;
+                case 'last_week':
+                    $query->whereBetween('created_at', [
+                        $now->subWeek()->startOfWeek()->toDateTimeString(),
+                        $now->subWeek()->endOfWeek()->toDateTimeString(),
+                    ]);
+                    break;
+                case 'this_month':
+                    $query->whereMonth('created_at', $now->month)
+                          ->whereYear('created_at', $now->year);
+                    break;
+                case 'last_month':
+                    $lastMonth = $now->subMonth();
+                    $query->whereMonth('created_at', $lastMonth->month)
+                          ->whereYear('created_at', $lastMonth->year);
+                    break;
+                case 'custom':
+                    if ($customDate) {
+                        $query->whereDate('created_at', $customDate);
+                    }
+                    break;
+            }
+        }
+
+        // Pencarian bebas
+        if (!empty($search)) {
+            $query->where(function ($q) use ($search) {
+                $q->where('no_permohonan', 'like', "%{$search}%")
+                  ->orWhere('no_proyek', 'like', "%{$search}%")
+                  ->orWhere('nib', 'like', "%{$search}%")
+                  ->orWhere('kbli', 'like', "%{$search}%")
+                  ->orWhere('nama_usaha', 'like', "%{$search}%")
+                  ->orWhere('inputan_teks', 'like', "%{$search}%")
+                  ->orWhere('pemilik', 'like', "%{$search}%")
+                  ->orWhere('nama_perizinan', 'like', "%{$search}%")
+                  ->orWhere('alamat_perusahaan', 'like', "%{$search}%");
+            });
+        }
+
+        $permohonans = $query->orderBy('created_at', 'desc')->get();
         
         // Hitung statistik
         $stats = [
@@ -175,7 +235,7 @@ class DashboardController extends Controller
         // Proses title menyetujui untuk mengganti placeholder tanggal
         $menyetujuiTitle = str_replace('{{ date("d F Y") }}', date('d F Y'), $ttdSettings->menyetujui_title);
 
-        return view('dashboard.penerbitan_berkas', compact('permohonans', 'stats', 'ttdSettings', 'menyetujuiTitle'));
+        return view('dashboard.penerbitan_berkas', compact('permohonans', 'stats', 'ttdSettings', 'menyetujuiTitle', 'selectedDateFilter', 'customDate', 'search'));
     }
 
     public function exportPenerbitanBerkasExcel()
@@ -186,9 +246,12 @@ class DashboardController extends Controller
     public function storePenerbitanBerkas(Request $request)
     {
         $user = Auth::user();
+        if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {
+            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk melakukan aksi ini.');
+        }
         
         $rules = [
-            'no_permohonan' => 'nullable|string|unique:permohonans,no_permohonan',
+            'no_permohonan' => 'nullable|string|unique:penerbitan_berkas,no_permohonan',
             'no_proyek' => 'nullable|string',
             'tanggal_permohonan' => 'nullable|date',
             'nib' => 'nullable|string|max:20',
@@ -228,9 +291,9 @@ class DashboardController extends Controller
             $validated['status'] = 'Menunggu';
         }
 
-        $permohonan = Permohonan::create($validated);
+        PenerbitanBerkas::create($validated);
 
-        return redirect()->route('penerbitan-berkas')->with('success', 'Data permohonan berhasil ditambahkan!');
+        return redirect()->route('penerbitan-berkas')->with('success', 'Data penerbitan berkas berhasil ditambahkan!');
     }
 
     public function editPenerbitanBerkas($id)
@@ -242,7 +305,7 @@ class DashboardController extends Controller
             return response()->json(['error' => 'Unauthorized'], 403);
         }
         
-        $permohonan = Permohonan::findOrFail($id);
+        $permohonan = PenerbitanBerkas::findOrFail($id);
         
         return response()->json($permohonan);
     }
@@ -259,7 +322,7 @@ class DashboardController extends Controller
         $permohonan = Permohonan::findOrFail($id);
         
         $rules = [
-            'no_permohonan' => 'nullable|string|unique:permohonans,no_permohonan,' . $id,
+            'no_permohonan' => 'nullable|string|unique:penerbitan_berkas,no_permohonan,' . $id,
             'no_proyek' => 'nullable|string',
             'tanggal_permohonan' => 'nullable|date',
             'nib' => 'nullable|string|max:20',
@@ -305,7 +368,7 @@ class DashboardController extends Controller
             return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk melakukan aksi ini.');
         }
         
-        $permohonan = Permohonan::findOrFail($id);
+        $permohonan = PenerbitanBerkas::findOrFail($id);
         $permohonan->delete();
 
         return redirect()->route('penerbitan-berkas')->with('success', 'Data permohonan berhasil dihapus!');

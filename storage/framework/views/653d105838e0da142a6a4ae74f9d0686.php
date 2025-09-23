@@ -10,60 +10,13 @@
 <?php $component->withAttributes([]); ?>
      <?php $__env->slot('header', null, []); ?> Statistik Permohonan <?php $__env->endSlot(); ?>
 
-    <!-- Filter Section -->
-    <div class="mb-6 bg-white rounded-lg shadow-sm p-6">
-        <form method="GET" action="<?php echo e(route('statistik')); ?>" class="flex flex-col md:flex-row gap-4">
-            <!-- Filter Periode -->
-            <div class="md:w-48">
-                <select name="date_filter" onchange="this.form.submit()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Semua Periode</option>
-                    <option value="today" <?php echo e(($selectedDateFilter ?? '') == 'today' ? 'selected' : ''); ?>>Hari Ini</option>
-                    <option value="yesterday" <?php echo e(($selectedDateFilter ?? '') == 'yesterday' ? 'selected' : ''); ?>>Kemarin</option>
-                    <option value="this_week" <?php echo e(($selectedDateFilter ?? '') == 'this_week' ? 'selected' : ''); ?>>Minggu Ini</option>
-                    <option value="last_week" <?php echo e(($selectedDateFilter ?? '') == 'last_week' ? 'selected' : ''); ?>>Minggu Lalu</option>
-                    <option value="this_month" <?php echo e(($selectedDateFilter ?? '') == 'this_month' ? 'selected' : ''); ?>>Bulan Ini</option>
-                    <option value="last_month" <?php echo e(($selectedDateFilter ?? '') == 'last_month' ? 'selected' : ''); ?>>Bulan Lalu</option>
-                    <option value="custom" <?php echo e(($selectedDateFilter ?? '') == 'custom' ? 'selected' : ''); ?>>Custom Range</option>
-                </select>
-            </div>
-            
-            <!-- Custom Date (muncul jika Custom Range dipilih) -->
-            <?php if(($selectedDateFilter ?? '') == 'custom'): ?>
-            <div class="flex flex-col md:flex-row gap-4 items-end">
-                <div class="flex-1 md:w-48">
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Pilih Tanggal</label>
-                    <input type="date" name="custom_date" value="<?php echo e($customDate ?? ''); ?>" 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
-                </div>
-                <div class="flex gap-2">
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium transition-colors">
-                        Filter
-                    </button>
-                    <a href="<?php echo e(route('statistik')); ?>" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium transition-colors">
-                        Reset
-                    </a>
-                </div>
-            </div>
-            <?php endif; ?>
-            
-            <!-- Reset Filter (hanya muncul jika bukan custom range) -->
-            <?php if($selectedDateFilter && $selectedDateFilter != 'custom'): ?>
-            <div>
-                <a href="<?php echo e(route('statistik')); ?>" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 flex items-center">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                    </svg>
-                    Reset
-                </a>
-            </div>
-            <?php endif; ?>
-        </form>
-    </div>
+    
 
     <!-- Header Section -->
     <div class="mb-8">
         <div class="bg-white rounded-xl shadow-lg p-6">
-                <div class="flex items-center space-x-3">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
                     <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
@@ -100,6 +53,35 @@
                             </span>
                         </div>
                         <?php endif; ?>
+                    </div>
+                    </div>
+                    <div>
+                        <form method="GET" action="<?php echo e(route('statistik')); ?>" class="flex items-end gap-3">
+                            <div class="md:w-48">
+                                <select name="date_filter" onchange="this.form.submit()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="">Semua Periode</option>
+                                    <option value="today" <?php echo e(($selectedDateFilter ?? '') == 'today' ? 'selected' : ''); ?>>Hari Ini</option>
+                                    <option value="yesterday" <?php echo e(($selectedDateFilter ?? '') == 'yesterday' ? 'selected' : ''); ?>>Kemarin</option>
+                                    <option value="this_week" <?php echo e(($selectedDateFilter ?? '') == 'this_week' ? 'selected' : ''); ?>>Minggu Ini</option>
+                                    <option value="last_week" <?php echo e(($selectedDateFilter ?? '') == 'last_week' ? 'selected' : ''); ?>>Minggu Lalu</option>
+                                    <option value="this_month" <?php echo e(($selectedDateFilter ?? '') == 'this_month' ? 'selected' : ''); ?>>Bulan Ini</option>
+                                    <option value="last_month" <?php echo e(($selectedDateFilter ?? '') == 'last_month' ? 'selected' : ''); ?>>Bulan Lalu</option>
+                                    <option value="custom" <?php echo e(($selectedDateFilter ?? '') == 'custom' ? 'selected' : ''); ?>>Custom</option>
+                                </select>
+                            </div>
+                            <?php if(($selectedDateFilter ?? '') == 'custom'): ?>
+                            <div class="flex items-end gap-2">
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-700 mb-1">Tanggal</label>
+                                    <input type="date" name="custom_date" value="<?php echo e($customDate ?? ''); ?>" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                                </div>
+                                <div class="pb-0.5 flex gap-2">
+                                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium">Filter</button>
+                                    <a href="<?php echo e(route('statistik')); ?>" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium">Reset</a>
+                                </div>
+                            </div>
+                            <?php endif; ?>
+                        </form>
                     </div>
                 </div>
             </div>

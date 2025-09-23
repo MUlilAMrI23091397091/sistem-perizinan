@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Permohonan;
+use App\Models\PenerbitanBerkas;
 use App\Models\TtdSetting;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -19,7 +19,7 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
 {
     public function collection()
     {
-        return Permohonan::with('user')->orderBy('created_at', 'desc')->get();
+        return PenerbitanBerkas::with('user')->orderBy('created_at', 'desc')->get();
     }
 
     public function headings(): array
@@ -45,14 +45,14 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
         ];
     }
 
-    public function map($permohonan): array
+    public function map($row): array
     {
         // Format modal usaha dengan Rp
-        $modalUsaha = $permohonan->modal_usaha ? 'Rp' . number_format($permohonan->modal_usaha, 0, ',', '.') : '-';
+        $modalUsaha = $row->modal_usaha ? 'Rp' . number_format($row->modal_usaha, 0, ',', '.') : '-';
         
         // Format tanggal permohonan
-        $tanggalPermohonan = $permohonan->tanggal_permohonan ? 
-            \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->locale('id')->isoFormat('D MMMM Y') : '-';
+        $tanggalPermohonan = $row->tanggal_permohonan ? 
+            \Carbon\Carbon::parse($row->tanggal_permohonan)->locale('id')->isoFormat('D MMMM Y') : '-';
         
         // Format pemroses dan tanggal (contoh format)
         $pemroses = 'DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU' . "\n" .
@@ -60,22 +60,22 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                    'tanggal BAP: ' . date('d');
 
         return [
-            $permohonan->id,
-            $permohonan->no_permohonan ?? '-',
-            $permohonan->no_proyek ?? '-',
+            $row->id,
+            $row->no_permohonan ?? '-',
+            $row->no_proyek ?? '-',
             $tanggalPermohonan,
-            $permohonan->nib ?? '-',
-            $permohonan->kbli ?? '-',
-            $permohonan->nama_usaha ?? '-',
-            $permohonan->inputan_teks ?? '-',
-            $permohonan->jenis_pelaku_usaha ?? '-',
-            $permohonan->pemilik ?? '-',
+            $row->nib ?? '-',
+            $row->kbli ?? '-',
+            $row->nama_usaha ?? '-',
+            $row->inputan_teks ?? '-',
+            $row->jenis_pelaku_usaha ?? '-',
+            $row->pemilik ?? '-',
             $modalUsaha,
-            $permohonan->alamat_perusahaan ?? '-',
-            $permohonan->jenis_proyek ?? '-',
-            $permohonan->nama_perizinan ?? '-',
-            $permohonan->skala_usaha ?? '-',
-            $permohonan->risiko ?? '-',
+            $row->alamat_perusahaan ?? '-',
+            $row->jenis_proyek ?? '-',
+            $row->nama_perizinan ?? '-',
+            $row->skala_usaha ?? '-',
+            $row->risiko ?? '-',
             $pemroses
         ];
     }

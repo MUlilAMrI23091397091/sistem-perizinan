@@ -67,11 +67,44 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-xl font-semibold text-gray-900 flex items-center">
-                                <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                </svg>
-                                Data Permohonan
+                                 <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                 </svg>
+                                 Data Permohonan
                             </h3>
+                        </div>
+                        <div>
+                            <form method="GET" action="{{ route('penerbitan-berkas') }}" class="flex items-end gap-3">
+                                <div class="hidden">
+                                    <input type="hidden" name="page" value="{{ request('page') }}" />
+                                </div>
+                                <div class="w-48">
+                                    <select name="date_filter" onchange="this.form.submit()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                                        <option value="">Semua Periode</option>
+                                        <option value="today" @selected(($selectedDateFilter ?? '')==='today')>Hari Ini</option>
+                                        <option value="yesterday" @selected(($selectedDateFilter ?? '')==='yesterday')>Kemarin</option>
+                                        <option value="this_week" @selected(($selectedDateFilter ?? '')==='this_week')>Minggu Ini</option>
+                                        <option value="last_week" @selected(($selectedDateFilter ?? '')==='last_week')>Minggu Lalu</option>
+                                        <option value="this_month" @selected(($selectedDateFilter ?? '')==='this_month')>Bulan Ini</option>
+                                        <option value="last_month" @selected(($selectedDateFilter ?? '')==='last_month')>Bulan Lalu</option>
+                                        <option value="custom" @selected(($selectedDateFilter ?? '')==='custom')>Custom</option>
+                                    </select>
+                                </div>
+                                @if(($selectedDateFilter ?? '')==='custom')
+                                <div>
+                                    <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
+                                </div>
+                                @endif
+                                <div class="flex">
+                                    <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Cari berdasarkan No. Permohonan atau Nama Usaha..." class="w-64 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
+                                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <a href="{{ route('penerbitan-berkas') }}" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm">Reset</a>
+                            </form>
                         </div>
                     </div>
                 </div>
