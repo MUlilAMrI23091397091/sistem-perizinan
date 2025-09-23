@@ -11,7 +11,7 @@ use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LandingController::class, 'index'])->name('landing');
-Route::post('/register', [LandingController::class, 'register'])->name('landing.register');
+Route::post('/landing-register', [LandingController::class, 'register'])->name('landing.register');
 
 // Dashboard (invokable controller)
 Route::get('/dashboard', DashboardController::class)
