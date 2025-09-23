@@ -77,6 +77,7 @@ class Permohonan extends Model
         'terbit',
         'keterangan_terbit',
         'pemroses_dan_tgl_surat',
+        'keterangan',
     ];
 
     /**
