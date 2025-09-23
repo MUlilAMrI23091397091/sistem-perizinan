@@ -92,7 +92,7 @@
                                 </div>
                                 @if(($selectedDateFilter ?? '')==='custom')
                                 <div>
-                                    <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
+                                    <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" onchange="this.form.submit()" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
                                 </div>
                                 @endif
                                 <div class="flex">
