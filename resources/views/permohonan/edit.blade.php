@@ -47,136 +47,10 @@
                             };
                         @endphp
 
-                        @if($user->role === 'admin')
-                            {{-- ADMIN: TAMPILKAN SEMUA FIELD --}}
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                                {{-- KOLOM KIRI --}}
-                                <div class="space-y-6">
-                                    <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
-                        @elseif($user->role === 'pd_teknis')
-                            {{-- PD TEKNIS: HANYA FIELD TRACKING & VERIFIKASI --}}
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                            {{-- KOLOM KIRI --}}
                             <div class="space-y-6">
-                                <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Verifikasi & Tracking PD Teknis</h3>
-                                
-                                <div>
-                                    <label for="verifikasi_pd_teknis" class="block font-medium text-sm text-gray-700">Verifikasi PD Teknis</label>
-                                    <select name="verifikasi_pd_teknis" id="verifikasi_pd_teknis"
-                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                                        <option value="">-- Pilih Status --</option>
-                                        <option value="Berkas Disetujui" @selected(old('verifikasi_pd_teknis', $permohonan->verifikasi_pd_teknis) == 'Berkas Disetujui')>Berkas Disetujui</option>
-                                        <option value="Berkas Diperbaiki" @selected(old('verifikasi_pd_teknis', $permohonan->verifikasi_pd_teknis) == 'Berkas Diperbaiki')>Berkas Diperbaiki</option>
-                                        <option value="Pemohon Dihubungi" @selected(old('verifikasi_pd_teknis', $permohonan->verifikasi_pd_teknis) == 'Pemohon Dihubungi')>Pemohon Dihubungi</option>
-                                        <option value="Berkas Diunggah Ulang" @selected(old('verifikasi_pd_teknis', $permohonan->verifikasi_pd_teknis) == 'Berkas Diunggah Ulang')>Berkas Diunggah Ulang</option>
-                                        <option value="Pemohon Belum Dihubungi" @selected(old('verifikasi_pd_teknis', $permohonan->verifikasi_pd_teknis) == 'Pemohon Belum Dihubungi')>Pemohon Belum Dihubungi</option>
-                                    </select>
-                                    @error('verifikasi_pd_teknis')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                </div>
-
-                                <div>
-                                    <label for="tanggal_verifikasi_pd_teknis" class="block font-medium text-sm text-gray-700">Tanggal Verifikasi PD Teknis</label>
-                                    <input id="tanggal_verifikasi_pd_teknis" name="tanggal_verifikasi_pd_teknis" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="{{ old('tanggal_verifikasi_pd_teknis', $permohonan->tanggal_verifikasi_pd_teknis) }}" />
-                                    @error('tanggal_verifikasi_pd_teknis')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                </div>
-
-                                <div>
-                                    <label for="status" class="block font-medium text-sm text-gray-700">Status Permohonan</label>
-                                    <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
-                                        <option value="Diterima" @selected(old('status', $permohonan->status) == 'Diterima')>Diterima</option>
-                                        <option value="Dikembalikan" @selected(old('status', $permohonan->status) == 'Dikembalikan')>Dikembalikan</option>
-                                        <option value="Ditolak" @selected(old('status', $permohonan->status) == 'Ditolak')>Ditolak</option>
-                                        <option value="Menunggu" @selected(old('status', $permohonan->status) == 'Menunggu')>Menunggu</option>
-                                    </select>
-                                    @error('status')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                </div>
-                                
-                                {{-- Tombol Submit untuk PD Teknis --}}
-                                <div class="flex items-center justify-end mt-8 pt-6 border-t">
-                                    <a href="{{ route('dashboard') }}"
-                                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md mr-2 hover:bg-gray-300">Batal</a>
-                                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                        {{ __('Simpan') }}
-                                    </button>
-                                </div>
-                            </div>
-                        @elseif($user->role === 'dpmptsp')
-                            {{-- DPMPTSP: HANYA FIELD PERMOHONAN & TRACKING --}}
-                            <div class="space-y-6">
-                                <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon & Tracking DPMPTSP</h3>
-                                
-                                <div>
-                                    <label for="no_permohonan" class="block font-medium text-sm text-gray-700">No. Permohonan</label>
-                                    <input id="no_permohonan" name="no_permohonan" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="{{ old('no_permohonan', $permohonan->no_permohonan) }}" required />
-                                    @error('no_permohonan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                </div>
-
-                                <div>
-                                    <label for="tanggal_permohonan" class="block font-medium text-sm text-gray-700">Tanggal Permohonan</label>
-                                    <input id="tanggal_permohonan" name="tanggal_permohonan" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="{{ old('tanggal_permohonan', $permohonan->tanggal_permohonan) }}" required />
-                                    @error('tanggal_permohonan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                </div>
-
-                                <div>
-                                    <label for="nama_usaha" class="block font-medium text-sm text-gray-700">Nama Usaha</label>
-                                    <input id="nama_usaha" name="nama_usaha" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="{{ old('nama_usaha', $permohonan->nama_usaha) }}" required />
-                                    @error('nama_usaha')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                </div>
-
-                                <div>
-                                    <label for="verifikasi_dpmptsp" class="block font-medium text-sm text-gray-700">Verifikasi DPMPTSP</label>
-                                    <select name="verifikasi_dpmptsp" id="verifikasi_dpmptsp"
-                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                                        <option value="">-- Pilih Status --</option>
-                                        <option value="Berkas Disetujui" @selected(old('verifikasi_dpmptsp', $permohonan->verifikasi_dpmptsp) == 'Berkas Disetujui')>Berkas Disetujui</option>
-                                        <option value="Berkas Diperbaiki" @selected(old('verifikasi_dpmptsp', $permohonan->verifikasi_dpmptsp) == 'Berkas Diperbaiki')>Berkas Diperbaiki</option>
-                                        <option value="Pemohon Dihubungi" @selected(old('verifikasi_dpmptsp', $permohonan->verifikasi_dpmptsp) == 'Pemohon Dihubungi')>Pemohon Dihubungi</option>
-                                        <option value="Berkas Diunggah Ulang" @selected(old('verifikasi_dpmptsp', $permohonan->verifikasi_dpmptsp) == 'Berkas Diunggah Ulang')>Berkas Diunggah Ulang</option>
-                                        <option value="Pemohon Belum Dihubungi" @selected(old('verifikasi_dpmptsp', $permohonan->verifikasi_dpmptsp) == 'Pemohon Belum Dihubungi')>Pemohon Belum Dihubungi</option>
-                                    </select>
-                                    @error('verifikasi_dpmptsp')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                </div>
-
-                                <div>
-                                    <label for="tanggal_verifikasi_dpmptsp" class="block font-medium text-sm text-gray-700">Tanggal Verifikasi DPMPTSP</label>
-                                    <input id="tanggal_verifikasi_dpmptsp" name="tanggal_verifikasi_dpmptsp" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="{{ old('tanggal_verifikasi_dpmptsp', $permohonan->tanggal_verifikasi_dpmptsp) }}" />
-                                    @error('tanggal_verifikasi_dpmptsp')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                </div>
-
-                                <div>
-                                    <label for="status" class="block font-medium text-sm text-gray-700">Status Permohonan</label>
-                                    <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
-                                        <option value="Diterima" @selected(old('status', $permohonan->status) == 'Diterima')>Diterima</option>
-                                        <option value="Dikembalikan" @selected(old('status', $permohonan->status) == 'Dikembalikan')>Dikembalikan</option>
-                                        <option value="Ditolak" @selected(old('status', $permohonan->status) == 'Ditolak')>Ditolak</option>
-                                        <option value="Menunggu" @selected(old('status', $permohonan->status) == 'Menunggu')>Menunggu</option>
-                                    </select>
-                                    @error('status')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                </div>
-                                
-                                {{-- Tombol Submit untuk DPMPTSP --}}
-                                <div class="flex items-center justify-end mt-8 pt-6 border-t">
-                                    <a href="{{ route('dashboard') }}"
-                                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md mr-2 hover:bg-gray-300">Batal</a>
-                                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                        {{ __('Simpan') }}
-                                    </button>
-                                </div>
-                            </div>
-                        @else
-                            {{-- ROLE LAIN: TAMPILKAN SEMUA FIELD --}}
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                                {{-- KOLOM KIRI --}}
-                                <div class="space-y-6">
-                                    <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
+                                <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
 
                                 <div>
                                     <label for="no_permohonan" class="block font-medium text-sm text-gray-700">No. Permohonan</label>
@@ -509,7 +383,7 @@
                             </div> {{-- END: KOLOM KANAN --}}
                         </div> {{-- END: grid grid-cols-1 md:grid-cols-2 --}}
 
-                        {{-- Tombol Aksi untuk Admin dan Role Lain --}}
+                        {{-- Tombol Aksi --}}
                         <div class="flex items-center justify-end mt-8 pt-6 border-t">
                             <a href="{{ route('permohonan.show', $permohonan) }}"
                                 class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md mr-2 hover:bg-gray-300">Batal</a>
@@ -517,7 +391,6 @@
                                 {{ __('Update Data') }}
                             </button>
                         </div>
-                        @endif
                     </form>
                     {{-- END: Form --}}
                 </div> {{-- END: p-6 md:p-8 text-gray-900 --}}
