@@ -14,7 +14,8 @@
         </h2>
      <?php $__env->endSlot(); ?>
 
-    <div class="py-12">
+
+    <div class="py-12 <?php echo e($cssClasses); ?>">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 md:p-8 text-gray-900">
@@ -51,204 +52,19 @@
                             };
                         ?>
 
-                        <?php if($user->role === 'admin'): ?>
-                            
+                        <?php
+                            $cssClasses = ($user && $user->role) ? 'role-' . $user->role : '';
+                        ?>
+
+                        <!-- Role-based CSS -->
+                        <link rel="stylesheet" href="<?php echo e(asset('css/role-based.css')); ?>">
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                             
                             <div class="space-y-6">
                                 <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
-                        <?php elseif($user->role === 'pd_teknis'): ?>
-                            
-                            <div class="space-y-6">
-                                <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Verifikasi & Tracking PD Teknis</h3>
-                                
-                                <div>
-                                    <label for="verifikasi_pd_teknis" class="block font-medium text-sm text-gray-700">Verifikasi PD Teknis</label>
-                                    <select name="verifikasi_pd_teknis" id="verifikasi_pd_teknis"
-                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                                        <option value="">-- Pilih Status --</option>
-                                        <option value="Berkas Disetujui" <?php if(old('verifikasi_pd_teknis') == 'Berkas Disetujui'): echo 'selected'; endif; ?>>Berkas Disetujui</option>
-                                        <option value="Berkas Diperbaiki" <?php if(old('verifikasi_pd_teknis') == 'Berkas Diperbaiki'): echo 'selected'; endif; ?>>Berkas Diperbaiki</option>
-                                        <option value="Pemohon Dihubungi" <?php if(old('verifikasi_pd_teknis') == 'Pemohon Dihubungi'): echo 'selected'; endif; ?>>Pemohon Dihubungi</option>
-                                        <option value="Berkas Diunggah Ulang" <?php if(old('verifikasi_pd_teknis') == 'Berkas Diunggah Ulang'): echo 'selected'; endif; ?>>Berkas Diunggah Ulang</option>
-                                        <option value="Pemohon Belum Dihubungi" <?php if(old('verifikasi_pd_teknis') == 'Pemohon Belum Dihubungi'): echo 'selected'; endif; ?>>Pemohon Belum Dihubungi</option>
-                                    </select>
-                                    <?php $__errorArgs = ['verifikasi_pd_teknis'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
 
-                                <div>
-                                    <label for="tanggal_verifikasi_pd_teknis" class="block font-medium text-sm text-gray-700">Tanggal Verifikasi PD Teknis</label>
-                                    <input id="tanggal_verifikasi_pd_teknis" name="tanggal_verifikasi_pd_teknis" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="<?php echo e(old('tanggal_verifikasi_pd_teknis')); ?>" />
-                                    <?php $__errorArgs = ['tanggal_verifikasi_pd_teknis'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
-
-                                <div>
-                                    <label for="status" class="block font-medium text-sm text-gray-700">Status Permohonan</label>
-                                    <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
-                                        <option value="Diterima" <?php if(old('status') == 'Diterima'): echo 'selected'; endif; ?>>Diterima</option>
-                                        <option value="Dikembalikan" <?php if(old('status') == 'Dikembalikan'): echo 'selected'; endif; ?>>Dikembalikan</option>
-                                        <option value="Ditolak" <?php if(old('status') == 'Ditolak'): echo 'selected'; endif; ?>>Ditolak</option>
-                                        <option value="Menunggu" <?php if(old('status', 'Menunggu') == 'Menunggu'): echo 'selected'; endif; ?>>Menunggu</option>
-                                    </select>
-                                    <?php $__errorArgs = ['status'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
-                                
-                                
-                                <div class="flex items-center justify-end mt-8 pt-6 border-t">
-                                    <a href="<?php echo e(route('dashboard')); ?>"
-                                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md mr-2 hover:bg-gray-300">Batal</a>
-                                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                        <?php echo e(__('Simpan')); ?>
-
-                                    </button>
-                                </div>
-                            </div>
-                        <?php elseif($user->role === 'dpmptsp'): ?>
-                            
-                            <div class="space-y-6">
-                                <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon & Tracking DPMPTSP</h3>
-                                
-                                <div>
-                                    <label for="no_permohonan" class="block font-medium text-sm text-gray-700">No. Permohonan</label>
-                                    <input id="no_permohonan" name="no_permohonan" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="<?php echo e(old('no_permohonan')); ?>" required />
-                                    <?php $__errorArgs = ['no_permohonan'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
-
-                                <div>
-                                    <label for="tanggal_permohonan" class="block font-medium text-sm text-gray-700">Tanggal Permohonan</label>
-                                    <input id="tanggal_permohonan" name="tanggal_permohonan" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="<?php echo e(old('tanggal_permohonan')); ?>" required />
-                                    <?php $__errorArgs = ['tanggal_permohonan'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
-
-                                <div>
-                                    <label for="nama_usaha" class="block font-medium text-sm text-gray-700">Nama Usaha</label>
-                                    <input id="nama_usaha" name="nama_usaha" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="<?php echo e(old('nama_usaha')); ?>" required />
-                                    <?php $__errorArgs = ['nama_usaha'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
-
-                                <div>
-                                    <label for="verifikasi_dpmptsp" class="block font-medium text-sm text-gray-700">Verifikasi DPMPTSP</label>
-                                    <select name="verifikasi_dpmptsp" id="verifikasi_dpmptsp"
-                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                                        <option value="">-- Pilih Status --</option>
-                                        <option value="Berkas Disetujui" <?php if(old('verifikasi_dpmptsp') == 'Berkas Disetujui'): echo 'selected'; endif; ?>>Berkas Disetujui</option>
-                                        <option value="Berkas Diperbaiki" <?php if(old('verifikasi_dpmptsp') == 'Berkas Diperbaiki'): echo 'selected'; endif; ?>>Berkas Diperbaiki</option>
-                                        <option value="Pemohon Dihubungi" <?php if(old('verifikasi_dpmptsp') == 'Pemohon Dihubungi'): echo 'selected'; endif; ?>>Pemohon Dihubungi</option>
-                                        <option value="Berkas Diunggah Ulang" <?php if(old('verifikasi_dpmptsp') == 'Berkas Diunggah Ulang'): echo 'selected'; endif; ?>>Berkas Diunggah Ulang</option>
-                                        <option value="Pemohon Belum Dihubungi" <?php if(old('verifikasi_dpmptsp') == 'Pemohon Belum Dihubungi'): echo 'selected'; endif; ?>>Pemohon Belum Dihubungi</option>
-                                    </select>
-                                    <?php $__errorArgs = ['verifikasi_dpmptsp'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
-
-                                <div>
-                                    <label for="tanggal_verifikasi_dpmptsp" class="block font-medium text-sm text-gray-700">Tanggal Verifikasi DPMPTSP</label>
-                                    <input id="tanggal_verifikasi_dpmptsp" name="tanggal_verifikasi_dpmptsp" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="<?php echo e(old('tanggal_verifikasi_dpmptsp')); ?>" />
-                                    <?php $__errorArgs = ['tanggal_verifikasi_dpmptsp'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
-
-                                <div>
-                                    <label for="status" class="block font-medium text-sm text-gray-700">Status Permohonan</label>
-                                    <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
-                                        <option value="Diterima" <?php if(old('status') == 'Diterima'): echo 'selected'; endif; ?>>Diterima</option>
-                                        <option value="Dikembalikan" <?php if(old('status') == 'Dikembalikan'): echo 'selected'; endif; ?>>Dikembalikan</option>
-                                        <option value="Ditolak" <?php if(old('status') == 'Ditolak'): echo 'selected'; endif; ?>>Ditolak</option>
-                                        <option value="Menunggu" <?php if(old('status', 'Menunggu') == 'Menunggu'): echo 'selected'; endif; ?>>Menunggu</option>
-                                    </select>
-                                    <?php $__errorArgs = ['status'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
-                                
-                                
-                                <div class="flex items-center justify-end mt-8 pt-6 border-t">
-                                    <a href="<?php echo e(route('dashboard')); ?>"
-                                        class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md mr-2 hover:bg-gray-300">Batal</a>
-                                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                        <?php echo e(__('Simpan')); ?>
-
-                                    </button>
-                                </div>
-                            </div>
-                        <?php else: ?>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                                
-                                <div class="space-y-6">
-                                    <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
-
-                                <?php if($user->role !== 'pd_teknis'): ?>
-                                <div>
+                                <div class="field-data-pemohon hide-for-dpmptsp">
                                     <label for="no_permohonan" class="block font-medium text-sm text-gray-700">No. Permohonan</label>
                                     <input id="no_permohonan" name="no_permohonan" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis']) ? 'bg-gray-100' : ''); ?>"
@@ -262,10 +78,8 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
-                                <?php endif; ?>
 
-                                <?php if($user->role !== 'pd_teknis'): ?>
-                                <div>
+                                <div class="field-data-pemohon hide-for-dpmptsp">
                                     <label for="tanggal_permohonan" class="block font-medium text-sm text-gray-700">Tanggal Permohonan</label>
                                     <input id="tanggal_permohonan" name="tanggal_permohonan" type="date"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis']) ? 'bg-gray-100' : ''); ?>"
@@ -279,10 +93,8 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
-                                <?php endif; ?>
 
-                                <?php if($user->role !== 'pd_teknis'): ?>
-                                <div>
+                                <div class="field-data-pemohon hide-for-dpmptsp">
                                     <label for="jenis_pelaku_usaha" class="block font-medium text-sm text-gray-700">Jenis Perusahaan</label>
                                     <select name="jenis_pelaku_usaha" id="jenis_pelaku_usaha"
                                         x-model="jenisPelakuUsaha"
@@ -304,9 +116,8 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
-                                <?php endif; ?>
 
-                                <div x-show="jenisPelakuUsaha === 'Orang Perseorangan'">
+                                <div class="field-data-pemohon hide-for-dpmptsp" x-show="jenisPelakuUsaha === 'Orang Perseorangan'">
                                     <label for="nik" class="block font-medium text-sm text-gray-700">Nomor Induk Kependudukan (NIK)</label>
                                     <input id="nik" name="nik" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis']) ? 'bg-gray-100' : ''); ?>"
@@ -321,7 +132,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div x-show="jenisPelakuUsaha === 'Badan Usaha'">
+                                <div class="field-data-pemohon hide-for-dpmptsp" x-show="jenisPelakuUsaha === 'Badan Usaha'">
                                     <label for="jenis_badan_usaha" class="block font-medium text-sm text-gray-700">Jenis Badan Usaha</label>
                                     <select name="jenis_badan_usaha" id="jenis_badan_usaha"
                                         class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis']) ? 'bg-gray-100' : ''); ?>"
@@ -381,7 +192,7 @@ unset($__errorArgs, $__bag); ?>
                                 </div>
 
                                 
-                                <div>
+                                <div class="field-data-pemohon">
                                     <label for="nama_usaha" class="block font-medium text-sm text-gray-700">Nama Usaha</label>
                                     <input id="nama_usaha" name="nama_usaha" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['dpmptsp']) ? 'bg-gray-100' : ''); ?>"
@@ -396,7 +207,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div>
+                                <div class="field-data-pemohon hide-for-dpmptsp">
                                     <label for="nib" class="block font-medium text-sm text-gray-700">NIB</label>
                                     <input id="nib" name="nib" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis']) ? 'bg-gray-100' : ''); ?>"
@@ -411,7 +222,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
                                 
-                                <div>
+                                <div class="field-data-pemohon">
                                     <label for="alamat_perusahaan" class="block font-medium text-sm text-gray-700">Alamat Perusahaan</label>
                                     <textarea id="alamat_perusahaan" name="alamat_perusahaan"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['dpmptsp']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isReadOnly(['dpmptsp']) ? 'readonly' : ''); ?> required><?php echo e(old('alamat_perusahaan')); ?></textarea>
@@ -425,10 +236,10 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div>
+                                <div class="field-data-pemohon hide-for-pd-teknis">
                                     <label for="sektor" class="block font-medium text-sm text-gray-700">Sektor</label>
                                     <select name="sektor" id="sektor"
-                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isDisabled(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isDisabled(['admin','dpmptsp']) ? 'disabled' : ''); ?>>
+                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isDisabled(['dpmptsp','admin']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isDisabled(['dpmptsp','admin']) ? 'disabled' : ''); ?>>
                                         <option value="">Pilih Sektor</option>
                                         <?php $__currentLoopData = $sektors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sektor): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                             <option value="<?php echo e($sektor); ?>" <?php if(old('sektor') == $sektor): echo 'selected'; endif; ?>>
@@ -479,7 +290,7 @@ unset($__errorArgs, $__bag); ?>
                                 </div>
                                 <?php endif; ?>
 
-                                <div>
+                                <div class="field-data-pemohon">
                                     <label for="modal_usaha" class="block font-medium text-sm text-gray-700">Modal Usaha</label>
                                     <input id="modal_usaha" name="modal_usaha" type="number"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['dpmptsp']) ? 'bg-gray-100' : ''); ?>"
@@ -494,7 +305,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div>
+                                <div class="field-data-pemohon">
                                     <label for="jenis_proyek" class="block font-medium text-sm text-gray-700">Jenis Proyek</label>
                                     <select name="jenis_proyek" id="jenis_proyek"
                                         class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isDisabled(['dpmptsp']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isDisabled(['dpmptsp']) ? 'disabled' : ''); ?> required>
@@ -521,7 +332,7 @@ unset($__errorArgs, $__bag); ?>
                             <div class="space-y-6">
                                 <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Verifikasi & Tracking</h3>
 
-                                <div>
+                                <div class="field-data-pemohon hide-for-dpmptsp">
                                     <label for="no_proyek" class="block font-medium text-sm text-gray-700">No. Proyek</label>
                                     <input id="no_proyek" name="no_proyek" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis']) ? 'bg-gray-100' : ''); ?>"
@@ -536,7 +347,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
                                 
-                                <div>
+                                <div class="hide-for-pd-teknis">
                                     <label for="verifikator" class="block font-medium text-sm text-gray-700">Verifikator</label>
                                     <select name="verifikator" id="verifikator"
                                         class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isDisabled(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isDisabled(['admin','dpmptsp']) ? 'disabled' : ''); ?> required>
@@ -555,7 +366,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div>
+                                <div class="hide-for-dpmptsp hide-for-pd-teknis">
                                     <label for="status" class="block font-medium text-sm text-gray-700">Status Permohonan</label>
                                     <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isDisabled(['admin','dpmptsp','pd_teknis']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isDisabled(['admin','dpmptsp','pd_teknis']) ? 'disabled' : ''); ?> required>
                                         <option value="Diterima" <?php if(old('status') == 'Diterima'): echo 'selected'; endif; ?>>Diterima</option>
@@ -573,7 +384,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div>
+                                <div class="field-pd-teknis-only hide-for-pd-teknis">
                                     <label for="verifikasi_pd_teknis" class="block font-medium text-sm text-gray-700">Verifikasi PD Teknis</label>
                                     <select name="verifikasi_pd_teknis" id="verifikasi_pd_teknis"
                                         class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isDisabled(['admin']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isDisabled(['admin']) ? 'disabled' : ''); ?>>
@@ -596,7 +407,7 @@ unset($__errorArgs, $__bag); ?>
                                 </div>
 
                                 
-                                <div>
+                                <div class="field-dpmptsp-only">
                                     <label for="pengembalian" class="block font-medium text-sm text-gray-700">Tanggal Pengembalian</label>
                                     <input id="pengembalian" name="pengembalian" type="date"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
@@ -611,7 +422,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div>
+                                <div class="field-dpmptsp-only">
                                     <label for="keterangan_pengembalian" class="block font-medium text-sm text-gray-700">Keterangan Pengembalian</label>
                                     <textarea id="keterangan_pengembalian" name="keterangan_pengembalian"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"><?php echo e(old('keterangan_pengembalian')); ?></textarea>
@@ -625,7 +436,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
                                 
-                                <div>
+                                <div class="field-dpmptsp-only">
                                     <label for="menghubungi" class="block font-medium text-sm text-gray-700">Tanggal Menghubungi</label>
                                     <input id="menghubungi" name="menghubungi" type="date"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>"
@@ -640,7 +451,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div>
+                                <div class="field-dpmptsp-only">
                                     <label for="keterangan_menghubungi" class="block font-medium text-sm text-gray-700">Keterangan Menghubungi</label>
                                     <textarea id="keterangan_menghubungi" name="keterangan_menghubungi"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'readonly' : ''); ?>><?php echo e(old('keterangan_menghubungi')); ?></textarea>
@@ -654,7 +465,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div>
+                                <div class="field-dpmptsp-only">
                                     <label for="status_menghubungi" class="block font-medium text-sm text-gray-700">Status Menghubungi</label>
                                     <input id="status_menghubungi" name="status_menghubungi" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>"
@@ -669,7 +480,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div>
+                                <div class="field-dpmptsp-only">
                                     <label for="perbaikan" class="block font-medium text-sm text-gray-700">Tanggal Perbaikan</label>
                                     <input id="perbaikan" name="perbaikan" type="date"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>"
@@ -684,7 +495,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div>
+                                <div class="field-dpmptsp-only">
                                     <label for="keterangan_perbaikan" class="block font-medium text-sm text-gray-700">Keterangan Perbaikan</label>
                                     <textarea id="keterangan_perbaikan" name="keterangan_perbaikan"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'readonly' : ''); ?>><?php echo e(old('keterangan_perbaikan')); ?></textarea>
@@ -698,7 +509,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div>
+                                <div class="field-dpmptsp-only">
                                     <label for="verifikasi_dpmptsp" class="block font-medium text-sm text-gray-700">Verifikasi Analisa</label>
                                     <select name="verifikasi_dpmptsp" id="verifikasi_dpmptsp"
                                         class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isDisabled(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isDisabled(['admin','dpmptsp']) ? 'disabled' : ''); ?>>
@@ -720,7 +531,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div>
+                                <div class="field-dpmptsp-only">
                                     <label for="terbit" class="block font-medium text-sm text-gray-700">Tanggal Terbit</label>
                                     <input id="terbit" name="terbit" type="date"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>"
@@ -735,7 +546,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div>
+                                <div class="field-dpmptsp-only">
                                     <label for="keterangan_terbit" class="block font-medium text-sm text-gray-700">Keterangan Terbit</label>
                                     <textarea id="keterangan_terbit" name="keterangan_terbit"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'readonly' : ''); ?>><?php echo e(old('keterangan_terbit')); ?></textarea>
@@ -749,7 +560,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div>
+                                <div class="field-admin-only">
                                     <label for="pemroses_dan_tgl_surat" class="block font-medium text-sm text-gray-700">Pemroses & Tgl Surat</label>
                                     <input id="pemroses_dan_tgl_surat" name="pemroses_dan_tgl_surat" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>"
@@ -764,7 +575,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                         </div>
 
-                                <div>
+                                <div class="field-dpmptsp-only">
                                     <label for="keterangan" class="block font-medium text-sm text-gray-700">Keterangan</label>
                                     <textarea id="keterangan" name="keterangan"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isReadOnly(['admin','dpmptsp']) ? 'readonly' : ''); ?>><?php echo e(old('keterangan')); ?></textarea>
@@ -789,7 +600,6 @@ unset($__errorArgs, $__bag); ?>
 
                             </button>
                         </div>
-                        <?php endif; ?>
                     </form>
                     
                 </div> 
