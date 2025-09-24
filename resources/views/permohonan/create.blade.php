@@ -44,10 +44,10 @@
 
                         @if($user->role === 'admin')
                             {{-- ADMIN: TAMPILKAN SEMUA FIELD --}}
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                                {{-- KOLOM KIRI --}}
-                                <div class="space-y-6">
-                                    <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                            {{-- KOLOM KIRI --}}
+                            <div class="space-y-6">
+                                <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
                         @elseif($user->role === 'pd_teknis')
                             {{-- PD TEKNIS: HANYA FIELD TRACKING & VERIFIKASI --}}
                             <div class="space-y-6">
@@ -506,6 +506,7 @@
                                 {{ __('Simpan') }}
                             </button>
                         </div>
+                        @endif
                         @endif
                         @endif
                     </form>

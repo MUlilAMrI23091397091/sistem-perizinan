@@ -53,10 +53,10 @@
 
                         <?php if($user->role === 'admin'): ?>
                             
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                                
-                                <div class="space-y-6">
-                                    <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                            
+                            <div class="space-y-6">
+                                <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
                         <?php elseif($user->role === 'pd_teknis'): ?>
                             
                             <div class="space-y-6">
@@ -246,7 +246,6 @@ unset($__errorArgs, $__bag); ?>
                                 
                                 <div class="space-y-6">
                                     <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
-                        <?php endif; ?>
 
                                 <?php if($user->role !== 'pd_teknis'): ?>
                                 <div>
