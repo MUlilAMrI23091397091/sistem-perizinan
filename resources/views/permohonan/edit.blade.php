@@ -9,7 +9,7 @@
     </x-slot>
 
 
-    <div class="py-12">
+    <div class="py-12 {{ $cssClasses }}">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 md:p-8 text-gray-900">
@@ -48,14 +48,8 @@
                             };
                         @endphp
 
-                        @if(!empty($cssClasses))
-                        <style>
-                            /* Hide fields based on role */
-                            @foreach($cssClasses as $class => $style)
-                            .{{ $class }} { {{ $style }} }
-                            @endforeach
-                        </style>
-                        @endif
+                        <!-- Role-based CSS -->
+                        <link rel="stylesheet" href="{{ asset('css/role-based.css') }}">
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                             {{-- KOLOM KIRI --}}

@@ -305,30 +305,19 @@ class PermohonanController extends Controller
     }
 
     /**
-     * Get CSS classes for role-based field hiding
+     * Get role-based CSS class for body element
      */
     private function getRoleBasedCssClasses($user)
     {
-        $classes = [];
-        
         if ($user->role === 'pd_teknis') {
-            $classes = [
-                'field-data-pemohon' => 'display: none !important;',
-                'field-admin-only' => 'display: none !important;',
-                'field-dpmptsp-only' => 'display: none !important;'
-            ];
+            return 'role-pd-teknis';
         } elseif ($user->role === 'dpmptsp') {
-            $classes = [
-                'field-admin-only' => 'display: none !important;',
-                'field-pd-teknis-only' => 'display: none !important;'
-            ];
-        } elseif ($user->role !== 'admin') {
-            $classes = [
-                'field-admin-only' => 'display: none !important;'
-            ];
+            return 'role-dpmptsp';
+        } elseif ($user->role === 'admin') {
+            return 'role-admin';
+        } else {
+            return 'role-non-admin';
         }
-        
-        return $classes;
     }
 
     /**
