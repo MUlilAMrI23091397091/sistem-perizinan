@@ -294,8 +294,8 @@
                                 <div>
                                     <label for="pengembalian" class="block font-medium text-sm text-gray-700">Tanggal Pengembalian</label>
                                     <input id="pengembalian" name="pengembalian" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis','admin']) ? 'bg-gray-100' : '' }}"
-                                        value="{{ old('pengembalian', $permohonan->pengembalian ? $permohonan->pengembalian->format('Y-m-d') : '') }}" {{ $isReadOnly(['pd_teknis','admin']) ? 'readonly' : '' }} />
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['admin']) ? 'bg-gray-100' : '' }}"
+                                        value="{{ old('pengembalian', $permohonan->pengembalian ? $permohonan->pengembalian->format('Y-m-d') : '') }}" {{ $isReadOnly(['admin']) ? 'readonly' : '' }} />
                                     @error('pengembalian')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
