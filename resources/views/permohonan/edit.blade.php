@@ -177,7 +177,6 @@
                                 {{-- KOLOM KIRI --}}
                                 <div class="space-y-6">
                                     <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
-                        @endif
 
                                 <div>
                                     <label for="no_permohonan" class="block font-medium text-sm text-gray-700">No. Permohonan</label>
@@ -518,6 +517,7 @@
                                 {{ __('Update Data') }}
                             </button>
                         </div>
+                        @endif
                         @endif
                         @endif
                         @endif

@@ -251,7 +251,6 @@ unset($__errorArgs, $__bag); ?>
                                 
                                 <div class="space-y-6">
                                     <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
-                        <?php endif; ?>
 
                                 <div>
                                     <label for="no_permohonan" class="block font-medium text-sm text-gray-700">No. Permohonan</label>
@@ -801,6 +800,9 @@ unset($__errorArgs, $__bag); ?>
 
                             </button>
                         </div>
+                        <?php endif; ?>
+                        <?php endif; ?>
+                        <?php endif; ?>
                         <?php endif; ?>
                     </form>
                     
