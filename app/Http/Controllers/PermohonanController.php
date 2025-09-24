@@ -106,7 +106,7 @@ class PermohonanController extends Controller
         
         // Ambil daftar sektor unik dari database dan gabungkan dengan sektor yang tersedia
         $sektorsFromDb = Permohonan::select('sektor')->whereNotNull('sektor')->distinct()->pluck('sektor');
-        $availableSektors = ['Perdagangan', 'Disperinaker', 'Dinkes', 'Dkpp', 'Disperinaker', 'Dprkpp', 'Dishub', 'Dinkopdag', 'Disbudpar', 'Dlh'];
+        $availableSektors = ['Dinkopdag', 'Disbudpar', 'Dinkes', 'Dishub', 'Dprkpp', 'Dkpp', 'Dlh', 'Disperinaker'];
         $sektors = $availableSektors;
 
         return view('permohonan.index', compact('permohonans', 'sektors', 'selectedSektor', 'searchQuery', 'selectedDateFilter', 'customDate'));
@@ -118,7 +118,7 @@ class PermohonanController extends Controller
     public function create()
     {
         $verifikators = ['RAMLAN', 'SURYA', 'ALI', 'WILDAN A', 'TYO', 'WILDAN M', 'YOLA', 'NAURA'];
-        $sektors = ['Perdagangan', 'Disperinaker', 'Dinkes', 'Dkpp', 'Disperinaker', 'Dprkpp', 'Dishub', 'Dinkopdag', 'Disbudpar', 'Dlh'];
+        $sektors = ['Dinkopdag', 'Disbudpar', 'Dinkes', 'Dishub', 'Dprkpp', 'Dkpp', 'Dlh', 'Disperinaker'];
         $jenisPelakuUsahas = ['Orang Perseorangan', 'Badan Usaha'];
         $jenisUsahas = [
             'Perseroan Terbatas (PT)',
@@ -272,7 +272,7 @@ class PermohonanController extends Controller
     public function edit(Permohonan $permohonan)
     {
         $verifikators = ['RAMLAN', 'SURYA', 'ALI', 'WILDAN A', 'TYO', 'WILDAN M', 'YOLA', 'NAURA'];
-        $sektors = ['Perdagangan', 'Disperinaker', 'Dinkes', 'Dkpp', 'Disperinaker', 'Dprkpp', 'Dishub', 'Dinkopdag', 'Disbudpar', 'Dlh'];
+        $sektors = ['Dinkopdag', 'Disbudpar', 'Dinkes', 'Dishub', 'Dprkpp', 'Dkpp', 'Dlh', 'Disperinaker'];
         $jenisPelakuUsahas = ['Orang Perseorangan', 'Badan Usaha'];
         $jenisUsahas = [
             'Perseroan Terbatas (PT)',
