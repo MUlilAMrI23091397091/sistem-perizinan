@@ -120,6 +120,10 @@
                             <!-- Left Column - DPMPTSP -->
                             <div class="space-y-6">
                                 <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">Nama Perusahaan</label>
+                                    <p class="text-gray-900"><?php echo e($permohonan->nama_perusahaan ?? '-'); ?></p>
+                                </div>
+                                <div class="group">
                                     <label class="text-sm font-medium text-gray-500 block mb-2">Nama Usaha</label>
                                     <p class="text-gray-900 font-medium"><?php echo e($permohonan->nama_usaha ?? '-'); ?></p>
                                 </div>
@@ -232,7 +236,6 @@
                                     <p class="text-gray-900"><?php echo e($permohonan->nib ?? '-'); ?></p>
                                 </div>
 
-                                <?php if(in_array(Auth::user()->role, ['admin', 'pd_teknis'])): ?>
                                 <div class="group">
                                     <label class="text-sm font-medium text-gray-500 block mb-2">KBLI</label>
                                     <p class="text-gray-900"><?php echo e($permohonan->kbli ?? '-'); ?></p>
@@ -242,7 +245,6 @@
                                     <label class="text-sm font-medium text-gray-500 block mb-2">Kegiatan</label>
                                     <p class="text-gray-900"><?php echo e($permohonan->inputan_teks ?? '-'); ?></p>
                                 </div>
-                                <?php endif; ?>
                                 
                                 <div class="group">
                                     <label class="text-sm font-medium text-gray-500 block mb-2">Verifikasi PD Teknis</label>

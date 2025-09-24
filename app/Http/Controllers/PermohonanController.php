@@ -159,6 +159,7 @@ class PermohonanController extends Controller
             'jenis_pelaku_usaha' => 'nullable|string|in:Orang Perseorangan,Badan Usaha',
             'nik' => 'nullable|string|max:16',
             'nama_usaha' => 'nullable|string', // Pastikan ini ada untuk input teks
+            'nama_perusahaan' => 'nullable|string',
             'jenis_badan_usaha' => 'nullable|string', // Tambahkan ini untuk dropdown Jenis Badan Usaha
             'nib' => 'nullable|string|max:20',
             'alamat_perusahaan' => 'nullable|string',
@@ -201,6 +202,7 @@ class PermohonanController extends Controller
         } elseif ($user->role === 'dpmptsp') {
             // DPMPTSP wajib isi: nama_usaha, alamat_perusahaan, modal_usaha, jenis_proyek, verifikator, status
             $rules['nama_usaha'] = 'required|string';
+            $rules['nama_perusahaan'] = 'nullable|string';
             $rules['alamat_perusahaan'] = 'required|string';
             $rules['modal_usaha'] = 'required|numeric';
             $rules['jenis_proyek'] = 'required|string';
@@ -332,6 +334,7 @@ class PermohonanController extends Controller
             'jenis_pelaku_usaha' => 'nullable|string|in:Orang Perseorangan,Badan Usaha',
             'nik' => 'nullable|string|max:16',
             'nama_usaha' => 'nullable|string', // Pastikan ini ada untuk input teks
+            'nama_perusahaan' => 'nullable|string',
             'jenis_badan_usaha' => 'nullable|string', // Tambahkan ini untuk dropdown Jenis Badan Usaha
             'nib' => 'nullable|string|max:20',
             'alamat_perusahaan' => 'nullable|string',

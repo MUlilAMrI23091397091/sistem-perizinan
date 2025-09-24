@@ -46,6 +46,7 @@ class Permohonan extends Model
         'user_id',
         'no_permohonan',
         'nama_usaha',
+        'nama_perusahaan',
         'pemilik',
         'jenis_perusahaan', 
         'jenis_pelaku_usaha',

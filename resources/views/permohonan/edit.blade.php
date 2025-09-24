@@ -156,12 +156,21 @@
                                 </div>
 
                                 {{-- DPMPTSP mengisi Nama Usaha secara manual (terpisah dari Jenis Perusahaan milik PD Teknis) --}}
-                                <div class="field-data-pemohon">
+                                <div class="field-data-pemohon hide-for-pd-teknis">
                                     <label for="nama_usaha" class="block font-medium text-sm text-gray-700">Nama Usaha</label>
                                     <input id="nama_usaha" name="nama_usaha" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['dpmptsp']) ? 'bg-gray-100' : '' }}"
                                         value="{{ old('nama_usaha', $permohonan->nama_usaha) }}" {{ $isReadOnly(['dpmptsp']) ? 'readonly' : '' }} />
                                     @error('nama_usaha')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                                </div>
+
+                                <!-- Nama Perusahaan (milik PD Teknis) -->
+                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                    <label for="nama_perusahaan" class="block font-medium text-sm text-gray-700">Nama Perusahaan</label>
+                                    <input id="nama_perusahaan" name="nama_perusahaan" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
+                                        value="{{ old('nama_perusahaan', $permohonan->nama_perusahaan) }}" {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} />
+                                    @error('nama_perusahaan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
                                 <div class="field-data-pemohon hide-for-dpmptsp">
@@ -173,7 +182,7 @@
                                     @error('nib')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
                                 
-                                <div class="field-data-pemohon">
+                                <div class="field-data-pemohon hide-for-pd-teknis">
                                     <label for="alamat_perusahaan" class="block font-medium text-sm text-gray-700">Alamat Perusahaan</label>
                                     <textarea id="alamat_perusahaan" name="alamat_perusahaan"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['dpmptsp']) ? 'bg-gray-100' : '' }}"
@@ -214,7 +223,7 @@
                                 </div>
                                 @endif
 
-                                <div class="field-data-pemohon">
+                                <div class="field-data-pemohon hide-for-pd-teknis">
                                     <label for="modal_usaha" class="block font-medium text-sm text-gray-700">Modal Usaha</label>
                                     <input id="modal_usaha" name="modal_usaha" type="number"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['dpmptsp']) ? 'bg-gray-100' : '' }}"
@@ -223,7 +232,7 @@
                                     @error('modal_usaha')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
-                                <div class="field-data-pemohon">
+                                <div class="field-data-pemohon hide-for-pd-teknis">
                                     <label for="jenis_proyek" class="block font-medium text-sm text-gray-700">Jenis Proyek</label>
                                     <select name="jenis_proyek" id="jenis_proyek"
                                         class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isDisabled(['dpmptsp']) ? 'bg-gray-100' : '' }}"
@@ -242,15 +251,6 @@
                             {{-- START: KOLOM KANAN: Verifikasi & Tracking --}}
                             <div class="space-y-6">
                                 <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Verifikasi & Tracking</h3>
-
-                                <div class="field-data-pemohon hide-for-dpmptsp">
-                                    <label for="no_proyek" class="block font-medium text-sm text-gray-700">No. Proyek</label>
-                                    <input id="no_proyek" name="no_proyek" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
-                                        value="{{ old('no_proyek', $permohonan->no_proyek) }}"
-                                        {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} />
-                                    @error('no_proyek')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                </div>
                                 
                                 <div class="hide-for-pd-teknis">
                                     <label for="verifikator" class="block font-medium text-sm text-gray-700">Verifikator</label>
@@ -264,7 +264,7 @@
                                     @error('verifikator')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
-                                <div class="hide-for-dpmptsp">
+                                <div>
                                     <label for="status" class="block font-medium text-sm text-gray-700">Status Permohonan</label>
                                     <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isDisabled(['admin','dpmptsp','pd_teknis']) ? 'bg-gray-100' : '' }}" {{ $isDisabled(['admin','dpmptsp','pd_teknis']) ? 'disabled' : '' }}>
                                         <option value="Diterima" @selected(old('status', $permohonan->status) == 'Diterima')>Diterima</option>
@@ -278,8 +278,8 @@
                                 <div class="field-pd-teknis-only">
                                     <label for="verifikasi_pd_teknis" class="block font-medium text-sm text-gray-700">Verifikasi PD Teknis</label>
                                     <select name="verifikasi_pd_teknis" id="verifikasi_pd_teknis"
-                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isDisabled(['admin']) ? 'bg-gray-100' : '' }}"
-                                        {{ $isDisabled(['admin']) ? 'disabled' : '' }}>
+                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isDisabled(['admin','dpmptsp']) ? 'bg-gray-100' : '' }}"
+                                        {{ $isDisabled(['admin','dpmptsp']) ? 'disabled' : '' }}>
                                         <option value="">-- Pilih Status --</option>
                                         @foreach($verificationStatusOptions as $opt)
                                             <option value="{{ $opt }}" @selected(old('verifikasi_pd_teknis', $permohonan->verifikasi_pd_teknis) == $opt)>
@@ -291,15 +291,15 @@
                                 </div>
 
                                 
-                                <div class="hide-for-pd-teknis">
+                                <div>
                                     <label for="pengembalian" class="block font-medium text-sm text-gray-700">Tanggal Pengembalian</label>
                                     <input id="pengembalian" name="pengembalian" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="{{ old('pengembalian', $permohonan->pengembalian ? $permohonan->pengembalian->format('Y-m-d') : '') }}" />
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis','admin']) ? 'bg-gray-100' : '' }}"
+                                        value="{{ old('pengembalian', $permohonan->pengembalian ? $permohonan->pengembalian->format('Y-m-d') : '') }}" {{ $isReadOnly(['pd_teknis','admin']) ? 'readonly' : '' }} />
                                     @error('pengembalian')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
-                                <div class="field-dpmptsp-only">
+                                <div>
                                     <label for="keterangan_pengembalian" class="block font-medium text-sm text-gray-700">Keterangan Pengembalian</label>
                                     <textarea id="keterangan_pengembalian" name="keterangan_pengembalian"
                                         class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">{{ old('keterangan_pengembalian', $permohonan->keterangan_pengembalian) }}</textarea>
@@ -374,13 +374,7 @@
                                     @error('keterangan_terbit')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
-                                <div>
-                                    <label for="pemroses_dan_tgl_surat" class="block font-medium text-sm text-gray-700">Pemroses & Tgl Surat</label>
-                                    <input id="pemroses_dan_tgl_surat" name="pemroses_dan_tgl_surat" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm {{ $isReadOnly(['admin','dpmptsp']) ? 'bg-gray-100' : '' }}"
-                                        value="{{ old('pemroses_dan_tgl_surat', $permohonan->pemroses_dan_tgl_surat) }}" {{ $isReadOnly(['admin','dpmptsp']) ? 'readonly' : '' }} />
-                                    @error('pemroses_dan_tgl_surat')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                </div>
+                                <!-- Pemroses & Tgl Surat dihilangkan sesuai permintaan -->
 
                                 <div class="field-dpmptsp-only">
                                     <label for="keterangan" class="block font-medium text-sm text-gray-700">Keterangan</label>
