@@ -172,7 +172,6 @@
                                 {{-- KOLOM KIRI --}}
                                 <div class="space-y-6">
                                     <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
-                        @endif
 
                                 @if($user->role !== 'pd_teknis')
                                 <div>
@@ -507,6 +506,7 @@
                                 {{ __('Simpan') }}
                             </button>
                         </div>
+                        @endif
                         @endif
                     </form>
                     {{-- END: Form --}}
