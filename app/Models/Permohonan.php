@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * @property int $id
@@ -127,29 +128,29 @@ class Permohonan extends Model
     // Method untuk mengecek apakah permohonan melewati deadline
     public function isOverdue()
     {
-        if (!$this->deadline) {
+        if (!$this->getAttribute('deadline')) {
             return false;
         }
         
-        return now()->toDateString() > $this->deadline->toDateString();
+        return now()->toDateString() > $this->getAttribute('deadline')->toDateString();
     }
 
     // Method untuk mendapatkan status deadline
     public function getDeadlineStatus()
     {
-        if (!$this->deadline) {
+        if (!$this->getAttribute('deadline')) {
             return 'no_deadline';
         }
 
         $today = now()->toDateString();
-        $deadline = $this->deadline->toDateString();
+        $deadline = $this->getAttribute('deadline')->toDateString();
 
         if ($today > $deadline) {
             return 'overdue';
         } elseif ($today == $deadline) {
             return 'due_today';
         } else {
-            $daysLeft = now()->diffInDays($this->deadline, false);
+            $daysLeft = now()->diffInDays($this->getAttribute('deadline'), false);
             if ($daysLeft <= 3) {
                 return 'due_soon';
             }
@@ -162,13 +163,13 @@ class Permohonan extends Model
     {
         if ($this->isOverdue()) {
             $this->logs()->create([
-                'user_id' => auth()->id(),
+                'user_id' => Auth::id() ?? 1,
                 'status_sebelum' => $this->status ?? 'Menunggu',
                 'status_sesudah' => $this->status ?? 'Menunggu',
-                'keterangan' => "⚠️ PERINGATAN: Permohonan telah melewati deadline ({$this->deadline->format('d/m/Y')})",
+                'keterangan' => "⚠️ PERINGATAN: Permohonan telah melewati deadline ({$this->getAttribute('deadline')->format('d/m/Y')})",
                 'action' => 'deadline_overdue',
                 'old_data' => null,
-                'new_data' => json_encode(['deadline' => $this->deadline->toDateString()])
+                'new_data' => json_encode(['deadline' => $this->getAttribute('deadline')->toDateString()])
             ]);
         }
     }
