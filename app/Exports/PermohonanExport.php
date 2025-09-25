@@ -209,8 +209,10 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             AfterSheet::class => function(AfterSheet $event) {
                 $sheet = $event->sheet->getDelegate();
                 
-                // Set all cells to wrap text
+                // Set all cells to wrap text and center alignment
                 $sheet->getStyle('A:AF')->getAlignment()->setWrapText(true);
+                $sheet->getStyle('A:AF')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('A:AF')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 
                 // Set row height for header
                 $sheet->getRowDimension(1)->setRowHeight(35);
