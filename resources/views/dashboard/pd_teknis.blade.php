@@ -7,7 +7,7 @@
                     <div class="p-6">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
+                                <div class="w-8 h-8 bg-primary-500 rounded-md flex items-center justify-center">
                                     <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                     </svg>
@@ -90,13 +90,13 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-xl font-semibold text-gray-900 flex items-center">
-                                <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-6 h-6 text-primary-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
                                 Data Permohonan Terbaru
                             </h3>
                         </div>
-                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
+                        <span class="bg-primary-100 text-primary-800 text-sm font-medium px-3 py-1 rounded-full">
                             {{ $permohonans->count() }} Data
                         </span>
                     </div>
@@ -118,11 +118,11 @@
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
                                     @foreach($permohonans as $permohonan)
-                                    <tr class="hover:bg-blue-50 transition-colors duration-200">
+                                    <tr class="hover:bg-primary-50 transition-colors duration-200">
                                         <!-- No. Permohonan -->
                                         <td class="px-4 py-4 text-sm font-medium text-gray-900">
                                             <div class="flex items-center">
-                                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                                                <div class="w-2 h-2 bg-primary-500 rounded-full mr-3"></div>
                                                 <span class="font-mono text-xs">{{ $permohonan->no_permohonan ?? '-' }}</span>
                                             </div>
                                         </td>
@@ -192,7 +192,7 @@
                                                     'Diterima' => 'bg-green-100 text-green-800',
                                                     'Dikembalikan' => 'bg-yellow-100 text-yellow-800',
                                                     'Ditolak' => 'bg-red-100 text-red-800',
-                                                    'Menunggu' => 'bg-blue-100 text-blue-800'
+                                                    'Menunggu' => 'bg-primary-100 text-primary-800'
                                                 ];
                                                 $statusColor = $statusColors[$status] ?? 'bg-gray-100 text-gray-800';
                                             @endphp

@@ -67,7 +67,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-xl font-semibold text-gray-900 flex items-center">
-                                 <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                 <svg class="w-6 h-6 text-primary-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                  </svg>
                                  Data Permohonan
@@ -137,10 +137,10 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                             @if($permohonans->count() > 0)
                                 @foreach($permohonans as $index => $permohonan)
-                                <tr class="hover:bg-blue-50 transition-colors duration-200">
+                                <tr class="hover:bg-primary-50 transition-colors duration-200">
                                     <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                         <div class="flex items-center">
-                                            <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                                            <div class="w-2 h-2 bg-primary-500 rounded-full mr-3"></div>
                                             {{ $index + 1 }}
                                         </div>
                                     </td>
@@ -171,7 +171,7 @@
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm">
                                         @if($permohonan->jenis_pelaku_usaha)
-                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
                                                 {{ $permohonan->jenis_pelaku_usaha }}
                                             </span>
                                         @else
@@ -247,7 +247,7 @@
                                         <div class="flex items-center space-x-2">
                                             <!-- Edit Button -->
                                             <button data-edit-id="{{ $permohonan->id }}" 
-                                                    class="edit-btn inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                                    class="edit-btn inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
                                                 <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                 </svg>
