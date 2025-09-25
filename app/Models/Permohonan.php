@@ -64,6 +64,8 @@ class Permohonan extends Model
         'nama_perizinan',
         'skala_usaha',
         'risiko',
+        'jangka_waktu',
+        'no_telephone',
         'verifikator',
         'verifikasi_dpmptsp',
         'verifikasi_pd_teknis',

@@ -246,6 +246,57 @@
                                     </select>
                                     @error('jenis_proyek')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+
+                                @if(in_array($user->role, ['admin', 'dpmptsp']))
+                                <div>
+                                    <label for="nama_perizinan" class="block font-medium text-sm text-gray-700">Nama Perizinan</label>
+                                    <input id="nama_perizinan" name="nama_perizinan" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        value="{{ old('nama_perizinan', $permohonan->nama_perizinan) }}" placeholder="Masukkan nama perizinan" />
+                                    @error('nama_perizinan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                                </div>
+
+                                <div>
+                                    <label for="skala_usaha" class="block font-medium text-sm text-gray-700">Skala Usaha</label>
+                                    <select name="skala_usaha" id="skala_usaha"
+                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                                        <option value="">Pilih Skala Usaha</option>
+                                        <option value="Mikro" @selected(old('skala_usaha', $permohonan->skala_usaha) == 'Mikro')>Mikro</option>
+                                        <option value="Kecil" @selected(old('skala_usaha', $permohonan->skala_usaha) == 'Kecil')>Kecil</option>
+                                        <option value="Menengah" @selected(old('skala_usaha', $permohonan->skala_usaha) == 'Menengah')>Menengah</option>
+                                        <option value="Besar" @selected(old('skala_usaha', $permohonan->skala_usaha) == 'Besar')>Besar</option>
+                                    </select>
+                                    @error('skala_usaha')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                                </div>
+
+                                <div>
+                                    <label for="risiko" class="block font-medium text-sm text-gray-700">Risiko</label>
+                                    <select name="risiko" id="risiko"
+                                        class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                                        <option value="">Pilih Risiko</option>
+                                        <option value="Rendah" @selected(old('risiko', $permohonan->risiko) == 'Rendah')>Rendah</option>
+                                        <option value="Sedang" @selected(old('risiko', $permohonan->risiko) == 'Sedang')>Sedang</option>
+                                        <option value="Tinggi" @selected(old('risiko', $permohonan->risiko) == 'Tinggi')>Tinggi</option>
+                                    </select>
+                                    @error('risiko')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                                </div>
+
+                                <div>
+                                    <label for="jangka_waktu" class="block font-medium text-sm text-gray-700">Jangka Waktu (Hari Kerja)</label>
+                                    <input id="jangka_waktu" name="jangka_waktu" type="number"
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        value="{{ old('jangka_waktu', $permohonan->jangka_waktu) }}" placeholder="Masukkan jangka waktu dalam hari kerja" />
+                                    @error('jangka_waktu')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                                </div>
+
+                                <div>
+                                    <label for="no_telephone" class="block font-medium text-sm text-gray-700">No. Telephone</label>
+                                    <input id="no_telephone" name="no_telephone" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                        value="{{ old('no_telephone', $permohonan->no_telephone) }}" placeholder="Masukkan nomor telephone" />
+                                    @error('no_telephone')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                                </div>
+                                @endif
                             </div> {{-- END: KOLOM KIRI --}}
 
                             {{-- START: KOLOM KANAN: Verifikasi & Tracking --}}
