@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- App CSS & JS -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body {
@@ -73,7 +73,7 @@
 
                         <!-- Sign In Button -->
                         <div>
-                            <button type="submit" class="w-full py-3 px-6 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-bold rounded-xl shadow-lg hover:from-primary-700 hover:to-primary-800 transition-all duration-300 transform hover:scale-105">
+                            <button type="submit" class="w-full py-3 px-6 bg-gradient-primary text-white font-bold rounded-xl shadow-lg hover:opacity-95 transition-all duration-300 transform hover:scale-105">
                                 SIGN IN
                             </button>
                         </div>
