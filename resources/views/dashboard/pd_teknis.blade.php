@@ -2,21 +2,21 @@
     <x-slot name="header">Dashboard PD Teknis</x-slot>
 
     <!-- Stats Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
+                    <div class="p-4">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-primary-500 rounded-md flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="w-10 h-10 bg-primary-500 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                     </svg>
                                 </div>
                             </div>
-                            <div class="ml-5 w-0 flex-1">
+                            <div class="ml-4 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Total Permohonan</dt>
-                                    <dd class="text-lg font-medium text-gray-900">{{ $stats['totalPermohonan'] }}</dd>
+                                    <dt class="text-xs font-medium text-gray-500 truncate">Total Permohonan</dt>
+                                    <dd class="text-xl font-bold text-gray-900">{{ $stats['totalPermohonan'] }}</dd>
                                 </dl>
                             </div>
                         </div>
@@ -24,19 +24,19 @@
                 </div>
 
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
+                    <div class="p-4">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
                                 </div>
                             </div>
-                            <div class="ml-5 w-0 flex-1">
+                            <div class="ml-4 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Diterima</dt>
-                                    <dd class="text-lg font-medium text-gray-900">{{ $stats['diterima'] }}</dd>
+                                    <dt class="text-xs font-medium text-gray-500 truncate">Diterima</dt>
+                                    <dd class="text-xl font-bold text-gray-900">{{ $stats['diterima'] }}</dd>
                                 </dl>
                             </div>
                         </div>
@@ -44,19 +44,19 @@
                 </div>
 
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
+                    <div class="p-4">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-yellow-500 rounded-md flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="w-10 h-10 bg-yellow-500 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
                                     </svg>
                                 </div>
                             </div>
-                            <div class="ml-5 w-0 flex-1">
+                            <div class="ml-4 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Dikembalikan</dt>
-                                    <dd class="text-lg font-medium text-gray-900">{{ $stats['dikembalikan'] }}</dd>
+                                    <dt class="text-xs font-medium text-gray-500 truncate">Dikembalikan</dt>
+                                    <dd class="text-xl font-bold text-gray-900">{{ $stats['dikembalikan'] }}</dd>
                                 </dl>
                             </div>
                         </div>
@@ -64,19 +64,39 @@
                 </div>
 
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
+                    <div class="p-4">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-red-500 rounded-md flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                     </svg>
                                 </div>
                             </div>
-                            <div class="ml-5 w-0 flex-1">
+                            <div class="ml-4 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Ditolak</dt>
-                                    <dd class="text-lg font-medium text-gray-900">{{ $stats['ditolak'] }}</dd>
+                                    <dt class="text-xs font-medium text-gray-500 truncate">Ditolak</dt>
+                                    <dd class="text-xl font-bold text-gray-900">{{ $stats['ditolak'] }}</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-4">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <div class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="ml-4 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-xs font-medium text-gray-500 truncate">Terlambat</dt>
+                                    <dd class="text-xl font-bold text-gray-900">{{ $stats['terlambat'] }}</dd>
                                 </dl>
                             </div>
                         </div>
@@ -86,7 +106,7 @@
 
             <!-- Recent Permohonan -->
             <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-                <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
+                <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-primary-50 to-primary-100">
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-xl font-semibold text-gray-900 flex items-center">
