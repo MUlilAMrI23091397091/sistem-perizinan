@@ -11,81 +11,101 @@
      <?php $__env->slot('header', null, []); ?> Dashboard Admin <?php $__env->endSlot(); ?>
 
     <!-- Stats Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+                <div class="bg-blue-500 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-4">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                     </svg>
                                 </div>
                             </div>
-                            <div class="ml-5 w-0 flex-1">
+                            <div class="ml-4 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Total Permohonan</dt>
-                                    <dd class="text-lg font-medium text-gray-900"><?php echo e($stats['totalPermohonan']); ?></dd>
+                                    <dt class="text-xs font-medium text-blue-100 truncate">Total Permohonan</dt>
+                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['totalPermohonan']); ?></dd>
                                 </dl>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
+                <div class="bg-green-500 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-4">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
                                 </div>
                             </div>
-                            <div class="ml-5 w-0 flex-1">
+                            <div class="ml-4 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Diterima</dt>
-                                    <dd class="text-lg font-medium text-gray-900"><?php echo e($stats['diterima']); ?></dd>
+                                    <dt class="text-xs font-medium text-green-100 truncate">Diterima</dt>
+                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['diterima']); ?></dd>
                                 </dl>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
+                <div class="bg-orange-500 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-4">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-yellow-500 rounded-md flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
                                     </svg>
                                 </div>
                             </div>
-                            <div class="ml-5 w-0 flex-1">
+                            <div class="ml-4 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Dikembalikan</dt>
-                                    <dd class="text-lg font-medium text-gray-900"><?php echo e($stats['dikembalikan']); ?></dd>
+                                    <dt class="text-xs font-medium text-orange-100 truncate">Dikembalikan</dt>
+                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['dikembalikan']); ?></dd>
                                 </dl>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6">
+                <div class="bg-red-500 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-4">
                         <div class="flex items-center">
                             <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-red-500 rounded-md flex items-center justify-center">
-                                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div class="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                     </svg>
                                 </div>
                             </div>
-                            <div class="ml-5 w-0 flex-1">
+                            <div class="ml-4 w-0 flex-1">
                                 <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Ditolak</dt>
-                                    <dd class="text-lg font-medium text-gray-900"><?php echo e($stats['ditolak']); ?></dd>
+                                    <dt class="text-xs font-medium text-red-100 truncate">Ditolak</dt>
+                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['ditolak']); ?></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-600 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-4">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <div class="w-10 h-10 bg-gray-700 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="ml-4 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-xs font-medium text-gray-200 truncate">Terlambat</dt>
+                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['terlambat']); ?></dd>
                                 </dl>
                             </div>
                         </div>
@@ -95,17 +115,17 @@
 
             <!-- Recent Permohonan -->
             <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-                <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
+                <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-primary-50 to-primary-100">
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-xl font-semibold text-gray-900 flex items-center">
-                                <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-6 h-6 text-primary-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
                                 Data Permohonan Terbaru
                             </h3>
                         </div>
-                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
+                        <span class="bg-primary-100 text-primary-800 text-sm font-medium px-3 py-1 rounded-full">
                             <?php echo e($permohonans->count()); ?> Data
                         </span>
                     </div>
@@ -127,11 +147,11 @@
                         </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
                                     <?php $__currentLoopData = $permohonans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permohonan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <tr class="hover:bg-blue-50 transition-colors duration-200">
+                                    <tr class="hover:bg-primary-50 transition-colors duration-200">
                                         <!-- No. Permohonan -->
                                         <td class="px-4 py-4 text-sm font-medium text-gray-900">
                                             <div class="flex items-center">
-                                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                                                <div class="w-2 h-2 bg-primary-500 rounded-full mr-3"></div>
                                                 <span class="font-mono text-xs"><?php echo e($permohonan->no_permohonan ?? '-'); ?></span>
                                             </div>
                                         </td>
@@ -203,7 +223,7 @@
                                                     'Diterima' => 'bg-green-100 text-green-800',
                                                     'Dikembalikan' => 'bg-yellow-100 text-yellow-800',
                                                     'Ditolak' => 'bg-red-100 text-red-800',
-                                                    'Menunggu' => 'bg-blue-100 text-blue-800'
+                                                    'Menunggu' => 'bg-primary-100 text-primary-800'
                                                 ];
                                                 $statusColor = $statusColors[$status] ?? 'bg-gray-100 text-gray-800';
                                             ?>
