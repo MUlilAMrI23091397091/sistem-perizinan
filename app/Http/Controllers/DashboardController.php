@@ -41,20 +41,18 @@ class DashboardController extends Controller
             $permohonans = Permohonan::with('user')->get();
         }
         
-        // Filter data yang terlambat dan belum selesai untuk statistik dashboard
-        $overdueUnfinished = $permohonans->filter(function($permohonan) {
-            // Data yang terlambat (deadline sudah lewat) dan belum selesai
-            return $permohonan->deadline && 
-                   $permohonan->deadline < now() && 
-                   !in_array($permohonan->status, ['Diterima', 'Ditolak']);
-        });
-        
-        // Hitung statistik berdasarkan data terlambat dan belum selesai
+        // Hitung statistik dengan 4 kategori status
         $stats = [
-            'totalPermohonan' => $overdueUnfinished->count(),
-            'dikembalikan' => $overdueUnfinished->where('status', 'Dikembalikan')->count(),
-            'diterima' => $overdueUnfinished->where('status', 'Diterima')->count(),
-            'ditolak' => $overdueUnfinished->where('status', 'Ditolak')->count(),
+            'totalPermohonan' => $permohonans->count(),
+            'diterima' => $permohonans->where('status', 'Diterima')->count(),
+            'dikembalikan' => $permohonans->where('status', 'Dikembalikan')->count(),
+            'ditolak' => $permohonans->where('status', 'Ditolak')->count(),
+            'terlambat' => $permohonans->filter(function($permohonan) {
+                // Data yang terlambat (deadline sudah lewat dan status bukan Diterima/Ditolak)
+                return $permohonan->deadline && 
+                       $permohonan->deadline < now() && 
+                       !in_array($permohonan->status, ['Diterima', 'Ditolak']);
+            })->count(),
         ];
 
         // Return view berdasarkan role
