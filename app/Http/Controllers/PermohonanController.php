@@ -175,7 +175,7 @@ class PermohonanController extends Controller
             'risiko' => 'nullable|string',
             'jangka_waktu' => 'nullable|integer|min:1',
             'no_telephone' => 'nullable|string|max:20',
-            'deadline' => 'nullable|date|after_or_equal:today',
+            'deadline' => 'nullable|date|after_or_equal:today', // CREATE: deadline harus >= hari ini
             'verifikator' => 'nullable|string',
             'status' => 'required|in:Dikembalikan,Diterima,Ditolak,Menunggu',
             'verifikasi_pd_teknis' => 'nullable|string',
@@ -358,7 +358,7 @@ class PermohonanController extends Controller
             'risiko' => 'nullable|string',
             'jangka_waktu' => 'nullable|integer|min:1',
             'no_telephone' => 'nullable|string|max:20',
-            'deadline' => 'nullable|date|after_or_equal:today',
+            'deadline' => 'nullable|date', // UPDATE: deadline boleh apa saja (termasuk yang sudah terlewat)
             'verifikator' => 'nullable|string',
             'status' => 'required|in:Dikembalikan,Diterima,Ditolak,Menunggu',
             'verifikasi_pd_teknis' => 'nullable|string',

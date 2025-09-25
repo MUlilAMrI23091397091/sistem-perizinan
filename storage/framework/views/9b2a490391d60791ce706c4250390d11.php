@@ -412,12 +412,12 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div>
-                                    <label for="jangka_waktu" class="block font-medium text-sm text-gray-700">Jangka Waktu (Hari Kerja)</label>
-                                    <input id="jangka_waktu" name="jangka_waktu" type="number"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="<?php echo e(old('jangka_waktu', $permohonan->jangka_waktu)); ?>" placeholder="Masukkan jangka waktu dalam hari kerja" />
-                                    <?php $__errorArgs = ['jangka_waktu'];
+                        <div>
+                            <label for="jangka_waktu" class="block font-medium text-sm text-gray-700">Jangka Waktu (Hari Kerja)</label>
+                            <input id="jangka_waktu" name="jangka_waktu" type="number"
+                                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                value="<?php echo e(old('jangka_waktu', $permohonan->jangka_waktu)); ?>" placeholder="Masukkan jangka waktu dalam hari kerja" />
+                            <?php $__errorArgs = ['jangka_waktu'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -425,7 +425,21 @@ $message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
-                                </div>
+                        </div>
+                        <div>
+                            <label for="deadline" class="block font-medium text-sm text-gray-700">Deadline (Hari Kerja)</label>
+                            <input id="deadline" name="deadline" type="date"
+                                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                value="<?php echo e(old('deadline', $permohonan->deadline?->format('Y-m-d'))); ?>" />
+                            <?php $__errorArgs = ['deadline'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                        </div>
 
                                 <div>
                                     <label for="no_telephone" class="block font-medium text-sm text-gray-700">No. Telephone</label>
