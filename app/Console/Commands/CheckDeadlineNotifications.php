@@ -114,6 +114,6 @@ class CheckDeadlineNotifications extends Command
         $this->info("- Due today notifications created: {$dueTodayCount}");
         $this->info("- Due soon notifications created: {$dueSoonCount}");
 
-        return Command::SUCCESS;
+        return 0;
     }
 }

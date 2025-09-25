@@ -263,7 +263,7 @@ class PermohonanController extends Controller
         ]);
 
         // Cek dan buat notifikasi deadline jika ada
-        if ($permohonan->deadline) {
+        if ($permohonan->getAttribute('deadline')) {
             $permohonan->createDeadlineNotification();
         }
 
@@ -435,7 +435,7 @@ class PermohonanController extends Controller
         }
 
         // Cek dan buat notifikasi deadline jika ada
-        if ($permohonan->deadline) {
+        if ($permohonan->getAttribute('deadline')) {
             $permohonan->createDeadlineNotification();
         }
 
