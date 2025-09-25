@@ -34,7 +34,7 @@
                         <div>
                             <input 
                                 id="email" 
-                                class="w-full px-5 py-3 bg-gray-100 border-2 border-transparent rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-300" 
+                                class="w-full px-5 py-3 bg-gray-100 border-2 border-transparent rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300" 
                                 type="email" 
                                 name="email" 
                                 placeholder="Email"
@@ -46,7 +46,7 @@
                         <div>
                             <input 
                                 id="password" 
-                                class="w-full px-5 py-3 bg-gray-100 border-2 border-transparent rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-300"
+                                class="w-full px-5 py-3 bg-gray-100 border-2 border-transparent rounded-xl text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
                                 type="password"
                                 name="password"
                                 placeholder="Password"
@@ -60,20 +60,20 @@
                                 <input 
                                     id="remember_me" 
                                     type="checkbox" 
-                                    class="rounded-md text-purple-600 focus:ring-purple-600 border-gray-300" 
+                                    class="rounded-md text-primary-600 focus:ring-primary-600 border-gray-300" 
                                     name="remember"
                                 >
                                 <span class="ml-2 font-medium">Remember me</span>
                             </label>
 
-                            <a href="#" class="text-purple-600 hover:text-purple-800 font-medium transition-colors">
+                            <a href="#" class="text-primary-600 hover:text-primary-700 font-medium transition-colors">
                                 Forgot password?
                             </a>
                         </div>
 
                         <!-- Sign In Button -->
                         <div>
-                            <button type="submit" class="w-full py-3 px-6 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl shadow-lg hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105">
+                            <button type="submit" class="w-full py-3 px-6 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-bold rounded-xl shadow-lg hover:from-primary-700 hover:to-primary-800 transition-all duration-300 transform hover:scale-105">
                                 SIGN IN
                             </button>
                         </div>
@@ -82,7 +82,7 @@
             </div>
 
             <!-- Right Panel (Greeting) -->
-            <div class="hidden lg:flex lg:w-1/2 p-8 lg:p-16 items-center justify-center text-center bg-gradient-to-br from-purple-700 to-indigo-800 rounded-r-3xl relative">
+            <div class="hidden lg:flex lg:w-1/2 p-8 lg:p-16 items-center justify-center text-center bg-gradient-sidebar rounded-r-3xl relative">
                 <div class="z-10 text-white">
                     <h2 class="text-4xl lg:text-5xl font-extrabold mb-4">Hello, Friend!</h2>
                     <p class="text-lg mb-8 opacity-90">
@@ -90,7 +90,7 @@
                     </p>
                     
                     <!-- Sign Up Button -->
-                    <a href="{{ route('register') }}" class="inline-block px-12 py-3 border-2 border-white rounded-full font-bold text-white hover:bg-white hover:text-purple-700 transition-all duration-300 transform hover:scale-105 shadow-md">
+                    <a href="{{ route('register') }}" class="inline-block px-12 py-3 border-2 border-white rounded-full font-bold text-white hover:bg-white hover:text-primary-700 transition-all duration-300 transform hover:scale-105 shadow-md">
                         SIGN UP
                     </a>
                 </div>

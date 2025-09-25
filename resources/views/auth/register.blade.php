@@ -17,7 +17,7 @@
 <body class="antialiased flex items-center justify-center min-h-screen p-4 lg:p-12">
     <div class="flex flex-col lg:flex-row w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden">
         <!-- Left Panel (Greeting) -->
-        <div class="hidden lg:flex lg:w-1/2 p-8 lg:p-12 items-center justify-center text-center bg-gradient-to-br from-purple-700 to-indigo-800 rounded-l-3xl relative">
+        <div class="hidden lg:flex lg:w-1/2 p-8 lg:p-12 items-center justify-center text-center bg-gradient-sidebar rounded-l-3xl relative">
             <div class="z-10 text-white">
                 <h2 class="text-4xl lg:text-5xl font-extrabold mb-4">Welcome Back!</h2>
                 <p class="text-lg mb-8 opacity-90">
@@ -25,7 +25,7 @@
                 </p>
                 
                 <!-- Sign In Button -->
-                <a href="{{ route('login') }}" class="inline-block px-12 py-3 border-2 border-white rounded-full font-bold text-white hover:bg-white hover:text-purple-700 transition-all duration-300 transform hover:scale-105 shadow-md">
+                <a href="{{ route('login') }}" class="inline-block px-12 py-3 border-2 border-white rounded-full font-bold text-white hover:bg-white hover:text-primary-700 transition-all duration-300 transform hover:scale-105 shadow-md">
                     SIGN IN
                 </a>
             </div>
@@ -47,7 +47,7 @@
                     <div>
                         <input 
                             id="name" 
-                            class="w-full px-4 py-2 bg-gray-100 border-2 border-transparent rounded-lg text-gray-700 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-300" 
+                            class="w-full px-4 py-2 bg-gray-100 border-2 border-transparent rounded-lg text-gray-700 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300" 
                             type="text" 
                             name="name" 
                             placeholder="Name"
@@ -59,7 +59,7 @@
                     <div>
                         <input 
                             id="email" 
-                            class="w-full px-4 py-2 bg-gray-100 border-2 border-transparent rounded-lg text-gray-700 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-300" 
+                            class="w-full px-4 py-2 bg-gray-100 border-2 border-transparent rounded-lg text-gray-700 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300" 
                             type="email" 
                             name="email" 
                             placeholder="Email"
@@ -71,7 +71,7 @@
                     <div>
                         <input 
                             id="password" 
-                            class="w-full px-4 py-2 bg-gray-100 border-2 border-transparent rounded-lg text-gray-700 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-300"
+                            class="w-full px-4 py-2 bg-gray-100 border-2 border-transparent rounded-lg text-gray-700 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
                             type="password"
                             name="password"
                             placeholder="Password"
@@ -83,7 +83,7 @@
                     <div>
                         <input 
                             id="password_confirmation" 
-                            class="w-full px-4 py-2 bg-gray-100 border-2 border-transparent rounded-lg text-gray-700 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-300"
+                            class="w-full px-4 py-2 bg-gray-100 border-2 border-transparent rounded-lg text-gray-700 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
                             type="password"
                             name="password_confirmation" 
                             placeholder="Confirm Password"
@@ -93,7 +93,7 @@
 
                     <!-- Role -->
                     <div>
-                        <select name="role" id="role" class="w-full px-4 py-2 bg-gray-100 border-2 border-transparent rounded-lg text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-300">
+                        <select name="role" id="role" class="w-full px-4 py-2 bg-gray-100 border-2 border-transparent rounded-lg text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
                             <option value="" disabled selected class="text-gray-400">Select Role</option>
                             <option value="pd_teknis">Staff PD Teknis</option>
                             <option value="dpmptsp">Staff DPMPTSP</option>
@@ -103,7 +103,7 @@
 
                     <!-- Sign Up Button -->
                     <div>
-                        <button type="submit" class="w-full py-2.5 px-6 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-lg shadow-md hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105">
+                        <button type="submit" class="w-full py-2.5 px-6 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-bold rounded-lg shadow-md hover:from-primary-700 hover:to-primary-800 transition-all duration-300 transform hover:scale-105">
                             SIGN UP
                         </button>
                     </div>

@@ -15,7 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-primary-50">
             <div class="w-full max-w-4xl mt-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 <div class="md:flex">
                     <!-- Panel Form -->
@@ -23,7 +23,7 @@
                         {{ $slot }}
                     </div>
                     <!-- Panel Overlay/Gradient -->
-                    <div class="w-full md:w-1/2 p-6 sm:p-8 flex flex-col justify-center items-center text-white bg-gradient-to-br from-purple-600 to-blue-500">
+                    <div class="w-full md:w-1/2 p-6 sm:p-8 flex flex-col justify-center items-center text-white bg-gradient-sidebar">
                         {{ $overlay ?? '' }}
                     </div>
                 </div>
