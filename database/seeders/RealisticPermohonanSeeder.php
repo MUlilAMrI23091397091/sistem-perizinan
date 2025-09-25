@@ -27,7 +27,7 @@ class RealisticPermohonanSeeder extends Seeder
         $sektors = ['Dinkopdag', 'Disbudpar', 'Dinkes', 'Dishub', 'Dprkpp', 'Dkpp', 'Dlh', 'Disperinaker'];
         $skalaUsaha = ['Mikro', 'Kecil', 'Menengah', 'Besar'];
         $risiko = ['Rendah', 'Sedang', 'Tinggi'];
-        $status = ['Menunggu', 'Diterima', 'Ditolak', 'Dikembalikan', 'Terlambat'];
+        $status = ['Diterima', 'Ditolak', 'Dikembalikan', 'Terlambat']; // Tidak ada status Menunggu
         $verifikasiStatus = ['Berkas Disetujui', 'Berkas Diperbaiki', 'Pemohon Dihubungi', 'Berkas Diunggah Ulang', 'Pemohon Belum Dihubungi'];
         $jenisProyek = ['Utama', 'Pendukung', 'Pendukung UMKU', 'Kantor Cabang'];
         $jenisPelakuUsaha = ['Orang Perseorangan', 'Badan Usaha'];
@@ -136,7 +136,7 @@ class RealisticPermohonanSeeder extends Seeder
                 'tanggal_permohonan' => $tanggalPermohonan->format('Y-m-d'),
                 'verifikasi_pd_teknis' => 'Tanda Daftar Gudang ' . ['Besar', 'Menengah', 'Kecil'][array_rand(['Besar', 'Menengah', 'Kecil'])],
                 'verifikasi_dpmptsp' => $verifikasiStatus[array_rand($verifikasiStatus)],
-                'status' => ['Menunggu', 'Dikembalikan'][array_rand(['Menunggu', 'Dikembalikan'])], // Data berjalan bisa Menunggu atau Dikembalikan
+                'status' => 'Dikembalikan', // Data berjalan berstatus Dikembalikan
                 'verifikator' => 'Verifikator Berjalan ' . $i,
                 'keterangan_pengembalian' => $i <= 3 ? 'Perlu perbaikan dokumen' : null,
                 'pengembalian' => $i <= 3 ? Carbon::now()->subDays(rand(1, 5))->format('Y-m-d') : null,
@@ -205,7 +205,7 @@ class RealisticPermohonanSeeder extends Seeder
             'tanggal_permohonan' => Carbon::now()->subDays(10)->format('Y-m-d'),
             'verifikasi_pd_teknis' => 'Tanda Daftar Gudang Menengah',
             'verifikasi_dpmptsp' => 'Berkas Disetujui',
-            'status' => 'Menunggu',
+            'status' => 'Dikembalikan', // Data deadline hari ini berstatus Dikembalikan
             'verifikator' => 'Verifikator Hari Ini',
         ]);
 
@@ -233,7 +233,7 @@ class RealisticPermohonanSeeder extends Seeder
             'tanggal_permohonan' => Carbon::now()->subDays(8)->format('Y-m-d'),
             'verifikasi_pd_teknis' => 'Tanda Daftar Gudang Besar',
             'verifikasi_dpmptsp' => 'Berkas Disetujui',
-            'status' => 'Menunggu',
+            'status' => 'Dikembalikan', // Data deadline besok berstatus Dikembalikan
             'verifikator' => 'Verifikator Besok',
         ]);
 
@@ -243,7 +243,6 @@ class RealisticPermohonanSeeder extends Seeder
         $this->command->info('Dikembalikan: ' . Permohonan::where('status', 'Dikembalikan')->count());
         $this->command->info('Ditolak: ' . Permohonan::where('status', 'Ditolak')->count());
         $this->command->info('Terlambat: ' . Permohonan::where('status', 'Terlambat')->count());
-        $this->command->info('Menunggu: ' . Permohonan::where('status', 'Menunggu')->count());
         $this->command->info('Due today: ' . Permohonan::whereDate('deadline', now())->count());
         $this->command->info('Due tomorrow: ' . Permohonan::whereDate('deadline', now()->addDay())->count());
     }
