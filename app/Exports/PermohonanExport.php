@@ -108,23 +108,23 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             // NO TELPHONE (DPM) - kosong
             '',
             // VERIFIKASI OLEH PD TEKNIS
-            $permohonan->verifikasi_pd_teknis ? \Carbon\Carbon::parse($permohonan->verifikasi_pd_teknis)->format('Y-m-d') : '',
+            $permohonan->verifikasi_pd_teknis ?? '',
             // VERIFIKASI OLEH DPMPTSP
-            $permohonan->verifikasi_dpmptsp ? \Carbon\Carbon::parse($permohonan->verifikasi_dpmptsp)->format('Y-m-d') : '',
+            $permohonan->verifikasi_dpmptsp ?? '',
             // PENGEMBALIAN (TANGGAL)
-            $permohonan->tanggal_pengembalian ? \Carbon\Carbon::parse($permohonan->tanggal_pengembalian)->format('d/m/Y') : '',
+            $permohonan->pengembalian ? \Carbon\Carbon::parse($permohonan->pengembalian)->format('d/m/Y') : '',
             // KETERANGAN (pengembalian)
             $permohonan->keterangan_pengembalian ?? '',
             // MENGHADAP NO (TANGGAL)
-            $permohonan->tanggal_menghubungi ? \Carbon\Carbon::parse($permohonan->tanggal_menghubungi)->format('d/m/Y') : '',
+            $permohonan->menghubungi ? \Carbon\Carbon::parse($permohonan->menghubungi)->format('d/m/Y') : '',
             // KETERANGAN (menghubungi)
             $permohonan->keterangan_menghubungi ?? '',
             // APPROVED (TANGGAL)
-            $permohonan->tanggal_perbaikan ? \Carbon\Carbon::parse($permohonan->tanggal_perbaikan)->format('d/m/Y') : '',
+            $permohonan->perbaikan ? \Carbon\Carbon::parse($permohonan->perbaikan)->format('d/m/Y') : '',
             // KETERANGAN (perbaikan)
             $permohonan->keterangan_perbaikan ?? '',
             // TERBIT (TANGGAL)
-            $permohonan->tanggal_terbit ? \Carbon\Carbon::parse($permohonan->tanggal_terbit)->format('d/m/Y') : '',
+            $permohonan->terbit ? \Carbon\Carbon::parse($permohonan->terbit)->format('d/m/Y') : '',
             // KETERANGAN (terbit)
             $permohonan->keterangan_terbit ?? '',
             // PEMROSES DAN TGL E-SURAT DAN TGL PERTEK
