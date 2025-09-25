@@ -170,7 +170,7 @@
                         <a href="{{ route('permohonan.export.pdf') }}" class="inline-flex items-center px-3 py-1.5 bg-red-600 text-white rounded-md text-sm">PDF</a>
                         <a href="{{ route('permohonan.export.pdf-compact') }}" class="inline-flex items-center px-3 py-1.5 bg-orange-600 text-white rounded-md text-sm">Ringkas</a>
                     </div>
-                    <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">{{ $permohonans->total() }} Data</span>
+                    <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">{{ $permohonans->count() }} Data</span>
                 </div>
             </div>
         </div>
