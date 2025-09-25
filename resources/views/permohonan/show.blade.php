@@ -235,6 +235,44 @@
                                 </div>
 
                                 <div class="group">
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">Deadline (Hari Kerja)</label>
+                                    @if($permohonan->deadline)
+                                        @php
+                                            $deadlineStatus = $permohonan->getDeadlineStatus();
+                                            $deadlineClass = match($deadlineStatus) {
+                                                'overdue' => 'bg-red-100 text-red-800 border-red-200',
+                                                'due_today' => 'bg-orange-100 text-orange-800 border-orange-200',
+                                                'due_soon' => 'bg-yellow-100 text-yellow-800 border-yellow-200',
+                                                'on_time' => 'bg-green-100 text-green-800 border-green-200',
+                                                default => 'bg-gray-100 text-gray-600 border-gray-200'
+                                            };
+                                            $deadlineIcon = match($deadlineStatus) {
+                                                'overdue' => 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z',
+                                                'due_today' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
+                                                'due_soon' => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
+                                                'on_time' => 'M5 13l4 4L19 7',
+                                                default => 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'
+                                            };
+                                        @endphp
+                                        <div class="inline-flex items-center px-3 py-2 rounded-lg border {{ $deadlineClass }}">
+                                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $deadlineIcon }}"></path>
+                                            </svg>
+                                            <span class="font-medium">{{ $permohonan->deadline->format('d/m/Y') }}</span>
+                                            @if($deadlineStatus == 'overdue')
+                                                <span class="ml-2 text-xs font-bold">TERLAMBAT!</span>
+                                            @elseif($deadlineStatus == 'due_today')
+                                                <span class="ml-2 text-xs font-bold">HARI INI!</span>
+                                            @elseif($deadlineStatus == 'due_soon')
+                                                <span class="ml-2 text-xs font-bold">SEGERA!</span>
+                                            @endif
+                                        </div>
+                                    @else
+                                        <span class="text-gray-500">-</span>
+                                    @endif
+                                </div>
+
+                                <div class="group">
                                     <label class="text-sm font-medium text-gray-500 block mb-2">No. Telephone</label>
                                     <p class="text-gray-900 font-mono">{{ $permohonan->no_telephone ?? '-' }}</p>
                                 </div>

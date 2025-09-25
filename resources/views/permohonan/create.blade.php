@@ -276,13 +276,20 @@
                                     @error('risiko')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
-                                <div>
-                                    <label for="jangka_waktu" class="block font-medium text-sm text-gray-700">Jangka Waktu (Hari Kerja)</label>
-                                    <input id="jangka_waktu" name="jangka_waktu" type="number"
-                                        class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                        value="{{ old('jangka_waktu') }}" placeholder="Masukkan jangka waktu dalam hari kerja" />
-                                    @error('jangka_waktu')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                </div>
+                        <div>
+                            <label for="jangka_waktu" class="block font-medium text-sm text-gray-700">Jangka Waktu (Hari Kerja)</label>
+                            <input id="jangka_waktu" name="jangka_waktu" type="number"
+                                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                value="{{ old('jangka_waktu') }}" placeholder="Masukkan jangka waktu dalam hari kerja" />
+                            @error('jangka_waktu')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                        </div>
+                        <div>
+                            <label for="deadline" class="block font-medium text-sm text-gray-700">Deadline (Hari Kerja)</label>
+                            <input id="deadline" name="deadline" type="date"
+                                class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                value="{{ old('deadline') }}" />
+                            @error('deadline')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                        </div>
 
                                 <div>
                                     <label for="no_telephone" class="block font-medium text-sm text-gray-700">No. Telephone</label>

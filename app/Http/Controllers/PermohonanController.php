@@ -173,6 +173,9 @@ class PermohonanController extends Controller
             'nama_perizinan' => 'nullable|string',
             'skala_usaha' => 'nullable|string',
             'risiko' => 'nullable|string',
+            'jangka_waktu' => 'nullable|integer|min:1',
+            'no_telephone' => 'nullable|string|max:20',
+            'deadline' => 'nullable|date|after_or_equal:today',
             'verifikator' => 'nullable|string',
             'status' => 'required|in:Dikembalikan,Diterima,Ditolak,Menunggu',
             'verifikasi_pd_teknis' => 'nullable|string',
@@ -258,6 +261,11 @@ class PermohonanController extends Controller
             'status_sesudah' => $permohonan->status,
             'keterangan' => 'Permohonan baru dibuat',
         ]);
+
+        // Cek dan buat notifikasi deadline jika ada
+        if ($permohonan->deadline) {
+            $permohonan->createDeadlineNotification();
+        }
 
         return redirect()->route('dashboard')->with('success', 'Permohonan berhasil ditambahkan!');
     }
@@ -348,6 +356,9 @@ class PermohonanController extends Controller
             'nama_perizinan' => 'nullable|string',
             'skala_usaha' => 'nullable|string',
             'risiko' => 'nullable|string',
+            'jangka_waktu' => 'nullable|integer|min:1',
+            'no_telephone' => 'nullable|string|max:20',
+            'deadline' => 'nullable|date|after_or_equal:today',
             'verifikator' => 'nullable|string',
             'status' => 'required|in:Dikembalikan,Diterima,Ditolak,Menunggu',
             'verifikasi_pd_teknis' => 'nullable|string',
@@ -421,6 +432,11 @@ class PermohonanController extends Controller
                     'keterangan' => implode("\n• ", $deskripsiLog),
                 ]);
             }
+        }
+
+        // Cek dan buat notifikasi deadline jika ada
+        if ($permohonan->deadline) {
+            $permohonan->createDeadlineNotification();
         }
 
         return redirect()->route('permohonan.show', $permohonan)

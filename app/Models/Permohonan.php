@@ -66,6 +66,7 @@ class Permohonan extends Model
         'risiko',
         'jangka_waktu',
         'no_telephone',
+        'deadline',
         'verifikator',
         'verifikasi_dpmptsp',
         'verifikasi_pd_teknis',
@@ -94,6 +95,7 @@ class Permohonan extends Model
         'menghubungi' => 'date',
         'perbaikan' => 'date',
         'terbit' => 'date',
+        'deadline' => 'date',
         // Tambahkan juga untuk created_at dan updated_at jika ingin eksplisit meskipun sudah default
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
@@ -120,5 +122,54 @@ class Permohonan extends Model
     public function logs()
     {
         return $this->hasMany(LogPermohonan::class);
+    }
+
+    // Method untuk mengecek apakah permohonan melewati deadline
+    public function isOverdue()
+    {
+        if (!$this->deadline) {
+            return false;
+        }
+        
+        return now()->toDateString() > $this->deadline->toDateString();
+    }
+
+    // Method untuk mendapatkan status deadline
+    public function getDeadlineStatus()
+    {
+        if (!$this->deadline) {
+            return 'no_deadline';
+        }
+
+        $today = now()->toDateString();
+        $deadline = $this->deadline->toDateString();
+
+        if ($today > $deadline) {
+            return 'overdue';
+        } elseif ($today == $deadline) {
+            return 'due_today';
+        } else {
+            $daysLeft = now()->diffInDays($this->deadline, false);
+            if ($daysLeft <= 3) {
+                return 'due_soon';
+            }
+            return 'on_time';
+        }
+    }
+
+    // Method untuk membuat log notifikasi deadline
+    public function createDeadlineNotification()
+    {
+        if ($this->isOverdue()) {
+            $this->logs()->create([
+                'user_id' => auth()->id(),
+                'status_sebelum' => $this->status ?? 'Menunggu',
+                'status_sesudah' => $this->status ?? 'Menunggu',
+                'keterangan' => "⚠️ PERINGATAN: Permohonan telah melewati deadline ({$this->deadline->format('d/m/Y')})",
+                'action' => 'deadline_overdue',
+                'old_data' => null,
+                'new_data' => json_encode(['deadline' => $this->deadline->toDateString()])
+            ]);
+        }
     }
 }
