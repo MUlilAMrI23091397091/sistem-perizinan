@@ -26,25 +26,39 @@
                         
                         <!-- Filter Buttons -->
                         <div class="flex gap-2">
-                            <select name="sektor" onchange="this.form.submit()" class="h-11 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
-                                <option value="">Semua Sektor</option>
-                                @foreach($sektors ?? [] as $sektor)
-                                    <option value="{{ $sektor }}" {{ ($selectedSektor ?? '') == $sektor ? 'selected' : '' }}>
-                                        {{ $sektor }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            <div class="relative custom-dropdown">
+                                <select name="sektor" onchange="this.form.submit()" class="h-11 pl-3 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm appearance-none bg-white cursor-pointer">
+                                    <option value="">Semua Sektor</option>
+                                    @foreach($sektors ?? [] as $sektor)
+                                        <option value="{{ $sektor }}" {{ ($selectedSektor ?? '') == $sektor ? 'selected' : '' }}>
+                                            {{ $sektor }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-600 dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            </div>
                             
-                            <select name="date_filter" onchange="this.form.submit()" class="h-11 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
-                                <option value="">Semua Periode</option>
-                                <option value="today" {{ ($selectedDateFilter ?? '') == 'today' ? 'selected' : '' }}>Hari Ini</option>
-                                <option value="yesterday" {{ ($selectedDateFilter ?? '') == 'yesterday' ? 'selected' : '' }}>Kemarin</option>
-                                <option value="this_week" {{ ($selectedDateFilter ?? '') == 'this_week' ? 'selected' : '' }}>Minggu Ini</option>
-                                <option value="last_week" {{ ($selectedDateFilter ?? '') == 'last_week' ? 'selected' : '' }}>Minggu Lalu</option>
-                                <option value="this_month" {{ ($selectedDateFilter ?? '') == 'this_month' ? 'selected' : '' }}>Bulan Ini</option>
-                                <option value="last_month" {{ ($selectedDateFilter ?? '') == 'last_month' ? 'selected' : '' }}>Bulan Lalu</option>
-                                <option value="custom" {{ ($selectedDateFilter ?? '') == 'custom' ? 'selected' : '' }}>Custom</option>
-                            </select>
+                            <div class="relative custom-dropdown">
+                                <select name="date_filter" onchange="this.form.submit()" class="h-11 pl-3 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm appearance-none bg-white cursor-pointer">
+                                    <option value="">Semua Periode</option>
+                                    <option value="today" {{ ($selectedDateFilter ?? '') == 'today' ? 'selected' : '' }}>Hari Ini</option>
+                                    <option value="yesterday" {{ ($selectedDateFilter ?? '') == 'yesterday' ? 'selected' : '' }}>Kemarin</option>
+                                    <option value="this_week" {{ ($selectedDateFilter ?? '') == 'this_week' ? 'selected' : '' }}>Minggu Ini</option>
+                                    <option value="last_week" {{ ($selectedDateFilter ?? '') == 'last_week' ? 'selected' : '' }}>Minggu Lalu</option>
+                                    <option value="this_month" {{ ($selectedDateFilter ?? '') == 'this_month' ? 'selected' : '' }}>Bulan Ini</option>
+                                    <option value="last_month" {{ ($selectedDateFilter ?? '') == 'last_month' ? 'selected' : '' }}>Bulan Lalu</option>
+                                    <option value="custom" {{ ($selectedDateFilter ?? '') == 'custom' ? 'selected' : '' }}>Custom</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                    <svg class="w-4 h-4 text-gray-600 dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            </div>
                             
                             @if(($searchQuery || $selectedSektor || $selectedDateFilter) && ($selectedDateFilter ?? '') != 'custom')
                             <a href="{{ route('permohonan.index') }}" class="h-11 px-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center text-sm font-medium transition-colors">
@@ -449,6 +463,30 @@
             </div>
         </div>
     </div>
+
+    <style>
+        /* Custom dropdown styling */
+        .custom-dropdown {
+            position: relative;
+        }
+        
+        .custom-dropdown select {
+            background-image: none;
+        }
+        
+        .custom-dropdown:hover .dropdown-arrow {
+            color: #0E2A66;
+            transform: translateY(1px);
+        }
+        
+        .custom-dropdown select:focus + .dropdown-arrow {
+            color: #0E2A66;
+        }
+        
+        .dropdown-arrow {
+            transition: all 0.2s ease;
+        }
+    </style>
 
     <script>
         // Handle date filter dropdown change
