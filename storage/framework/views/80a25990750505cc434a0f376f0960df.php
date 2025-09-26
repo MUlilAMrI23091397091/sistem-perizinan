@@ -12,179 +12,174 @@
 
     
 
-    <!-- Search dan Filter -->
+    <!-- Header dengan Action Buttons -->
     <div class="mb-6 bg-white rounded-xl shadow-sm p-6">
-        <form method="GET" action="<?php echo e(route('permohonan.index')); ?>" class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
-            <!-- Search -->
-            <div class="md:col-span-5 col-span-12">
-                <div class="flex h-11">
-                    <input type="text" name="search" value="<?php echo e($searchQuery ?? ''); ?>" 
-                           placeholder="Cari berdasarkan No. Permohonan atau Nama Usaha..."
-                           class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <button type="submit" class="px-4 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 flex items-center justify-center">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Filter Sektor -->
-            <div class="md:col-span-3 col-span-12">
-                <select name="sektor" onchange="this.form.submit()" class="w-full h-11 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Semua Sektor</option>
-                    <?php $__currentLoopData = $sektors ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sektor): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <option value="<?php echo e($sektor); ?>" <?php echo e(($selectedSektor ?? '') == $sektor ? 'selected' : ''); ?>>
-                            <?php echo e($sektor); ?>
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+            <!-- Left: Search dan Filter -->
+            <div class="flex-1">
+                <form method="GET" action="<?php echo e(route('permohonan.index')); ?>" class="space-y-4">
+                    <!-- Search Bar -->
+                    <div class="flex gap-3">
+                        <div class="flex-1">
+                            <div class="flex h-11">
+                                <input type="text" name="search" value="<?php echo e($searchQuery ?? ''); ?>" 
+                                       placeholder="Cari berdasarkan No. Permohonan atau Nama Usaha..."
+                                       class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                                <button type="submit" class="px-4 bg-primary-600 text-white rounded-r-lg hover:bg-primary-700 flex items-center justify-center">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Filter Buttons -->
+                        <div class="flex gap-2">
+                            <select name="sektor" onchange="this.form.submit()" class="h-11 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
+                                <option value="">Semua Sektor</option>
+                                <?php $__currentLoopData = $sektors ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sektor): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($sektor); ?>" <?php echo e(($selectedSektor ?? '') == $sektor ? 'selected' : ''); ?>>
+                                        <?php echo e($sektor); ?>
 
-                        </option>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </select>
+                                    </option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
+                            
+                            <select name="date_filter" onchange="this.form.submit()" class="h-11 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
+                                <option value="">Semua Periode</option>
+                                <option value="today" <?php echo e(($selectedDateFilter ?? '') == 'today' ? 'selected' : ''); ?>>Hari Ini</option>
+                                <option value="yesterday" <?php echo e(($selectedDateFilter ?? '') == 'yesterday' ? 'selected' : ''); ?>>Kemarin</option>
+                                <option value="this_week" <?php echo e(($selectedDateFilter ?? '') == 'this_week' ? 'selected' : ''); ?>>Minggu Ini</option>
+                                <option value="last_week" <?php echo e(($selectedDateFilter ?? '') == 'last_week' ? 'selected' : ''); ?>>Minggu Lalu</option>
+                                <option value="this_month" <?php echo e(($selectedDateFilter ?? '') == 'this_month' ? 'selected' : ''); ?>>Bulan Ini</option>
+                                <option value="last_month" <?php echo e(($selectedDateFilter ?? '') == 'last_month' ? 'selected' : ''); ?>>Bulan Lalu</option>
+                                <option value="custom" <?php echo e(($selectedDateFilter ?? '') == 'custom' ? 'selected' : ''); ?>>Custom</option>
+                            </select>
+                            
+                            <?php if(($searchQuery || $selectedSektor || $selectedDateFilter) && ($selectedDateFilter ?? '') != 'custom'): ?>
+                            <a href="<?php echo e(route('permohonan.index')); ?>" class="h-11 px-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 flex items-center text-sm font-medium transition-colors">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                </svg>
+                                Reset
+                            </a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    
+                    <!-- Custom Date Range -->
+                    <?php if(($selectedDateFilter ?? '') == 'custom'): ?>
+                    <div class="flex gap-2 items-center">
+                        <input type="date" name="custom_date" value="<?php echo e($customDate ?? ''); ?>" 
+                               class="h-10 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
+                        <button type="submit" class="h-10 px-4 bg-primary-600 text-white rounded-lg hover:bg-primary-700 text-sm font-medium transition-colors">Filter</button>
+                        <a href="<?php echo e(route('permohonan.index')); ?>" class="h-10 px-4 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium transition-colors">Reset</a>
+                    </div>
+                    <?php endif; ?>
+                </form>
             </div>
             
-            <!-- Filter Periode -->
-            <div class="md:col-span-2 col-span-12">
-                <select name="date_filter" onchange="this.form.submit()" class="w-full h-11 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Semua Periode</option>
-                    <option value="today" <?php echo e(($selectedDateFilter ?? '') == 'today' ? 'selected' : ''); ?>>Hari Ini</option>
-                    <option value="yesterday" <?php echo e(($selectedDateFilter ?? '') == 'yesterday' ? 'selected' : ''); ?>>Kemarin</option>
-                    <option value="this_week" <?php echo e(($selectedDateFilter ?? '') == 'this_week' ? 'selected' : ''); ?>>Minggu Ini</option>
-                    <option value="last_week" <?php echo e(($selectedDateFilter ?? '') == 'last_week' ? 'selected' : ''); ?>>Minggu Lalu</option>
-                    <option value="this_month" <?php echo e(($selectedDateFilter ?? '') == 'this_month' ? 'selected' : ''); ?>>Bulan Ini</option>
-                    <option value="last_month" <?php echo e(($selectedDateFilter ?? '') == 'last_month' ? 'selected' : ''); ?>>Bulan Lalu</option>
-                    <option value="custom" <?php echo e(($selectedDateFilter ?? '') == 'custom' ? 'selected' : ''); ?>>Custom Range</option>
-                </select>
-            </div>
-            
-            <!-- Custom Date (muncul jika Custom Range dipilih) -->
-            <?php if(($selectedDateFilter ?? '') == 'custom'): ?>
-            <div class="md:col-span-12 col-span-12 grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-                <div class="md:col-span-3 col-span-12">
-                    <input type="date" name="custom_date" value="<?php echo e($customDate ?? ''); ?>" 
-                           class="w-full h-11 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+            <!-- Right: Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3">
+                <!-- Export Buttons -->
+                <div class="flex gap-2">
+                    <a href="<?php echo e(route('permohonan.export.excel')); ?>" 
+                       class="inline-flex items-center px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm font-medium transition-colors">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        Excel
+                    </a>
+                    <a href="<?php echo e(route('permohonan.export.pdf')); ?>" 
+                       class="inline-flex items-center px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-medium transition-colors">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        PDF Lengkap
+                    </a>
+                    <a href="<?php echo e(route('permohonan.export.pdf-compact')); ?>" 
+                       class="inline-flex items-center px-3 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 text-sm font-medium transition-colors">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                        PDF Ringkasan
+                    </a>
                 </div>
-                <div class="md:col-span-9 col-span-12 flex gap-2 md:justify-end">
-                    <button type="submit" class="h-11 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium transition-colors">Filter</button>
-                    <a href="<?php echo e(route('permohonan.index')); ?>" class="h-11 px-4 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium transition-colors">Reset</a>
-                </div>
-            </div>
-            <?php endif; ?>
-            
-            <!-- Reset Filter (hanya muncul jika bukan custom range) -->
-            <?php if(($searchQuery || $selectedSektor || $selectedDateFilter) && ($selectedDateFilter ?? '') != 'custom'): ?>
-            <div>
-                <a href="<?php echo e(route('permohonan.index')); ?>" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 flex items-center">
-                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                    </svg>
-                    Reset
-                </a>
-            </div>
-            <?php endif; ?>
-            
-            <!-- Tambah Permohonan -->
-            <div class="md:col-span-2 col-span-12 md:justify-self-end">
-                <a href="<?php echo e(route('permohonan.create')); ?>" class="w-full md:w-auto inline-flex items-center justify-center h-11 bg-green-600 text-white px-4 rounded-lg hover:bg-green-700">
+                
+                <!-- Add Button -->
+                <a href="<?php echo e(route('permohonan.create')); ?>" 
+                   class="inline-flex items-center px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 font-medium transition-colors">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                     </svg>
                     Tambah Permohonan
                 </a>
             </div>
-        </form>
+        </div>
+        
+        <!-- Active Filters Display -->
+        <?php if($searchQuery || $selectedSektor || $selectedDateFilter): ?>
+        <div class="mt-4 pt-4 border-t border-gray-200">
+            <div class="flex flex-wrap gap-2">
+                <?php if($searchQuery): ?>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
+                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    Search: "<?php echo e($searchQuery); ?>"
+                </span>
+                <?php endif; ?>
+                <?php if($selectedSektor): ?>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                    </svg>
+                    Sektor: <?php echo e($selectedSektor); ?>
+
+                </span>
+                <?php endif; ?>
+                <?php if($selectedDateFilter): ?>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
+                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    <?php if($selectedDateFilter == 'custom'): ?>
+                        Periode: <?php echo e($customDate ?? ''); ?>
+
+                    <?php elseif($selectedDateFilter == 'today'): ?>
+                        Periode: Hari Ini
+                    <?php elseif($selectedDateFilter == 'yesterday'): ?>
+                        Periode: Kemarin
+                    <?php elseif($selectedDateFilter == 'this_week'): ?>
+                        Periode: Minggu Ini
+                    <?php elseif($selectedDateFilter == 'last_week'): ?>
+                        Periode: Minggu Lalu
+                    <?php elseif($selectedDateFilter == 'this_month'): ?>
+                        Periode: Bulan Ini
+                    <?php elseif($selectedDateFilter == 'last_month'): ?>
+                        Periode: Bulan Lalu
+                    <?php else: ?>
+                        Periode: <?php echo e($selectedDateFilter ?? 'Periode Tidak Diketahui'); ?>
+
+                    <?php endif; ?>
+                </span>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php endif; ?>
     </div>
 
     <!-- Tabel Permohonan -->
     <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-        <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
+        <div class="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-primary-50 to-primary-100">
             <div class="flex items-center justify-between">
-                <div class="flex items-center gap-4">
-                    <h3 class="text-xl font-semibold text-gray-900 flex items-center">
-                        <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                        Daftar Permohonan
-                    </h3>
-                    <!-- Export Buttons moved here -->
-                    <div class="hidden md:flex flex-wrap gap-2">
-                        <a href="<?php echo e(route('permohonan.export.excel')); ?>" 
-                           class="inline-flex items-center px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 text-sm">
-                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                            Ekspor Excel
-                        </a>
-                        <a href="<?php echo e(route('permohonan.export.pdf')); ?>" 
-                           class="inline-flex items-center px-3 py-1.5 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm">
-                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                            PDF Lengkap
-                        </a>
-                        <a href="<?php echo e(route('permohonan.export.pdf-compact')); ?>" 
-                           class="inline-flex items-center px-3 py-1.5 bg-orange-600 text-white rounded-md hover:bg-orange-700 text-sm">
-                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                            PDF Ringkasan
-                        </a>
-                    </div>
-                    <?php if($searchQuery || $selectedSektor || $selectedDateFilter): ?>
-                    <div class="mt-2 flex flex-wrap gap-2">
-                        <?php if($searchQuery): ?>
-                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                            Search: "<?php echo e($searchQuery); ?>"
-                        </span>
-                        <?php endif; ?>
-                        <?php if($selectedSektor): ?>
-                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-                            </svg>
-                            Sektor: <?php echo e($selectedSektor); ?>
-
-                        </span>
-                        <?php endif; ?>
-                        <?php if($selectedDateFilter): ?>
-                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                            <?php if($selectedDateFilter == 'custom'): ?>
-                                Periode: <?php echo e($customDate ?? ''); ?>
-
-                            <?php elseif($selectedDateFilter == 'today'): ?>
-                                Periode: Hari Ini
-                            <?php elseif($selectedDateFilter == 'yesterday'): ?>
-                                Periode: Kemarin
-                            <?php elseif($selectedDateFilter == 'this_week'): ?>
-                                Periode: Minggu Ini
-                            <?php elseif($selectedDateFilter == 'last_week'): ?>
-                                Periode: Minggu Lalu
-                            <?php elseif($selectedDateFilter == 'this_month'): ?>
-                                Periode: Bulan Ini
-                            <?php elseif($selectedDateFilter == 'last_month'): ?>
-                                Periode: Bulan Lalu
-                            <?php else: ?>
-                                Periode: <?php echo e($selectedDateFilter ?? 'Periode Tidak Diketahui'); ?>
-
-                            <?php endif; ?>
-                        </span>
-                        <?php endif; ?>
-                    </div>
-                    <?php endif; ?>
-                </div>
-                <div class="flex items-center gap-3">
-                    <div class="md:hidden flex flex-wrap gap-2">
-                        <a href="<?php echo e(route('permohonan.export.excel')); ?>" class="inline-flex items-center px-3 py-1.5 bg-green-600 text-white rounded-md text-sm">Excel</a>
-                        <a href="<?php echo e(route('permohonan.export.pdf')); ?>" class="inline-flex items-center px-3 py-1.5 bg-red-600 text-white rounded-md text-sm">PDF</a>
-                        <a href="<?php echo e(route('permohonan.export.pdf-compact')); ?>" class="inline-flex items-center px-3 py-1.5 bg-orange-600 text-white rounded-md text-sm">Ringkas</a>
-                    </div>
-                    <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full"><?php echo e($permohonans->count()); ?> Data</span>
-                </div>
+                <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                    <svg class="w-5 h-5 text-primary-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    Daftar Permohonan
+                </h3>
+                <span class="bg-primary-100 text-primary-800 text-sm font-medium px-3 py-1 rounded-full"><?php echo e($permohonans->count()); ?> Data</span>
             </div>
         </div>
         
@@ -204,11 +199,11 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     <?php $__empty_1 = true; $__currentLoopData = $permohonans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permohonan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                    <tr class="hover:bg-blue-50 transition-colors duration-200">
+                    <tr class="hover:bg-primary-50 transition-colors duration-200">
                         <!-- No. Permohonan -->
                         <td class="px-4 py-4 text-sm font-medium text-gray-900">
                             <div class="flex items-center">
-                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
+                                <div class="w-2 h-2 bg-primary-500 rounded-full mr-3"></div>
                                 <span class="font-mono text-xs"><?php echo e($permohonan?->no_permohonan ?? '-'); ?></span>
                             </div>
                         </td>
@@ -221,7 +216,7 @@
                         <!-- Sektor -->
                         <td class="px-4 py-4 text-sm">
                             <?php if($permohonan && $permohonan->sektor): ?>
-                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
                                     <?php echo e($permohonan->sektor); ?>
 
                                 </span>
@@ -237,7 +232,7 @@
                                     'Diterima' => 'bg-green-100 text-green-800',
                                     'Dikembalikan' => 'bg-yellow-100 text-yellow-800',
                                     'Ditolak' => 'bg-red-100 text-red-800',
-                                    'Menunggu' => 'bg-blue-100 text-blue-800'
+                                    'Menunggu' => 'bg-primary-100 text-primary-800'
                                 ];
                                 $statusColor = $statusColors[$status] ?? 'bg-gray-100 text-gray-800';
                             ?>
@@ -293,7 +288,7 @@
                             <div class="flex items-center justify-center space-x-2">
                                 <?php if($permohonan): ?>
                                     <a href="<?php echo e(route('permohonan.show', $permohonan)); ?>" 
-                                       class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-blue-700 bg-blue-100 rounded-lg hover:bg-blue-200 transition-colors">
+                                       class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-primary-700 bg-primary-100 rounded-lg hover:bg-primary-200 transition-colors">
                                         <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
@@ -346,7 +341,7 @@
                                 'Diterima' => 'bg-green-100 text-green-800',
                                 'Dikembalikan' => 'bg-yellow-100 text-yellow-800',
                                 'Ditolak' => 'bg-red-100 text-red-800',
-                                'Menunggu' => 'bg-blue-100 text-blue-800'
+                                'Menunggu' => 'bg-primary-100 text-primary-800'
                             ];
                             $statusColor = $statusColors[$status] ?? 'bg-gray-100 text-gray-800';
                         ?>
@@ -360,7 +355,7 @@
                         <div>
                             <p class="text-xs text-gray-500 mb-1">Sektor</p>
                             <?php if($permohonan && $permohonan->sektor): ?>
-                                <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                                <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-primary-100 text-primary-800">
                                     <?php echo e($permohonan->sektor); ?>
 
                                 </span>
@@ -414,7 +409,7 @@
                     <div class="flex space-x-2 items-center">
                         <?php if($permohonan): ?>
                             <a href="<?php echo e(route('permohonan.show', $permohonan)); ?>" 
-                               class="flex-1 inline-flex items-center justify-center px-3 py-2 text-xs font-medium text-blue-700 bg-blue-100 rounded-lg hover:bg-blue-200 transition-colors">
+                               class="flex-1 inline-flex items-center justify-center px-3 py-2 text-xs font-medium text-primary-700 bg-primary-100 rounded-lg hover:bg-primary-200 transition-colors">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
