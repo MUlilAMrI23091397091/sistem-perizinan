@@ -425,12 +425,6 @@
                                         @error('keterangan_terbit')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                     </div>
 
-                                    <div class="hide-for-pd-teknis">
-                                        <label for="keterangan" class="block font-medium text-sm text-gray-700">Keterangan</label>
-                                        <textarea id="keterangan" name="keterangan"
-                                            class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['dpmptsp']) ? 'bg-gray-100' : '' }}" {{ $isReadOnly(['dpmptsp']) ? 'readonly' : '' }}>{{ old('keterangan', $permohonan->keterangan) }}</textarea>
-                                        @error('keterangan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                    </div>
                                 </div>
                             </div> {{-- END: KOLOM KANAN --}}
                         </div> {{-- END: grid grid-cols-1 md:grid-cols-2 --}}

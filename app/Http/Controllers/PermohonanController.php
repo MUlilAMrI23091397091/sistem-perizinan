@@ -190,7 +190,6 @@ class PermohonanController extends Controller
             'terbit' => 'nullable|date',
             'keterangan_terbit' => 'nullable|string',
             'pemroses_dan_tgl_surat' => 'nullable|string',
-            'keterangan' => 'nullable|string',
         ];
 
         // Validasi kondisional berdasarkan role
@@ -373,7 +372,6 @@ class PermohonanController extends Controller
             'terbit' => 'nullable|date',
             'keterangan_terbit' => 'nullable|string',
             'pemroses_dan_tgl_surat' => 'nullable|string',
-            'keterangan' => 'nullable|string',
         ]);
         
         // PENTING: Jika jenis_pelaku_usaha adalah 'Orang Perseorangan', pastikan nama_usaha dan jenis_badan_usaha di-null-kan
