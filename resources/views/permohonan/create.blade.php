@@ -227,23 +227,6 @@
                                     @error('sektor')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
-                                @if(in_array($user->role, ['admin', 'pd_teknis']))
-                                <div>
-                                    <label for="kbli" class="block font-medium text-sm text-gray-700">KBLI</label>
-                                    <input id="kbli" name="kbli" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
-                                        value="{{ old('kbli') }}" placeholder="Masukkan nomor KBLI" />
-                                    @error('kbli')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                </div>
-
-                                <div>
-                                    <label for="inputan_teks" class="block font-medium text-sm text-gray-700">Kegiatan</label>
-                                    <input id="inputan_teks" name="inputan_teks" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
-                                        value="{{ old('inputan_teks') }}" placeholder="Masukkan kegiatan" />
-                                    @error('inputan_teks')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                </div>
-                                @endif
 
                                 <div class="field-data-pemohon hide-for-pd-teknis">
                                     <label for="modal_usaha" class="block font-medium text-sm text-gray-700">Modal Usaha</label>

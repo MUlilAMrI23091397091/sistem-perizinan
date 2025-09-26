@@ -329,37 +329,6 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <?php if(in_array($user->role, ['admin', 'pd_teknis'])): ?>
-                                <div>
-                                    <label for="kbli" class="block font-medium text-sm text-gray-700">KBLI</label>
-                                    <input id="kbli" name="kbli" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
-                                        value="<?php echo e(old('kbli')); ?>" placeholder="Masukkan nomor KBLI" />
-                                    <?php $__errorArgs = ['kbli'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
-
-                                <div>
-                                    <label for="inputan_teks" class="block font-medium text-sm text-gray-700">Kegiatan</label>
-                                    <input id="inputan_teks" name="inputan_teks" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
-                                        value="<?php echo e(old('inputan_teks')); ?>" placeholder="Masukkan kegiatan" />
-                                    <?php $__errorArgs = ['inputan_teks'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
-                                <?php endif; ?>
 
                                 <div class="field-data-pemohon hide-for-pd-teknis">
                                     <label for="modal_usaha" class="block font-medium text-sm text-gray-700">Modal Usaha</label>
