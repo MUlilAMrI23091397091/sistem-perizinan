@@ -538,15 +538,15 @@
                                 </div>
                             </div>
 
-                            <!-- Disetujui -->
+                            <!-- Perbaikan -->
                             <div class="group">
                                 <div class="flex items-center space-x-3 mb-3">
                                     <div class="w-8 h-8 <?php echo e($permohonan->perbaikan ? 'bg-yellow-500' : 'bg-gray-300'); ?> rounded-full flex items-center justify-center">
                                         <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                         </svg>
                                     </div>
-                                    <h4 class="font-semibold text-gray-900">Disetujui</h4>
+                                    <h4 class="font-semibold text-gray-900">Perbaikan</h4>
                                 </div>
                                 <div class="ml-11 space-y-2">
                                     <div class="flex items-center justify-between">
@@ -558,27 +558,6 @@
                                     </div>
                                     <div class="bg-gray-50 rounded-lg p-3">
                                         <p class="text-sm text-gray-600"><?php echo e($permohonan->keterangan_perbaikan ?? 'Tidak ada keterangan'); ?></p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Verifikasi Analisa -->
-                            <div class="group">
-                                <div class="flex items-center space-x-3 mb-3">
-                                    <div class="w-8 h-8 <?php echo e($permohonan->verifikasi_dpmptsp ? 'bg-purple-500' : 'bg-gray-300'); ?> rounded-full flex items-center justify-center">
-                                        <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
-                                        </svg>
-                                    </div>
-                                    <h4 class="font-semibold text-gray-900">Verifikasi Analisa</h4>
-                                </div>
-                                <div class="ml-11 space-y-2">
-                                    <div class="flex items-center justify-between">
-                                        <span class="text-sm text-gray-600">Status:</span>
-                                        <span class="text-sm font-medium <?php echo e($permohonan->verifikasi_dpmptsp ? 'text-purple-600' : 'text-gray-400'); ?>">
-                                            <?php echo e($permohonan->verifikasi_dpmptsp ?? 'Belum ada'); ?>
-
-                                        </span>
                                     </div>
                                 </div>
                             </div>

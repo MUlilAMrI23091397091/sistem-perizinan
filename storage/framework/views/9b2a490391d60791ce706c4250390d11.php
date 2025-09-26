@@ -552,64 +552,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
                                 
-                                <!-- Field untuk DPMPTSP dan ADMIN -->
-                                <div class="hide-for-pd-teknis">
-                                    <label for="menghubungi" class="block font-medium text-sm text-gray-700">Tanggal Menghubungi</label>
-                                    <input id="menghubungi" name="menghubungi" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
-                                        value="<?php echo e(old('menghubungi', $permohonan->menghubungi ? $permohonan->menghubungi->format('Y-m-d') : '')); ?>" />
-                                    <?php $__errorArgs = ['menghubungi'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
-
-                                <div class="hide-for-pd-teknis">
-                                    <label for="keterangan_menghubungi" class="block font-medium text-sm text-gray-700">Keterangan Menghubungi</label>
-                                    <textarea id="keterangan_menghubungi" name="keterangan_menghubungi"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"><?php echo e(old('keterangan_menghubungi', $permohonan->keterangan_menghubungi)); ?></textarea>
-                                    <?php $__errorArgs = ['keterangan_menghubungi'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
-
-                                <div class="hide-for-pd-teknis">
-                                    <label for="perbaikan" class="block font-medium text-sm text-gray-700">Tanggal Disetujui</label>
-                                    <input id="perbaikan" name="perbaikan" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
-                                        value="<?php echo e(old('perbaikan', $permohonan->perbaikan ? $permohonan->perbaikan->format('Y-m-d') : '')); ?>" />
-                                    <?php $__errorArgs = ['perbaikan'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
-
-                                <div class="hide-for-pd-teknis">
-                                    <label for="keterangan_perbaikan" class="block font-medium text-sm text-gray-700">Keterangan Disetujui</label>
-                                    <textarea id="keterangan_perbaikan" name="keterangan_perbaikan"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"><?php echo e(old('keterangan_perbaikan', $permohonan->keterangan_perbaikan)); ?></textarea>
-                                    <?php $__errorArgs = ['keterangan_perbaikan'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
+                                <!-- Optional fields section removed - only keeping Tanggal Pengembalian and Keterangan Pengembalian -->
 
                                 <div class="field-dpmptsp-only">
                                     <label for="verifikasi_dpmptsp" class="block font-medium text-sm text-gray-700">Verifikasi Analisa</label>
@@ -663,6 +606,19 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                     </div>
 
+                                    <div class="hide-for-pd-teknis">
+                                        <label for="keterangan" class="block font-medium text-sm text-gray-700">Keterangan</label>
+                                        <textarea id="keterangan" name="keterangan"
+                                            class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm <?php echo e($isReadOnly(['dpmptsp']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isReadOnly(['dpmptsp']) ? 'readonly' : ''); ?>><?php echo e(old('keterangan', $permohonan->keterangan)); ?></textarea>
+                                        <?php $__errorArgs = ['keterangan'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                    </div>
                                 </div>
                             </div> 
                         </div> 
