@@ -364,7 +364,36 @@
                                     @error('keterangan_pengembalian')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
                                 
-                                <!-- Optional fields section removed - only keeping Tanggal Pengembalian and Keterangan Pengembalian -->
+                                <!-- Field untuk DPMPTSP dan ADMIN -->
+                                <div class="hide-for-pd-teknis">
+                                    <label for="menghubungi" class="block font-medium text-sm text-gray-700">Tanggal Menghubungi</label>
+                                    <input id="menghubungi" name="menghubungi" type="date"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
+                                        value="{{ old('menghubungi', $permohonan->menghubungi ? $permohonan->menghubungi->format('Y-m-d') : '') }}" />
+                                    @error('menghubungi')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                                </div>
+
+                                <div class="hide-for-pd-teknis">
+                                    <label for="keterangan_menghubungi" class="block font-medium text-sm text-gray-700">Keterangan Menghubungi</label>
+                                    <textarea id="keterangan_menghubungi" name="keterangan_menghubungi"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm">{{ old('keterangan_menghubungi', $permohonan->keterangan_menghubungi) }}</textarea>
+                                    @error('keterangan_menghubungi')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                                </div>
+
+                                <div class="hide-for-pd-teknis">
+                                    <label for="perbaikan" class="block font-medium text-sm text-gray-700">Tanggal Disetujui</label>
+                                    <input id="perbaikan" name="perbaikan" type="date"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
+                                        value="{{ old('perbaikan', $permohonan->perbaikan ? $permohonan->perbaikan->format('Y-m-d') : '') }}" />
+                                    @error('perbaikan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                                </div>
+
+                                <div class="hide-for-pd-teknis">
+                                    <label for="keterangan_perbaikan" class="block font-medium text-sm text-gray-700">Keterangan Disetujui</label>
+                                    <textarea id="keterangan_perbaikan" name="keterangan_perbaikan"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm">{{ old('keterangan_perbaikan', $permohonan->keterangan_perbaikan) }}</textarea>
+                                    @error('keterangan_perbaikan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                                </div>
 
                                 <div class="field-dpmptsp-only">
                                     <label for="verifikasi_dpmptsp" class="block font-medium text-sm text-gray-700">Verifikasi Analisa</label>
