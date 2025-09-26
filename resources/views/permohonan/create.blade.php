@@ -55,6 +55,7 @@
                             <div class="space-y-6">
                                 <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
 
+                                <!-- 1. NO. PERMOHONAN -->
                                 <div class="field-data-pemohon hide-for-dpmptsp">
                                     <label for="no_permohonan" class="block font-medium text-sm text-gray-700">No. Permohonan</label>
                                     <input id="no_permohonan" name="no_permohonan" type="text"
@@ -63,7 +64,7 @@
                                     @error('no_permohonan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
-                                <!-- Pindah No. Proyek ke Data Pemohon untuk Admin & PD Teknis -->
+                                <!-- 2. NO. PROYEK -->
                                 <div class="field-data-pemohon hide-for-dpmptsp">
                                     <label for="no_proyek" class="block font-medium text-sm text-gray-700">No. Proyek</label>
                                     <input id="no_proyek" name="no_proyek" type="text"
@@ -72,6 +73,7 @@
                                     @error('no_proyek')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
+                                <!-- 3. TANGGAL PERMOHONAN -->
                                 <div class="field-data-pemohon hide-for-dpmptsp">
                                     <label for="tanggal_permohonan" class="block font-medium text-sm text-gray-700">Tanggal Permohonan</label>
                                     <input id="tanggal_permohonan" name="tanggal_permohonan" type="date"
@@ -80,6 +82,34 @@
                                     @error('tanggal_permohonan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
+                                <!-- 4. NIB -->
+                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                    <label for="nib" class="block font-medium text-sm text-gray-700">NIB</label>
+                                    <input id="nib" name="nib" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
+                                        value="{{ old('nib') }}" placeholder="Masukkan 20 digit NIB" maxlength="20" {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} required />
+                                    @error('nib')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                                </div>
+
+                                <!-- 5. KBLI -->
+                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                    <label for="kbli" class="block font-medium text-sm text-gray-700">KBLI</label>
+                                    <input id="kbli" name="kbli" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
+                                        value="{{ old('kbli') }}" placeholder="Masukkan nomor KBLI" {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} />
+                                    @error('kbli')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                                </div>
+
+                                <!-- 6. KEGIATAN -->
+                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                    <label for="inputan_teks" class="block font-medium text-sm text-gray-700">Kegiatan</label>
+                                    <input id="inputan_teks" name="inputan_teks" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
+                                        value="{{ old('inputan_teks') }}" placeholder="Masukkan kegiatan" {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} />
+                                    @error('inputan_teks')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                                </div>
+
+                                <!-- 7. JENIS PERUSAHAAN -->
                                 <div class="field-data-pemohon hide-for-dpmptsp">
                                     <label for="jenis_pelaku_usaha" class="block font-medium text-sm text-gray-700">Jenis Perusahaan</label>
                                     <select name="jenis_pelaku_usaha" id="jenis_pelaku_usaha"
@@ -93,6 +123,15 @@
                                         @endforeach
                                     </select>
                                     @error('jenis_pelaku_usaha')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                                </div>
+
+                                <!-- 8. NAMA PERUSAHAAN -->
+                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                    <label for="nama_perusahaan" class="block font-medium text-sm text-gray-700">Nama Perusahaan</label>
+                                    <input id="nama_perusahaan" name="nama_perusahaan" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
+                                        value="{{ old('nama_perusahaan') }}" {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} />
+                                    @error('nama_perusahaan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
                                 <div class="field-data-pemohon hide-for-dpmptsp hide-for-pd-teknis" x-show="jenisPelakuUsaha === 'Orang Perseorangan'">
@@ -171,14 +210,6 @@
                                         class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
                                         value="{{ old('nama_perusahaan') }}" {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} />
                                     @error('nama_perusahaan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                </div>
-
-                                <div class="field-data-pemohon hide-for-dpmptsp">
-                                    <label for="nib" class="block font-medium text-sm text-gray-700">NIB</label>
-                                    <input id="nib" name="nib" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
-                                        value="{{ old('nib') }}" placeholder="Masukkan 20 digit NIB" maxlength="20" {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} required />
-                                    @error('nib')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
                                 
                                 <div class="field-data-pemohon hide-for-pd-teknis">
