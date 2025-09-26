@@ -8,7 +8,7 @@
         <div class="bg-white rounded-xl shadow-lg p-6">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-3">
-                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
+                    <div class="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center">
                         <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                         </svg>
@@ -18,7 +18,7 @@
                         <p class="text-gray-600">Visualisasi data permohonan dalam bentuk grafik</p>
                         @if($selectedDateFilter)
                         <div class="mt-2">
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800">
+                            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-100 text-primary-800">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                 </svg>
@@ -47,7 +47,7 @@
                     <div>
                         <form method="GET" action="{{ route('statistik') }}" class="flex items-end gap-3">
                             <div class="md:w-48">
-                                <select name="date_filter" onchange="this.form.submit()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <select name="date_filter" onchange="this.form.submit()" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
                                     <option value="">Semua Periode</option>
                                     <option value="today" {{ ($selectedDateFilter ?? '') == 'today' ? 'selected' : '' }}>Hari Ini</option>
                                     <option value="yesterday" {{ ($selectedDateFilter ?? '') == 'yesterday' ? 'selected' : '' }}>Kemarin</option>
@@ -62,10 +62,10 @@
                             <div class="flex items-end gap-2">
                                 <div>
                                     <label class="block text-xs font-medium text-gray-700 mb-1">Tanggal</label>
-                                    <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
+                                    <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-sm">
                                 </div>
                                 <div class="pb-0.5 flex gap-2">
-                                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium">Filter</button>
+                                    <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 text-sm font-medium">Filter</button>
                                     <a href="{{ route('statistik') }}" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium">Reset</a>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
         </div>
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                     <div class="flex items-center">
@@ -157,11 +157,31 @@
                     </div>
                 </div>
             </div>
+
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-8 h-8 bg-orange-500 rounded-md flex items-center justify-center">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Terlambat</dt>
+                                <dd class="text-lg font-medium text-gray-900">{{ $stats['terlambat'] }}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Chart Section -->
         <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div class="bg-gradient-to-r from-blue-50 to-purple-50 px-6 py-4 border-b border-gray-200">
+            <div class="bg-gradient-to-r from-primary-50 to-primary-100 px-6 py-4 border-b border-gray-200">
                 <h2 class="text-xl font-bold text-gray-900">Distribusi Status Permohonan</h2>
                 <p class="text-gray-600 text-sm">Visualisasi data dalam bentuk pie chart</p>
             </div>
@@ -186,6 +206,10 @@
                             <div class="w-4 h-4 bg-red-500 rounded-full"></div>
                             <span class="text-sm font-medium text-gray-700">Ditolak</span>
                         </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-4 h-4 bg-orange-500 rounded-full"></div>
+                            <span class="text-sm font-medium text-gray-700">Terlambat</span>
+                        </div>
                     </div>
                     
                     <!-- Chart di tengah -->
@@ -201,7 +225,7 @@
         <!-- Back Button -->
         <div class="mt-8 flex justify-center">
             <a href="{{ route('dashboard') }}" 
-               class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl">
+               class="inline-flex items-center px-6 py-3 bg-gradient-primary text-white font-medium rounded-lg hover:opacity-95 transition-all duration-200 shadow-lg hover:shadow-xl">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                 </svg>
@@ -219,25 +243,28 @@
 
         // Data untuk chart
         const chartData = {
-            labels: ['Total Permohonan', 'Diterima', 'Dikembalikan', 'Ditolak'],
+            labels: ['Total Permohonan', 'Diterima', 'Dikembalikan', 'Ditolak', 'Terlambat'],
             datasets: [{
                 data: [
                     statsData.totalPermohonan,
                     statsData.diterima,
                     statsData.dikembalikan,
-                    statsData.ditolak
+                    statsData.ditolak,
+                    statsData.terlambat
                 ],
                 backgroundColor: [
                     '#3B82F6',
                     '#10B981',
                     '#F59E0B',
-                    '#EF4444'
+                    '#EF4444',
+                    '#F97316'
                 ],
                 borderColor: [
                     '#2563EB',
                     '#059669',
                     '#D97706',
-                    '#DC2626'
+                    '#DC2626',
+                    '#EA580C'
                 ],
                 borderWidth: 2,
                 hoverOffset: 10

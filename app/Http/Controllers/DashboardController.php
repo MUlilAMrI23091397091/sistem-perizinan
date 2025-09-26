@@ -148,6 +148,7 @@ class DashboardController extends Controller
             'dikembalikan' => $permohonans->where('status', 'Dikembalikan')->count(),
             'diterima' => $permohonans->where('status', 'Diterima')->count(),
             'ditolak' => $permohonans->where('status', 'Ditolak')->count(),
+            'terlambat' => $permohonans->where('status', 'Terlambat')->count(),
         ];
 
         return view('statistik', compact('stats', 'selectedDateFilter', 'customDate'));
