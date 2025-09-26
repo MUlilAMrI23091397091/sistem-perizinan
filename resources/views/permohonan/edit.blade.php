@@ -137,15 +137,6 @@
                                     @error('jenis_pelaku_usaha')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
-                                <!-- 8. NAMA PERUSAHAAN -->
-                                <div class="field-data-pemohon hide-for-dpmptsp">
-                                    <label for="nama_perusahaan" class="block font-medium text-sm text-gray-700">Nama Perusahaan</label>
-                                    <input id="nama_perusahaan" name="nama_perusahaan" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
-                                        value="{{ old('nama_perusahaan', $permohonan->nama_perusahaan) }}"
-                                        {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} />
-                                    @error('nama_perusahaan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
-                                </div>
 
                                 <div class="field-data-pemohon hide-for-dpmptsp" x-show="jenisPelakuUsaha === 'Orang Perseorangan'">
                                     <label for="nik" class="block font-medium text-sm text-gray-700">Nomor Induk Kependudukan (NIK)</label>
@@ -207,6 +198,16 @@
                                         </option>
                                     </select>
                                     @error('jenis_badan_usaha')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                                </div>
+
+                                <!-- 10. NAMA PERUSAHAAN -->
+                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                    <label for="nama_perusahaan" class="block font-medium text-sm text-gray-700">Nama Perusahaan</label>
+                                    <input id="nama_perusahaan" name="nama_perusahaan" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
+                                        value="{{ old('nama_perusahaan', $permohonan->nama_perusahaan) }}"
+                                        {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} />
+                                    @error('nama_perusahaan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
                                 {{-- DPMPTSP mengisi Nama Usaha secara manual (terpisah dari Jenis Perusahaan milik PD Teknis) --}}
