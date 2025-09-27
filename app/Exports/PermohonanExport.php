@@ -144,9 +144,9 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
     public function styles(Worksheet $sheet)
     {
         return [
-            // Style the first row as bold text.
+            // Style the first row as bold text with font size 12
             1    => [
-                'font' => ['bold' => true, 'size' => 14],
+                'font' => ['bold' => true, 'size' => 12],
                 'fill' => [
                     'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                     'startColor' => ['rgb' => 'E3F2FD']
@@ -165,38 +165,38 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
     public function columnWidths(): array
     {
         return [
-            'A' => 20,  // SEKTOR
-            'B' => 12,  // WAKTU
-            'C' => 35,  // NO. PERMOHONAN
-            'D' => 30,  // NO. PROYEK
-            'E' => 22,  // TANGGAL PERMOHONAN
-            'F' => 22,  // NIB
-            'G' => 15,  // KBLI
-            'H' => 30,  // KEGIATAN
-            'I' => 22,  // JENIS USAHA
-            'J' => 35,  // NAMA PERUSAHAAN
-            'K' => 35,  // NAMA USAHA
-            'L' => 45,  // ALAMAT PERUSAHAAN
-            'M' => 22,  // MODAL USAHA
-            'N' => 22,  // JENIS PROYEK
-            'O' => 30,  // NAMA PERIZINAN
-            'P' => 22,  // SKALA USAHA
-            'Q' => 15,  // RISIKO
-            'R' => 25,  // JANGKA WAKTU
-            'S' => 22,  // NO TELPHONE
-            'T' => 30,  // VERIFIKASI PD TEKNIS
-            'U' => 30,  // VERIFIKASI ANALISA
-            'V' => 22,  // TANGGAL PENGEMBALIAN
-            'W' => 30,  // KETERANGAN PENGEMBALIAN
-            'X' => 22,  // TANGGAL MENGHUBUNGI
-            'Y' => 30,  // KETERANGAN MENGHUBUNGI
-            'Z' => 22,  // TANGGAL DISETUJUI
-            'AA' => 30, // KETERANGAN DISETUJUI
-            'AB' => 22, // TANGGAL TERBIT
-            'AC' => 30, // KETERANGAN TERBIT
-            'AD' => 40, // PEMROSES
-            'AE' => 22, // VERIFIKATOR
-            'AF' => 22, // STATUS
+            'A' => 25,  // SEKTOR
+            'B' => 15,  // WAKTU
+            'C' => 40,  // NO. PERMOHONAN
+            'D' => 35,  // NO. PROYEK
+            'E' => 25,  // TANGGAL PERMOHONAN
+            'F' => 25,  // NIB
+            'G' => 18,  // KBLI
+            'H' => 35,  // KEGIATAN
+            'I' => 25,  // JENIS USAHA
+            'J' => 40,  // NAMA PERUSAHAAN
+            'K' => 40,  // NAMA USAHA
+            'L' => 50,  // ALAMAT PERUSAHAAN
+            'M' => 25,  // MODAL USAHA
+            'N' => 25,  // JENIS PROYEK
+            'O' => 35,  // NAMA PERIZINAN
+            'P' => 25,  // SKALA USAHA
+            'Q' => 18,  // RISIKO
+            'R' => 30,  // JANGKA WAKTU
+            'S' => 25,  // NO TELPHONE
+            'T' => 35,  // VERIFIKASI PD TEKNIS
+            'U' => 35,  // VERIFIKASI ANALISA
+            'V' => 25,  // TANGGAL PENGEMBALIAN
+            'W' => 35,  // KETERANGAN PENGEMBALIAN
+            'X' => 25,  // TANGGAL MENGHUBUNGI
+            'Y' => 35,  // KETERANGAN MENGHUBUNGI
+            'Z' => 25,  // TANGGAL DISETUJUI
+            'AA' => 35, // KETERANGAN DISETUJUI
+            'AB' => 25, // TANGGAL TERBIT
+            'AC' => 35, // KETERANGAN TERBIT
+            'AD' => 45, // PEMROSES
+            'AE' => 25, // VERIFIKATOR
+            'AF' => 25, // STATUS
         ];
     }
 
@@ -214,11 +214,17 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
                 $sheet->getStyle('A:AF')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
                 $sheet->getStyle('A:AF')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 
-                // Set row height for header
-                $sheet->getRowDimension(1)->setRowHeight(35);
+                // Set font size 10 for data rows (excluding header)
+                $highestRow = $sheet->getHighestRow();
+                if ($highestRow > 1) {
+                    $sheet->getStyle('A2:AF' . $highestRow)->getFont()->setSize(10);
+                }
+                
+                // Set row height for header (wider)
+                $sheet->getRowDimension(1)->setRowHeight(40);
                 
                 // Set borders for all data
-                $sheet->getStyle('A1:AF' . ($sheet->getHighestRow()))->getBorders()->getAllBorders()
+                $sheet->getStyle('A1:AF' . $highestRow)->getBorders()->getAllBorders()
                     ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                 
                 // Auto-fit columns
