@@ -169,8 +169,8 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             'B' => 15,  // WAKTU
             'C' => 40,  // NO. PERMOHONAN
             'D' => 35,  // NO. PROYEK
-            'E' => 25,  // TANGGAL PERMOHONAN
-            'F' => 25,  // NIB
+            'E' => 18,  // TANGGAL PERMOHONAN
+            'F' => 18,  // NIB
             'G' => 18,  // KBLI
             'H' => 35,  // KEGIATAN
             'I' => 25,  // JENIS USAHA
@@ -186,17 +186,17 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             'S' => 25,  // NO TELPHONE
             'T' => 35,  // VERIFIKASI PD TEKNIS
             'U' => 35,  // VERIFIKASI ANALISA
-            'V' => 25,  // TANGGAL PENGEMBALIAN
+            'V' => 18,  // TANGGAL PENGEMBALIAN
             'W' => 35,  // KETERANGAN PENGEMBALIAN
-            'X' => 25,  // TANGGAL MENGHUBUNGI
+            'X' => 18,  // TANGGAL MENGHUBUNGI
             'Y' => 35,  // KETERANGAN MENGHUBUNGI
-            'Z' => 25,  // TANGGAL DISETUJUI
+            'Z' => 18,  // TANGGAL DISETUJUI
             'AA' => 35, // KETERANGAN DISETUJUI
-            'AB' => 25, // TANGGAL TERBIT
+            'AB' => 18, // TANGGAL TERBIT
             'AC' => 35, // KETERANGAN TERBIT
             'AD' => 45, // PEMROSES
-            'AE' => 25, // VERIFIKATOR
-            'AF' => 25, // STATUS
+            'AE' => 18, // VERIFIKATOR
+            'AF' => 18, // STATUS
         ];
     }
 
@@ -221,7 +221,7 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
                 }
                 
                 // Set row height for header (wider)
-                $sheet->getRowDimension(1)->setRowHeight(40);
+                $sheet->getRowDimension(1)->setRowHeight(50);
                 
                 // Set borders for all data
                 $sheet->getStyle('A1:AF' . $highestRow)->getBorders()->getAllBorders()
