@@ -69,6 +69,7 @@
                             <div class="space-y-6">
                                 <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
 
+                                <!-- 1. NO. PERMOHONAN -->
                                 <div class="field-data-pemohon hide-for-dpmptsp">
                                     <label for="no_permohonan" class="block font-medium text-sm text-gray-700">No. Permohonan</label>
                                     <input id="no_permohonan" name="no_permohonan" type="text"
@@ -85,6 +86,24 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
+                                <!-- 2. NO. PROYEK -->
+                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                    <label for="no_proyek" class="block font-medium text-sm text-gray-700">No. Proyek</label>
+                                    <input id="no_proyek" name="no_proyek" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis']) ? 'bg-gray-100' : ''); ?>"
+                                        value="<?php echo e(old('no_proyek', $permohonan->no_proyek)); ?>"
+                                        <?php echo e($isReadOnly(['pd_teknis']) ? 'readonly' : ''); ?> />
+                                    <?php $__errorArgs = ['no_proyek'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <!-- 3. TANGGAL PERMOHONAN -->
                                 <div class="field-data-pemohon hide-for-dpmptsp">
                                     <label for="tanggal_permohonan" class="block font-medium text-sm text-gray-700">Tanggal Permohonan</label>
                                     <input id="tanggal_permohonan" name="tanggal_permohonan" type="date"
@@ -101,6 +120,58 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
+                                <!-- 4. NIB -->
+                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                    <label for="nib" class="block font-medium text-sm text-gray-700">NIB</label>
+                                    <input id="nib" name="nib" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis']) ? 'bg-gray-100' : ''); ?>"
+                                        value="<?php echo e(old('nib', $permohonan->nib)); ?>" placeholder="Masukkan 20 digit NIB" maxlength="20"
+                                        <?php echo e($isReadOnly(['pd_teknis']) ? 'readonly' : ''); ?> required />
+                                    <?php $__errorArgs = ['nib'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <!-- 5. KBLI -->
+                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                    <label for="kbli" class="block font-medium text-sm text-gray-700">KBLI</label>
+                                    <input id="kbli" name="kbli" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis']) ? 'bg-gray-100' : ''); ?>"
+                                        value="<?php echo e(old('kbli', $permohonan->kbli)); ?>" placeholder="Masukkan nomor KBLI"
+                                        <?php echo e($isReadOnly(['pd_teknis']) ? 'readonly' : ''); ?> />
+                                    <?php $__errorArgs = ['kbli'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <!-- 6. KEGIATAN -->
+                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                    <label for="inputan_teks" class="block font-medium text-sm text-gray-700">Kegiatan</label>
+                                    <input id="inputan_teks" name="inputan_teks" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis']) ? 'bg-gray-100' : ''); ?>"
+                                        value="<?php echo e(old('inputan_teks', $permohonan->inputan_teks)); ?>" placeholder="Masukkan kegiatan"
+                                        <?php echo e($isReadOnly(['pd_teknis']) ? 'readonly' : ''); ?> />
+                                    <?php $__errorArgs = ['inputan_teks'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <!-- 7. JENIS PERUSAHAAN -->
                                 <div class="field-data-pemohon hide-for-dpmptsp">
                                     <label for="jenis_pelaku_usaha" class="block font-medium text-sm text-gray-700">Jenis Perusahaan</label>
                                     <select name="jenis_pelaku_usaha" id="jenis_pelaku_usaha"
@@ -125,6 +196,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
+
                                 <div class="field-data-pemohon hide-for-dpmptsp" x-show="jenisPelakuUsaha === 'Orang Perseorangan'">
                                     <label for="nik" class="block font-medium text-sm text-gray-700">Nomor Induk Kependudukan (NIK)</label>
                                     <input id="nik" name="nik" type="text"
@@ -141,6 +213,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
+                                <!-- 9. JENIS BADAN USAHA -->
                                 <div class="field-data-pemohon hide-for-dpmptsp" x-show="jenisPelakuUsaha === 'Badan Usaha'">
                                     <label for="jenis_badan_usaha" class="block font-medium text-sm text-gray-700">Jenis Badan Usaha</label>
                                     <select name="jenis_badan_usaha" id="jenis_badan_usaha"
@@ -200,6 +273,23 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
+                                <!-- 10. NAMA PERUSAHAAN -->
+                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                    <label for="nama_perusahaan" class="block font-medium text-sm text-gray-700">Nama Perusahaan</label>
+                                    <input id="nama_perusahaan" name="nama_perusahaan" type="text"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis']) ? 'bg-gray-100' : ''); ?>"
+                                        value="<?php echo e(old('nama_perusahaan', $permohonan->nama_perusahaan)); ?>"
+                                        <?php echo e($isReadOnly(['pd_teknis']) ? 'readonly' : ''); ?> />
+                                    <?php $__errorArgs = ['nama_perusahaan'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
                                 
                                 <div class="field-data-pemohon hide-for-pd-teknis">
                                     <label for="nama_usaha" class="block font-medium text-sm text-gray-700">Nama Usaha</label>
@@ -216,21 +306,6 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <!-- Nama Perusahaan (milik PD Teknis) -->
-                                <div class="field-data-pemohon hide-for-dpmptsp">
-                                    <label for="nama_perusahaan" class="block font-medium text-sm text-gray-700">Nama Perusahaan</label>
-                                    <input id="nama_perusahaan" name="nama_perusahaan" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm <?php echo e($isReadOnly(['pd_teknis']) ? 'bg-gray-100' : ''); ?>"
-                                        value="<?php echo e(old('nama_perusahaan', $permohonan->nama_perusahaan)); ?>" <?php echo e($isReadOnly(['pd_teknis']) ? 'readonly' : ''); ?> />
-                                    <?php $__errorArgs = ['nama_perusahaan'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
 
                                 <div class="field-data-pemohon hide-for-dpmptsp">
                                     <label for="nib" class="block font-medium text-sm text-gray-700">NIB</label>
@@ -286,37 +361,6 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <?php if(in_array($user->role, ['admin', 'pd_teknis'])): ?>
-                                <div>
-                                    <label for="kbli" class="block font-medium text-sm text-gray-700">KBLI</label>
-                                    <input id="kbli" name="kbli" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
-                                        value="<?php echo e(old('kbli', $permohonan->kbli)); ?>" placeholder="Masukkan nomor KBLI" />
-                                    <?php $__errorArgs = ['kbli'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
-
-                                <div>
-                                    <label for="inputan_teks" class="block font-medium text-sm text-gray-700">Kegiatan</label>
-                                    <input id="inputan_teks" name="inputan_teks" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
-                                        value="<?php echo e(old('inputan_teks', $permohonan->inputan_teks)); ?>" placeholder="Masukkan kegiatan" />
-                                    <?php $__errorArgs = ['inputan_teks'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                </div>
-                                <?php endif; ?>
 
                                 <div class="field-data-pemohon hide-for-pd-teknis">
                                     <label for="modal_usaha" class="block font-medium text-sm text-gray-700">Modal Usaha</label>
@@ -552,7 +596,64 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
                                 
-                                <!-- Optional fields section removed - only keeping Tanggal Pengembalian and Keterangan Pengembalian -->
+                                <!-- Field untuk DPMPTSP dan ADMIN -->
+                                <div class="hide-for-pd-teknis">
+                                    <label for="menghubungi" class="block font-medium text-sm text-gray-700">Tanggal Menghubungi</label>
+                                    <input id="menghubungi" name="menghubungi" type="date"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
+                                        value="<?php echo e(old('menghubungi', $permohonan->menghubungi ? $permohonan->menghubungi->format('Y-m-d') : '')); ?>" />
+                                    <?php $__errorArgs = ['menghubungi'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <div class="hide-for-pd-teknis">
+                                    <label for="keterangan_menghubungi" class="block font-medium text-sm text-gray-700">Keterangan Menghubungi</label>
+                                    <textarea id="keterangan_menghubungi" name="keterangan_menghubungi"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"><?php echo e(old('keterangan_menghubungi', $permohonan->keterangan_menghubungi)); ?></textarea>
+                                    <?php $__errorArgs = ['keterangan_menghubungi'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <div class="hide-for-pd-teknis">
+                                    <label for="perbaikan" class="block font-medium text-sm text-gray-700">Tanggal Disetujui</label>
+                                    <input id="perbaikan" name="perbaikan" type="date"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
+                                        value="<?php echo e(old('perbaikan', $permohonan->perbaikan ? $permohonan->perbaikan->format('Y-m-d') : '')); ?>" />
+                                    <?php $__errorArgs = ['perbaikan'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
+
+                                <div class="hide-for-pd-teknis">
+                                    <label for="keterangan_perbaikan" class="block font-medium text-sm text-gray-700">Keterangan Disetujui</label>
+                                    <textarea id="keterangan_perbaikan" name="keterangan_perbaikan"
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"><?php echo e(old('keterangan_perbaikan', $permohonan->keterangan_perbaikan)); ?></textarea>
+                                    <?php $__errorArgs = ['keterangan_perbaikan'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                                </div>
 
                                 <div class="field-dpmptsp-only">
                                     <label for="verifikasi_dpmptsp" class="block font-medium text-sm text-gray-700">Verifikasi Analisa</label>
@@ -606,19 +707,6 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                     </div>
 
-                                    <div class="hide-for-pd-teknis">
-                                        <label for="keterangan" class="block font-medium text-sm text-gray-700">Keterangan</label>
-                                        <textarea id="keterangan" name="keterangan"
-                                            class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm <?php echo e($isReadOnly(['dpmptsp']) ? 'bg-gray-100' : ''); ?>" <?php echo e($isReadOnly(['dpmptsp']) ? 'readonly' : ''); ?>><?php echo e(old('keterangan', $permohonan->keterangan)); ?></textarea>
-                                        <?php $__errorArgs = ['keterangan'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?><p class="text-sm text-red-600 mt-2"><?php echo e($message); ?></p><?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
-                                    </div>
                                 </div>
                             </div> 
                         </div> 
