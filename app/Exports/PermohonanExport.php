@@ -169,9 +169,9 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             'B' => 15,  // WAKTU
             'C' => 40,  // NO. PERMOHONAN
             'D' => 35,  // NO. PROYEK
-            'E' => 18,  // TANGGAL PERMOHONAN
-            'F' => 18,  // NIB
-            'G' => 18,  // KBLI
+            'E' => 15,  // TANGGAL PERMOHONAN
+            'F' => 15,  // NIB
+            'G' => 15,  // KBLI
             'H' => 35,  // KEGIATAN
             'I' => 25,  // JENIS USAHA
             'J' => 40,  // NAMA PERUSAHAAN
@@ -181,22 +181,22 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             'N' => 25,  // JENIS PROYEK
             'O' => 35,  // NAMA PERIZINAN
             'P' => 25,  // SKALA USAHA
-            'Q' => 18,  // RISIKO
+            'Q' => 15,  // RISIKO
             'R' => 30,  // JANGKA WAKTU
             'S' => 25,  // NO TELPHONE
             'T' => 35,  // VERIFIKASI PD TEKNIS
             'U' => 35,  // VERIFIKASI ANALISA
-            'V' => 18,  // TANGGAL PENGEMBALIAN
+            'V' => 15,  // TANGGAL PENGEMBALIAN
             'W' => 35,  // KETERANGAN PENGEMBALIAN
-            'X' => 18,  // TANGGAL MENGHUBUNGI
+            'X' => 15,  // TANGGAL MENGHUBUNGI
             'Y' => 35,  // KETERANGAN MENGHUBUNGI
-            'Z' => 18,  // TANGGAL DISETUJUI
+            'Z' => 15,  // TANGGAL DISETUJUI
             'AA' => 35, // KETERANGAN DISETUJUI
-            'AB' => 18, // TANGGAL TERBIT
+            'AB' => 15, // TANGGAL TERBIT
             'AC' => 35, // KETERANGAN TERBIT
             'AD' => 45, // PEMROSES
-            'AE' => 18, // VERIFIKATOR
-            'AF' => 18, // STATUS
+            'AE' => 15, // VERIFIKATOR
+            'AF' => 15, // STATUS
         ];
     }
 
