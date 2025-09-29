@@ -186,4 +186,26 @@ class Permohonan extends Model
             ]);
         }
     }
+
+    // Method untuk auto-update status berdasarkan deadline
+    public function updateStatusBasedOnDeadline()
+    {
+        if ($this->isOverdue() && $this->status !== 'Terlambat') {
+            $statusSebelum = $this->status;
+            $this->update(['status' => 'Terlambat']);
+            
+            $this->logs()->create([
+                'user_id' => 1, // System user
+                'status_sebelum' => $statusSebelum ?? 'Diterima',
+                'status_sesudah' => 'Terlambat',
+                'keterangan' => "🔄 Status otomatis diubah ke Terlambat karena melewati deadline ({$this->getAttribute('deadline')->format('d/m/Y')})",
+                'action' => 'auto_status_update',
+                'old_data' => json_encode(['status' => $statusSebelum]),
+                'new_data' => json_encode(['status' => 'Terlambat'])
+            ]);
+            
+            return true;
+        }
+        return false;
+    }
 }

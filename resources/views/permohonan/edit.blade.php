@@ -358,7 +358,7 @@
                                         <option value="Diterima" @selected(old('status', $permohonan->status) == 'Diterima')>Diterima</option>
                                         <option value="Dikembalikan" @selected(old('status', $permohonan->status) == 'Dikembalikan')>Dikembalikan</option>
                                         <option value="Ditolak" @selected(old('status', $permohonan->status) == 'Ditolak')>Ditolak</option>
-                                        <option value="Terlambat" @selected(old('status', $permohonan->status) == 'Terlambat')>Terlambat</option>
+                                        {{-- Status "Terlambat" dihapus - akan otomatis terdeteksi berdasarkan deadline --}}
                                     </select>
                                     @error('status')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>

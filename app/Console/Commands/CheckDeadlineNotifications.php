@@ -48,11 +48,15 @@ class CheckDeadlineNotifications extends Command
                         ->first();
 
                     if (!$existingNotification) {
+                        // Auto-update status menggunakan method di model
+                        $permohonan->updateStatusBasedOnDeadline();
+                        
+                        // Buat notifikasi tambahan
                         LogPermohonan::create([
                             'permohonan_id' => $permohonan->id,
                             'user_id' => 1, // System user
                             'status_sebelum' => $permohonan->status ?? 'Diterima',
-                            'status_sesudah' => $permohonan->status ?? 'Diterima',
+                            'status_sesudah' => 'Terlambat',
                             'keterangan' => "⚠️ PERINGATAN: Permohonan telah melewati deadline ({$permohonan->deadline->format('d/m/Y')})",
                             'action' => 'deadline_overdue',
                             'old_data' => null,
