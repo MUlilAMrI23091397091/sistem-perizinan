@@ -499,7 +499,7 @@ unset($__errorArgs, $__bag); ?>
                                         <option value="Diterima" <?php if(old('status') == 'Diterima'): echo 'selected'; endif; ?>>Diterima</option>
                                         <option value="Dikembalikan" <?php if(old('status') == 'Dikembalikan'): echo 'selected'; endif; ?>>Dikembalikan</option>
                                         <option value="Ditolak" <?php if(old('status') == 'Ditolak'): echo 'selected'; endif; ?>>Ditolak</option>
-                                        <option value="Terlambat" <?php if(old('status') == 'Terlambat'): echo 'selected'; endif; ?>>Terlambat</option>
+                                        
                                     </select>
                                     <?php $__errorArgs = ['status'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');

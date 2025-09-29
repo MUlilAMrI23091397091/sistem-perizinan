@@ -28,11 +28,20 @@ class DashboardController extends Controller
                     $query->where('role', '!=', 'penerbitan_berkas');
                 })->get();
         } elseif ($user->role === 'pd_teknis') {
-            // PD Teknis melihat semua permohonan kecuali yang dibuat oleh penerbitan_berkas
-            $permohonans = Permohonan::with('user')
-                ->whereHas('user', function($query) {
-                    $query->where('role', '!=', 'penerbitan_berkas');
-                })->get();
+            // PD Teknis melihat permohonan sesuai sektornya saja
+            if ($user->sektor) {
+                $permohonans = Permohonan::with('user')
+                    ->where('sektor', $user->sektor)
+                    ->whereHas('user', function($query) {
+                        $query->where('role', '!=', 'penerbitan_berkas');
+                    })->get();
+            } else {
+                // Jika PD Teknis belum ada sektor, tampilkan semua (fallback)
+                $permohonans = Permohonan::with('user')
+                    ->whereHas('user', function($query) {
+                        $query->where('role', '!=', 'penerbitan_berkas');
+                    })->get();
+            }
         } elseif ($user->role === 'penerbitan_berkas') {
             // Penerbitan Berkas melihat modul khususnya sendiri (data terpisah)
             return $this->penerbitanBerkas($request);

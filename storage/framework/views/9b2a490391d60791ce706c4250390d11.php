@@ -531,7 +531,7 @@ unset($__errorArgs, $__bag); ?>
                                         <option value="Diterima" <?php if(old('status', $permohonan->status) == 'Diterima'): echo 'selected'; endif; ?>>Diterima</option>
                                         <option value="Dikembalikan" <?php if(old('status', $permohonan->status) == 'Dikembalikan'): echo 'selected'; endif; ?>>Dikembalikan</option>
                                         <option value="Ditolak" <?php if(old('status', $permohonan->status) == 'Ditolak'): echo 'selected'; endif; ?>>Ditolak</option>
-                                        <option value="Terlambat" <?php if(old('status', $permohonan->status) == 'Terlambat'): echo 'selected'; endif; ?>>Terlambat</option>
+                                        
                                     </select>
                                     <?php $__errorArgs = ['status'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -655,7 +655,7 @@ endif;
 unset($__errorArgs, $__bag); ?>
                                 </div>
 
-                                <div class="field-dpmptsp-only">
+                                <div class="hide-for-pd-teknis">
                                     <label for="verifikasi_dpmptsp" class="block font-medium text-sm text-gray-700">Verifikasi Analisa</label>
                                     <select name="verifikasi_dpmptsp" id="verifikasi_dpmptsp"
                                         class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm <?php echo e($isDisabled(['dpmptsp']) ? 'bg-gray-100' : ''); ?>"

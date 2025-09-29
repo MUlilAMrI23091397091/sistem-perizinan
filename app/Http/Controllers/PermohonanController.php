@@ -37,10 +37,18 @@ class PermohonanController extends Controller
                 $query->where('role', '!=', 'penerbitan_berkas');
             });
         } elseif ($user->role === 'pd_teknis') {
-            // PD Teknis melihat semua permohonan kecuali yang dibuat oleh penerbitan_berkas
-            $permohonans->whereHas('user', function($query) {
-                $query->where('role', '!=', 'penerbitan_berkas');
-            });
+            // PD Teknis melihat permohonan sesuai sektornya saja
+            if ($user->sektor) {
+                $permohonans->where('sektor', $user->sektor)
+                    ->whereHas('user', function($query) {
+                        $query->where('role', '!=', 'penerbitan_berkas');
+                    });
+            } else {
+                // Jika PD Teknis belum ada sektor, tampilkan semua (fallback)
+                $permohonans->whereHas('user', function($query) {
+                    $query->where('role', '!=', 'penerbitan_berkas');
+                });
+            }
         } elseif ($user->role === 'penerbitan_berkas') {
             // Penerbitan Berkas hanya melihat data yang dibuat oleh role penerbitan_berkas
             $permohonans->whereHas('user', function($query) {

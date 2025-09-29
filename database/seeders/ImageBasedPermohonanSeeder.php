@@ -40,6 +40,9 @@ class ImageBasedPermohonanSeeder extends Seeder
 
         $this->command->info('Creating image-based permohonan data...');
 
+        // Daftar sektor yang tersedia
+        $sektors = ['Dinkopdag', 'Disbudpar', 'Dinkes', 'Dishub', 'Dprkpp', 'Dkpp', 'Dlh', 'Disperinaker'];
+
         // Data sesuai dengan gambar (17 baris data)
         $data = [
             [
@@ -280,7 +283,7 @@ class ImageBasedPermohonanSeeder extends Seeder
                 'jenis_pelaku_usaha' => $jenisPelakuUsaha,
                 'nib' => $item['nib'],
                 'alamat_perusahaan' => $item['alamat_perusahaan'],
-                'sektor' => 'PERDAGANGAN', // Semua data di gambar adalah PERDAGANGAN
+                'sektor' => $sektors[array_rand($sektors)], // Random sektor untuk testing
                 'kbli' => '52101', // Semua data di gambar adalah 52101
                 'inputan_teks' => 'Pergudangan dan Penyimpanan', // Semua data di gambar sama
                 'modal_usaha' => $item['modal_usaha'],

@@ -1,5 +1,10 @@
 <x-sidebar-layout>
-    <x-slot name="header">Dashboard PD Teknis</x-slot>
+    <x-slot name="header">
+        Dashboard PD Teknis 
+        @if(auth()->user()->sektor)
+            - {{ auth()->user()->sektor }}
+        @endif
+    </x-slot>
 
     <!-- Stats Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
