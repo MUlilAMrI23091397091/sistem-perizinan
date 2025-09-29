@@ -55,7 +55,7 @@
                                 <!-- Role -->
                                 <div>
                                     <x-input-label for="role" value="Role" />
-                                    <select name="role" id="role" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                                    <select name="role" id="role" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required onchange="toggleSectorField()">
                                         <option value="">Pilih Role</option>
                                         @if($user->role === 'admin')
                                             <option value="admin" @selected(old('role', $user->role) == 'admin')>Admin</option>
@@ -65,6 +65,23 @@
                                         <option value="penerbitan_berkas" @selected(old('role', $user->role) == 'penerbitan_berkas')>Penerbitan Berkas</option>
                                     </select>
                                     <x-input-error :messages="$errors->get('role')" class="mt-2" />
+                                </div>
+
+                                <!-- Sektor (hanya muncul jika role PD Teknis) -->
+                                <div id="sektor-field" style="display: none;">
+                                    <x-input-label for="sektor" value="Sektor" />
+                                    <select name="sektor" id="sektor" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                                        <option value="">Pilih Sektor</option>
+                                        <option value="Dinkopdag" @selected(old('sektor', $user->sektor) == 'Dinkopdag')>Dinkopdag - Dinas Koperasi dan Perdagangan</option>
+                                        <option value="Disbudpar" @selected(old('sektor', $user->sektor) == 'Disbudpar')>Disbudpar - Dinas Kebudayaan dan Pariwisata</option>
+                                        <option value="Dinkes" @selected(old('sektor', $user->sektor) == 'Dinkes')>Dinkes - Dinas Kesehatan</option>
+                                        <option value="Dishub" @selected(old('sektor', $user->sektor) == 'Dishub')>Dishub - Dinas Perhubungan</option>
+                                        <option value="Dprkpp" @selected(old('sektor', $user->sektor) == 'Dprkpp')>Dprkpp - Dinas Pemberdayaan Perempuan dan Perlindungan Anak</option>
+                                        <option value="Dkpp" @selected(old('sektor', $user->sektor) == 'Dkpp')>Dkpp - Dinas Ketahanan Pangan dan Perikanan</option>
+                                        <option value="Dlh" @selected(old('sektor', $user->sektor) == 'Dlh')>Dlh - Dinas Lingkungan Hidup</option>
+                                        <option value="Disperinaker" @selected(old('sektor', $user->sektor) == 'Disperinaker')>Disperinaker - Dinas Perindustrian dan Tenaga Kerja</option>
+                                    </select>
+                                    <x-input-error :messages="$errors->get('sektor')" class="mt-2" />
                                 </div>
                             </div>
                         </div>
@@ -83,4 +100,29 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleSectorField() {
+            const roleSelect = document.getElementById('role');
+            const sektorField = document.getElementById('sektor-field');
+            const sektorSelect = document.getElementById('sektor');
+            
+            if (roleSelect.value === 'pd_teknis') {
+                sektorField.style.display = 'block';
+                sektorSelect.required = true;
+            } else {
+                sektorField.style.display = 'none';
+                sektorSelect.required = false;
+                sektorSelect.value = '';
+            }
+        }
+
+        // Jalankan saat halaman dimuat untuk menangani old input dan data existing
+        document.addEventListener('DOMContentLoaded', function() {
+            const roleSelect = document.getElementById('role');
+            if (roleSelect.value === 'pd_teknis') {
+                toggleSectorField();
+            }
+        });
+    </script>
 </x-sidebar-layout>

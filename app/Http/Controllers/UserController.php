@@ -30,12 +30,19 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'role' => ['required', 'in:pd_teknis,dpmptsp,penerbitan_berkas'],
-        ]);
+        ];
+
+        // Jika role adalah pd_teknis, sektor wajib diisi
+        if ($request->role === 'pd_teknis') {
+            $rules['sektor'] = ['required', 'in:Dinkopdag,Disbudpar,Dinkes,Dishub,Dprkpp,Dkpp,Dlh,Disperinaker'];
+        }
+
+        $request->validate($rules);
 
         // Cek apakah sudah ada admin
         $adminExists = User::where('role', 'admin')->exists();
@@ -45,12 +52,19 @@ class UserController extends Controller
             return back()->withErrors(['role' => 'Role admin sudah ada dan tidak dapat dibuat lagi.']);
         }
 
-        User::create([
+        $userData = [
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
-        ]);
+        ];
+
+        // Tambahkan sektor jika role adalah pd_teknis
+        if ($request->role === 'pd_teknis' && $request->sektor) {
+            $userData['sektor'] = $request->sektor;
+        }
+
+        User::create($userData);
 
         return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan.');
     }
@@ -62,12 +76,19 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $request->validate([
+        $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
             'role' => ['required', 'in:admin,pd_teknis,dpmptsp,penerbitan_berkas'],
             'password' => ['nullable', 'confirmed', Rules\Password::defaults()],
-        ]);
+        ];
+
+        // Jika role adalah pd_teknis, sektor wajib diisi
+        if ($request->role === 'pd_teknis') {
+            $rules['sektor'] = ['required', 'in:Dinkopdag,Disbudpar,Dinkes,Dishub,Dprkpp,Dkpp,Dlh,Disperinaker'];
+        }
+
+        $request->validate($rules);
 
         // Cek apakah sudah ada admin dan user yang diupdate bukan admin yang sudah ada
         $adminExists = User::where('role', 'admin')->where('id', '!=', $user->id)->exists();
@@ -80,6 +101,14 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->role = $request->role;
+        
+        // Update sektor jika role adalah pd_teknis
+        if ($request->role === 'pd_teknis' && $request->sektor) {
+            $user->sektor = $request->sektor;
+        } elseif ($request->role !== 'pd_teknis') {
+            // Hapus sektor jika role bukan pd_teknis
+            $user->sektor = null;
+        }
         
         if ($request->password) {
             $user->password = Hash::make($request->password);
