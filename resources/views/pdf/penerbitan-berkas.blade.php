@@ -58,41 +58,39 @@
         }
         
         .ttd-section {
-            margin-top: 40px;
+            margin-top: 60px;
             page-break-inside: avoid;
+            position: relative;
         }
         
         .ttd-header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         
         .ttd-header h3 {
             font-size: 12px;
             font-weight: bold;
-            margin: 2px 0;
-        }
-        
-        .ttd-line {
-            border-top: 1px solid #000;
-            margin: 20px 0;
-            width: 100%;
+            margin: 0;
+            line-height: 1.2;
         }
         
         .separator-line {
             border-top: 1px solid #000;
-            margin: 20px 0;
+            margin: 30px 0;
             width: 100%;
         }
         
         .ttd-content {
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
+            align-items: flex-start;
+            margin-top: 30px;
         }
         
         .ttd-left, .ttd-right {
             width: 45%;
+            min-height: 80px;
         }
         
         .ttd-left {
@@ -105,28 +103,33 @@
         
         .ttd-name {
             font-weight: bold;
-            margin-bottom: 3px;
-            font-size: 10px;
+            margin-bottom: 5px;
+            font-size: 11px;
+            line-height: 1.3;
         }
         
         .ttd-title {
-            font-size: 9px;
-            margin-bottom: 2px;
+            font-size: 10px;
+            margin-bottom: 3px;
+            line-height: 1.3;
         }
         
         .ttd-nip {
-            font-size: 8px;
+            font-size: 9px;
             margin-bottom: 0;
+            line-height: 1.3;
         }
         
         .ttd-date {
-            font-size: 9px;
-            margin-bottom: 8px;
+            font-size: 10px;
+            margin-bottom: 10px;
+            line-height: 1.3;
         }
         
         .ttd-position {
-            font-size: 9px;
-            margin-bottom: 3px;
+            font-size: 10px;
+            margin-bottom: 5px;
+            line-height: 1.3;
         }
         
         .page-break {
@@ -134,9 +137,25 @@
         }
         
         .footer {
-            margin-top: 20px;
+            margin-top: 40px;
             font-size: 8px;
             text-align: center;
+            color: #666;
+        }
+        
+        /* Additional styling for better TTD layout */
+        .ttd-content {
+            position: relative;
+        }
+        
+        .ttd-left, .ttd-right {
+            position: relative;
+            padding: 10px 0;
+        }
+        
+        .ttd-left .ttd-name,
+        .ttd-right .ttd-name {
+            margin-top: 0;
         }
     </style>
 </head>
