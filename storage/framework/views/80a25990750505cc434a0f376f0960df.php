@@ -298,6 +298,11 @@
                                     'Menunggu' => 'bg-primary-100 text-primary-800'
                                 ];
                                 $statusColor = $statusColors[$status] ?? 'bg-gray-100 text-gray-800';
+                                
+                                // Jika status Dikembalikan dan terlambat, ubah ke warna merah penuh
+                                if ($status === 'Dikembalikan' && $permohonan->isOverdue()) {
+                                    $statusColor = 'bg-red-500 text-white';
+                                }
                             ?>
                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium <?php echo e($statusColor); ?>">
                                 <?php echo e($status); ?>
@@ -407,6 +412,11 @@
                                 'Menunggu' => 'bg-primary-100 text-primary-800'
                             ];
                             $statusColor = $statusColors[$status] ?? 'bg-gray-100 text-gray-800';
+                            
+                            // Jika status Dikembalikan dan terlambat, ubah ke warna merah penuh
+                            if ($status === 'Dikembalikan' && $permohonan->isOverdue()) {
+                                $statusColor = 'bg-red-500 text-white';
+                            }
                         ?>
                         <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium <?php echo e($statusColor); ?>">
                             <?php echo e($status); ?>
