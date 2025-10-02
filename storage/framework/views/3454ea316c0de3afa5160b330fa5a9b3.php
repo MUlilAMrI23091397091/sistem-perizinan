@@ -135,54 +135,40 @@
     <div class="header">
         <h1>PERIZINAN BERUSAHA DISETUJUI</h1>
         <h2>DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU</h2>
-        <h2>KOTA SURABAYA TAHUN {{ date('Y') }}</h2>
-        <p>Data Penerbitan Berkas - {{ date('d F Y') }}</p>
+        <h2>KOTA SURABAYA TAHUN <?php echo e(date('Y')); ?></h2>
+        <p>Data Penerbitan Berkas - <?php echo e(date('d F Y')); ?></p>
     </div>
 
     <table>
         <thead>
             <tr>
                 <th style="width: 3%;">NO</th>
-                <th style="width: 10%;">NO. PERMOHONAN</th>
-                <th style="width: 10%;">NO. PROYEK</th>
+                <th style="width: 12%;">NO. PERMOHONAN</th>
+                <th style="width: 12%;">NO. PROYEK</th>
                 <th style="width: 8%;">TANGGAL PERMOHONAN</th>
-                <th style="width: 8%;">NIB</th>
-                <th style="width: 6%;">KBLI</th>
-                <th style="width: 12%;">NAMA USAHA</th>
-                <th style="width: 10%;">KEGIATAN</th>
+                <th style="width: 10%;">NIB</th>
+                <th style="width: 8%;">KBLI</th>
+                <th style="width: 15%;">NAMA USAHA</th>
+                <th style="width: 12%;">KEGIATAN</th>
                 <th style="width: 8%;">JENIS PERUSAHAAN</th>
-                <th style="width: 10%;">PEMILIK</th>
-                <th style="width: 8%;">MODAL USAHA</th>
-                <th style="width: 15%;">ALAMAT</th>
-                <th style="width: 6%;">JENIS PROYEK</th>
-                <th style="width: 10%;">NAMA PERIZINAN</th>
-                <th style="width: 6%;">SKALA USAHA</th>
-                <th style="width: 6%;">RISIKO</th>
-                <th style="width: 15%;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
+                <th style="width: 12%;">PEMILIK</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($penerbitanBerkas as $index => $item)
+            <?php $__currentLoopData = $penerbitanBerkas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $item->no_permohonan ?? '-' }}</td>
-                <td>{{ $item->no_proyek ?? '-' }}</td>
-                <td>{{ $item->tanggal_permohonan ? \Carbon\Carbon::parse($item->tanggal_permohonan)->format('d/m/Y') : '-' }}</td>
-                <td>{{ $item->nib ?? '-' }}</td>
-                <td>{{ $item->kbli ?? '-' }}</td>
-                <td>{{ $item->nama_usaha ?? '-' }}</td>
-                <td>{{ $item->inputan_teks ?? '-' }}</td>
-                <td>{{ $item->jenis_pelaku_usaha ?? '-' }}</td>
-                <td>{{ $item->pemilik ?? '-' }}</td>
-                <td>{{ $item->modal_usaha ? 'Rp ' . number_format($item->modal_usaha, 0, ',', '.') : '-' }}</td>
-                <td>{{ $item->alamat_perusahaan ?? '-' }}</td>
-                <td>{{ $item->jenis_proyek ?? '-' }}</td>
-                <td>{{ $item->nama_perizinan ?? '-' }}</td>
-                <td>{{ $item->skala_usaha ?? '-' }}</td>
-                <td>{{ $item->risiko ?? '-' }}</td>
-                <td>{{ $item->pemroses_dan_tgl_surat ?? '-' }}</td>
+                <td><?php echo e($index + 1); ?></td>
+                <td><?php echo e($item->no_permohonan ?? '-'); ?></td>
+                <td><?php echo e($item->no_proyek ?? '-'); ?></td>
+                <td><?php echo e($item->tanggal_permohonan ? \Carbon\Carbon::parse($item->tanggal_permohonan)->format('d/m/Y') : '-'); ?></td>
+                <td><?php echo e($item->nib ?? '-'); ?></td>
+                <td><?php echo e($item->kbli ?? '-'); ?></td>
+                <td><?php echo e($item->nama_usaha ?? '-'); ?></td>
+                <td><?php echo e($item->inputan_teks ?? '-'); ?></td>
+                <td><?php echo e($item->jenis_pelaku_usaha ?? '-'); ?></td>
+                <td><?php echo e($item->pemilik ?? '-'); ?></td>
             </tr>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </tbody>
     </table>
 
@@ -203,7 +189,7 @@
             </div>
             
             <div class="ttd-right">
-                <div class="ttd-date">Surabaya, {{ date('d F Y') }}</div>
+                <div class="ttd-date">Surabaya, <?php echo e(date('d F Y')); ?></div>
                 <div class="ttd-position">Ketua Tim Kerja Pelayanan Perizinan Berusaha</div>
                 <div class="ttd-name">Ulvia Zulvia, ST</div>
                 <div class="ttd-title">Penata Tk. 1</div>
@@ -213,7 +199,8 @@
     </div>
 
     <div class="footer">
-        <p>Dokumen ini dibuat secara otomatis pada {{ date('d F Y H:i:s') }}</p>
+        <p>Dokumen ini dibuat secara otomatis pada <?php echo e(date('d F Y H:i:s')); ?></p>
     </div>
 </body>
 </html>
+<?php /**PATH C:\xampp\htdocs\sistem-perizinan\resources\views/pdf/penerbitan-berkas.blade.php ENDPATH**/ ?>

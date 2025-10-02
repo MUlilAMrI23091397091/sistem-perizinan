@@ -221,6 +221,12 @@ class PenerbitanBerkasTableSeeder extends Seeder
         foreach ($data as $index => $item) {
             $user = $users->random();
             
+            // Generate unique BAP number for each record
+            $bapNumber = str_pad($index + 1, 3, '0', STR_PAD_LEFT);
+            $pemrosesDanTglSurat = 'DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU' . "\n" .
+                                  'No: BAP/OSS/I/PARKIR-' . $bapNumber . '/436.7.15/2025' . "\n" .
+                                  'Tanggal BAP: ' . Carbon::parse($item['tanggal_permohonan'])->format('d F Y');
+            
             PenerbitanBerkas::create([
                 'user_id' => $user->id,
                 'no_permohonan' => $item['no_permohonan'],
@@ -240,6 +246,7 @@ class PenerbitanBerkasTableSeeder extends Seeder
                 'skala_usaha' => $item['skala_usaha'],
                 'risiko' => $item['risiko'],
                 'status' => $item['status'],
+                'pemroses_dan_tgl_surat' => $pemrosesDanTglSurat,
                 'created_at' => Carbon::parse($item['tanggal_permohonan']),
                 'updated_at' => Carbon::parse($item['tanggal_permohonan']),
             ]);

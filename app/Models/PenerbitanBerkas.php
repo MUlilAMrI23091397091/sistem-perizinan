@@ -55,6 +55,7 @@ class PenerbitanBerkas extends Model
         'skala_usaha',
         'risiko',
         'status',
+        'pemroses_dan_tgl_surat',
     ];
 
     protected $casts = [
