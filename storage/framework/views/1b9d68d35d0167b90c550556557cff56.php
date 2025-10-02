@@ -8,7 +8,13 @@
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-     <?php $__env->slot('header', null, []); ?> Dashboard PD Teknis <?php $__env->endSlot(); ?>
+     <?php $__env->slot('header', null, []); ?> 
+        Dashboard PD Teknis 
+        <?php if(auth()->user()->sektor): ?>
+            - <?php echo e(auth()->user()->sektor); ?>
+
+        <?php endif; ?>
+     <?php $__env->endSlot(); ?>
 
     <!-- Stats Cards -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">

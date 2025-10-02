@@ -8,7 +8,13 @@
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-     <?php $__env->slot('header', null, []); ?> Daftar Permohonan <?php $__env->endSlot(); ?>
+     <?php $__env->slot('header', null, []); ?> 
+        Daftar Permohonan
+        <?php if(auth()->user()->role === 'pd_teknis' && auth()->user()->sektor): ?>
+            - Sektor <?php echo e(auth()->user()->sektor); ?>
+
+        <?php endif; ?>
+     <?php $__env->endSlot(); ?>
 
     
 

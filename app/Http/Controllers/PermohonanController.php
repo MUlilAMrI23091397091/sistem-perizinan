@@ -26,6 +26,7 @@ class PermohonanController extends Controller
         $selectedSektor = $request->query('sektor');
         $selectedDateFilter = $request->query('date_filter');
         $customDate = $request->query('custom_date');
+        $selectedStatus = $request->query('status');
 
         // Query dasar
         $permohonans = Permohonan::query();
@@ -102,6 +103,11 @@ class PermohonanController extends Controller
             }
         }
 
+        // Terapkan filter status
+        if ($selectedStatus) {
+            $permohonans->where('status', $selectedStatus);
+        }
+
         // Terapkan logika pencarian
         if ($searchQuery) {
             $permohonans->where(function ($query) use ($searchQuery) {
@@ -117,7 +123,7 @@ class PermohonanController extends Controller
         $availableSektors = ['Dinkopdag', 'Disbudpar', 'Dinkes', 'Dishub', 'Dprkpp', 'Dkpp', 'Dlh', 'Disperinaker'];
         $sektors = $availableSektors;
 
-        return view('permohonan.index', compact('permohonans', 'sektors', 'selectedSektor', 'searchQuery', 'selectedDateFilter', 'customDate'));
+        return view('permohonan.index', compact('permohonans', 'sektors', 'selectedSektor', 'searchQuery', 'selectedDateFilter', 'customDate', 'selectedStatus'));
     }
 
     /**
