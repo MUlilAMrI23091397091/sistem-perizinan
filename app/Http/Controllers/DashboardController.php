@@ -50,22 +50,26 @@ class DashboardController extends Controller
             $permohonans = Permohonan::with('user')->get();
         }
         
-        // Hitung statistik dengan 4 kategori status (Terlambat otomatis berdasarkan deadline)
+        // Hitung statistik dengan logika yang benar
+        // Total = hanya status final (Diterima, Dikembalikan, Ditolak)
+        $totalPermohonan = $permohonans->whereIn('status', ['Diterima', 'Dikembalikan', 'Ditolak'])->count();
+        
+        // Terlambat = hanya dari status Dikembalikan yang deadline lewat
         $terlambatCount = $permohonans->filter(function($permohonan) {
-            return $permohonan->isOverdue();
+            return $permohonan->status === 'Dikembalikan' && $permohonan->isOverdue();
         })->count();
         
         $stats = [
-            'totalPermohonan' => $permohonans->count(),
+            'totalPermohonan' => $totalPermohonan, // Hanya status final
             'diterima' => $permohonans->where('status', 'Diterima')->count(),
             'dikembalikan' => $permohonans->where('status', 'Dikembalikan')->count(),
             'ditolak' => $permohonans->where('status', 'Ditolak')->count(),
-            'terlambat' => $terlambatCount, // Otomatis berdasarkan deadline system
+            'terlambat' => $terlambatCount, // Hanya dari Dikembalikan yang terlambat
         ];
         
-        // Ambil data terlambat untuk tampilan khusus (berdasarkan deadline system)
+        // Ambil data terlambat untuk tampilan khusus (hanya Dikembalikan yang terlambat)
         $terlambatData = $permohonans->filter(function($permohonan) {
-            return $permohonan->isOverdue();
+            return $permohonan->status === 'Dikembalikan' && $permohonan->isOverdue();
         });
 
         // Return view berdasarkan role
