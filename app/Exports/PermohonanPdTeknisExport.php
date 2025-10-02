@@ -27,10 +27,10 @@ class PermohonanPdTeknisExport implements FromCollection, WithHeadings, WithStyl
     {
         return $this->permohonans->map(function ($p) {
             return [
-                'No. Permohonan' => "'" . $p->no_permohonan, // Format as text to preserve leading zeros
-                'No. Proyek' => "'" . $p->no_proyek, // Format as text to preserve leading zeros
+                'No. Permohonan' => $p->no_permohonan,
+                'No. Proyek' => $p->no_proyek,
                 'Tgl. Permohonan' => $p->tanggal_permohonan,
-                'NIB' => "'" . $p->nib, // Format as text to preserve leading zeros
+                'NIB' => $p->nib,
                 'Verifikasi PD Teknis' => $p->verifikasi_pd_teknis,
                 'Status' => $p->status,
             ];

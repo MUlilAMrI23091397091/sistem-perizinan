@@ -65,11 +65,11 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
 
         return [
             ++$this->rowNumber,
-            "'" . ($row->no_permohonan ?? '-'), // Format as text to preserve leading zeros
-            "'" . ($row->no_proyek ?? '-'), // Format as text to preserve leading zeros
+            $row->no_permohonan ?? '-',
+            $row->no_proyek ?? '-',
             $tanggalPermohonan,
-            "'" . ($row->nib ?? '-'), // Format as text to preserve leading zeros
-            "'" . ($row->kbli ?? '-'), // Format as text to preserve leading zeros
+            $row->nib ?? '-',
+            $row->kbli ?? '-',
             $row->nama_usaha ?? '-',
             $row->inputan_teks ?? '-',
             $row->jenis_pelaku_usaha ?? '-',
