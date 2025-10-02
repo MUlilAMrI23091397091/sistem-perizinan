@@ -283,9 +283,17 @@
                                     'Menunggu' => 'bg-primary-100 text-primary-800'
                                 ];
                                 $statusColor = $statusColors[$status] ?? 'bg-gray-100 text-gray-800';
+                                
+                                // Jika status Dikembalikan dan terlambat, ubah ke warna merah
+                                if ($status === 'Dikembalikan' && $permohonan->isOverdue()) {
+                                    $statusColor = 'bg-red-100 text-red-800';
+                                }
                             @endphp
                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium {{ $statusColor }}">
                                 {{ $status }}
+                                @if($status === 'Dikembalikan' && $permohonan->isOverdue())
+                                    <span class="ml-1 text-red-600">⚠️</span>
+                                @endif
                             </span>
                         </td>
                         <!-- Verifikasi -->
@@ -391,9 +399,17 @@
                                 'Menunggu' => 'bg-primary-100 text-primary-800'
                             ];
                             $statusColor = $statusColors[$status] ?? 'bg-gray-100 text-gray-800';
+                            
+                            // Jika status Dikembalikan dan terlambat, ubah ke warna merah
+                            if ($status === 'Dikembalikan' && $permohonan->isOverdue()) {
+                                $statusColor = 'bg-red-100 text-red-800';
+                            }
                         @endphp
                         <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium {{ $statusColor }}">
                             {{ $status }}
+                            @if($status === 'Dikembalikan' && $permohonan->isOverdue())
+                                <span class="ml-1 text-red-600">⚠️</span>
+                            @endif
                         </span>
                     </div>
                     
