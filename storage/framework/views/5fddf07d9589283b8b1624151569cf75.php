@@ -34,10 +34,7 @@
 
     <!-- Header dengan tombol tambah -->
     <div class="mb-6 flex justify-between items-center">
-        <div>
-            <h2 class="text-2xl font-bold text-gray-900">Daftar Staff</h2>
-            <p class="text-sm text-gray-600 mt-1">Total: <?php echo e($users->count()); ?> staff</p>
-        </div>
+        <h2 class="text-2xl font-bold text-gray-900">Daftar Staff</h2>
         <a href="<?php echo e(route('users.create')); ?>" class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -50,13 +47,16 @@
     <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
         <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
             <div class="flex items-center justify-between">
-                <div>
+                <div class="flex items-center">
                     <h3 class="text-xl font-semibold text-gray-900 flex items-center">
                         <svg class="w-6 h-6 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
                         </svg>
                         Daftar Staff
                     </h3>
+                    <span class="ml-4 bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
+                        <?php echo e($users->count()); ?> staff
+                    </span>
                 </div>
             </div>
         </div>
