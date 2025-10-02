@@ -52,7 +52,7 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
     public function map($row): array
     {
         // Format modal usaha dengan Rp
-        $modalUsaha = $row->modal_usaha ? 'Rp' . number_format($row->modal_usaha, 0, ',', '.') : '-';
+        $modalUsaha = $row->modal_usaha ? 'Rp' . number_format((float) $row->modal_usaha, 0, ',', '.') : '-';
         
         // Format tanggal permohonan
         $tanggalPermohonan = $row->tanggal_permohonan ? 

@@ -95,7 +95,7 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             // ALAMAT PERUSAHAAN (DPM)
             $permohonan->alamat_perusahaan ?? '',
             // MODAL USAHA (DPM)
-            $permohonan->modal_usaha ? number_format($permohonan->modal_usaha, 0, ',', '.') : '',
+            $permohonan->modal_usaha ? number_format((float) $permohonan->modal_usaha, 0, ',', '.') : '',
             // JENIS PROYEK (DPM)
             $permohonan->jenis_proyek ?? '',
             // NAMA PERIZINAN (DPM)
