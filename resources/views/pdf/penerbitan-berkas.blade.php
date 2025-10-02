@@ -56,6 +56,22 @@
         td {
             font-size: 8px;
         }
+
+        /* TTD table aligned to header columns */
+        table.ttd-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table.ttd-table td {
+            border: 0;
+            padding: 0;
+            vertical-align: top;
+        }
+        .ttd-cell {
+            text-align: center;
+            padding-top: 8px;
+        }
         
         .ttd-section {
             margin-top: 60px;
@@ -214,31 +230,60 @@
         </tbody>
     </table>
 
-    <div class="ttd-section">
-        <div class="ttd-header">
-            <h3>Mengetahui</h3>
-            <h3>Koordinator Ketua Tim Kerja</h3>
-            <h3>Pelayanan Terpadu Satu Pintu</h3>
-        </div>
-        
-        <div class="separator-line"></div>
-        
-        <div class="ttd-content">
-            <div class="ttd-left">
+    <!-- TTD grid aligned with header columns -->
+    <table class="ttd-table">
+        <tr>
+            <!-- NO (col 1) -->
+            <td style="width:3%"></td>
+            <!-- NO. PERMOHONAN (col 2) -->
+            <td style="width:10%"></td>
+            <!-- NO. PROYEK (col 3) -->
+            <td style="width:10%"></td>
+            <!-- TANGGAL PERMOHONAN (col 4) - LEFT TTD placed under this column -->
+            <td style="width:8%" class="ttd-cell">
+                <div class="ttd-header">
+                    <h3>Mengetahui</h3>
+                    <h3>Koordinator Ketua Tim Kerja</h3>
+                    <h3>Pelayanan Terpadu Satu Pintu</h3>
+                </div>
                 <div class="ttd-name">Yohanes Franklin, S.H.</div>
                 <div class="ttd-title">Penata Tk.1</div>
                 <div class="ttd-nip">NIP: 198502182010011008</div>
-            </div>
-            
-            <div class="ttd-right">
-                <div class="ttd-date">Surabaya, {{ date('d F Y') }}</div>
+            </td>
+            <!-- NIB (5) -->
+            <td style="width:8%"></td>
+            <!-- KBLI (6) -->
+            <td style="width:6%"></td>
+            <!-- NAMA USAHA (7) -->
+            <td style="width:12%"></td>
+            <!-- KEGIATAN (8) -->
+            <td style="width:10%"></td>
+            <!-- JENIS PERUSAHAAN (9) -->
+            <td style="width:8%"></td>
+            <!-- PEMILIK (10) -->
+            <td style="width:10%"></td>
+            <!-- MODAL USAHA (11) -->
+            <td style="width:8%"></td>
+            <!-- ALAMAT (12) -->
+            <td style="width:15%"></td>
+            <!-- JENIS PROYEK (13) -->
+            <td style="width:6%"></td>
+            <!-- NAMA PERIZINAN (14) -->
+            <td style="width:10%"></td>
+            <!-- SKALA USAHA (15) - RIGHT TTD placed under this column -->
+            <td style="width:6%" class="ttd-cell">
+                <div class="ttd-name">Surabaya, {{ date('d F Y') }}</div>
                 <div class="ttd-position">Ketua Tim Kerja Pelayanan Perizinan Berusaha</div>
                 <div class="ttd-name">Ulvia Zulvia, ST</div>
                 <div class="ttd-title">Penata Tk. 1</div>
                 <div class="ttd-nip">NIP: 197710132006042012</div>
-            </div>
-        </div>
-    </div>
+            </td>
+            <!-- RISIKO (16) -->
+            <td style="width:6%"></td>
+            <!-- PEMROSES DAN TGL... (17) -->
+            <td style="width:15%"></td>
+        </tr>
+    </table>
 
     <div class="footer">
         <p>Dokumen ini dibuat secara otomatis pada {{ date('d F Y H:i:s') }}</p>
