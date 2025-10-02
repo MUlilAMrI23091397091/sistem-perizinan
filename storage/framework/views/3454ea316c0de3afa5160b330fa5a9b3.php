@@ -143,15 +143,22 @@
         <thead>
             <tr>
                 <th style="width: 3%;">NO</th>
-                <th style="width: 12%;">NO. PERMOHONAN</th>
-                <th style="width: 12%;">NO. PROYEK</th>
+                <th style="width: 10%;">NO. PERMOHONAN</th>
+                <th style="width: 10%;">NO. PROYEK</th>
                 <th style="width: 8%;">TANGGAL PERMOHONAN</th>
-                <th style="width: 10%;">NIB</th>
-                <th style="width: 8%;">KBLI</th>
-                <th style="width: 15%;">NAMA USAHA</th>
-                <th style="width: 12%;">KEGIATAN</th>
+                <th style="width: 8%;">NIB</th>
+                <th style="width: 6%;">KBLI</th>
+                <th style="width: 12%;">NAMA USAHA</th>
+                <th style="width: 10%;">KEGIATAN</th>
                 <th style="width: 8%;">JENIS PERUSAHAAN</th>
-                <th style="width: 12%;">PEMILIK</th>
+                <th style="width: 10%;">PEMILIK</th>
+                <th style="width: 8%;">MODAL USAHA</th>
+                <th style="width: 15%;">ALAMAT</th>
+                <th style="width: 6%;">JENIS PROYEK</th>
+                <th style="width: 10%;">NAMA PERIZINAN</th>
+                <th style="width: 6%;">SKALA USAHA</th>
+                <th style="width: 6%;">RISIKO</th>
+                <th style="width: 15%;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
             </tr>
         </thead>
         <tbody>
@@ -167,6 +174,13 @@
                 <td><?php echo e($item->inputan_teks ?? '-'); ?></td>
                 <td><?php echo e($item->jenis_pelaku_usaha ?? '-'); ?></td>
                 <td><?php echo e($item->pemilik ?? '-'); ?></td>
+                <td><?php echo e($item->modal_usaha ? 'Rp ' . number_format($item->modal_usaha, 0, ',', '.') : '-'); ?></td>
+                <td><?php echo e($item->alamat_perusahaan ?? '-'); ?></td>
+                <td><?php echo e($item->jenis_proyek ?? '-'); ?></td>
+                <td><?php echo e($item->nama_perizinan ?? '-'); ?></td>
+                <td><?php echo e($item->skala_usaha ?? '-'); ?></td>
+                <td><?php echo e($item->risiko ?? '-'); ?></td>
+                <td><?php echo e($item->pemroses_dan_tgl_surat ?? '-'); ?></td>
             </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </tbody>

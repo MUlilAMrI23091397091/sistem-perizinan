@@ -70,12 +70,19 @@
         .ttd-header h3 {
             font-size: 12px;
             font-weight: bold;
-            margin: 0;
+            margin: 2px 0;
         }
         
         .ttd-line {
             border-top: 1px solid #000;
             margin: 20px 0;
+            width: 100%;
+        }
+        
+        .separator-line {
+            border-top: 1px solid #000;
+            margin: 20px 0;
+            width: 100%;
         }
         
         .ttd-content {
@@ -98,26 +105,28 @@
         
         .ttd-name {
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
+            font-size: 10px;
         }
         
         .ttd-title {
             font-size: 9px;
-            margin-bottom: 3px;
+            margin-bottom: 2px;
         }
         
         .ttd-nip {
             font-size: 8px;
+            margin-bottom: 0;
         }
         
         .ttd-date {
             font-size: 9px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .ttd-position {
             font-size: 9px;
-            margin-bottom: 5px;
+            margin-bottom: 3px;
         }
         
         .page-break {
@@ -193,7 +202,7 @@
             <h3>Pelayanan Terpadu Satu Pintu</h3>
         </div>
         
-        <div class="ttd-line"></div>
+        <div class="separator-line"></div>
         
         <div class="ttd-content">
             <div class="ttd-left">
