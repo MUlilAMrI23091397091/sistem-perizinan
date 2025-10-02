@@ -27,10 +27,10 @@ class PermohonanSemuaExport implements FromCollection, WithHeadings, WithStyles,
         return $this->permohonans->map(function ($p) {
             return [
                 'Sektor' => $p->sektor,
-                'No. Permohonan' => $p->no_permohonan,
-                'No. Proyek' => $p->no_proyek,
+                'No. Permohonan' => "'" . $p->no_permohonan, // Format as text to preserve leading zeros
+                'No. Proyek' => "'" . $p->no_proyek, // Format as text to preserve leading zeros
                 'Tgl. Permohonan' => $p->tanggal_permohonan,
-                'NIB' => (string) $p->nib,
+                'NIB' => "'" . $p->nib, // Format as text to preserve leading zeros
                 'Nama Usaha' => $p->nama_usaha,
                 'Alamat' => $p->alamat_perusahaan,
                 'Modal Usaha' => $p->modal_usaha,

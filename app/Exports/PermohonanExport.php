@@ -74,16 +74,16 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             $permohonan->sektor ?? '',
             // WAKTU (tahun)
             $permohonan->created_at ? \Carbon\Carbon::parse($permohonan->created_at)->format('Y') : '',
-            // NO. PERMOHONAN (PD TEKNIS)
-            $permohonan->no_permohonan ?? '',
-            // NO. PROYEK (PD TEKNIS)
-            $permohonan->no_proyek ?? '',
+            // NO. PERMOHONAN (PD TEKNIS) - Format as text to preserve leading zeros
+            "'" . ($permohonan->no_permohonan ?? ''),
+            // NO. PROYEK (PD TEKNIS) - Format as text to preserve leading zeros
+            "'" . ($permohonan->no_proyek ?? ''),
             // TANGGAL PERMOHONAN (PD TEKNIS)
             $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->format('d/m/Y') : '',
-            // NIB (PD TEKNIS)
-            $permohonan->nib ?? '',
-            // KBLI (PD TEKNIS)
-            $permohonan->kbli ?? '',
+            // NIB (PD TEKNIS) - Format as text to preserve leading zeros
+            "'" . ($permohonan->nib ?? ''),
+            // KBLI (PD TEKNIS) - Format as text to preserve leading zeros
+            "'" . ($permohonan->kbli ?? ''),
             // KEGIATAN (PD TEKNIS)
             $permohonan->inputan_teks ?? '',
             // JENIS USAHA (PD TEKNIS)
@@ -106,8 +106,8 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             $permohonan->risiko ?? '',
             // JANGKA WAKTU (HARI KERJA) (DPM)
             $permohonan->jangka_waktu ?? '',
-            // NO TELPHONE (DPM)
-            $permohonan->no_telephone ?? '',
+            // NO TELPHONE (DPM) - Format as text to preserve leading zeros
+            "'" . ($permohonan->no_telephone ?? ''),
             // VERIFIKASI OLEH PD TEKNIS
             $permohonan->verifikasi_pd_teknis ?? '',
             // VERIFIKASI OLEH DPMPTSP
