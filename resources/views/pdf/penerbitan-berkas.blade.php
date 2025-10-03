@@ -66,21 +66,20 @@
             position: relative;
         }
         
-        /* Container TTD kiri dan kanan - Sejajar horizontal */
-        .ttd-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-top: 60px;
+        /* Grid 17 kolom mengikuti lebar header tabel */
+        .ttd-grid {
+            display: grid;
+            grid-template-columns: 3% 8% 8% 7% 7% 5% 10% 8% 7% 8% 7% 12% 5% 8% 5% 5% 12%;
+            column-gap: 0;
+            margin-top: 12px;
+            align-items: end;
             min-height: 120px;
         }
         
-        /* TTD Kiri - di bawah SKALA USAHA */
+        /* TTD Kiri - diletakkan tepat di bawah kolom SKALA USAHA (kolom 15) */
         .ttd-left {
-            width: 45%;
+            grid-column: 15 / span 3; /* 15-17 */
             text-align: left;
-            display: flex;
-            align-items: flex-end;
         }
         
         .ttd-left-content {
@@ -113,12 +112,10 @@
             margin-bottom: 0;
         }
         
-        /* TTD Kanan - di bawah TANGGAL PERMOHONAN */
+        /* TTD Kanan - diletakkan tepat di bawah kolom TANGGAL PERMOHONAN (kolom 4) */
         .ttd-right {
-            width: 45%;
+            grid-column: 4 / span 5; /* 4-8 */
             text-align: right;
-            display: flex;
-            align-items: flex-end;
         }
         
         .ttd-right-content {
@@ -228,21 +225,9 @@
 
     <!-- TTD Section -->
     <div class="ttd-section">
-        <!-- TTD Kiri dan Kanan - Sejajar horizontal -->
-        <div class="ttd-content">
-            <!-- TTD Kiri - di bawah SKALA USAHA -->
-            <div class="ttd-left">
-                <div class="ttd-left-content">
-                    <div class="ttd-left-title"><strong>Mengetahui</strong></div>
-                    <div class="ttd-left-spacing"></div>
-                    <div class="ttd-left-name"><strong>Yohanes Franklin, S.H.</strong></div>
-                    <div class="ttd-left-position">Koordinator Ketua Tim Kerja</div>
-                    <div class="ttd-left-position">Pelayanan Terpadu Satu Pintu</div>
-                    <div class="ttd-left-nip">NIP: 198502182010011008</div>
-                </div>
-            </div>
-            
-            <!-- TTD Kanan - di bawah TANGGAL PERMOHONAN -->
+        <!-- Susun TTD dengan grid 17 kolom agar sejajar dengan tabel -->
+        <div class="ttd-grid">
+            <!-- Blok kanan di bawah kolom 4 (Tanggal Permohonan) -->
             <div class="ttd-right">
                 <div class="ttd-right-content">
                     <div class="ttd-right-date"><strong>Surabaya, {{ date('d F Y') }}</strong></div>
@@ -252,6 +237,18 @@
                     <div class="ttd-right-name"><strong>Ulvia Zulvia, ST</strong></div>
                     <div class="ttd-right-position">Penata Tk. 1</div>
                     <div class="ttd-right-nip">NIP: 197710132006042012</div>
+                </div>
+            </div>
+
+            <!-- Blok kiri di bawah kolom 15 (Skala Usaha) -->
+            <div class="ttd-left">
+                <div class="ttd-left-content">
+                    <div class="ttd-left-title"><strong>Mengetahui</strong></div>
+                    <div class="ttd-left-spacing"></div>
+                    <div class="ttd-left-name"><strong>Yohanes Franklin, S.H.</strong></div>
+                    <div class="ttd-left-position">Koordinator Ketua Tim Kerja</div>
+                    <div class="ttd-left-position">Pelayanan Terpadu Satu Pintu</div>
+                    <div class="ttd-left-nip">NIP: 198502182010011008</div>
                 </div>
             </div>
         </div>
