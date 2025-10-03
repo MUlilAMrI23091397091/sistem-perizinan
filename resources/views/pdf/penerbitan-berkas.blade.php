@@ -73,22 +73,26 @@
             font-size: 10px;
         }
         
-        /* Container TTD kiri dan kanan */
+        /* Container TTD kiri dan kanan - Sejajar horizontal */
         .ttd-content {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             margin-top: 60px;
+            min-height: 120px;
         }
         
         /* TTD Kiri Bawah */
         .ttd-left {
             width: 45%;
             text-align: left;
+            display: flex;
+            align-items: flex-end;
         }
         
         .ttd-left-content {
             position: relative;
+            width: 100%;
         }
         
         .ttd-left-title {
@@ -97,7 +101,7 @@
         }
         
         .ttd-left-spacing {
-            height: 40px;
+            height: 50px;
         }
         
         .ttd-left-name {
@@ -120,14 +124,17 @@
         .ttd-right {
             width: 45%;
             text-align: right;
+            display: flex;
+            align-items: flex-end;
         }
         
         .ttd-right-content {
             position: relative;
+            width: 100%;
         }
         
         .ttd-right-spacing {
-            height: 20px;
+            height: 50px;
         }
         
         .ttd-right-name {
@@ -220,7 +227,7 @@
             <strong>Surabaya, {{ date('d F Y') }}</strong>
         </div>
         
-        <!-- TTD Kiri dan Kanan -->
+        <!-- TTD Kiri dan Kanan - Sejajar horizontal -->
         <div class="ttd-content">
             <!-- TTD Kiri Bawah -->
             <div class="ttd-left">
