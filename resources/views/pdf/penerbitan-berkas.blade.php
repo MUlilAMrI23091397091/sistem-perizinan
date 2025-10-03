@@ -66,21 +66,21 @@
             position: relative;
         }
         
-        /* Grid 17 kolom mengikuti lebar header tabel */
-        .ttd-grid {
-            display: grid;
-            grid-template-columns: 3% 8% 8% 7% 7% 5% 10% 8% 7% 8% 7% 12% 5% 8% 5% 5% 12%;
-            column-gap: 0;
+        /* TTD menggunakan tabel 17 kolom agar kompatibel DomPDF */
+        .ttd-table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
             margin-top: 12px;
-            align-items: end;
-            min-height: 120px;
+        }
+        .ttd-table td {
+            border: none;
+            font-size: 9px;
+            vertical-align: bottom;
+            padding: 0 2px;
         }
         
-        /* TTD Kiri - diletakkan tepat di bawah kolom SKALA USAHA (kolom 15) */
-        .ttd-left {
-            grid-column: 15 / span 3; /* 15-17 */
-            text-align: left;
-        }
+        .ttd-left { text-align: left; }
         
         .ttd-left-content {
             position: relative;
@@ -112,11 +112,7 @@
             margin-bottom: 0;
         }
         
-        /* TTD Kanan - diletakkan tepat di bawah kolom TANGGAL PERMOHONAN (kolom 4) */
-        .ttd-right {
-            grid-column: 4 / span 5; /* 4-8 */
-            text-align: right;
-        }
+        .ttd-right { text-align: right; }
         
         .ttd-right-content {
             position: relative;
@@ -224,33 +220,92 @@
 
     <!-- TTD Section -->
     <div class="ttd-section">
-        <!-- Susun TTD dengan grid 17 kolom agar sejajar dengan tabel -->
-        <div class="ttd-grid">
-            <!-- Blok kanan di bawah kolom 4 (Tanggal Permohonan) -->
-            <div class="ttd-right">
-                <div class="ttd-right-content">
-                    <div class="ttd-right-date"><strong>Surabaya, {{ date('d F Y') }}</strong></div>
-                    <div class="ttd-right-spacing"></div>
-                    <div class="ttd-right-position">Ketua Tim Kerja Pelayanan Perizinan Berusaha</div>
-                    <div class="ttd-right-spacing"></div>
-                    <div class="ttd-right-name"><strong>Ulvia Zulvia, ST</strong></div>
-                    <div class="ttd-right-position">Penata Tk. 1</div>
-                    <div class="ttd-right-nip">NIP: 197710132006042012</div>
-                </div>
-            </div>
+        <!-- Tabel 17 kolom dengan lebar mengikuti header -->
+        <table class="ttd-table">
+            <colgroup>
+                <col style="width:3%">
+                <col style="width:8%">
+                <col style="width:8%">
+                <col style="width:7%">
+                <col style="width:7%">
+                <col style="width:5%">
+                <col style="width:10%">
+                <col style="width:8%">
+                <col style="width:7%">
+                <col style="width:8%">
+                <col style="width:7%">
+                <col style="width:12%">
+                <col style="width:5%">
+                <col style="width:8%">
+                <col style="width:5%">
+                <col style="width:5%">
+                <col style="width:12%">
+            </colgroup>
 
-            <!-- Blok kiri di bawah kolom 15 (Skala Usaha) -->
-            <div class="ttd-left">
-                <div class="ttd-left-content">
+            <!-- Baris 1: judul/ tanggal kanan dan judul kiri -->
+            <tr>
+                <td colspan="3"></td>
+                <td colspan="5" class="ttd-right">
+                    <div class="ttd-right-date"><strong>Surabaya, {{ date('d F Y') }}</strong></div>
+                </td>
+                <td colspan="6"></td>
+                <td colspan="3" class="ttd-left">
                     <div class="ttd-left-title"><strong>Mengetahui</strong></div>
-                    <div class="ttd-left-spacing"></div>
+                </td>
+            </tr>
+
+            <!-- Baris 2: ruang tanda tangan (jarak) -->
+            <tr>
+                <td colspan="3"></td>
+                <td colspan="5" class="ttd-right"><div style="height:50px"></div></td>
+                <td colspan="6"></td>
+                <td colspan="3" class="ttd-left"><div style="height:50px"></div></td>
+            </tr>
+
+            <!-- Baris 3: jabatan kanan dan nama kiri -->
+            <tr>
+                <td colspan="3"></td>
+                <td colspan="5" class="ttd-right">
+                    <div class="ttd-right-position">Ketua Tim Kerja Pelayanan Perizinan Berusaha</div>
+                </td>
+                <td colspan="6"></td>
+                <td colspan="3" class="ttd-left">
                     <div class="ttd-left-name"><strong>Yohanes Franklin, S.H.</strong></div>
+                </td>
+            </tr>
+
+            <!-- Baris 4: nama kanan dan jabatan kiri -->
+            <tr>
+                <td colspan="3"></td>
+                <td colspan="5" class="ttd-right">
+                    <div class="ttd-right-name"><strong>Ulvia Zulvia, ST</strong></div>
+                </td>
+                <td colspan="6"></td>
+                <td colspan="3" class="ttd-left">
                     <div class="ttd-left-position">Koordinator Ketua Tim Kerja</div>
+                </td>
+            </tr>
+
+            <!-- Baris 5: pangkat kanan dan unit kiri -->
+            <tr>
+                <td colspan="3"></td>
+                <td colspan="5" class="ttd-right">
+                    <div class="ttd-right-position">Penata Tk. 1</div>
+                </td>
+                <td colspan="6"></td>
+                <td colspan="3" class="ttd-left">
                     <div class="ttd-left-position">Pelayanan Terpadu Satu Pintu</div>
-                    <div class="ttd-left-nip">NIP: 198502182010011008</div>
-                </div>
-            </div>
-        </div>
+                </td>
+            </tr>
+
+            <!-- Baris 6: NIP kanan dan NIP kiri -->
+            <tr>
+                <td colspan="3"></td>
+                <td colspan="5" class="ttd-right"><div class="ttd-right-nip">NIP: 197710132006042012</div></td>
+                <td colspan="6"></td>
+                <td colspan="3" class="ttd-left"><div class="ttd-left-nip">NIP: 198502182010011008</div></td>
+            </tr>
+        </table>
     </div>
 
     <div class="footer">
