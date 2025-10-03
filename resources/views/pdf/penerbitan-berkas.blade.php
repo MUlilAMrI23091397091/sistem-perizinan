@@ -59,95 +59,91 @@
             font-size: 6px;
         }
 
-        /* TTD table aligned to header columns */
-        table.ttd-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table.ttd-table td {
-            border: 0;
-            padding: 0;
-            vertical-align: top;
-        }
-        .ttd-cell {
-            text-align: center;
-            padding-top: 8px;
-        }
-        
+        /* TTD Section Styling */
         .ttd-section {
-            margin-top: 60px;
+            margin-top: 80px;
             page-break-inside: avoid;
             position: relative;
         }
         
-        .ttd-header {
-            text-align: center;
-            margin-bottom: 30px;
+        /* Tanggal di kanan atas */
+        .ttd-date-top {
+            text-align: right;
+            margin-bottom: 40px;
+            font-size: 10px;
         }
         
-        .ttd-header h3 {
-            font-size: 12px;
-            font-weight: bold;
-            margin: 0;
-            line-height: 1.2;
-        }
-        
-        .separator-line {
-            border-top: 1px solid #000;
-            margin: 30px 0;
-            width: 100%;
-        }
-        
+        /* Container TTD kiri dan kanan */
         .ttd-content {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-top: 30px;
+            align-items: flex-end;
+            margin-top: 60px;
         }
         
-        .ttd-left, .ttd-right {
-            width: 45%;
-            min-height: 80px;
-        }
-        
+        /* TTD Kiri Bawah */
         .ttd-left {
+            width: 45%;
             text-align: left;
         }
         
+        .ttd-left-content {
+            position: relative;
+        }
+        
+        .ttd-left-title {
+            font-size: 10px;
+            margin-bottom: 0;
+        }
+        
+        .ttd-left-spacing {
+            height: 40px;
+        }
+        
+        .ttd-left-name {
+            font-size: 10px;
+            margin-bottom: 5px;
+        }
+        
+        .ttd-left-position {
+            font-size: 9px;
+            margin-bottom: 2px;
+            line-height: 1.2;
+        }
+        
+        .ttd-left-nip {
+            font-size: 8px;
+            margin-bottom: 0;
+        }
+        
+        /* TTD Kanan Bawah */
         .ttd-right {
+            width: 45%;
             text-align: right;
         }
         
-        .ttd-name {
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 11px;
-            line-height: 1.3;
+        .ttd-right-content {
+            position: relative;
         }
         
-        .ttd-title {
+        .ttd-right-spacing {
+            height: 20px;
+        }
+        
+        .ttd-right-name {
             font-size: 10px;
-            margin-bottom: 3px;
-            line-height: 1.3;
+            margin-bottom: 5px;
         }
         
-        .ttd-nip {
+        .ttd-right-position {
             font-size: 9px;
+            margin-bottom: 2px;
+            line-height: 1.2;
+        }
+        
+        .ttd-right-nip {
+            font-size: 8px;
             margin-bottom: 0;
-            line-height: 1.3;
-        }
-        
-        .ttd-date {
-            font-size: 10px;
-            margin-bottom: 10px;
-            line-height: 1.3;
-        }
-        
-        .ttd-position {
-            font-size: 10px;
-            margin-bottom: 5px;
-            line-height: 1.3;
         }
         
         .page-break {
@@ -159,21 +155,6 @@
             font-size: 8px;
             text-align: center;
             color: #666;
-        }
-        
-        /* Additional styling for better TTD layout */
-        .ttd-content {
-            position: relative;
-        }
-        
-        .ttd-left, .ttd-right {
-            position: relative;
-            padding: 10px 0;
-        }
-        
-        .ttd-left .ttd-name,
-        .ttd-right .ttd-name {
-            margin-top: 0;
         }
     </style>
 </head>
@@ -232,60 +213,40 @@
         </tbody>
     </table>
 
-    <!-- TTD grid aligned with header columns -->
-    <table class="ttd-table">
-        <tr>
-            <!-- NO (col 1) -->
-            <td style="width:3%"></td>
-            <!-- NO. PERMOHONAN (col 2) -->
-            <td style="width:8%"></td>
-            <!-- NO. PROYEK (col 3) -->
-            <td style="width:8%"></td>
-            <!-- TANGGAL PERMOHONAN (col 4) - LEFT TTD placed under this column -->
-            <td style="width:7%" class="ttd-cell">
-                <div class="ttd-header">
-                    <h3>Mengetahui</h3>
-                    <h3>Koordinator Ketua Tim Kerja</h3>
-                    <h3>Pelayanan Terpadu Satu Pintu</h3>
+    <!-- TTD Section -->
+    <div class="ttd-section">
+        <!-- Tanggal di kanan atas -->
+        <div class="ttd-date-top">
+            <strong>Surabaya, {{ date('d F Y') }}</strong>
+        </div>
+        
+        <!-- TTD Kiri dan Kanan -->
+        <div class="ttd-content">
+            <!-- TTD Kiri Bawah -->
+            <div class="ttd-left">
+                <div class="ttd-left-content">
+                    <div class="ttd-left-title"><strong>Mengetahui</strong></div>
+                    <div class="ttd-left-spacing"></div>
+                    <div class="ttd-left-name"><strong>Yohanes Franklin, S.H.</strong></div>
+                    <div class="ttd-left-position">Koordinator Ketua Tim Kerja</div>
+                    <div class="ttd-left-position">Pelayanan Terpadu Satu Pintu</div>
+                    <div class="ttd-left-nip">NIP: 198502182010011008</div>
                 </div>
-                <div class="ttd-name">Yohanes Franklin, S.H.</div>
-                <div class="ttd-title">Penata Tk.1</div>
-                <div class="ttd-nip">NIP: 198502182010011008</div>
-            </td>
-            <!-- NIB (5) -->
-            <td style="width:7%"></td>
-            <!-- KBLI (6) -->
-            <td style="width:5%"></td>
-            <!-- NAMA USAHA (7) -->
-            <td style="width:10%"></td>
-            <!-- KEGIATAN (8) -->
-            <td style="width:8%"></td>
-            <!-- JENIS PERUSAHAAN (9) -->
-            <td style="width:7%"></td>
-            <!-- PEMILIK (10) -->
-            <td style="width:8%"></td>
-            <!-- MODAL USAHA (11) -->
-            <td style="width:7%"></td>
-            <!-- ALAMAT (12) -->
-            <td style="width:12%"></td>
-            <!-- JENIS PROYEK (13) -->
-            <td style="width:5%"></td>
-            <!-- NAMA PERIZINAN (14) -->
-            <td style="width:8%"></td>
-            <!-- SKALA USAHA (15) - RIGHT TTD placed under this column -->
-            <td style="width:5%" class="ttd-cell">
-                <div class="ttd-name">Surabaya, {{ date('d F Y') }}</div>
-                <div class="ttd-position">Ketua Tim Kerja Pelayanan Perizinan Berusaha</div>
-                <div class="ttd-name">Ulvia Zulvia, ST</div>
-                <div class="ttd-title">Penata Tk. 1</div>
-                <div class="ttd-nip">NIP: 197710132006042012</div>
-            </td>
-            <!-- RISIKO (16) -->
-            <td style="width:5%"></td>
-            <!-- PEMROSES DAN TGL... (17) -->
-            <td style="width:12%"></td>
-        </tr>
-    </table>
+            </div>
+            
+            <!-- TTD Kanan Bawah -->
+            <div class="ttd-right">
+                <div class="ttd-right-content">
+                    <div class="ttd-right-spacing"></div>
+                    <div class="ttd-right-position">Ketua Tim Kerja Pelayanan Perizinan Berusaha</div>
+                    <div class="ttd-right-spacing"></div>
+                    <div class="ttd-right-name"><strong>Ulvia Zulvia, ST</strong></div>
+                    <div class="ttd-right-position">Penata Tk. 1</div>
+                    <div class="ttd-right-nip">NIP: 197710132006042012</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="footer">
         <p>Dokumen ini dibuat secara otomatis pada {{ date('d F Y H:i:s') }}</p>
