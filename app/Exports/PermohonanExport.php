@@ -11,8 +11,9 @@ use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class PermohonanExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithColumnWidths, WithEvents
+class PermohonanExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithColumnWidths, WithEvents, WithColumnFormatting
 {
     /**
     * @return \Illuminate\Support\Collection
@@ -232,6 +233,13 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
                     $sheet->getColumnDimension($column)->setAutoSize(false);
                 }
             },
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'F' => NumberFormat::FORMAT_TEXT, // NIB column as text
         ];
     }
 }

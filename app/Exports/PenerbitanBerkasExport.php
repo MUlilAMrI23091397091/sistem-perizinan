@@ -14,8 +14,9 @@ use Maatwebsite\Excel\Concerns\WithDrawings;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
-class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithColumnWidths, WithEvents, WithDrawings
+class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithColumnWidths, WithEvents, WithDrawings, WithColumnFormatting
 {
     /**
      * Counter untuk kolom NO agar berurutan 1..n
@@ -255,5 +256,12 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
         }
         
         return $drawings;
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'E' => NumberFormat::FORMAT_TEXT, // NIB column as text
+        ];
     }
 }
