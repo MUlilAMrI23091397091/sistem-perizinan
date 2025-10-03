@@ -214,7 +214,15 @@
                 <td>{{ $item->nama_perizinan ?? '-' }}</td>
                 <td>{{ $item->skala_usaha ?? '-' }}</td>
                 <td>{{ $item->risiko ?? '-' }}</td>
-                <td>{{ $item->pemroses_dan_tgl_surat ?? '-' }}</td>
+                <td>
+                    @if($item->pemroses_dan_tgl_surat)
+                        {{ $item->pemroses_dan_tgl_surat }}
+                    @else
+                        DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU<br>
+                        No: BAP/OSS/IX/PARKIR-341/436.7.15/{{ date('Y') }}<br>
+                        tanggal BAP: {{ date('d') }}
+                    @endif
+                </td>
             </tr>
             @endforeach
         </tbody>
