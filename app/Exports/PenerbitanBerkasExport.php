@@ -16,6 +16,7 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
 class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithColumnWidths, WithEvents, WithDrawings, WithColumnFormatting
 {
@@ -178,7 +179,12 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 $sheet->getRowDimension($headerRow)->setRowHeight(28);
                 
                 // Set NIB column (E) as text format to prevent scientific notation
-                $sheet->getStyle('E' . ($headerRow + 1) . ':E' . $lastRow)->getNumberFormat()->setFormatCode('@');
+                for ($row = $headerRow + 1; $row <= $lastRow; $row++) {
+                    $cellValue = $sheet->getCell('E' . $row)->getValue();
+                    if ($cellValue && $cellValue !== '-') {
+                        $sheet->setCellValueExplicit('E' . $row, $cellValue, DataType::TYPE_STRING);
+                    }
+                }
                 
                 // Add TTD section after data - POSITIONED UNDER SPECIFIC COLUMNS
                 $ttdRow = $lastRow + 3;

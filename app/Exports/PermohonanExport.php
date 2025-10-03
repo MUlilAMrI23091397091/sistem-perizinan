@@ -13,6 +13,7 @@ use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
 class PermohonanExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithColumnWidths, WithEvents, WithColumnFormatting
 {
@@ -226,7 +227,12 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
                 $sheet->getRowDimension(1)->setRowHeight(50);
                 
                 // Set NIB column (F) as text format to prevent scientific notation
-                $sheet->getStyle('F2:F' . $highestRow)->getNumberFormat()->setFormatCode('@');
+                for ($row = 2; $row <= $highestRow; $row++) {
+                    $cellValue = $sheet->getCell('F' . $row)->getValue();
+                    if ($cellValue && $cellValue !== '') {
+                        $sheet->setCellValueExplicit('F' . $row, $cellValue, DataType::TYPE_STRING);
+                    }
+                }
                 
                 // Set borders for all data
                 $sheet->getStyle('A1:AF' . $highestRow)->getBorders()->getAllBorders()
