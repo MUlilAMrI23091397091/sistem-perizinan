@@ -7,9 +7,9 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            font-size: 10px;
+            font-size: 8px;
             margin: 0;
-            padding: 20px;
+            padding: 10px;
         }
         
         .header {
@@ -42,19 +42,21 @@
         
         th, td {
             border: 1px solid #000;
-            padding: 4px;
+            padding: 2px;
             text-align: left;
             vertical-align: top;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         
         th {
             background-color: #f0f0f0;
             font-weight: bold;
-            font-size: 9px;
+            font-size: 7px;
         }
         
         td {
-            font-size: 8px;
+            font-size: 6px;
         }
 
         /* TTD table aligned to header columns */
@@ -187,22 +189,22 @@
         <thead>
             <tr>
                 <th style="width: 3%;">NO</th>
-                <th style="width: 10%;">NO. PERMOHONAN</th>
-                <th style="width: 10%;">NO. PROYEK</th>
-                <th style="width: 8%;">TANGGAL PERMOHONAN</th>
-                <th style="width: 8%;">NIB</th>
-                <th style="width: 6%;">KBLI</th>
-                <th style="width: 12%;">NAMA USAHA</th>
-                <th style="width: 10%;">KEGIATAN</th>
-                <th style="width: 8%;">JENIS PERUSAHAAN</th>
-                <th style="width: 10%;">PEMILIK</th>
-                <th style="width: 8%;">MODAL USAHA</th>
-                <th style="width: 15%;">ALAMAT</th>
-                <th style="width: 6%;">JENIS PROYEK</th>
-                <th style="width: 10%;">NAMA PERIZINAN</th>
-                <th style="width: 6%;">SKALA USAHA</th>
-                <th style="width: 6%;">RISIKO</th>
-                <th style="width: 15%;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
+                <th style="width: 8%;">NO. PERMOHONAN</th>
+                <th style="width: 8%;">NO. PROYEK</th>
+                <th style="width: 7%;">TANGGAL PERMOHONAN</th>
+                <th style="width: 7%;">NIB</th>
+                <th style="width: 5%;">KBLI</th>
+                <th style="width: 10%;">NAMA USAHA</th>
+                <th style="width: 8%;">KEGIATAN</th>
+                <th style="width: 7%;">JENIS PERUSAHAAN</th>
+                <th style="width: 8%;">PEMILIK</th>
+                <th style="width: 7%;">MODAL USAHA</th>
+                <th style="width: 12%;">ALAMAT</th>
+                <th style="width: 5%;">JENIS PROYEK</th>
+                <th style="width: 8%;">NAMA PERIZINAN</th>
+                <th style="width: 5%;">SKALA USAHA</th>
+                <th style="width: 5%;">RISIKO</th>
+                <th style="width: 12%;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
             </tr>
         </thead>
         <tbody>
@@ -236,11 +238,11 @@
             <!-- NO (col 1) -->
             <td style="width:3%"></td>
             <!-- NO. PERMOHONAN (col 2) -->
-            <td style="width:10%"></td>
+            <td style="width:8%"></td>
             <!-- NO. PROYEK (col 3) -->
-            <td style="width:10%"></td>
+            <td style="width:8%"></td>
             <!-- TANGGAL PERMOHONAN (col 4) - LEFT TTD placed under this column -->
-            <td style="width:8%" class="ttd-cell">
+            <td style="width:7%" class="ttd-cell">
                 <div class="ttd-header">
                     <h3>Mengetahui</h3>
                     <h3>Koordinator Ketua Tim Kerja</h3>
@@ -251,27 +253,27 @@
                 <div class="ttd-nip">NIP: 198502182010011008</div>
             </td>
             <!-- NIB (5) -->
-            <td style="width:8%"></td>
+            <td style="width:7%"></td>
             <!-- KBLI (6) -->
-            <td style="width:6%"></td>
+            <td style="width:5%"></td>
             <!-- NAMA USAHA (7) -->
-            <td style="width:12%"></td>
+            <td style="width:10%"></td>
             <!-- KEGIATAN (8) -->
-            <td style="width:10%"></td>
+            <td style="width:8%"></td>
             <!-- JENIS PERUSAHAAN (9) -->
-            <td style="width:8%"></td>
+            <td style="width:7%"></td>
             <!-- PEMILIK (10) -->
-            <td style="width:10%"></td>
-            <!-- MODAL USAHA (11) -->
             <td style="width:8%"></td>
+            <!-- MODAL USAHA (11) -->
+            <td style="width:7%"></td>
             <!-- ALAMAT (12) -->
-            <td style="width:15%"></td>
+            <td style="width:12%"></td>
             <!-- JENIS PROYEK (13) -->
-            <td style="width:6%"></td>
+            <td style="width:5%"></td>
             <!-- NAMA PERIZINAN (14) -->
-            <td style="width:10%"></td>
+            <td style="width:8%"></td>
             <!-- SKALA USAHA (15) - RIGHT TTD placed under this column -->
-            <td style="width:6%" class="ttd-cell">
+            <td style="width:5%" class="ttd-cell">
                 <div class="ttd-name">Surabaya, {{ date('d F Y') }}</div>
                 <div class="ttd-position">Ketua Tim Kerja Pelayanan Perizinan Berusaha</div>
                 <div class="ttd-name">Ulvia Zulvia, ST</div>
@@ -279,9 +281,9 @@
                 <div class="ttd-nip">NIP: 197710132006042012</div>
             </td>
             <!-- RISIKO (16) -->
-            <td style="width:6%"></td>
+            <td style="width:5%"></td>
             <!-- PEMROSES DAN TGL... (17) -->
-            <td style="width:15%"></td>
+            <td style="width:12%"></td>
         </tr>
     </table>
 
