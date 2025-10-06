@@ -9,7 +9,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            background: linear-gradient(135deg, #0E2A66 0%, #092767 71%, #283593 100%);
             min-height: 100vh;
         }
         .logo-container {
@@ -85,7 +85,7 @@
         .login-btn {
             width: 100%;
             padding: 1rem;
-            background: #1e40af;
+            background: #283593;
             color: white;
             border: none;
             border-radius: 8px;
@@ -95,7 +95,7 @@
             transition: all 0.3s ease;
         }
         .login-btn:hover {
-            background: #1e3a8a;
+            background: #092767;
             transform: translateY(-2px);
         }
     </style>
