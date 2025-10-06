@@ -54,6 +54,23 @@
             border-color: #fbbf24;
             background: #1e40af;
         }
+        /* Enforce dark inputs and fix Chrome autofill background */
+        .form-input,
+        .form-input:focus {
+            background-color: #1e3a8a !important;
+            border-color: #3b82f6 !important;
+            color: #ffffff !important;
+        }
+        .form-input:-webkit-autofill,
+        .form-input:-webkit-autofill:hover,
+        .form-input:-webkit-autofill:focus {
+            -webkit-box-shadow: 0 0 0 1000px #1e3a8a inset !important;
+            box-shadow: 0 0 0 1000px #1e3a8a inset !important;
+            -webkit-text-fill-color: #ffffff !important;
+            caret-color: #ffffff !important;
+            border: 1px solid #3b82f6 !important;
+            transition: background-color 9999s ease-in-out 0s; /* keep dark after autofill */
+        }
         .checkbox-container {
             display: flex;
             align-items: center;
