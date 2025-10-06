@@ -33,7 +33,7 @@
             left: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            color: white;
+            color: #fbbf24;
             width: 20px;
             height: 20px;
         }
