@@ -111,7 +111,7 @@
         <div class="w-full max-w-md">
             <!-- Logo and Organization Info -->
             <div class="logo-container">
-                <img src="{{ asset('images/dpmptsp.jpg') }}" alt="DPMPTSP Logo" class="logo">
+                <img src="{{ asset('images/dpmptsp-removebg.png') }}" alt="DPMPTSP Logo" class="logo">
                 <div class="logo-text">dpmptsp</div>
                 <div class="org-text">
                     Dinas Penanaman Modal dan<br>
