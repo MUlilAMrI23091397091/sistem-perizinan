@@ -19,8 +19,8 @@
             margin-bottom: 2rem;
         }
         .logo {
-            width: 420px;
-            height: 160px;
+            width: 840px;
+            height: 320px;
             border-radius: 12px;
             object-fit: contain;
             margin-bottom: 2rem;
