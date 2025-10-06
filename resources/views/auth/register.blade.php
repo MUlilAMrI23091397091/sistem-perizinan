@@ -19,10 +19,10 @@
             margin-bottom: 2rem;
         }
         .logo {
-            width: 320px;
-            height: 320px;
-            border-radius: 12px;
-            object-fit: contain;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
             margin-bottom: 2rem;
         }
         .input-container {
@@ -118,7 +118,7 @@
         <div class="w-full max-w-md">
             <!-- Logo -->
             <div class="logo-container">
-                <img src="{{ asset('images/dpmptsp-baru.png') }}" alt="DPMPTSP Logo" class="logo">
+                <img src="{{ asset('images/dpmptsp-removebg.png') }}" alt="DPMPTSP Logo" class="logo">
             </div>
 
             <!-- Sign Up Form -->
