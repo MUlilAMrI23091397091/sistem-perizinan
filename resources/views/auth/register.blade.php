@@ -3,112 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <!-- App CSS & JS -->
+    <title>Sign Up - DPMPTSP</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8;
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            min-height: 100vh;
+        }
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fbbf24;
+            margin-bottom: 0.5rem;
+        }
+        .org-text {
+            color: white;
+            text-align: center;
+            line-height: 1.4;
+            margin-bottom: 2rem;
+        }
+        .input-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 1.2rem;
+        }
+        .form-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+        }
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #fbbf24;
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .form-select {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 1rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+        }
+        .form-select:focus {
+            outline: none;
+            border-color: #fbbf24;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        .form-select option {
+            background: #1e3a8a;
+            color: white;
+        }
+        .register-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #1e40af;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .register-btn:hover {
+            background: #1e3a8a;
+            transform: translateY(-2px);
         }
     </style>
 </head>
-<body class="antialiased flex items-center justify-center min-h-screen p-4 lg:p-12">
-    <div class="flex flex-col lg:flex-row w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden">
-        <!-- Left Panel (Greeting) -->
-        <div class="hidden lg:flex lg:w-1/2 p-8 lg:p-12 items-center justify-center text-center bg-gradient-sidebar rounded-l-3xl relative">
-            <div class="z-10 text-white">
-                <h2 class="text-4xl lg:text-5xl font-extrabold mb-4">Welcome Back!</h2>
-                <p class="text-lg mb-8 opacity-90">
-                    To keep connected with us, please sign in with your personal details.
-                </p>
+<body>
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md">
+            <!-- Logo and Organization Info -->
+            <div class="logo-container">
+                <img src="{{ asset('images/dpmptsp.jpg') }}" alt="DPMPTSP Logo" class="logo">
+                <div class="logo-text">dpmptsp</div>
+                <div class="org-text">
+                    Dinas Penanaman Modal dan<br>
+                    Pelayanan Terpadu Satu Pintu<br>
+                    Kota Surabaya
+                </div>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-white mb-2">Sign Up</h1>
+                <p class="text-white text-lg">Daftarkan Detail Pribadimu!</p>
+            </div>
+
+            <form action="{{ route('register') }}" method="POST">
+                @csrf
                 
-                <!-- Sign In Button -->
-                <a href="{{ route('login') }}" class="inline-block px-12 py-3 border-2 border-white rounded-full font-bold text-white hover:bg-white hover:text-primary-700 transition-all duration-300 transform hover:scale-105 shadow-md">
-                    SIGN IN
-                </a>
-            </div>
-        </div>
+                <!-- Username Field -->
+                <div class="input-container">
+                    <span class="input-icon">👤</span>
+                    <input 
+                        type="text" 
+                        name="name" 
+                        class="form-input" 
+                        placeholder="Username"
+                        required
+                    >
+                </div>
 
-        <!-- Right Panel (Registration Form) -->
-        <div class="w-full lg:w-1/2 p-8 lg:p-10 flex items-center justify-center">
-            <div class="w-full max-w-sm">
-                <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-2 text-center lg:text-left">
-                    Create Account
-                </h2>
-                <p class="text-gray-500 text-center lg:text-left text-xs md:text-sm mb-4">
-                    Enter your personal details to start your journey with us.
-                </p>
+                <!-- Email Field -->
+                <div class="input-container">
+                    <span class="input-icon">✉</span>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        class="form-input" 
+                        placeholder="Email"
+                        required
+                    >
+                </div>
 
-                <!-- Registration Form -->
-                <form action="#" method="POST" class="space-y-3">
-                    <!-- Name -->
-                    <div>
-                        <input 
-                            id="name" 
-                            class="w-full px-4 py-2 bg-gray-100 border-2 border-transparent rounded-lg text-gray-700 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300" 
-                            type="text" 
-                            name="name" 
-                            placeholder="Name"
-                            required 
-                        />
-                    </div>
-                    
-                    <!-- Email Address -->
-                    <div>
-                        <input 
-                            id="email" 
-                            class="w-full px-4 py-2 bg-gray-100 border-2 border-transparent rounded-lg text-gray-700 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300" 
-                            type="email" 
-                            name="email" 
-                            placeholder="Email"
-                            required 
-                        />
-                    </div>
+                <!-- Password Field -->
+                <div class="input-container">
+                    <span class="input-icon">🔒</span>
+                    <input 
+                        type="password" 
+                        name="password" 
+                        class="form-input" 
+                        placeholder="Password"
+                        required
+                    >
+                </div>
 
-                    <!-- Password -->
-                    <div>
-                        <input 
-                            id="password" 
-                            class="w-full px-4 py-2 bg-gray-100 border-2 border-transparent rounded-lg text-gray-700 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            required 
-                        />
-                    </div>
+                <!-- Confirm Password Field -->
+                <div class="input-container">
+                    <span class="input-icon">🔒</span>
+                    <input 
+                        type="password" 
+                        name="password_confirmation" 
+                        class="form-input" 
+                        placeholder="Confirm Password"
+                        required
+                    >
+                </div>
 
-                    <!-- Confirm Password -->
-                    <div>
-                        <input 
-                            id="password_confirmation" 
-                            class="w-full px-4 py-2 bg-gray-100 border-2 border-transparent rounded-lg text-gray-700 placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300"
-                            type="password"
-                            name="password_confirmation" 
-                            placeholder="Confirm Password"
-                            required 
-                        />
-                    </div>
+                <!-- Role Field -->
+                <div class="input-container">
+                    <span class="input-icon">👥</span>
+                    <select name="role" class="form-select" required>
+                        <option value="" disabled selected>Role</option>
+                        <option value="pd_teknis">Staff PD Teknis</option>
+                        <option value="dpmptsp">Staff DPMPTSP</option>
+                        <option value="penerbitan_berkas">Staff Penerbitan Berkas</option>
+                    </select>
+                </div>
 
-                    <!-- Role -->
-                    <div>
-                        <select name="role" id="role" class="w-full px-4 py-2 bg-gray-100 border-2 border-transparent rounded-lg text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-300">
-                            <option value="" disabled selected class="text-gray-400">Select Role</option>
-                            <option value="pd_teknis">Staff PD Teknis</option>
-                            <option value="dpmptsp">Staff DPMPTSP</option>
-                            <option value="penerbitan_berkas">Staff Penerbitan Berkas</option>
-                        </select>
-                    </div>
-
-                    <!-- Sign Up Button -->
-                    <div>
-                        <button type="submit" class="w-full py-2.5 px-6 bg-gradient-primary text-white font-bold rounded-lg shadow-md hover:opacity-95 transition-all duration-300 transform hover:scale-105">
-                            SIGN UP
-                        </button>
-                    </div>
-                </form>
-            </div>
+                <!-- Register Button -->
+                <button type="submit" class="register-btn">
+                    Daftar
+                </button>
+            </form>
         </div>
     </div>
 </body>
