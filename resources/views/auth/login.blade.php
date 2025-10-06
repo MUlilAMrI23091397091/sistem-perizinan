@@ -19,8 +19,8 @@
             margin-bottom: 2rem;
         }
         .logo {
-            width: 120px;
-            height: 120px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             margin-bottom: 2rem;
         }
