@@ -200,8 +200,8 @@
                                     @error('jenis_badan_usaha')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
-                                <!-- 10. NAMA USAHA (untuk DPMPTSP) -->
-                                <div class="field-data-pemohon hide-for-pd-teknis">
+                                <!-- 10. NAMA USAHA (untuk Admin & DPMPTSP) -->
+                                <div class="field-data-pemohon hide-for-pd-teknis field-admin-dpmptsp-only">
                                     <label for="nama_usaha" class="block font-medium text-sm text-gray-700">Nama Usaha</label>
                                     <input id="nama_usaha" name="nama_usaha" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['dpmptsp']) ? 'bg-gray-100' : '' }}"

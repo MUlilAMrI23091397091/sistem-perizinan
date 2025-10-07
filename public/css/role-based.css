@@ -29,8 +29,26 @@
 .role-admin .field-pd-teknis-only,
 .role-admin .field-dpmptsp-only,
 .role-admin .field-admin-only,
+.role-admin .field-admin-dpmptsp-only,
+.role-admin .field-admin-pd-teknis-only,
 .role-admin .hide-for-dpmptsp,
 .role-admin .hide-for-pd-teknis,
 .role-admin .hide-for-dpmptsp.hide-for-pd-teknis {
     display: block !important;
+}
+
+/* Field khusus untuk Admin & DPMPTSP */
+.field-admin-dpmptsp-only {
+    display: block;
+}
+.role-pd_teknis .field-admin-dpmptsp-only {
+    display: none !important;
+}
+
+/* Field khusus untuk Admin & PD Teknis */
+.field-admin-pd-teknis-only {
+    display: block;
+}
+.role-dpmptsp .field-admin-pd-teknis-only {
+    display: none !important;
 }
