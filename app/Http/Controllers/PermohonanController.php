@@ -224,7 +224,6 @@ class PermohonanController extends Controller
         } elseif ($user->role === 'dpmptsp') {
             // DPMPTSP wajib isi: nama_usaha, alamat_perusahaan, modal_usaha, jenis_proyek, verifikator, status
             $rules['nama_usaha'] = 'required|string';
-            $rules['nama_perusahaan'] = 'nullable|string';
             $rules['alamat_perusahaan'] = 'required|string';
             $rules['modal_usaha'] = 'required|numeric';
             $rules['jenis_proyek'] = 'required|string';
@@ -248,9 +247,17 @@ class PermohonanController extends Controller
         // Tambahkan user_id ke data yang akan disimpan
         $validated['user_id'] = $user->id;
         
-        // PENTING: Jika jenis_pelaku_usaha adalah 'Orang Perseorangan', pastikan nama_usaha dan jenis_badan_usaha di-null-kan
-        if (isset($validated['jenis_pelaku_usaha']) && $validated['jenis_pelaku_usaha'] === 'Orang Perseorangan') {
+        // Role-based field protection untuk CREATE
+        if ($user->role === 'pd_teknis') {
+            // PD Teknis tidak boleh mengisi nama_usaha
             $validated['nama_usaha'] = null;
+        } elseif ($user->role === 'dpmptsp') {
+            // DPMPTSP tidak boleh mengisi nama_perusahaan
+            $validated['nama_perusahaan'] = null;
+        }
+        
+        // PENTING: Jika jenis_pelaku_usaha adalah 'Orang Perseorangan', pastikan jenis_badan_usaha di-null-kan
+        if (isset($validated['jenis_pelaku_usaha']) && $validated['jenis_pelaku_usaha'] === 'Orang Perseorangan') {
             $validated['jenis_badan_usaha'] = null;
         }
 
@@ -404,9 +411,8 @@ class PermohonanController extends Controller
             $validated['nama_perusahaan'] = $permohonan->nama_perusahaan; // Keep original value
         }
         
-        // PENTING: Jika jenis_pelaku_usaha adalah 'Orang Perseorangan', pastikan nama_usaha dan jenis_badan_usaha di-null-kan
+        // PENTING: Jika jenis_pelaku_usaha adalah 'Orang Perseorangan', pastikan jenis_badan_usaha di-null-kan
         if ($request->input('jenis_pelaku_usaha') === 'Orang Perseorangan') {
-            $validated['nama_usaha'] = null;
             $validated['jenis_badan_usaha'] = null;
         }
 
