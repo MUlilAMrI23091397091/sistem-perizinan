@@ -63,11 +63,11 @@
 
             <!-- Tabel Data Permohonan -->
             <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 mb-8">
-                <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-indigo-50">
+                <div class="px-6 py-5 border-b border-gray-200" style="background-color: #F8FAFC;">
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-xl font-semibold text-gray-900 flex items-center">
-                                 <svg class="w-6 h-6 text-primary-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                 <svg class="w-6 h-6 text-gray-700 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                  </svg>
                                  Data Permohonan
@@ -110,27 +110,27 @@
                 </div>
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
+                            <thead style="background-color: #253B7E;">
                                 <tr>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 3%;">NO</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 12%;">NO. PERMOHONAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 12%;">NO. PROYEK</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 10%;">TANGGAL PERMOHONAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 8%;">NIB</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 6%;">KBLI</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 12%;">NAMA USAHA</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 12%;">KEGIATAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 8%;">JENIS PERUSAHAAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 10%;">PEMILIK</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 8%;">MODAL USAHA</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 12%;">ALAMAT</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 6%;">JENIS PROYEK</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 12%;">NAMA PERIZINAN</th>
-                                <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 8%;">SKALA USAHA</th>
-                                  <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 8%;">RISIKO</th>
-                                  <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 15%;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 3%; color: #E0E7FF;">NO</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">NO. PERMOHONAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">NO. PROYEK</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 10%; color: #E0E7FF;">TANGGAL PERMOHONAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">NIB</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 6%; color: #E0E7FF;">KBLI</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">NAMA USAHA</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">KEGIATAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">JENIS PERUSAHAAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 10%; color: #E0E7FF;">PEMILIK</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">MODAL USAHA</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">ALAMAT</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 6%; color: #E0E7FF;">JENIS PROYEK</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 12%; color: #E0E7FF;">NAMA PERIZINAN</th>
+                                <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">SKALA USAHA</th>
+                                  <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">RISIKO</th>
+                                  <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 15%; color: #E0E7FF;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
                                   @if(in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']))
-                                  <th class="px-4 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider" style="width: 8%;">AKSI</th>
+                                  <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">AKSI</th>
                                   @endif
                                 </tr>
                             </thead>
