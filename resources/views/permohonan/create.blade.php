@@ -230,7 +230,7 @@
                                 <div class="field-data-pemohon">
                                     <label for="alamat_perusahaan" class="block font-medium text-sm text-gray-700">Alamat Perusahaan</label>
                                     <textarea id="alamat_perusahaan" name="alamat_perusahaan"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['dpmptsp']) ? 'bg-gray-100' : '' }}" {{ $isReadOnly(['dpmptsp']) ? 'readonly' : '' }} required>{{ old('alamat_perusahaan') }}</textarea>
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm" required>{{ old('alamat_perusahaan') }}</textarea>
                                     @error('alamat_perusahaan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
                                 @endif
@@ -239,7 +239,7 @@
                                 <div class="field-data-pemohon">
                                     <label for="sektor" class="block font-medium text-sm text-gray-700">Sektor</label>
                                     <select name="sektor" id="sektor"
-                                        class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isDisabled(['dpmptsp']) ? 'bg-gray-100' : '' }}" {{ $isDisabled(['dpmptsp']) ? 'disabled' : '' }}>
+                                        class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm">
                                         <option value="">Pilih Sektor</option>
                                         @foreach($sektors as $sektor)
                                             <option value="{{ $sektor }}" @selected(old('sektor') == $sektor)>
@@ -256,8 +256,8 @@
                                 <div class="field-data-pemohon">
                                     <label for="modal_usaha" class="block font-medium text-sm text-gray-700">Modal Usaha</label>
                                     <input id="modal_usaha" name="modal_usaha" type="number"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['dpmptsp']) ? 'bg-gray-100' : '' }}"
-                                        value="{{ old('modal_usaha') }}" {{ $isReadOnly(['dpmptsp']) ? 'readonly' : '' }} required />
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
+                                        value="{{ old('modal_usaha') }}" required />
                                     @error('modal_usaha')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
                                 @endif
@@ -266,7 +266,7 @@
                                 <div class="field-data-pemohon">
                                     <label for="jenis_proyek" class="block font-medium text-sm text-gray-700">Jenis Proyek</label>
                                     <select name="jenis_proyek" id="jenis_proyek"
-                                        class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isDisabled(['dpmptsp']) ? 'bg-gray-100' : '' }}" {{ $isDisabled(['dpmptsp']) ? 'disabled' : '' }} required>
+                                        class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm" required>
                                         <option value="">Pilih Jenis Proyek</option>
                                         @foreach($jenisProyeks as $proyek)
                                             <option value="{{ $proyek }}" @selected(old('jenis_proyek') == $proyek)>
@@ -347,7 +347,7 @@
                                 <div>
                                     <label for="verifikator" class="block font-medium text-sm text-gray-700">Verifikator</label>
                                     <select name="verifikator" id="verifikator"
-                                        class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isDisabled(['admin','dpmptsp']) ? 'bg-gray-100' : '' }}" {{ $isDisabled(['admin','dpmptsp']) ? 'disabled' : '' }} required>
+                                        class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm" required>
                                         <option value="">Pilih Verifikator</option>
                                         @foreach($verifikators as $verifikator)
                                             <option value="{{ $verifikator }}" @selected(old('verifikator') == $verifikator)>{{ $verifikator }}</option>
@@ -359,7 +359,7 @@
 
                                 <div>
                                     <label for="status" class="block font-medium text-sm text-gray-700">Status Permohonan</label>
-                                    <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isDisabled(['admin','dpmptsp','pd_teknis']) ? 'bg-gray-100' : '' }}" {{ $isDisabled(['admin','dpmptsp','pd_teknis']) ? 'disabled' : '' }} required>
+                                    <select name="status" id="status" class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm" required>
                                         <option value="Diterima" @selected(old('status') == 'Diterima')>Diterima</option>
                                         <option value="Dikembalikan" @selected(old('status') == 'Dikembalikan')>Dikembalikan</option>
                                         <option value="Ditolak" @selected(old('status') == 'Ditolak')>Ditolak</option>
@@ -372,7 +372,7 @@
                                 <div class="field-pd-teknis-only">
                                     <label for="verifikasi_pd_teknis" class="block font-medium text-sm text-gray-700">Verifikasi PD Teknis</label>
                                     <select name="verifikasi_pd_teknis" id="verifikasi_pd_teknis"
-                                        class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isDisabled(['admin','dpmptsp','pd_teknis']) ? 'bg-gray-100' : '' }}" {{ $isDisabled(['admin','dpmptsp','pd_teknis']) ? 'disabled' : '' }}>
+                                        class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm">
                                         <option value="">-- Pilih Status --</option>
                                         @foreach($verificationStatusOptions as $opt)
                                             <option value="{{ $opt }}" @selected(old('verifikasi_pd_teknis') == $opt)>
@@ -387,8 +387,8 @@
                                 <div>
                                     <label for="pengembalian" class="block font-medium text-sm text-gray-700">Tanggal Pengembalian</label>
                                     <input id="pengembalian" name="pengembalian" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis','dpmptsp']) ? 'bg-gray-100' : '' }}"
-                                        value="{{ old('pengembalian') }}" {{ $isReadOnly(['pd_teknis','dpmptsp']) ? 'readonly' : '' }} />
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
+                                        value="{{ old('pengembalian') }}" />
                                     @error('pengembalian')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
 
@@ -442,7 +442,7 @@
                                 <div>
                                     <label for="verifikasi_dpmptsp" class="block font-medium text-sm text-gray-700">Verifikasi Analisa</label>
                                     <select name="verifikasi_dpmptsp" id="verifikasi_dpmptsp"
-                                        class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isDisabled(['dpmptsp']) ? 'bg-gray-100' : '' }}" {{ $isDisabled(['dpmptsp']) ? 'disabled' : '' }}>
+                                        class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm">
                                         <option value="">-- Pilih Status --</option>
                                         @foreach($verificationStatusOptions as $opt)
                                             <option value="{{ $opt }}" @selected(old('verifikasi_dpmptsp') == $opt)>
@@ -458,8 +458,8 @@
                                     <div>
                                         <label for="terbit" class="block font-medium text-sm text-gray-700">Tanggal Terbit</label>
                                         <input id="terbit" name="terbit" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['dpmptsp']) ? 'bg-gray-100' : '' }}"
-                                        value="{{ old('terbit') }}" {{ $isReadOnly(['dpmptsp']) ? 'readonly' : '' }} />
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
+                                        value="{{ old('terbit') }}" />
                                         @error('terbit')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                     </div>
                                     @endif
@@ -468,7 +468,7 @@
                                     <div>
                                         <label for="keterangan_terbit" class="block font-medium text-sm text-gray-700">Keterangan Terbit</label>
                                         <textarea id="keterangan_terbit" name="keterangan_terbit"
-                                            class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['dpmptsp']) ? 'bg-gray-100' : '' }}" {{ $isReadOnly(['dpmptsp']) ? 'readonly' : '' }}>{{ old('keterangan_terbit') }}</textarea>
+                                            class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm">{{ old('keterangan_terbit') }}</textarea>
                                         @error('keterangan_terbit')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                     </div>
                                     @endif
