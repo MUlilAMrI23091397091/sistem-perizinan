@@ -327,10 +327,10 @@
                         </div>
 
                                 <div>
-                                    <label for="no_telephone" class="block font-medium text-sm text-gray-700">No. Telephone</label>
+                                    <label for="no_telephone" class="block font-medium text-sm text-gray-700">No. Telephone / Email</label>
                                     <input id="no_telephone" name="no_telephone" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
-                                        value="{{ old('no_telephone', $permohonan->no_telephone) }}" placeholder="Masukkan nomor telephone" />
+                                        value="{{ old('no_telephone', $permohonan->no_telephone) }}" placeholder="Masukkan nomor telephone atau email" />
                                     @error('no_telephone')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
                                 @endif

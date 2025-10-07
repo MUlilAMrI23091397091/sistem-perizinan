@@ -273,7 +273,7 @@
                                 </div>
 
                                 <div class="group">
-                                    <label class="text-sm font-medium text-gray-500 block mb-2">No. Telephone</label>
+                                    <label class="text-sm font-medium text-gray-500 block mb-2">No. Telephone / Email</label>
                                     <p class="text-gray-900 font-mono">{{ $permohonan->no_telephone ?? '-' }}</p>
                                 </div>
                             </div>
