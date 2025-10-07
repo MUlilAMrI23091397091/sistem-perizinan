@@ -61,34 +61,37 @@
                                 <h3 class="text-lg font-medium text-gray-900 border-b pb-2">Data Pemohon</h3>
 
                                 <!-- 1. NO. PERMOHONAN -->
-                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                @if(in_array($user->role, ['admin', 'pd_teknis']))
+                                <div class="field-data-pemohon">
                                     <label for="no_permohonan" class="block font-medium text-sm text-gray-700">No. Permohonan</label>
                                     <input id="no_permohonan" name="no_permohonan" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
-                                        value="{{ old('no_permohonan', $permohonan->no_permohonan) }}"
-                                        {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} required />
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
+                                        value="{{ old('no_permohonan', $permohonan->no_permohonan) }}" required />
                                     @error('no_permohonan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
                                 <!-- 2. NO. PROYEK -->
-                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                @if(in_array($user->role, ['admin', 'pd_teknis']))
+                                <div class="field-data-pemohon">
                                     <label for="no_proyek" class="block font-medium text-sm text-gray-700">No. Proyek</label>
                                     <input id="no_proyek" name="no_proyek" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
-                                        value="{{ old('no_proyek', $permohonan->no_proyek) }}"
-                                        {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} />
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
+                                        value="{{ old('no_proyek', $permohonan->no_proyek) }}" />
                                     @error('no_proyek')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
                                 <!-- 3. TANGGAL PERMOHONAN -->
-                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                @if(in_array($user->role, ['admin', 'pd_teknis']))
+                                <div class="field-data-pemohon">
                                     <label for="tanggal_permohonan" class="block font-medium text-sm text-gray-700">Tanggal Permohonan</label>
                                     <input id="tanggal_permohonan" name="tanggal_permohonan" type="date"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
-                                        value="{{ old('tanggal_permohonan', $permohonan->tanggal_permohonan ? $permohonan->tanggal_permohonan->format('Y-m-d') : '') }}"
-                                        {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} />
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
+                                        value="{{ old('tanggal_permohonan', $permohonan->tanggal_permohonan ? $permohonan->tanggal_permohonan->format('Y-m-d') : '') }}" />
                                     @error('tanggal_permohonan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
                                 <!-- 4. NIB -->
                                 <div class="field-data-pemohon hide-for-dpmptsp">
