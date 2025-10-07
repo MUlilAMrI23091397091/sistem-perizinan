@@ -206,13 +206,15 @@
                                 @endif
 
                                 <!-- 10. NAMA USAHA (untuk Admin & DPMPTSP) -->
-                                <div class="field-data-pemohon field-admin-dpmptsp-only">
+                                @if(in_array($user->role, ['admin', 'dpmptsp']))
+                                <div class="field-data-pemohon">
                                     <label for="nama_usaha" class="block font-medium text-sm text-gray-700">Nama Usaha</label>
                                     <input id="nama_usaha" name="nama_usaha" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
-                                        value="{{ old('nama_usaha') }}" {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} required />
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
+                                        value="{{ old('nama_usaha') }}" required />
                                     @error('nama_usaha')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
                                 {{-- PD Teknis mengisi Nama Perusahaan --}}
                                 @if(in_array($user->role, ['admin', 'pd_teknis']))
