@@ -94,7 +94,8 @@
                                 @endif
 
                                 <!-- 4. NIB -->
-                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                @if(in_array($user->role, ['admin', 'pd_teknis']))
+                                <div class="field-data-pemohon">
                                     <label for="nib" class="block font-medium text-sm text-gray-700">NIB</label>
                                     <input id="nib" name="nib" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
@@ -102,9 +103,11 @@
                                         {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} required />
                                     @error('nib')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
                                 <!-- 5. KBLI -->
-                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                @if(in_array($user->role, ['admin', 'pd_teknis']))
+                                <div class="field-data-pemohon">
                                     <label for="kbli" class="block font-medium text-sm text-gray-700">KBLI</label>
                                     <input id="kbli" name="kbli" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
@@ -112,9 +115,11 @@
                                         {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} />
                                     @error('kbli')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
                                 <!-- 6. KEGIATAN -->
-                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                @if(in_array($user->role, ['admin', 'pd_teknis']))
+                                <div class="field-data-pemohon">
                                     <label for="inputan_teks" class="block font-medium text-sm text-gray-700">Kegiatan</label>
                                     <input id="inputan_teks" name="inputan_teks" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
@@ -122,9 +127,11 @@
                                         {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} />
                                     @error('inputan_teks')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
                                 <!-- 7. JENIS PERUSAHAAN -->
-                                <div class="field-data-pemohon hide-for-dpmptsp">
+                                @if(in_array($user->role, ['admin', 'pd_teknis']))
+                                <div class="field-data-pemohon">
                                     <label for="jenis_pelaku_usaha" class="block font-medium text-sm text-gray-700">Jenis Perusahaan</label>
                                     <select name="jenis_pelaku_usaha" id="jenis_pelaku_usaha"
                                         x-model="jenisPelakuUsaha"
@@ -139,9 +146,11 @@
                                     </select>
                                     @error('jenis_pelaku_usaha')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
 
-                                <div class="field-data-pemohon hide-for-dpmptsp" x-show="jenisPelakuUsaha === 'Orang Perseorangan'">
+                                @if(in_array($user->role, ['admin', 'pd_teknis']))
+                                <div class="field-data-pemohon" x-show="jenisPelakuUsaha === 'Orang Perseorangan'">
                                     <label for="nik" class="block font-medium text-sm text-gray-700">Nomor Induk Kependudukan (NIK)</label>
                                     <input id="nik" name="nik" type="text"
                                         class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
@@ -149,9 +158,11 @@
                                         {{ $isReadOnly(['pd_teknis']) ? 'readonly' : '' }} />
                                     @error('nik')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
                                 <!-- 9. JENIS BADAN USAHA -->
-                                <div class="field-data-pemohon hide-for-dpmptsp" x-show="jenisPelakuUsaha === 'Badan Usaha'">
+                                @if(in_array($user->role, ['admin', 'pd_teknis']))
+                                <div class="field-data-pemohon" x-show="jenisPelakuUsaha === 'Badan Usaha'">
                                     <label for="jenis_badan_usaha" class="block font-medium text-sm text-gray-700">Jenis Badan Usaha</label>
                                     <select name="jenis_badan_usaha" id="jenis_badan_usaha"
                                         class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
@@ -202,6 +213,7 @@
                                     </select>
                                     @error('jenis_badan_usaha')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
+                                @endif
 
                                 <!-- 10. NAMA USAHA (untuk Admin & DPMPTSP) -->
                                 @if(in_array($user->role, ['admin', 'dpmptsp']))

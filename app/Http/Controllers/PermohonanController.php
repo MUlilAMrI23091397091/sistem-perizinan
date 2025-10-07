@@ -387,7 +387,7 @@ class PermohonanController extends Controller
             'no_telephone' => 'nullable|string|max:100',
             'deadline' => 'nullable|date', // UPDATE: deadline boleh apa saja (termasuk yang sudah terlewat)
             'verifikator' => 'nullable|string',
-            'status' => 'required|in:Dikembalikan,Diterima,Ditolak',
+            'status' => 'required|in:Diterima,Dikembalikan,Ditolak,Menunggu',
             'verifikasi_pd_teknis' => 'nullable|string',
             'verifikasi_dpmptsp' => 'nullable|string',
             'pengembalian' => 'nullable|date',
