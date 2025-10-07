@@ -2,15 +2,15 @@
 {{-- PERBAIKAN: Menerjemahkan status 'Dipending' menjadi 'Dikembalikan' di tampilan. --}}
 <div class="overflow-x-auto">
     <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-50">
+        <thead style="background-color: #253B7E;">
             <tr>
-                <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Nama Usaha</th>
-                <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Alamat</th>
-                <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Modal Usaha</th>
-                <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Jenis Proyek</th>
-                <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Verifikasi DPMPTSP</th>
-                <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-                <th scope="col" class="relative px-6 py-3"><span class="sr-only">Aksi</span></th>
+                <th scope="col" class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Nama Usaha</th>
+                <th scope="col" class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Alamat</th>
+                <th scope="col" class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Modal Usaha</th>
+                <th scope="col" class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Jenis Proyek</th>
+                <th scope="col" class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Verifikasi DPMPTSP</th>
+                <th scope="col" class="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Status</th>
+                <th scope="col" class="relative px-6 py-3"><span class="sr-only" style="color: #E0E7FF;">Aksi</span></th>
             </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">

@@ -2,14 +2,14 @@
 {{-- PERBAIKAN: Menerjemahkan status 'Dipending' menjadi 'Dikembalikan' di tampilan. --}}
 
 <table class="min-w-full divide-y divide-gray-200 bg-white rounded-md shadow">
-    <thead class="bg-gray-50">
+    <thead style="background-color: #253B7E;">
         <tr>
-            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">No. Permohonan</th>
-            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">No. Proyek</th>
-            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Nama Usaha</th>
-            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Alamat Perusahaan</th>
-            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Status</th>
-            <th class="px-4 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">Aksi</th>
+            <th class="px-4 py-3 text-left text-sm font-semibold uppercase tracking-wider" style="color: #E0E7FF;">No. Permohonan</th>
+            <th class="px-4 py-3 text-left text-sm font-semibold uppercase tracking-wider" style="color: #E0E7FF;">No. Proyek</th>
+            <th class="px-4 py-3 text-left text-sm font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Nama Usaha</th>
+            <th class="px-4 py-3 text-left text-sm font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Alamat Perusahaan</th>
+            <th class="px-4 py-3 text-left text-sm font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Status</th>
+            <th class="px-4 py-3 text-left text-sm font-semibold uppercase tracking-wider" style="color: #E0E7FF;">Aksi</th>
         </tr>
     </thead>
     <tbody class="bg-white divide-y divide-gray-200">
