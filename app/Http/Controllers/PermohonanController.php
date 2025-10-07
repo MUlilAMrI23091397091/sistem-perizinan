@@ -243,7 +243,13 @@ class PermohonanController extends Controller
         $rules['verifikator'] = 'required|string';
         $rules['status'] = 'required|in:Dikembalikan,Diterima,Ditolak,Terlambat';
 
-        $validated = $request->validate($rules);
+        $validated = $request->validate(
+            $rules,
+            [
+                'no_permohonan.required' => 'Nomor permohonan wajib diisi.',
+                'no_permohonan.unique' => 'Nomor permohonan sudah digunakan. Silakan ganti dengan nomor lain.',
+            ]
+        );
         
         // Tambahkan user_id ke data yang akan disimpan
         $validated['user_id'] = $user->id;
@@ -405,6 +411,8 @@ class PermohonanController extends Controller
             'terbit' => 'nullable|date',
             'keterangan_terbit' => 'nullable|string',
             'pemroses_dan_tgl_surat' => 'nullable|string',
+        ], [
+            'no_permohonan.unique' => 'Nomor permohonan sudah digunakan. Silakan ganti dengan nomor lain.',
         ]);
         
         // Role-based validation untuk update
