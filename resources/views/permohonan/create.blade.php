@@ -201,8 +201,8 @@
                                 <div class="field-data-pemohon">
                                     <label for="nama_perusahaan" class="block font-medium text-sm text-gray-700">Nama Perusahaan</label>
                                     <input id="nama_perusahaan" name="nama_perusahaan" type="text"
-                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['dpmptsp']) ? 'bg-gray-100' : '' }}"
-                                        value="{{ old('nama_perusahaan') }}" {{ $isReadOnly(['dpmptsp']) ? 'readonly' : '' }} />
+                                        class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
+                                        value="{{ old('nama_perusahaan') }}" />
                                     @error('nama_perusahaan')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                                 </div>
                                 @endif
