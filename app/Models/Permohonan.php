@@ -145,6 +145,8 @@ class Permohonan extends Model
             return false;
         }
         
+        // Logika baru: Semua status bisa terlambat
+        // Terlambat jika tanggal sekarang > deadline
         return now()->toDateString() > $this->getAttribute('deadline')->toDateString();
     }
 

@@ -106,9 +106,8 @@ class PermohonanController extends Controller
         // Terapkan filter status
         if ($selectedStatus) {
             if ($selectedStatus === 'Terlambat') {
-                // Terlambat = status proses (Dikembalikan atau Menunggu) yang melewati deadline
-                $permohonans->whereIn('status', ['Dikembalikan', 'Menunggu'])
-                           ->whereNotNull('deadline')
+                // Terlambat = semua status yang melewati deadline
+                $permohonans->whereNotNull('deadline')
                            ->where('deadline', '<', now());
             } else {
                 $permohonans->where('status', $selectedStatus);

@@ -55,9 +55,9 @@ class DashboardController extends Controller
         // Total = hanya status final (Diterima, Dikembalikan, Ditolak) — Menunggu tidak dihitung
         $totalPermohonan = $permohonans->whereIn('status', ['Diterima', 'Dikembalikan', 'Ditolak'])->count();
 
-        // Terlambat = data yang masih proses (Dikembalikan atau Menunggu) dan melewati deadline
+        // Terlambat = semua data yang melewati deadline (semua status bisa terlambat)
         $terlambatCount = $permohonans->filter(function($permohonan) {
-            return in_array($permohonan->status, ['Dikembalikan', 'Menunggu']) && $permohonan->isOverdue();
+            return $permohonan->isOverdue();
         })->count();
         
         $stats = [
@@ -68,9 +68,9 @@ class DashboardController extends Controller
             'terlambat' => $terlambatCount,
         ];
         
-        // Ambil data terlambat untuk tampilan khusus (status proses yang terlambat)
+        // Ambil data terlambat untuk tampilan khusus (semua status yang terlambat)
         $terlambatData = $permohonans->filter(function($permohonan) {
-            return in_array($permohonan->status, ['Dikembalikan', 'Menunggu']) && $permohonan->isOverdue();
+            return $permohonan->isOverdue();
         });
 
         // Return view berdasarkan role
