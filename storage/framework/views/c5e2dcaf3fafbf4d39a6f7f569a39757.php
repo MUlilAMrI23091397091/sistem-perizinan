@@ -1696,14 +1696,14 @@
                                 <div>
                                     <?php if (isset($component)) { $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'menyetujui_title','value' => 'Judul & Tanggal']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'menyetujui_lokasi','value' => 'Lokasi']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['for' => 'menyetujui_title','value' => 'Judul & Tanggal']); ?>
+<?php $component->withAttributes(['for' => 'menyetujui_lokasi','value' => 'Lokasi']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
@@ -1716,14 +1716,14 @@
 <?php endif; ?>
                                     <?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['id' => 'menyetujui_title','class' => 'block mt-1 w-full','type' => 'text','name' => 'menyetujui_title','value' => old('menyetujui_title', $ttdSettings->menyetujui_title),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['id' => 'menyetujui_lokasi','class' => 'block mt-1 w-full','type' => 'text','name' => 'menyetujui_lokasi','value' => old('menyetujui_lokasi', $ttdSettings->menyetujui_lokasi ?? 'Surabaya'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('text-input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['id' => 'menyetujui_title','class' => 'block mt-1 w-full','type' => 'text','name' => 'menyetujui_title','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('menyetujui_title', $ttdSettings->menyetujui_title)),'required' => true]); ?>
+<?php $component->withAttributes(['id' => 'menyetujui_lokasi','class' => 'block mt-1 w-full','type' => 'text','name' => 'menyetujui_lokasi','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('menyetujui_lokasi', $ttdSettings->menyetujui_lokasi ?? 'Surabaya')),'required' => true]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
@@ -1734,7 +1734,50 @@
 <?php $component = $__componentOriginal18c21970322f9e5c938bc954620c12bb; ?>
 <?php unset($__componentOriginal18c21970322f9e5c938bc954620c12bb); ?>
 <?php endif; ?>
-                                    <p class="text-xs text-gray-500 mt-1">Gunakan <?php echo e(date('d F Y')); ?> untuk tanggal otomatis</p>
+                                </div>
+
+                                <div>
+                                    <?php if (isset($component)) { $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'menyetujui_tanggal','value' => 'Tanggal']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('input-label'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['for' => 'menyetujui_tanggal','value' => 'Tanggal']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
+<?php $attributes = $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
+<?php unset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
+<?php $component = $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
+<?php unset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
+<?php endif; ?>
+                                    <?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['id' => 'menyetujui_tanggal','class' => 'block mt-1 w-full','type' => 'date','name' => 'menyetujui_tanggal','value' => old('menyetujui_tanggal', $ttdSettings->menyetujui_tanggal ?? date('Y-m-d')),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('text-input'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['id' => 'menyetujui_tanggal','class' => 'block mt-1 w-full','type' => 'date','name' => 'menyetujui_tanggal','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('menyetujui_tanggal', $ttdSettings->menyetujui_tanggal ?? date('Y-m-d'))),'required' => true]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
+<?php $attributes = $__attributesOriginal18c21970322f9e5c938bc954620c12bb; ?>
+<?php unset($__attributesOriginal18c21970322f9e5c938bc954620c12bb); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal18c21970322f9e5c938bc954620c12bb)): ?>
+<?php $component = $__componentOriginal18c21970322f9e5c938bc954620c12bb; ?>
+<?php unset($__componentOriginal18c21970322f9e5c938bc954620c12bb); ?>
+<?php endif; ?>
+                                    <p class="text-xs text-gray-500 mt-1">Tanggal akan otomatis terformat dalam PDF</p>
                                 </div>
 
                                 <div>
@@ -2021,7 +2064,7 @@
 
                     <!-- Menyetujui -->
                     <div class="text-center">
-                        <p class="text-sm text-gray-600 mb-4"><?php echo e($menyetujuiTitle); ?></p>
+                        <p class="text-sm text-gray-600 mb-4"><?php echo e($ttdSettings->menyetujui_lokasi ?? 'Surabaya'); ?>, <?php echo e($ttdSettings->menyetujui_tanggal ? \Carbon\Carbon::parse($ttdSettings->menyetujui_tanggal)->format('d F Y') : date('d F Y')); ?></p>
                         <p class="text-sm text-gray-600 mb-2"><?php echo e($ttdSettings->menyetujui_jabatan); ?></p>
                         <div class="h-20 border-b border-gray-300 mb-2 flex items-center justify-center">
                             <?php if($ttdSettings->menyetujui_photo): ?>

@@ -559,10 +559,7 @@ class PermohonanController extends Controller
         $permohonans = Permohonan::with('user')->orderBy('created_at', 'desc')->get();
         $ttdSettings = \App\Models\TtdSetting::getSettings();
         
-        // Proses title menyetujui untuk mengganti placeholder tanggal
-        $menyetujuiTitle = str_replace('{{ date("d F Y") }}', date('d F Y'), $ttdSettings->menyetujui_title);
-        
-        $pdf = Pdf::loadView('permohonan.export-pdf-penerbitan', compact('permohonans', 'ttdSettings', 'menyetujuiTitle'));
+        $pdf = Pdf::loadView('pdf.penerbitan-berkas', compact('permohonans', 'ttdSettings'));
         $pdf->setPaper('A4', 'landscape');
         
         return $pdf->download('data_permohonan_penerbitan_' . date('Y-m-d_H-i-s') . '.pdf');

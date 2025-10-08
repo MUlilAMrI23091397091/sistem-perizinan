@@ -1,0 +1,29 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('ttd_settings', function (Blueprint $table) {
+            $table->string('menyetujui_lokasi')->nullable()->after('menyetujui_title');
+            $table->date('menyetujui_tanggal')->nullable()->after('menyetujui_lokasi');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('ttd_settings', function (Blueprint $table) {
+            $table->dropColumn(['menyetujui_lokasi', 'menyetujui_tanggal']);
+        });
+    }
+};

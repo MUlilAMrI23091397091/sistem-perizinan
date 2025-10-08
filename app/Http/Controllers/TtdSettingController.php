@@ -20,10 +20,7 @@ class TtdSettingController extends Controller
         
         $ttdSettings = TtdSetting::getSettings();
         
-        // Proses title menyetujui untuk mengganti placeholder tanggal
-        $menyetujuiTitle = str_replace('{{ date("d F Y") }}', date('d F Y'), $ttdSettings->menyetujui_title);
-        
-        return view('ttd-settings.index', compact('ttdSettings', 'menyetujuiTitle'));
+        return view('ttd-settings.index', compact('ttdSettings'));
     }
 
     public function update(Request $request)
@@ -43,7 +40,8 @@ class TtdSettingController extends Controller
             'mengetahui_pangkat' => 'required|string|max:255',
             'mengetahui_nip' => 'required|string|max:255',
             'mengetahui_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'menyetujui_title' => 'required|string|max:255',
+            'menyetujui_lokasi' => 'required|string|max:255',
+            'menyetujui_tanggal' => 'required|date',
             'menyetujui_jabatan' => 'required|string|max:255',
             'menyetujui_nama' => 'required|string|max:255',
             'menyetujui_pangkat' => 'required|string|max:255',

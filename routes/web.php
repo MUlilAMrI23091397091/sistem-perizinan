@@ -65,6 +65,12 @@ Route::get('/permohonan/export/pdf-penerbitan', [PermohonanController::class, 'e
     // ✅ Rute untuk Ekspor (Excel/PDF)
     Route::get('/export/{type}/{format}', [ExportController::class, 'export'])->name('export');
 
+    // ✅ Rute TTD Settings (Admin & Penerbitan Berkas)
+    Route::middleware('can:admin-or-penerbitan-berkas')->group(function () {
+        Route::get('/ttd-settings', [TtdSettingController::class, 'index'])->name('ttd-settings.index');
+        Route::put('/ttd-settings', [TtdSettingController::class, 'update'])->name('ttd-settings.update');
+    });
+
     // User Management (Admin Only)
     Route::middleware('can:admin')->group(function () {
         Route::resource('users', UserController::class)->except(['show']);
@@ -74,10 +80,6 @@ Route::get('/permohonan/export/pdf-penerbitan', [PermohonanController::class, 'e
 
         // ✅ Rute resource Jenis Usaha
         Route::resource('jenis-usaha', JenisUsahaController::class);
-
-        // ✅ Rute TTD Settings
-        Route::get('/ttd-settings', [TtdSettingController::class, 'index'])->name('ttd-settings.index');
-        Route::put('/ttd-settings', [TtdSettingController::class, 'update'])->name('ttd-settings.update');
     });
 });
 

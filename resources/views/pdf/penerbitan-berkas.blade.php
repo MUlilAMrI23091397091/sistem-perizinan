@@ -80,7 +80,7 @@
             padding: 0 2px;
         }
         
-        .ttd-left { text-align: left; }
+        .ttd-left { text-align: center; }
         
         .ttd-left-content {
             position: relative;
@@ -112,7 +112,7 @@
             margin-bottom: 0;
         }
         
-        .ttd-right { text-align: right; }
+        .ttd-right { text-align: center; }
         
         .ttd-right-content {
             position: relative;
@@ -250,7 +250,7 @@
                 </td>
                 <td colspan="8"></td>
                 <td colspan="5" class="ttd-right">
-                    <div class="ttd-right-date"><strong>Surabaya, {{ date('d F Y') }}</strong></div>
+                    <div class="ttd-right-date"><strong>{{ $ttdSettings->menyetujui_lokasi ?? 'Surabaya' }}, {{ $ttdSettings->menyetujui_tanggal ? \Carbon\Carbon::parse($ttdSettings->menyetujui_tanggal)->format('d F Y') : date('d F Y') }}</strong></div>
                 </td>
             </tr>
 

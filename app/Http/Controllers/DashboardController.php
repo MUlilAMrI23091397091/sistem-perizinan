@@ -260,11 +260,8 @@ class DashboardController extends Controller
 
         // Ambil data TTD settings
         $ttdSettings = TtdSetting::getSettings();
-        
-        // Proses title menyetujui untuk mengganti placeholder tanggal
-        $menyetujuiTitle = str_replace('{{ date("d F Y") }}', date('d F Y'), $ttdSettings->menyetujui_title);
 
-        return view('dashboard.penerbitan_berkas', compact('permohonans', 'stats', 'ttdSettings', 'menyetujuiTitle', 'selectedDateFilter', 'customDate', 'search'));
+        return view('dashboard.penerbitan_berkas', compact('permohonans', 'stats', 'ttdSettings', 'selectedDateFilter', 'customDate', 'search'));
     }
 
     public function exportPenerbitanBerkasExcel()

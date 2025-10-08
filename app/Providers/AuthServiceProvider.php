@@ -34,5 +34,10 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('penerbitan_berkas', function (User $user) {
             return in_array($user->role, ['admin', 'penerbitan_berkas']);
         });
+
+        // Gate untuk Admin atau Penerbitan Berkas
+        Gate::define('admin-or-penerbitan-berkas', function (User $user) {
+            return in_array($user->role, ['admin', 'penerbitan_berkas']);
+        });
     }
 }

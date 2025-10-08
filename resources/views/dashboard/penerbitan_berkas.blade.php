@@ -577,9 +577,14 @@
                             
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <x-input-label for="menyetujui_title" value="Judul & Tanggal" />
-                                    <x-text-input id="menyetujui_title" class="block mt-1 w-full" type="text" name="menyetujui_title" :value="old('menyetujui_title', $ttdSettings->menyetujui_title)" required />
-                                    <p class="text-xs text-gray-500 mt-1">Gunakan {{ date('d F Y') }} untuk tanggal otomatis</p>
+                                    <x-input-label for="menyetujui_lokasi" value="Lokasi" />
+                                    <x-text-input id="menyetujui_lokasi" class="block mt-1 w-full" type="text" name="menyetujui_lokasi" :value="old('menyetujui_lokasi', $ttdSettings->menyetujui_lokasi ?? 'Surabaya')" required />
+                                </div>
+
+                                <div>
+                                    <x-input-label for="menyetujui_tanggal" value="Tanggal" />
+                                    <x-text-input id="menyetujui_tanggal" class="block mt-1 w-full" type="date" name="menyetujui_tanggal" :value="old('menyetujui_tanggal', $ttdSettings->menyetujui_tanggal ?? date('Y-m-d'))" required />
+                                    <p class="text-xs text-gray-500 mt-1">Tanggal akan otomatis terformat dalam PDF</p>
                                 </div>
 
                                 <div>
@@ -657,7 +662,7 @@
 
                     <!-- Menyetujui -->
                     <div class="text-center">
-                        <p class="text-sm text-gray-600 mb-4">{{ $menyetujuiTitle }}</p>
+                        <p class="text-sm text-gray-600 mb-4">{{ $ttdSettings->menyetujui_lokasi ?? 'Surabaya' }}, {{ $ttdSettings->menyetujui_tanggal ? \Carbon\Carbon::parse($ttdSettings->menyetujui_tanggal)->format('d F Y') : date('d F Y') }}</p>
                         <p class="text-sm text-gray-600 mb-2">{{ $ttdSettings->menyetujui_jabatan }}</p>
                         <div class="h-20 border-b border-gray-300 mb-2 flex items-center justify-center">
                             @if($ttdSettings->menyetujui_photo)

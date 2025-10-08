@@ -67,10 +67,16 @@
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <x-input-label for="menyetujui_title" value="Judul & Tanggal" />
-                                <x-text-input id="menyetujui_title" class="block mt-1 w-full" type="text" name="menyetujui_title" :value="old('menyetujui_title', $ttdSettings->menyetujui_title)" required />
-                                <p class="text-xs text-gray-500 mt-1">Gunakan {{ date('d F Y') }} untuk tanggal otomatis</p>
-                                <x-input-error :messages="$errors->get('menyetujui_title')" class="mt-2" />
+                                <x-input-label for="menyetujui_lokasi" value="Lokasi" />
+                                <x-text-input id="menyetujui_lokasi" class="block mt-1 w-full" type="text" name="menyetujui_lokasi" :value="old('menyetujui_lokasi', $ttdSettings->menyetujui_lokasi ?? 'Surabaya')" required />
+                                <x-input-error :messages="$errors->get('menyetujui_lokasi')" class="mt-2" />
+                            </div>
+
+                            <div>
+                                <x-input-label for="menyetujui_tanggal" value="Tanggal" />
+                                <x-text-input id="menyetujui_tanggal" class="block mt-1 w-full" type="date" name="menyetujui_tanggal" :value="old('menyetujui_tanggal', $ttdSettings->menyetujui_tanggal ?? date('Y-m-d'))" required />
+                                <p class="text-xs text-gray-500 mt-1">Tanggal akan otomatis terformat dalam PDF</p>
+                                <x-input-error :messages="$errors->get('menyetujui_tanggal')" class="mt-2" />
                             </div>
 
                             <div>
@@ -116,7 +122,7 @@
 
                             <!-- Menyetujui Preview -->
                             <div class="text-center">
-                                <p class="text-sm text-gray-600 mb-4">{{ $menyetujuiTitle }}</p>
+                                <p class="text-sm text-gray-600 mb-4">{{ $ttdSettings->menyetujui_lokasi ?? 'Surabaya' }}, {{ $ttdSettings->menyetujui_tanggal ? \Carbon\Carbon::parse($ttdSettings->menyetujui_tanggal)->format('d F Y') : date('d F Y') }}</p>
                                 <p class="text-sm text-gray-600 mb-2">{{ $ttdSettings->menyetujui_jabatan }}</p>
                                 <div class="h-20 border-b border-gray-300 mb-2"></div>
                                 <p class="text-sm font-medium text-gray-900">{{ $ttdSettings->menyetujui_nama }}</p>
