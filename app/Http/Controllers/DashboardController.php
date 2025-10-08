@@ -21,13 +21,13 @@ class DashboardController extends Controller
         // Ambil data permohonan berdasarkan role
         if ($user->role === 'admin') {
             // Admin melihat semua data
-            $permohonans = Permohonan::with('user')->get();
+            $permohonans = Permohonan::with('user')->orderBy('created_at', 'asc')->get();
         } elseif ($user->role === 'dpmptsp') {
             // DPMPTSP melihat semua permohonan kecuali yang dibuat oleh penerbitan_berkas
             $permohonans = Permohonan::with('user')
                 ->whereHas('user', function($query) {
                     $query->where('role', '!=', 'penerbitan_berkas');
-                })->get();
+                })->orderBy('created_at', 'asc')->get();
         } elseif ($user->role === 'pd_teknis') {
             // PD Teknis melihat permohonan sesuai sektornya saja
             if ($user->sektor) {
@@ -35,20 +35,20 @@ class DashboardController extends Controller
                     ->where('sektor', $user->sektor)
                     ->whereHas('user', function($query) {
                         $query->where('role', '!=', 'penerbitan_berkas');
-                    })->get();
+                    })->orderBy('created_at', 'asc')->get();
             } else {
                 // Jika PD Teknis belum ada sektor, tampilkan semua (fallback)
                 $permohonans = Permohonan::with('user')
                     ->whereHas('user', function($query) {
                         $query->where('role', '!=', 'penerbitan_berkas');
-                    })->get();
+                    })->orderBy('created_at', 'asc')->get();
             }
         } elseif ($user->role === 'penerbitan_berkas') {
             // Penerbitan Berkas melihat modul khususnya sendiri (data terpisah)
             return $this->penerbitanBerkas($request);
         } else {
             // Default untuk role lain
-            $permohonans = Permohonan::with('user')->get();
+            $permohonans = Permohonan::with('user')->orderBy('created_at', 'asc')->get();
         }
         
         // Hitung statistik:
@@ -160,7 +160,7 @@ class DashboardController extends Controller
         }
         
         // Ambil data permohonan
-        $permohonans = $permohonans->get();
+        $permohonans = $permohonans->orderBy('created_at', 'asc')->get();
         
         // Hitung statistik untuk chart (Terlambat otomatis berdasarkan deadline)
         $terlambatCount = $permohonans->filter(function($permohonan) {

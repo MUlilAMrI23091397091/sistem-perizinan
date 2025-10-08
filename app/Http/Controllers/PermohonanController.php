@@ -123,7 +123,7 @@ class PermohonanController extends Controller
             });
         }
 
-        $permohonans = $permohonans->orderBy('created_at', 'desc')->get();
+        $permohonans = $permohonans->orderBy('created_at', 'asc')->get();
         
         // Ambil daftar sektor unik dari database dan gabungkan dengan sektor yang tersedia
         $sektorsFromDb = Permohonan::select('sektor')->whereNotNull('sektor')->distinct()->pluck('sektor');
