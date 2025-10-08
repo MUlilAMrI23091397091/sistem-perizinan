@@ -309,8 +309,8 @@ class DashboardController extends Controller
             'alamat_perusahaan' => 'nullable|string',
             'jenis_proyek' => 'nullable|string|in:Utama,Pendukung,Pendukung UMKU,Kantor Cabang',
             'nama_perizinan' => 'nullable|string',
-            'skala_usaha' => 'nullable|string',
-            'risiko' => 'nullable|string',
+            'skala_usaha' => 'required|string|in:Mikro,Usaha Kecil,Usaha Menengah,Usaha Besar',
+            'risiko' => 'required|string|in:Rendah,Menengah Rendah,Menengah Tinggi,Tinggi',
             'verifikator' => 'nullable|string',
             'status' => 'nullable|string|in:Dikembalikan,Diterima,Ditolak,Menunggu',
         ];
@@ -380,8 +380,8 @@ class DashboardController extends Controller
             'alamat_perusahaan' => 'nullable|string',
             'jenis_proyek' => 'nullable|string|in:Utama,Pendukung,Pendukung UMKU,Kantor Cabang',
             'nama_perizinan' => 'nullable|string',
-            'skala_usaha' => 'nullable|string',
-            'risiko' => 'nullable|string',
+            'skala_usaha' => 'required|string|in:Mikro,Usaha Kecil,Usaha Menengah,Usaha Besar',
+            'risiko' => 'required|string|in:Rendah,Menengah Rendah,Menengah Tinggi,Tinggi',
             'verifikator' => 'nullable|string',
             'status' => 'nullable|string|in:Dikembalikan,Diterima,Ditolak,Menunggu',
         ];
