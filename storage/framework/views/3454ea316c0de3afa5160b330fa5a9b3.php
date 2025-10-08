@@ -244,7 +244,7 @@
                 <col style="width:12%">
             </colgroup>
 
-            <!-- Baris 1: judul/ tanggal kanan dan judul kiri -->
+            <!-- Baris 1: judul kiri dan tanggal kanan -->
             <tr>
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left">
@@ -256,27 +256,7 @@
                 </td>
             </tr>
 
-            <!-- Baris 2: ruang tanda tangan (jarak) -->
-            <tr>
-                <td colspan="1"></td>
-                <td colspan="3" class="ttd-left"><div style="height:50px"></div></td>
-                <td colspan="8"></td>
-                <td colspan="5" class="ttd-right"><div style="height:10px"></div></td>
-            </tr>
-
-            <!-- Baris 3: jabatan kanan dan nama kiri -->
-            <tr>
-                <td colspan="1"></td>
-                <td colspan="3" class="ttd-left">
-                    <div class="ttd-left-name"><strong>Yohanes Franklin, S.H.</strong></div>
-                </td>
-                <td colspan="8"></td>
-                <td colspan="5" class="ttd-right">
-                    <div class="ttd-right-position">Ketua Tim Kerja Pelayanan Perizinan Berusaha</div>
-                </td>
-            </tr>
-
-            <!-- Baris 4: nama kanan dan jabatan kiri -->
+            <!-- Baris 2: jabatan kiri dan jabatan kanan -->
             <tr>
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left">
@@ -288,7 +268,7 @@
                 </td>
             </tr>
 
-            <!-- Baris 5: pangkat kanan dan unit kiri -->
+            <!-- Baris 3: unit kiri dan jabatan kanan -->
             <tr>
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left">
@@ -296,16 +276,52 @@
                 </td>
                 <td colspan="8"></td>
                 <td colspan="5" class="ttd-right">
+                    <div class="ttd-right-position">Ketua Tim Kerja Pelayanan Perizinan Berusaha</div>
+                </td>
+            </tr>
+
+            <!-- Baris 4: ruang tanda tangan -->
+            <tr>
+                <td colspan="1"></td>
+                <td colspan="3" class="ttd-left"><div style="height:60px"></div></td>
+                <td colspan="8"></td>
+                <td colspan="5" class="ttd-right"><div style="height:60px"></div></td>
+            </tr>
+
+            <!-- Baris 5: nama kiri dan nama kanan -->
+            <tr>
+                <td colspan="1"></td>
+                <td colspan="3" class="ttd-left">
+                    <div class="ttd-left-name"><strong>Yohanes Franklin, S.H.</strong></div>
+                </td>
+                <td colspan="8"></td>
+                <td colspan="5" class="ttd-right">
                     <div class="ttd-right-name"><strong>Ulvia Zulvia, ST</strong></div>
                 </td>
             </tr>
 
-            <!-- Baris 6: NIP kanan dan NIP kiri -->
+            <!-- Baris 6: pangkat kiri dan pangkat kanan -->
             <tr>
                 <td colspan="1"></td>
-                <td colspan="3" class="ttd-left"><div class="ttd-left-nip">NIP: 198502182010011008</div></td>
+                <td colspan="3" class="ttd-left">
+                    <div class="ttd-left-position">Penata Tk. 1</div>
+                </td>
                 <td colspan="8"></td>
-                <td colspan="5" class="ttd-right"><div class="ttd-right-position">Penata Tk. 1</div></td>
+                <td colspan="5" class="ttd-right">
+                    <div class="ttd-right-position">Penata Tk. 1</div>
+                </td>
+            </tr>
+
+            <!-- Baris 7: NIP kiri dan NIP kanan -->
+            <tr>
+                <td colspan="1"></td>
+                <td colspan="3" class="ttd-left">
+                    <div class="ttd-left-nip">NIP: 198502182010011008</div>
+                </td>
+                <td colspan="8"></td>
+                <td colspan="5" class="ttd-right">
+                    <div class="ttd-right-nip">NIP: 197710132006042012</div>
+                </td>
             </tr>
         </table>
     </div>

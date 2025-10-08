@@ -266,16 +266,13 @@
                 </td>
             </tr>
 
-            <!-- Baris 3: unit kiri dan jabatan kanan -->
+            <!-- Baris 3: unit kiri -->
             <tr>
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left">
                     <div class="ttd-left-position">Pelayanan Terpadu Satu Pintu</div>
                 </td>
-                <td colspan="8"></td>
-                <td colspan="5" class="ttd-right">
-                    <div class="ttd-right-position">Ketua Tim Kerja Pelayanan Perizinan Berusaha</div>
-                </td>
+                <td colspan="13"></td>
             </tr>
 
             <!-- Baris 4: ruang tanda tangan -->
