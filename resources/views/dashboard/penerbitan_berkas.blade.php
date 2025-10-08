@@ -210,21 +210,9 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm">
-                                        @if($permohonan->modal_usaha)
-                                            @php
-                                                $skala = '';
-                                                if($permohonan->modal_usaha <= 1000000000) {
-                                                    $skala = 'Mikro';
-                                                } elseif($permohonan->modal_usaha <= 5000000000) {
-                                                    $skala = 'Usaha Kecil';
-                                                } elseif($permohonan->modal_usaha <= 10000000000) {
-                                                    $skala = 'Usaha Menengah';
-                                                } else {
-                                                    $skala = 'Usaha Besar';
-                                                }
-                                            @endphp
+                                        @if($permohonan->skala_usaha)
                                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                                                {{ $skala }}
+                                                {{ $permohonan->skala_usaha }}
                                             </span>
                                         @else
                                             <span class="text-gray-400 text-xs">-</span>
