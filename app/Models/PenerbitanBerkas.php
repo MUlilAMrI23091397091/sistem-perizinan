@@ -67,6 +67,38 @@ class PenerbitanBerkas extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getRisikoBadgeClass()
+    {
+        switch ($this->risiko) {
+            case 'Rendah':
+                return 'bg-green-100 text-green-800';
+            case 'Menengah Rendah':
+                return 'bg-blue-100 text-blue-800';
+            case 'Menengah Tinggi':
+                return 'bg-yellow-100 text-yellow-800';
+            case 'Tinggi':
+                return 'bg-red-100 text-red-800';
+            default:
+                return 'bg-gray-100 text-gray-800';
+        }
+    }
+
+    public function getStatusBadgeClass()
+    {
+        switch ($this->status) {
+            case 'Diterima':
+                return 'bg-green-100 text-green-800';
+            case 'Dikembalikan':
+                return 'bg-yellow-100 text-yellow-800';
+            case 'Ditolak':
+                return 'bg-red-100 text-red-800';
+            case 'Menunggu':
+                return 'bg-blue-100 text-blue-800';
+            default:
+                return 'bg-gray-100 text-gray-800';
+        }
+    }
 }
 
 
