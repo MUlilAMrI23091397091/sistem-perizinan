@@ -49,6 +49,10 @@
             overflow-wrap: break-word;
         }
         
+        /* Jangan ulangi judul tabel (thead) pada halaman berikutnya di DomPDF */
+        thead { display: table-row-group; }
+        tfoot { display: table-row-group; }
+        
         th {
             background-color: #f0f0f0;
             font-weight: bold;
