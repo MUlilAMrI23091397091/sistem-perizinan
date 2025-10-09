@@ -31,9 +31,12 @@ Route::get('/penerbitan-berkas', [DashboardController::class, 'penerbitanBerkas'
 Route::get('/penerbitan-berkas/export/excel', [DashboardController::class, 'exportPenerbitanBerkasExcel'])
     ->middleware(['auth', 'verified'])
     ->name('penerbitan-berkas.export.excel');
-Route::get('/penerbitan-berkas/export/pdf', [DashboardController::class, 'exportPenerbitanBerkasPdf'])
+Route::get('/penerbitan-berkas/export/pdf/landscape', [DashboardController::class, 'exportPenerbitanBerkasPdfLandscape'])
     ->middleware(['auth', 'verified'])
-    ->name('penerbitan-berkas.export.pdf');
+    ->name('penerbitan-berkas.export.pdf.landscape');
+Route::get('/penerbitan-berkas/export/pdf/portrait', [DashboardController::class, 'exportPenerbitanBerkasPdfPortrait'])
+    ->middleware(['auth', 'verified'])
+    ->name('penerbitan-berkas.export.pdf.portrait');
 Route::post('/penerbitan-berkas', [DashboardController::class, 'storePenerbitanBerkas'])
     ->middleware(['auth', 'verified'])
     ->name('penerbitan-berkas.store');

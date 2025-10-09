@@ -224,21 +224,9 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm">
-                                        <?php if($permohonan->modal_usaha): ?>
-                                            <?php
-                                                $skala = '';
-                                                if($permohonan->modal_usaha <= 1000000000) {
-                                                    $skala = 'Mikro';
-                                                } elseif($permohonan->modal_usaha <= 5000000000) {
-                                                    $skala = 'Usaha Kecil';
-                                                } elseif($permohonan->modal_usaha <= 10000000000) {
-                                                    $skala = 'Usaha Menengah';
-                                                } else {
-                                                    $skala = 'Usaha Besar';
-                                                }
-                                            ?>
+                                        <?php if($permohonan->skala_usaha): ?>
                                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                                                <?php echo e($skala); ?>
+                                                <?php echo e($permohonan->skala_usaha); ?>
 
                                             </span>
                                         <?php else: ?>
@@ -246,9 +234,14 @@
                                         <?php endif; ?>
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm">
-                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                                            Menengah Tinggi
-                                        </span>
+                                        <?php if($permohonan->risiko): ?>
+                                            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium <?php echo e($permohonan->getRisikoBadgeClass()); ?>">
+                                                <?php echo e($permohonan->risiko); ?>
+
+                                            </span>
+                                        <?php else: ?>
+                                            <span class="text-gray-400 text-xs">-</span>
+                                        <?php endif; ?>
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
                                         <div class="text-xs">

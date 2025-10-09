@@ -269,7 +269,7 @@ class DashboardController extends Controller
         return Excel::download(new PenerbitanBerkasExport, 'data_penerbitan_berkas_' . date('Y-m-d_H-i-s') . '.xlsx');
     }
 
-    public function exportPenerbitanBerkasPdf()
+    public function exportPenerbitanBerkasPdfLandscape()
     {
         $user = Auth::user();
         
@@ -284,7 +284,25 @@ class DashboardController extends Controller
         $pdf = PDF::loadView('pdf.penerbitan-berkas', compact('penerbitanBerkas', 'ttdSettings'));
         $pdf->setPaper('A4', 'landscape');
         
-        return $pdf->download('data_penerbitan_berkas_' . date('Y-m-d_H-i-s') . '.pdf');
+        return $pdf->download('data_penerbitan_berkas_landscape_' . date('Y-m-d_H-i-s') . '.pdf');
+    }
+
+    public function exportPenerbitanBerkasPdfPortrait()
+    {
+        $user = Auth::user();
+        
+        // Batasi akses hanya admin dan penerbitan_berkas
+        if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {
+            return redirect()->route('dashboard')->with('error', 'Tidak memiliki akses ke Penerbitan Berkas.');
+        }
+
+        $penerbitanBerkas = PenerbitanBerkas::with('user')->get();
+        $ttdSettings = TtdSetting::getSettings();
+        
+        $pdf = PDF::loadView('pdf.penerbitan-berkas', compact('penerbitanBerkas', 'ttdSettings'));
+        $pdf->setPaper('A4', 'portrait');
+        
+        return $pdf->download('data_penerbitan_berkas_portrait_' . date('Y-m-d_H-i-s') . '.pdf');
     }
 
     public function storePenerbitanBerkas(Request $request)
