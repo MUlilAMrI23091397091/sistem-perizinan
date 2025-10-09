@@ -62,8 +62,15 @@ class TtdSettingController extends Controller
             
             $file = $request->file('mengetahui_photo');
             $filename = 'mengetahui_ttd_' . time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/ttd_photos', $filename);
-            $data['mengetahui_photo'] = $filename;
+            
+            // Debug: cek apakah file berhasil disimpan
+            $path = $file->storeAs('public/ttd_photos', $filename);
+            if ($path) {
+                $data['mengetahui_photo'] = $filename;
+                \Log::info('TTD Mengetahui uploaded successfully: ' . $filename);
+            } else {
+                \Log::error('TTD Mengetahui upload failed');
+            }
         }
         
         // Handle upload foto menyetujui
@@ -75,8 +82,15 @@ class TtdSettingController extends Controller
             
             $file = $request->file('menyetujui_photo');
             $filename = 'menyetujui_ttd_' . time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/ttd_photos', $filename);
-            $data['menyetujui_photo'] = $filename;
+            
+            // Debug: cek apakah file berhasil disimpan
+            $path = $file->storeAs('public/ttd_photos', $filename);
+            if ($path) {
+                $data['menyetujui_photo'] = $filename;
+                \Log::info('TTD Menyetujui uploaded successfully: ' . $filename);
+            } else {
+                \Log::error('TTD Menyetujui upload failed');
+            }
         }
         
         // Handle hapus foto mengetahui
