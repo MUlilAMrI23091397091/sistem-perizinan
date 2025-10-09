@@ -284,20 +284,42 @@
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left">
                     <div style="height:60px; display: flex; align-items: center; justify-content: center;">
-                        @if($ttdSettings->mengetahui_photo && file_exists(public_path('storage/ttd_photos/' . $ttdSettings->mengetahui_photo)))
-                            <img src="{{ public_path('storage/ttd_photos/' . $ttdSettings->mengetahui_photo) }}" 
-                                 alt="TTD Mengetahui" 
-                                 style="max-height: 50px; max-width: 100px; object-fit: contain;">
+                        @php
+                            $mengetahuiFile = $ttdSettings->mengetahui_photo ?? null;
+                            $mengetahuiPathUnderscore = $mengetahuiFile ? public_path('storage/ttd_photos/' . $mengetahuiFile) : null;
+                            $mengetahuiPathDash = $mengetahuiFile ? public_path('storage/ttd-photos/' . $mengetahuiFile) : null;
+                            $mengetahuiPath = null;
+                            if ($mengetahuiFile) {
+                                if ($mengetahuiPathUnderscore && file_exists($mengetahuiPathUnderscore)) {
+                                    $mengetahuiPath = $mengetahuiPathUnderscore;
+                                } elseif ($mengetahuiPathDash && file_exists($mengetahuiPathDash)) {
+                                    $mengetahuiPath = $mengetahuiPathDash;
+                                }
+                            }
+                        @endphp
+                        @if(!empty($mengetahuiPath))
+                            <img src="{{ $mengetahuiPath }}" alt="TTD Mengetahui" style="max-height: 50px; max-width: 100px; object-fit: contain;">
                         @endif
                     </div>
                 </td>
                 <td colspan="8"></td>
                 <td colspan="5" class="ttd-right">
                     <div style="height:60px; display: flex; align-items: center; justify-content: center;">
-                        @if($ttdSettings->menyetujui_photo && file_exists(public_path('storage/ttd_photos/' . $ttdSettings->menyetujui_photo)))
-                            <img src="{{ public_path('storage/ttd_photos/' . $ttdSettings->menyetujui_photo) }}" 
-                                 alt="TTD Menyetujui" 
-                                 style="max-height: 50px; max-width: 100px; object-fit: contain;">
+                        @php
+                            $menyetujuiFile = $ttdSettings->menyetujui_photo ?? null;
+                            $menyetujuiPathUnderscore = $menyetujuiFile ? public_path('storage/ttd_photos/' . $menyetujuiFile) : null;
+                            $menyetujuiPathDash = $menyetujuiFile ? public_path('storage/ttd-photos/' . $menyetujuiFile) : null;
+                            $menyetujuiPath = null;
+                            if ($menyetujuiFile) {
+                                if ($menyetujuiPathUnderscore && file_exists($menyetujuiPathUnderscore)) {
+                                    $menyetujuiPath = $menyetujuiPathUnderscore;
+                                } elseif ($menyetujuiPathDash && file_exists($menyetujuiPathDash)) {
+                                    $menyetujuiPath = $menyetujuiPathDash;
+                                }
+                            }
+                        @endphp
+                        @if(!empty($menyetujuiPath))
+                            <img src="{{ $menyetujuiPath }}" alt="TTD Menyetujui" style="max-height: 50px; max-width: 100px; object-fit: contain;">
                         @endif
                     </div>
                 </td>

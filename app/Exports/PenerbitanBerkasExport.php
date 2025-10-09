@@ -241,28 +241,41 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
         $ttdSettings = TtdSetting::getSettings();
         
         // Add TTD photos if they exist - positioned under specific columns
-        if ($ttdSettings->mengetahui_photo && file_exists(storage_path('app/public/ttd_photos/' . $ttdSettings->mengetahui_photo))) {
+        if ($ttdSettings->mengetahui_photo) {
+            $file = $ttdSettings->mengetahui_photo;
+            $pathUnderscore = storage_path('app/public/ttd_photos/' . $file);
+            $pathDash = storage_path('app/public/ttd-photos/' . $file);
+            $path = file_exists($pathUnderscore) ? $pathUnderscore : (file_exists($pathDash) ? $pathDash : null);
+        
+            if ($path) {
             $drawing = new Drawing();
             $drawing->setName('TTD Mengetahui');
             $drawing->setDescription('TTD Mengetahui');
-            $drawing->setPath(storage_path('app/public/ttd_photos/' . $ttdSettings->mengetahui_photo));
+            $drawing->setPath($path);
             $drawing->setHeight(50);
             $drawing->setWidth(100);
             // Position under TANGGAL PERMOHONAN column (D)
             $drawing->setCoordinates('D' . ($this->collection()->count() + 9));
             $drawings[] = $drawing;
+            }
         }
         
-        if ($ttdSettings->menyetujui_photo && file_exists(storage_path('app/public/ttd_photos/' . $ttdSettings->menyetujui_photo))) {
+        if ($ttdSettings->menyetujui_photo) {
+            $file = $ttdSettings->menyetujui_photo;
+            $pathUnderscore = storage_path('app/public/ttd_photos/' . $file);
+            $pathDash = storage_path('app/public/ttd-photos/' . $file);
+            $path = file_exists($pathUnderscore) ? $pathUnderscore : (file_exists($pathDash) ? $pathDash : null);
+            if ($path) {
             $drawing = new Drawing();
             $drawing->setName('TTD Menyetujui');
             $drawing->setDescription('TTD Menyetujui');
-            $drawing->setPath(storage_path('app/public/ttd_photos/' . $ttdSettings->menyetujui_photo));
+            $drawing->setPath($path);
             $drawing->setHeight(50);
             $drawing->setWidth(100);
             // Position under SKALA USAHA column (O)
             $drawing->setCoordinates('O' . ($this->collection()->count() + 8));
             $drawings[] = $drawing;
+            }
         }
         
         return $drawings;
