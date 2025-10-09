@@ -284,20 +284,36 @@
             <!-- Baris 4: ruang tanda tangan -->
             <tr>
                 <td colspan="1"></td>
-                <td colspan="3" class="ttd-left"><div style="height:60px"></div></td>
+                <td colspan="3" class="ttd-left">
+                    <div style="height:60px; display: flex; align-items: center; justify-content: center;">
+                        <?php if($ttdSettings->mengetahui_photo && file_exists(storage_path('app/public/ttd_photos/' . $ttdSettings->mengetahui_photo))): ?>
+                            <img src="<?php echo e(storage_path('app/public/ttd_photos/' . $ttdSettings->mengetahui_photo)); ?>" 
+                                 alt="TTD Mengetahui" 
+                                 style="max-height: 50px; max-width: 100px; object-fit: contain;">
+                        <?php endif; ?>
+                    </div>
+                </td>
                 <td colspan="8"></td>
-                <td colspan="5" class="ttd-right"><div style="height:60px"></div></td>
+                <td colspan="5" class="ttd-right">
+                    <div style="height:60px; display: flex; align-items: center; justify-content: center;">
+                        <?php if($ttdSettings->menyetujui_photo && file_exists(storage_path('app/public/ttd_photos/' . $ttdSettings->menyetujui_photo))): ?>
+                            <img src="<?php echo e(storage_path('app/public/ttd_photos/' . $ttdSettings->menyetujui_photo)); ?>" 
+                                 alt="TTD Menyetujui" 
+                                 style="max-height: 50px; max-width: 100px; object-fit: contain;">
+                        <?php endif; ?>
+                    </div>
+                </td>
             </tr>
 
             <!-- Baris 5: nama kiri dan nama kanan -->
             <tr>
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left">
-                    <div class="ttd-left-name"><strong>Yohanes Franklin, S.H.</strong></div>
+                    <div class="ttd-left-name"><strong><?php echo e($ttdSettings->mengetahui_nama ?? 'Yohanes Franklin, S.H.'); ?></strong></div>
                 </td>
                 <td colspan="8"></td>
                 <td colspan="5" class="ttd-right">
-                    <div class="ttd-right-name"><strong>Ulvia Zulvia, ST</strong></div>
+                    <div class="ttd-right-name"><strong><?php echo e($ttdSettings->menyetujui_nama ?? 'Ulvia Zulvia, ST'); ?></strong></div>
                 </td>
             </tr>
 
@@ -305,11 +321,11 @@
             <tr>
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left">
-                    <div class="ttd-left-position">Penata Tk. 1</div>
+                    <div class="ttd-left-position"><?php echo e($ttdSettings->mengetahui_pangkat ?? 'Penata Tk. 1'); ?></div>
                 </td>
                 <td colspan="8"></td>
                 <td colspan="5" class="ttd-right">
-                    <div class="ttd-right-position">Penata Tk. 1</div>
+                    <div class="ttd-right-position"><?php echo e($ttdSettings->menyetujui_pangkat ?? 'Penata Tk. 1'); ?></div>
                 </td>
             </tr>
 
@@ -317,11 +333,11 @@
             <tr>
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left">
-                    <div class="ttd-left-nip">NIP: 198502182010011008</div>
+                    <div class="ttd-left-nip">NIP: <?php echo e($ttdSettings->mengetahui_nip ?? '198502182010011008'); ?></div>
                 </td>
                 <td colspan="8"></td>
                 <td colspan="5" class="ttd-right">
-                    <div class="ttd-right-nip">NIP: 197710132006042012</div>
+                    <div class="ttd-right-nip">NIP: <?php echo e($ttdSettings->menyetujui_nip ?? '197710132006042012'); ?></div>
                 </td>
             </tr>
         </table>
