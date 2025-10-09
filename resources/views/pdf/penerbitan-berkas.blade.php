@@ -284,8 +284,8 @@
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left">
                     <div style="height:60px; display: flex; align-items: center; justify-content: center;">
-                        @if($ttdSettings->mengetahui_photo && file_exists(storage_path('app/public/ttd_photos/' . $ttdSettings->mengetahui_photo)))
-                            <img src="{{ storage_path('app/public/ttd_photos/' . $ttdSettings->mengetahui_photo) }}" 
+                        @if($ttdSettings->mengetahui_photo && file_exists(public_path('storage/ttd_photos/' . $ttdSettings->mengetahui_photo)))
+                            <img src="{{ public_path('storage/ttd_photos/' . $ttdSettings->mengetahui_photo) }}" 
                                  alt="TTD Mengetahui" 
                                  style="max-height: 50px; max-width: 100px; object-fit: contain;">
                         @endif
@@ -294,8 +294,8 @@
                 <td colspan="8"></td>
                 <td colspan="5" class="ttd-right">
                     <div style="height:60px; display: flex; align-items: center; justify-content: center;">
-                        @if($ttdSettings->menyetujui_photo && file_exists(storage_path('app/public/ttd_photos/' . $ttdSettings->menyetujui_photo)))
-                            <img src="{{ storage_path('app/public/ttd_photos/' . $ttdSettings->menyetujui_photo) }}" 
+                        @if($ttdSettings->menyetujui_photo && file_exists(public_path('storage/ttd_photos/' . $ttdSettings->menyetujui_photo)))
+                            <img src="{{ public_path('storage/ttd_photos/' . $ttdSettings->menyetujui_photo) }}" 
                                  alt="TTD Menyetujui" 
                                  style="max-height: 50px; max-width: 100px; object-fit: contain;">
                         @endif
