@@ -102,16 +102,16 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
             'D' => 20,  // TANGGAL PERMOHONAN
             'E' => 15,  // NIB
             'F' => 10,  // KBLI
-            'G' => 30,  // NAMA USAHA
-            'H' => 30,  // KEGIATAN
+            'G' => 20,  // NAMA USAHA (dipersempit dari 30)
+            'H' => 20,  // KEGIATAN (dipersempit dari 30)
             'I' => 20,  // JENIS PERUSAHAAN
             'J' => 25,  // PEMILIK
             'K' => 20,  // MODAL USAHA
-            'L' => 40,  // ALAMAT
-            'M' => 20,  // JENIS PROYEK
+            'L' => 25,  // ALAMAT (dipersempit dari 40)
+            'M' => 15,  // JENIS PROYEK (dipersempit dari 20)
             'N' => 30,  // NAMA PERIZINAN
-            'O' => 15,  // SKALA USAHA
-            'P' => 20,  // RISIKO
+            'O' => 12,  // SKALA USAHA (dipersempit dari 15)
+            'P' => 15,  // RISIKO (dipersempit dari 20)
             'Q' => 50,  // PEMROSES DAN TGL. E SURAT DAN TGL PERTEK
         ];
     }
