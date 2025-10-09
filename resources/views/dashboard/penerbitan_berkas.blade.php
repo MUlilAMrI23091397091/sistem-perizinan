@@ -554,7 +554,20 @@
                                         <div class="mt-2 p-3 bg-gray-50 rounded-lg">
                                             <p class="text-xs text-gray-500 mb-2">Foto saat ini:</p>
                                             <div class="flex items-center space-x-3">
-                                                <img src="{{ asset('storage/ttd_photos/' . $ttdSettings->mengetahui_photo) }}" alt="TTD Mengetahui" class="w-20 h-20 object-cover rounded border">
+                                                @php
+                                                    $file = $ttdSettings->mengetahui_photo;
+                                                    $url = null;
+                                                    if ($file) {
+                                                        if (file_exists(public_path('storage/ttd_photos/' . $file))) {
+                                                            $url = asset('storage/ttd_photos/' . $file);
+                                                        } elseif (file_exists(public_path('storage/ttd-photos/' . $file))) {
+                                                            $url = asset('storage/ttd-photos/' . $file);
+                                                        }
+                                                    }
+                                                @endphp
+                                                @if($url)
+                                                    <img src="{{ $url }}" alt="TTD Mengetahui" class="w-20 h-20 object-cover rounded border">
+                                                @endif
                                                 <div>
                                                     <p class="text-sm text-gray-700">{{ $ttdSettings->mengetahui_photo }}</p>
                                                     <label class="inline-flex items-center mt-2">
@@ -613,7 +626,20 @@
                                         <div class="mt-2 p-3 bg-gray-50 rounded-lg">
                                             <p class="text-xs text-gray-500 mb-2">Foto saat ini:</p>
                                             <div class="flex items-center space-x-3">
-                                                <img src="{{ asset('storage/ttd_photos/' . $ttdSettings->menyetujui_photo) }}" alt="TTD Menyetujui" class="w-20 h-20 object-cover rounded border">
+                                                @php
+                                                    $file = $ttdSettings->menyetujui_photo;
+                                                    $url = null;
+                                                    if ($file) {
+                                                        if (file_exists(public_path('storage/ttd_photos/' . $file))) {
+                                                            $url = asset('storage/ttd_photos/' . $file);
+                                                        } elseif (file_exists(public_path('storage/ttd-photos/' . $file))) {
+                                                            $url = asset('storage/ttd-photos/' . $file);
+                                                        }
+                                                    }
+                                                @endphp
+                                                @if($url)
+                                                    <img src="{{ $url }}" alt="TTD Menyetujui" class="w-20 h-20 object-cover rounded border">
+                                                @endif
                                                 <div>
                                                     <p class="text-sm text-gray-700">{{ $ttdSettings->menyetujui_photo }}</p>
                                                     <label class="inline-flex items-center mt-2">
@@ -651,7 +677,20 @@
                         <p class="text-sm text-gray-600 mb-4">{{ $ttdSettings->mengetahui_unit }}</p>
                         <div class="h-20 border-b border-gray-300 mb-2 flex items-center justify-center">
                             @if($ttdSettings->mengetahui_photo)
-                                <img src="{{ asset('storage/ttd_photos/' . $ttdSettings->mengetahui_photo) }}" alt="TTD Mengetahui" class="max-h-16 max-w-32 object-contain">
+                                @php
+                                    $file = $ttdSettings->mengetahui_photo;
+                                    $url = null;
+                                    if ($file) {
+                                        if (file_exists(public_path('storage/ttd_photos/' . $file))) {
+                                            $url = asset('storage/ttd_photos/' . $file);
+                                        } elseif (file_exists(public_path('storage/ttd-photos/' . $file))) {
+                                            $url = asset('storage/ttd-photos/' . $file);
+                                        }
+                                    }
+                                @endphp
+                                @if($url)
+                                    <img src="{{ $url }}" alt="TTD Mengetahui" class="max-h-16 max-w-32 object-contain">
+                                @endif
                             @endif
                         </div>
                         <p class="text-sm font-medium text-gray-900">{{ $ttdSettings->mengetahui_nama }}</p>
