@@ -14,7 +14,7 @@
             <div class="bg-white shadow-sm rounded-lg p-6">
                 <h3 class="text-lg font-medium text-gray-900 mb-6">Pengaturan Tanda Tangan Digital</h3>
                 
-                <form method="POST" action="{{ route('ttd-settings.update') }}" class="space-y-8">
+                <form method="POST" action="{{ route('ttd-settings.update') }}" enctype="multipart/form-data" class="space-y-8">
                     @csrf
                     @method('PUT')
                     
@@ -57,6 +57,22 @@
                                 <x-input-label for="mengetahui_nip" value="NIP" />
                                 <x-text-input id="mengetahui_nip" class="block mt-1 w-full" type="text" name="mengetahui_nip" :value="old('mengetahui_nip', $ttdSettings->mengetahui_nip)" required />
                                 <x-input-error :messages="$errors->get('mengetahui_nip')" class="mt-2" />
+                            </div>
+
+                            <div class="md:col-span-2">
+                                <x-input-label for="mengetahui_photo" value="Foto TTD Mengetahui" />
+                                <input id="mengetahui_photo" class="block mt-1 w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" type="file" name="mengetahui_photo" accept="image/*" />
+                                <p class="text-xs text-gray-500 mt-1">Upload foto tanda tangan untuk bagian Mengetahui (JPG, PNG, maksimal 2MB)</p>
+                                @if($ttdSettings->mengetahui_photo)
+                                    <div class="mt-2">
+                                        <p class="text-sm text-green-600">✓ Foto TTD sudah diupload: {{ $ttdSettings->mengetahui_photo }}</p>
+                                        <label class="flex items-center mt-1">
+                                            <input type="checkbox" name="delete_mengetahui_photo" value="1" class="rounded border-gray-300 text-red-600 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50">
+                                            <span class="ml-2 text-sm text-red-600">Hapus foto TTD</span>
+                                        </label>
+                                    </div>
+                                @endif
+                                <x-input-error :messages="$errors->get('mengetahui_photo')" class="mt-2" />
                             </div>
                         </div>
                     </div>
@@ -101,6 +117,22 @@
                                 <x-input-label for="menyetujui_nip" value="NIP" />
                                 <x-text-input id="menyetujui_nip" class="block mt-1 w-full" type="text" name="menyetujui_nip" :value="old('menyetujui_nip', $ttdSettings->menyetujui_nip)" required />
                                 <x-input-error :messages="$errors->get('menyetujui_nip')" class="mt-2" />
+                            </div>
+
+                            <div class="md:col-span-2">
+                                <x-input-label for="menyetujui_photo" value="Foto TTD Menyetujui" />
+                                <input id="menyetujui_photo" class="block mt-1 w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" type="file" name="menyetujui_photo" accept="image/*" />
+                                <p class="text-xs text-gray-500 mt-1">Upload foto tanda tangan untuk bagian Menyetujui (JPG, PNG, maksimal 2MB)</p>
+                                @if($ttdSettings->menyetujui_photo)
+                                    <div class="mt-2">
+                                        <p class="text-sm text-green-600">✓ Foto TTD sudah diupload: {{ $ttdSettings->menyetujui_photo }}</p>
+                                        <label class="flex items-center mt-1">
+                                            <input type="checkbox" name="delete_menyetujui_photo" value="1" class="rounded border-gray-300 text-red-600 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50">
+                                            <span class="ml-2 text-sm text-red-600">Hapus foto TTD</span>
+                                        </label>
+                                    </div>
+                                @endif
+                                <x-input-error :messages="$errors->get('menyetujui_photo')" class="mt-2" />
                             </div>
                         </div>
                     </div>
