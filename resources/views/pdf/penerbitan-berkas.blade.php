@@ -286,15 +286,16 @@
                     <div style="height:60px; display: flex; align-items: center; justify-content: center;">
                         @php
                             $mengetahuiFile = $ttdSettings->mengetahui_photo ?? null;
-                            $mengetahuiPathUnderscore = $mengetahuiFile ? public_path('storage/ttd_photos/' . $mengetahuiFile) : null;
-                            $mengetahuiPathDash = $mengetahuiFile ? public_path('storage/ttd-photos/' . $mengetahuiFile) : null;
-                            $mengetahuiPath = null;
+                            $candidates = [];
                             if ($mengetahuiFile) {
-                                if ($mengetahuiPathUnderscore && file_exists($mengetahuiPathUnderscore)) {
-                                    $mengetahuiPath = $mengetahuiPathUnderscore;
-                                } elseif ($mengetahuiPathDash && file_exists($mengetahuiPathDash)) {
-                                    $mengetahuiPath = $mengetahuiPathDash;
-                                }
+                                $candidates[] = public_path('storage/ttd_photos/' . $mengetahuiFile);
+                                $candidates[] = public_path('storage/ttd-photos/' . $mengetahuiFile);
+                                $candidates[] = storage_path('app/public/ttd_photos/' . $mengetahuiFile);
+                                $candidates[] = storage_path('app/public/ttd-photos/' . $mengetahuiFile);
+                            }
+                            $mengetahuiPath = null;
+                            foreach ($candidates as $c) {
+                                if ($c && file_exists($c)) { $mengetahuiPath = $c; break; }
                             }
                         @endphp
                         @if(!empty($mengetahuiPath))
@@ -307,15 +308,16 @@
                     <div style="height:60px; display: flex; align-items: center; justify-content: center;">
                         @php
                             $menyetujuiFile = $ttdSettings->menyetujui_photo ?? null;
-                            $menyetujuiPathUnderscore = $menyetujuiFile ? public_path('storage/ttd_photos/' . $menyetujuiFile) : null;
-                            $menyetujuiPathDash = $menyetujuiFile ? public_path('storage/ttd-photos/' . $menyetujuiFile) : null;
-                            $menyetujuiPath = null;
+                            $candidates = [];
                             if ($menyetujuiFile) {
-                                if ($menyetujuiPathUnderscore && file_exists($menyetujuiPathUnderscore)) {
-                                    $menyetujuiPath = $menyetujuiPathUnderscore;
-                                } elseif ($menyetujuiPathDash && file_exists($menyetujuiPathDash)) {
-                                    $menyetujuiPath = $menyetujuiPathDash;
-                                }
+                                $candidates[] = public_path('storage/ttd_photos/' . $menyetujuiFile);
+                                $candidates[] = public_path('storage/ttd-photos/' . $menyetujuiFile);
+                                $candidates[] = storage_path('app/public/ttd_photos/' . $menyetujuiFile);
+                                $candidates[] = storage_path('app/public/ttd-photos/' . $menyetujuiFile);
+                            }
+                            $menyetujuiPath = null;
+                            foreach ($candidates as $c) {
+                                if ($c && file_exists($c)) { $menyetujuiPath = $c; break; }
                             }
                         @endphp
                         @if(!empty($menyetujuiPath))
