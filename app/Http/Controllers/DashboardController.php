@@ -107,10 +107,18 @@ class DashboardController extends Controller
                 $query->where('role', '!=', 'penerbitan_berkas');
             });
         } elseif ($user->role === 'pd_teknis') {
-            // PD Teknis melihat semua permohonan kecuali yang dibuat oleh penerbitan_berkas
-            $permohonans->whereHas('user', function($query) {
-                $query->where('role', '!=', 'penerbitan_berkas');
-            });
+            // PD Teknis melihat permohonan sesuai sektornya saja
+            if ($user->sektor) {
+                $permohonans->where('sektor', $user->sektor)
+                    ->whereHas('user', function($query) {
+                        $query->where('role', '!=', 'penerbitan_berkas');
+                    });
+            } else {
+                // Jika PD Teknis belum ada sektor, tampilkan semua (fallback)
+                $permohonans->whereHas('user', function($query) {
+                    $query->where('role', '!=', 'penerbitan_berkas');
+                });
+            }
         } elseif ($user->role === 'penerbitan_berkas') {
             // Penerbitan Berkas hanya melihat data yang dibuat oleh role penerbitan_berkas
             $permohonans->whereHas('user', function($query) {
@@ -193,6 +201,13 @@ class DashboardController extends Controller
         $search = $request->query('search');
 
         $query = PenerbitanBerkas::with('user');
+
+        // Filter berdasarkan role
+        if ($user->role === 'penerbitan_berkas') {
+            // Penerbitan Berkas hanya melihat data yang dibuatnya
+            $query->where('user_id', $user->id);
+        }
+        // Admin melihat semua data penerbitan berkas
 
         // Filter tanggal
         if ($selectedDateFilter) {
@@ -283,27 +298,17 @@ class DashboardController extends Controller
         
         $pdf = PDF::loadView('pdf.penerbitan-berkas', compact('penerbitanBerkas', 'ttdSettings'));
         $pdf->setPaper('A4', 'landscape');
+        $pdf->setOptions([
+            'margin-top' => 10,
+            'margin-right' => 5,
+            'margin-bottom' => 10,
+            'margin-left' => 5,
+            'dpi' => 150
+        ]);
         
         return $pdf->download('data_penerbitan_berkas_landscape_' . date('Y-m-d_H-i-s') . '.pdf');
     }
 
-    public function exportPenerbitanBerkasPdfPortrait()
-    {
-        $user = Auth::user();
-        
-        // Batasi akses hanya admin dan penerbitan_berkas
-        if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {
-            return redirect()->route('dashboard')->with('error', 'Tidak memiliki akses ke Penerbitan Berkas.');
-        }
-
-        $penerbitanBerkas = PenerbitanBerkas::with('user')->get();
-        $ttdSettings = TtdSetting::getSettings();
-        
-        $pdf = PDF::loadView('pdf.penerbitan-berkas', compact('penerbitanBerkas', 'ttdSettings'));
-        $pdf->setPaper('A4', 'portrait');
-        
-        return $pdf->download('data_penerbitan_berkas_portrait_' . date('Y-m-d_H-i-s') . '.pdf');
-    }
 
     public function storePenerbitanBerkas(Request $request)
     {

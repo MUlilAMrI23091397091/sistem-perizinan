@@ -526,7 +526,8 @@ class PermohonanController extends Controller
      */
     public function exportExcel()
     {
-        return Excel::download(new PermohonanExport, 'data_permohonan_' . date('Y-m-d_H-i-s') . '.xlsx');
+        $user = Auth::user();
+        return Excel::download(new PermohonanExport($user), 'data_permohonan_' . date('Y-m-d_H-i-s') . '.xlsx');
     }
 
     /**
@@ -534,7 +535,8 @@ class PermohonanController extends Controller
      */
     public function exportPdf()
     {
-        $permohonans = Permohonan::with('user')->orderBy('created_at', 'desc')->get();
+        $user = Auth::user();
+        $permohonans = $this->getFilteredPermohonans($user);
         
         $pdf = Pdf::loadView('permohonan.export-pdf', compact('permohonans'));
         $pdf->setPaper('A4', 'landscape');
@@ -547,7 +549,8 @@ class PermohonanController extends Controller
      */
     public function exportPdfCompact()
     {
-        $permohonans = Permohonan::with('user')->orderBy('created_at', 'desc')->get();
+        $user = Auth::user();
+        $permohonans = $this->getFilteredPermohonans($user);
         
         $pdf = Pdf::loadView('permohonan.export-pdf-compact', compact('permohonans'));
         $pdf->setPaper('A4', 'landscape');
@@ -560,12 +563,50 @@ class PermohonanController extends Controller
      */
     public function exportPdfPenerbitan()
     {
-        $permohonans = Permohonan::with('user')->orderBy('created_at', 'desc')->get();
+        $user = Auth::user();
+        $permohonans = $this->getFilteredPermohonans($user);
         $ttdSettings = \App\Models\TtdSetting::getSettings();
         
         $pdf = Pdf::loadView('pdf.penerbitan-berkas', compact('permohonans', 'ttdSettings'));
         $pdf->setPaper('A4', 'landscape');
         
         return $pdf->download('data_permohonan_penerbitan_' . date('Y-m-d_H-i-s') . '.pdf');
+    }
+
+    /**
+     * Get filtered permohonans based on user role
+     */
+    private function getFilteredPermohonans($user)
+    {
+        $permohonans = Permohonan::with('user');
+
+        // Filter berdasarkan peran
+        if ($user->role === 'dpmptsp') {
+            // DPMPTSP melihat semua permohonan kecuali yang dibuat oleh penerbitan_berkas
+            $permohonans->whereHas('user', function($query) {
+                $query->where('role', '!=', 'penerbitan_berkas');
+            });
+        } elseif ($user->role === 'pd_teknis') {
+            // PD Teknis melihat permohonan sesuai sektornya saja
+            if ($user->sektor) {
+                $permohonans->where('sektor', $user->sektor)
+                    ->whereHas('user', function($query) {
+                        $query->where('role', '!=', 'penerbitan_berkas');
+                    });
+            } else {
+                // Jika PD Teknis belum ada sektor, tampilkan semua (fallback)
+                $permohonans->whereHas('user', function($query) {
+                    $query->where('role', '!=', 'penerbitan_berkas');
+                });
+            }
+        } elseif ($user->role === 'penerbitan_berkas') {
+            // Penerbitan Berkas hanya melihat data yang dibuat oleh role penerbitan_berkas
+            $permohonans->whereHas('user', function($query) {
+                $query->where('role', 'penerbitan_berkas');
+            });
+        }
+        // Admin melihat semua permohonan secara default
+
+        return $permohonans->orderBy('created_at', 'asc')->get();
     }
 }

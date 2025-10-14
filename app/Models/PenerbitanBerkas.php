@@ -38,6 +38,7 @@ class PenerbitanBerkas extends Model
 
     protected $fillable = [
         'user_id',
+        'permohonan_id',
         'no_permohonan',
         'no_proyek',
         'tanggal_permohonan',
@@ -49,7 +50,9 @@ class PenerbitanBerkas extends Model
         'jenis_badan_usaha',
         'pemilik',
         'modal_usaha',
+        'alamat',
         'alamat_perusahaan',
+        'kegiatan',
         'jenis_proyek',
         'nama_perizinan',
         'skala_usaha',
@@ -66,6 +69,11 @@ class PenerbitanBerkas extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function permohonan(): BelongsTo
+    {
+        return $this->belongsTo(Permohonan::class);
     }
 
     public function getRisikoBadgeClass()

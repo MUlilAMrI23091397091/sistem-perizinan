@@ -146,7 +146,19 @@
                                 <p class="text-sm text-gray-600 mb-4">{{ $ttdSettings->mengetahui_title }}</p>
                                 <p class="text-sm text-gray-600 mb-2">{{ $ttdSettings->mengetahui_jabatan }}</p>
                                 <p class="text-sm text-gray-600 mb-4">{{ $ttdSettings->mengetahui_unit }}</p>
-                                <div class="h-20 border-b border-gray-300 mb-2"></div>
+                                
+                                <!-- Tampilkan foto TTD jika ada -->
+                                @if($ttdSettings->mengetahui_photo)
+                                    <div class="mb-2">
+                                        <img src="{{ asset('storage/ttd_photos/' . $ttdSettings->mengetahui_photo) }}" 
+                                             alt="TTD Mengetahui" 
+                                             class="mx-auto h-16 w-auto object-contain border border-gray-300 rounded">
+                                        <p class="text-xs text-gray-500 mt-1">Preview TTD</p>
+                                    </div>
+                                @else
+                                    <div class="h-20 border-b border-gray-300 mb-2"></div>
+                                @endif
+                                
                                 <p class="text-sm font-medium text-gray-900">{{ $ttdSettings->mengetahui_nama }}</p>
                                 <p class="text-sm text-gray-600">{{ $ttdSettings->mengetahui_pangkat }}</p>
                                 <p class="text-sm text-gray-600">NIP: {{ $ttdSettings->mengetahui_nip }}</p>
@@ -156,7 +168,19 @@
                             <div class="text-center">
                                 <p class="text-sm text-gray-600 mb-4">{{ $ttdSettings->menyetujui_lokasi ?? 'Surabaya' }}, {{ $ttdSettings->menyetujui_tanggal ? \Carbon\Carbon::parse($ttdSettings->menyetujui_tanggal)->format('d F Y') : date('d F Y') }}</p>
                                 <p class="text-sm text-gray-600 mb-2">{{ $ttdSettings->menyetujui_jabatan }}</p>
-                                <div class="h-20 border-b border-gray-300 mb-2"></div>
+                                
+                                <!-- Tampilkan foto TTD jika ada -->
+                                @if($ttdSettings->menyetujui_photo)
+                                    <div class="mb-2">
+                                        <img src="{{ asset('storage/ttd_photos/' . $ttdSettings->menyetujui_photo) }}" 
+                                             alt="TTD Menyetujui" 
+                                             class="mx-auto h-16 w-auto object-contain border border-gray-300 rounded">
+                                        <p class="text-xs text-gray-500 mt-1">Preview TTD</p>
+                                    </div>
+                                @else
+                                    <div class="h-20 border-b border-gray-300 mb-2"></div>
+                                @endif
+                                
                                 <p class="text-sm font-medium text-gray-900">{{ $ttdSettings->menyetujui_nama }}</p>
                                 <p class="text-sm text-gray-600">{{ $ttdSettings->menyetujui_pangkat }}</p>
                                 <p class="text-sm text-gray-600">NIP: {{ $ttdSettings->menyetujui_nip }}</p>

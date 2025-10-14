@@ -165,7 +165,7 @@
     <div class="header">
         <h1>PERIZINAN BERUSAHA DISETUJUI</h1>
         <h2>DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU</h2>
-        <h2>KOTA SURABAYA TAHUN {{ date('Y') }}</h2>
+        <h2>KOTA SURABAYA TAHUN <?php echo e(date('Y')); ?></h2>
     </div>
 
     <table>
@@ -191,35 +191,37 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($penerbitanBerkas as $index => $item)
+            <?php $__currentLoopData = $penerbitanBerkas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $item->no_permohonan ?? '-' }}</td>
-                <td>{{ $item->no_proyek ?? '-' }}</td>
-                <td>{{ $item->tanggal_permohonan ? \Carbon\Carbon::parse($item->tanggal_permohonan)->format('d/m/Y') : '-' }}</td>
-                <td>{{ $item->nib ?? '-' }}</td>
-                <td>{{ $item->kbli ?? '-' }}</td>
-                <td>{{ $item->nama_usaha ?? '-' }}</td>
-                <td>{{ $item->inputan_teks ?? '-' }}</td>
-                <td>{{ $item->jenis_pelaku_usaha ?? '-' }}</td>
-                <td>{{ $item->pemilik ?? '-' }}</td>
-                <td>{{ $item->modal_usaha ? 'Rp ' . number_format($item->modal_usaha, 0, ',', '.') : '-' }}</td>
-                <td>{{ $item->alamat_perusahaan ?? '-' }}</td>
-                <td>{{ $item->jenis_proyek ?? '-' }}</td>
-                <td>{{ $item->nama_perizinan ?? '-' }}</td>
-                <td>{{ $item->skala_usaha ?? '-' }}</td>
-                <td>{{ $item->risiko ?? '-' }}</td>
+                <td><?php echo e($index + 1); ?></td>
+                <td><?php echo e($item->no_permohonan ?? '-'); ?></td>
+                <td><?php echo e($item->no_proyek ?? '-'); ?></td>
+                <td><?php echo e($item->tanggal_permohonan ? \Carbon\Carbon::parse($item->tanggal_permohonan)->format('d/m/Y') : '-'); ?></td>
+                <td><?php echo e($item->nib ?? '-'); ?></td>
+                <td><?php echo e($item->kbli ?? '-'); ?></td>
+                <td><?php echo e($item->nama_usaha ?? '-'); ?></td>
+                <td><?php echo e($item->inputan_teks ?? '-'); ?></td>
+                <td><?php echo e($item->jenis_pelaku_usaha ?? '-'); ?></td>
+                <td><?php echo e($item->pemilik ?? '-'); ?></td>
+                <td><?php echo e($item->modal_usaha ? 'Rp ' . number_format($item->modal_usaha, 0, ',', '.') : '-'); ?></td>
+                <td><?php echo e($item->alamat_perusahaan ?? '-'); ?></td>
+                <td><?php echo e($item->jenis_proyek ?? '-'); ?></td>
+                <td><?php echo e($item->nama_perizinan ?? '-'); ?></td>
+                <td><?php echo e($item->skala_usaha ?? '-'); ?></td>
+                <td><?php echo e($item->risiko ?? '-'); ?></td>
                 <td>
-                    @if($item->pemroses_dan_tgl_surat)
-                        {{ $item->pemroses_dan_tgl_surat }}
-                    @else
+                    <?php if($item->pemroses_dan_tgl_surat): ?>
+                        <?php echo e($item->pemroses_dan_tgl_surat); ?>
+
+                    <?php else: ?>
                         DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU<br>
-                        No: BAP/OSS/IX/PARKIR-341/436.7.15/{{ date('Y') }}<br>
-                        tanggal BAP: {{ date('d') }}
-                    @endif
+                        No: BAP/OSS/IX/PARKIR-341/436.7.15/<?php echo e(date('Y')); ?><br>
+                        tanggal BAP: <?php echo e(date('d')); ?>
+
+                    <?php endif; ?>
                 </td>
             </tr>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </tbody>
     </table>
 
@@ -255,7 +257,7 @@
                 </td>
                 <td colspan="8"></td>
                 <td colspan="5" class="ttd-right">
-                    <div class="ttd-right-date">{{ $ttdSettings->menyetujui_lokasi ?? 'Surabaya' }}, {{ $ttdSettings->menyetujui_tanggal ? \Carbon\Carbon::parse($ttdSettings->menyetujui_tanggal)->format('d F Y') : date('d F Y') }}</div>
+                    <div class="ttd-right-date"><?php echo e($ttdSettings->menyetujui_lokasi ?? 'Surabaya'); ?>, <?php echo e($ttdSettings->menyetujui_tanggal ? \Carbon\Carbon::parse($ttdSettings->menyetujui_tanggal)->format('d F Y') : date('d F Y')); ?></div>
                 </td>
             </tr>
 
@@ -285,7 +287,7 @@
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left">
                     <div style="height:60px; display: flex; align-items: center; justify-content: center;">
-                        @php
+                        <?php
                             $mengetahuiFile = $ttdSettings->mengetahui_photo ?? null;
                             $mengetahuiBase64 = null;
                             if ($mengetahuiFile) {
@@ -308,16 +310,16 @@
                                     $mengetahuiBase64 = 'data:image/jpeg;base64,' . base64_encode(file_get_contents($mengetahuiPath));
                                 }
                             }
-                        @endphp
-                        @if(!empty($mengetahuiBase64))
-                            <img src="{{ $mengetahuiBase64 }}" alt="TTD Mengetahui" style="max-height: 50px; max-width: 100px; object-fit: contain;">
-                        @endif
+                        ?>
+                        <?php if(!empty($mengetahuiBase64)): ?>
+                            <img src="<?php echo e($mengetahuiBase64); ?>" alt="TTD Mengetahui" style="max-height: 50px; max-width: 100px; object-fit: contain;">
+                        <?php endif; ?>
                     </div>
                 </td>
                 <td colspan="8"></td>
                 <td colspan="5" class="ttd-right">
                     <div style="height:60px; display: flex; align-items: center; justify-content: center;">
-                        @php
+                        <?php
                             $menyetujuiFile = $ttdSettings->menyetujui_photo ?? null;
                             $menyetujuiBase64 = null;
                             if ($menyetujuiFile) {
@@ -340,10 +342,10 @@
                                     $menyetujuiBase64 = 'data:image/jpeg;base64,' . base64_encode(file_get_contents($menyetujuiPath));
                                 }
                             }
-                        @endphp
-                        @if(!empty($menyetujuiBase64))
-                            <img src="{{ $menyetujuiBase64 }}" alt="TTD Menyetujui" style="max-height: 50px; max-width: 100px; object-fit: contain;">
-                        @endif
+                        ?>
+                        <?php if(!empty($menyetujuiBase64)): ?>
+                            <img src="<?php echo e($menyetujuiBase64); ?>" alt="TTD Menyetujui" style="max-height: 50px; max-width: 100px; object-fit: contain;">
+                        <?php endif; ?>
                     </div>
                 </td>
             </tr>
@@ -352,11 +354,11 @@
             <tr>
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left">
-                    <div class="ttd-left-name" style="text-decoration: underline;">{{ $ttdSettings->mengetahui_nama ?? 'Yohanes Franklin, S.H.' }}</div>
+                    <div class="ttd-left-name" style="text-decoration: underline;"><?php echo e($ttdSettings->mengetahui_nama ?? 'Yohanes Franklin, S.H.'); ?></div>
                 </td>
                 <td colspan="8"></td>
                 <td colspan="5" class="ttd-right">
-                    <div class="ttd-right-name" style="text-decoration: underline;">{{ $ttdSettings->menyetujui_nama ?? 'Ulvia Zulvia, ST' }}</div>
+                    <div class="ttd-right-name" style="text-decoration: underline;"><?php echo e($ttdSettings->menyetujui_nama ?? 'Ulvia Zulvia, ST'); ?></div>
                 </td>
             </tr>
 
@@ -364,11 +366,11 @@
             <tr>
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left">
-                    <div class="ttd-left-position">{{ $ttdSettings->mengetahui_pangkat ?? 'Penata Tk. 1' }}</div>
+                    <div class="ttd-left-position"><?php echo e($ttdSettings->mengetahui_pangkat ?? 'Penata Tk. 1'); ?></div>
                 </td>
                 <td colspan="8"></td>
                 <td colspan="5" class="ttd-right">
-                    <div class="ttd-right-position">{{ $ttdSettings->menyetujui_pangkat ?? 'Penata Tk. 1' }}</div>
+                    <div class="ttd-right-position"><?php echo e($ttdSettings->menyetujui_pangkat ?? 'Penata Tk. 1'); ?></div>
                 </td>
             </tr>
 
@@ -376,18 +378,19 @@
             <tr>
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left">
-                    <div class="ttd-left-nip">NIP: {{ $ttdSettings->mengetahui_nip ?? '198502182010011008' }}</div>
+                    <div class="ttd-left-nip">NIP: <?php echo e($ttdSettings->mengetahui_nip ?? '198502182010011008'); ?></div>
                 </td>
                 <td colspan="8"></td>
                 <td colspan="5" class="ttd-right">
-                    <div class="ttd-right-nip">NIP: {{ $ttdSettings->menyetujui_nip ?? '197710132006042012' }}</div>
+                    <div class="ttd-right-nip">NIP: <?php echo e($ttdSettings->menyetujui_nip ?? '197710132006042012'); ?></div>
                 </td>
             </tr>
         </table>
     </div>
 
     <div class="footer">
-        <p>Dokumen ini dibuat secara otomatis pada {{ date('d F Y H:i:s') }}</p>
+        <p>Dokumen ini dibuat secara otomatis pada <?php echo e(date('d F Y H:i:s')); ?></p>
     </div>
 </body>
 </html>
+<?php /**PATH C:\xampp\htdocs\sistem-perizinan\resources\views/pdf/penerbitan-berkas.blade.php ENDPATH**/ ?>

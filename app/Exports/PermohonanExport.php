@@ -17,12 +17,50 @@ use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
 class PermohonanExport implements FromCollection, WithHeadings, WithMapping, WithStyles, WithColumnWidths, WithEvents, WithColumnFormatting
 {
+    protected $user;
+
+    public function __construct($user = null)
+    {
+        $this->user = $user;
+    }
+
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        return Permohonan::with('user')->orderBy('created_at', 'desc')->get();
+        $permohonans = Permohonan::with('user');
+
+        // Filter berdasarkan peran jika user diberikan
+        if ($this->user) {
+            if ($this->user->role === 'dpmptsp') {
+                // DPMPTSP melihat semua permohonan kecuali yang dibuat oleh penerbitan_berkas
+                $permohonans->whereHas('user', function($query) {
+                    $query->where('role', '!=', 'penerbitan_berkas');
+                });
+            } elseif ($this->user->role === 'pd_teknis') {
+                // PD Teknis melihat permohonan sesuai sektornya saja
+                if ($this->user->sektor) {
+                    $permohonans->where('sektor', $this->user->sektor)
+                        ->whereHas('user', function($query) {
+                            $query->where('role', '!=', 'penerbitan_berkas');
+                        });
+                } else {
+                    // Jika PD Teknis belum ada sektor, tampilkan semua (fallback)
+                    $permohonans->whereHas('user', function($query) {
+                        $query->where('role', '!=', 'penerbitan_berkas');
+                    });
+                }
+            } elseif ($this->user->role === 'penerbitan_berkas') {
+                // Penerbitan Berkas hanya melihat data yang dibuat oleh role penerbitan_berkas
+                $permohonans->whereHas('user', function($query) {
+                    $query->where('role', 'penerbitan_berkas');
+                });
+            }
+            // Admin melihat semua permohonan secara default
+        }
+
+        return $permohonans->orderBy('created_at', 'asc')->get();
     }
 
     /**

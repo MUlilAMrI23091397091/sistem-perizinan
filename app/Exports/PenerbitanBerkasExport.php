@@ -26,7 +26,7 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
     private int $rowNumber = 0;
     public function collection()
     {
-        return PenerbitanBerkas::with('user')->orderBy('created_at', 'desc')->get();
+        return PenerbitanBerkas::with('user')->orderBy('created_at', 'asc')->get();
     }
 
     public function headings(): array

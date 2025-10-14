@@ -65,7 +65,7 @@ class TtdSettingController extends Controller
             $filename = 'mengetahui_ttd_' . time() . '.' . $file->getClientOriginalExtension();
             
             // Debug: cek apakah file berhasil disimpan
-            $path = $file->storeAs('public/ttd_photos', $filename);
+            $path = $file->storeAs('ttd_photos', $filename, 'public');
             if ($path) {
                 $data['mengetahui_photo'] = $filename;
                 Log::info('TTD Mengetahui uploaded successfully: ' . $filename);
@@ -85,7 +85,7 @@ class TtdSettingController extends Controller
             $filename = 'menyetujui_ttd_' . time() . '.' . $file->getClientOriginalExtension();
             
             // Debug: cek apakah file berhasil disimpan
-            $path = $file->storeAs('public/ttd_photos', $filename);
+            $path = $file->storeAs('ttd_photos', $filename, 'public');
             if ($path) {
                 $data['menyetujui_photo'] = $filename;
                 Log::info('TTD Menyetujui uploaded successfully: ' . $filename);
