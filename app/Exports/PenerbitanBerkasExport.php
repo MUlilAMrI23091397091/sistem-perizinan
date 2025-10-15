@@ -150,18 +150,20 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 // Baris header tabel sekarang ada di baris 7 (setelah 2 baris jarak)
                 $headerRow = 7;
                 
-                // Set text wrapping hanya untuk area tabel (mulai header)
-                $sheet->getStyle('A' . $headerRow . ':Q' . $lastRow)->getAlignment()->setWrapText(true);
+                // Set text wrapping hanya untuk area tabel yang ada datanya
+                $dataEndRow = $headerRow + $this->collection()->count();
+                $sheet->getStyle('A' . $headerRow . ':Q' . $dataEndRow)->getAlignment()->setWrapText(true);
                 
                 // Set row height (lebih tinggi agar teks tidak tertutup)
                 $sheet->getDefaultRowDimension()->setRowHeight(24);
                 
-                // Add borders untuk area tabel saja
-                $sheet->getStyle('A' . $headerRow . ':Q' . $lastRow)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                // Add borders hanya untuk area yang ada datanya (header + data rows)
+                $dataEndRow = $headerRow + $this->collection()->count();
+                $sheet->getStyle('A' . $headerRow . ':Q' . $dataEndRow)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                 
-                // Center align all data di area tabel
-                $sheet->getStyle('A' . ($headerRow + 1) . ':Q' . $lastRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('A' . ($headerRow + 1) . ':Q' . $lastRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                // Center align all data di area tabel yang ada datanya
+                $sheet->getStyle('A' . ($headerRow + 1) . ':Q' . $dataEndRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('A' . ($headerRow + 1) . ':Q' . $dataEndRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
 
                 // Styling header tabel (baris 5) polos dan bold
                 $sheet->getStyle('A' . $headerRow . ':Q' . $headerRow)->applyFromArray([
