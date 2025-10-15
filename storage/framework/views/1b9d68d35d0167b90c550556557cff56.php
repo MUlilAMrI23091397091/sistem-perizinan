@@ -260,9 +260,10 @@
                             <p class="mt-1 text-sm text-gray-500">Belum ada data permohonan yang tersedia.</p>
                         </div>
                     <?php endif; ?>
-                </div>
             </div>
- <?php echo $__env->renderComponent(); ?>
+
+        </div>
+     <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal1f7b3c69a858611a4ccc5f2ea9729c12)): ?>
 <?php $attributes = $__attributesOriginal1f7b3c69a858611a4ccc5f2ea9729c12; ?>
