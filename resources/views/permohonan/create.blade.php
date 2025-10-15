@@ -150,8 +150,8 @@
                                 <div class="field-data-pemohon" x-show="jenisPelakuUsaha === 'Badan Usaha'">
                                     <label for="jenis_badan_usaha" class="block font-medium text-sm text-gray-700">Jenis Badan Usaha</label>
                                     <select name="jenis_badan_usaha" id="jenis_badan_usaha"
-                                        class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isReadOnly(['pd_teknis']) ? 'bg-gray-100' : '' }}"
-                                        {{ $isReadOnly(['pd_teknis']) ? 'disabled' : '' }}>
+                                        class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm {{ $isDisabled(['pd_teknis']) ? 'bg-gray-100' : '' }}"
+                                        {{ $isDisabled(['pd_teknis']) ? 'disabled' : '' }}>
                                         <option value="">Pilih Jenis Badan Usaha</option>
                                         <option value="Perseroan Terbatas (PT)" @selected(old('jenis_badan_usaha') == 'Perseroan Terbatas (PT)')>
                                             Perseroan Terbatas (PT)
