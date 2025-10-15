@@ -112,10 +112,19 @@ class PermohonanController extends Controller
         // Terapkan filter status
         if ($selectedStatus) {
             if ($selectedStatus === 'Terlambat') {
-                // Terlambat = semua status yang melewati deadline (bandingkan berdasarkan tanggal lokal)
+                // Samakan logika dengan Permohonan::isOverdue()
+                // - Memiliki deadline, dan deadline < hari ini
+                // - BUKAN status final (Diterima, Ditolak)
+                // - verifikasi_pd_teknis BUKAN 'Berkas Disetujui'
                 $today = now()->toDateString();
-                $permohonans->whereNotNull('deadline')
-                           ->whereDate('deadline', '<', $today);
+                $permohonans
+                    ->whereNotNull('deadline')
+                    ->whereDate('deadline', '<', $today)
+                    ->whereNotIn('status', ['Diterima', 'Ditolak'])
+                    ->where(function ($q) {
+                        $q->whereNull('verifikasi_pd_teknis')
+                          ->orWhere('verifikasi_pd_teknis', '!=', 'Berkas Disetujui');
+                    });
             } else {
                 $permohonans->where('status', $selectedStatus);
             }
