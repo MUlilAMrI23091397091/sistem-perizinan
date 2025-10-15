@@ -84,3 +84,9 @@ Route::get('/permohonan/export/pdf-penerbitan', [PermohonanController::class, 'e
 });
 
 require __DIR__.'/auth.php';
+
+// Fallback logout route (emergency)
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect()->route('login')->with('success', 'Anda telah berhasil logout.');
+})->name('logout.get');

@@ -43,12 +43,26 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('web')->logout();
+        try {
+            // Logout user
+            Auth::guard('web')->logout();
 
-        $request->session()->invalidate();
+            // Invalidate session
+            $request->session()->invalidate();
 
-        $request->session()->regenerateToken();
+            // Regenerate CSRF token
+            $request->session()->regenerateToken();
 
-        return redirect('/');
+            // Redirect to login page with success message
+            return redirect()->route('login')->with('success', 'Anda telah berhasil logout.');
+            
+        } catch (\Exception $e) {
+            // Log error if needed
+            \Log::error('Logout error: ' . $e->getMessage());
+            
+            // Force logout and redirect even if there's an error
+            Auth::guard('web')->logout();
+            return redirect()->route('login')->with('error', 'Terjadi kesalahan saat logout, silakan login kembali.');
+        }
     }
 }
