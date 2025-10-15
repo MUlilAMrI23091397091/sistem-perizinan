@@ -14,6 +14,11 @@ class TtdSettingController extends Controller
     {
         $user = Auth::user();
         
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+        
         // Cek authorization - hanya admin dan penerbitan_berkas yang bisa akses
         if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {
             return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk mengakses halaman ini.');
@@ -27,6 +32,11 @@ class TtdSettingController extends Controller
     public function update(Request $request)
     {
         $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
         
         // Cek authorization - hanya admin dan penerbitan_berkas yang bisa update
         if (!in_array($user->role, ['admin', 'penerbitan_berkas'])) {

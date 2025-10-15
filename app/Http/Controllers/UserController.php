@@ -14,8 +14,15 @@ class UserController extends Controller
 {
     public function index()
     {
+        $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+        
         // Admin bisa melihat semua user, role lain hanya melihat user non-admin
-        if (Auth::user()->role === 'admin') {
+        if ($user->role === 'admin') {
             $users = User::latest()->get();
         } else {
             $users = User::where('role', '!=', 'admin')->latest()->get();

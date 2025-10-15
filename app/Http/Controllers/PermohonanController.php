@@ -22,6 +22,11 @@ class PermohonanController extends Controller
     {
         $user = Auth::user();
 
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
         // Ambil parameter dari request
         $searchQuery = $request->query('search');
         $selectedSektor = $request->query('sektor');
@@ -140,6 +145,12 @@ class PermohonanController extends Controller
     public function create()
     {
         $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+        
         $verifikators = ['RAMLAN', 'SURYA', 'ALI', 'WILDAN A', 'TYO', 'WILDAN M', 'YOLA', 'NAURA'];
         $sektors = ['Dinkopdag', 'Disbudpar', 'Dinkes', 'Dishub', 'Dprkpp', 'Dkpp', 'Dlh', 'Disperinaker'];
         $jenisPelakuUsahas = ['Orang Perseorangan', 'Badan Usaha'];
@@ -174,6 +185,12 @@ class PermohonanController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+        
         $isDpmptsp = $user->role === 'dpmptsp';
 
         $rules = [
@@ -324,6 +341,12 @@ class PermohonanController extends Controller
     public function edit(Permohonan $permohonan)
     {
         $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+        
         $verifikators = ['RAMLAN', 'SURYA', 'ALI', 'WILDAN A', 'TYO', 'WILDAN M', 'YOLA', 'NAURA'];
         $sektors = ['Dinkopdag', 'Disbudpar', 'Dinkes', 'Dishub', 'Dprkpp', 'Dkpp', 'Dlh', 'Disperinaker'];
         $jenisPelakuUsahas = ['Orang Perseorangan', 'Badan Usaha'];
@@ -374,6 +397,11 @@ class PermohonanController extends Controller
     public function update(Request $request, Permohonan $permohonan)
     {
         $user = Auth::user();
+
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
 
         $validated = $request->validate([
             'no_permohonan' => [
@@ -527,6 +555,12 @@ class PermohonanController extends Controller
     public function exportExcel()
     {
         $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+        
         return Excel::download(new PermohonanExport($user), 'data_permohonan_' . date('Y-m-d_H-i-s') . '.xlsx');
     }
 
@@ -536,6 +570,12 @@ class PermohonanController extends Controller
     public function exportPdf()
     {
         $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+        
         $permohonans = $this->getFilteredPermohonans($user);
         
         $pdf = Pdf::loadView('permohonan.export-pdf', compact('permohonans'));
@@ -550,6 +590,12 @@ class PermohonanController extends Controller
     public function exportPdfCompact()
     {
         $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+        
         $permohonans = $this->getFilteredPermohonans($user);
         
         $pdf = Pdf::loadView('permohonan.export-pdf-compact', compact('permohonans'));
@@ -564,6 +610,12 @@ class PermohonanController extends Controller
     public function exportPdfPenerbitan()
     {
         $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+        
         $permohonans = $this->getFilteredPermohonans($user);
         $ttdSettings = \App\Models\TtdSetting::getSettings();
         
