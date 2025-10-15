@@ -147,7 +147,7 @@
                                 <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">SKALA USAHA</th>
                                   <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">RISIKO</th>
                                   <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 15%; color: #E0E7FF;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
-                                  @if(in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']))
+                                  @if(in_array(auth()->user() && auth()->user()->role, ['admin', 'penerbitan_berkas']))
                                   <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider" style="width: 8%; color: #E0E7FF;">AKSI</th>
                                   @endif
                                 </tr>
@@ -253,7 +253,7 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        @if(in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']))
+                                        @if(in_array(auth()->user() && auth()->user()->role, ['admin', 'penerbitan_berkas']))
                                         <div class="flex items-center space-x-2">
                                             <!-- Edit Button -->
                                             <button data-edit-id="{{ $permohonan->id }}" 
@@ -284,7 +284,7 @@
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="{{ in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']) ? '18' : '17' }}" class="px-4 py-8 text-center text-sm text-gray-500">
+                                    <td colspan="{{ in_array(auth()->user() && auth()->user()->role, ['admin', 'penerbitan_berkas']) ? '18' : '17' }}" class="px-4 py-8 text-center text-sm text-gray-500">
                                         <div class="flex flex-col items-center">
                                             <svg class="w-12 h-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -301,7 +301,7 @@
                 </div>
 
             <!-- Form Input Data Baru -->
-            @if(in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']))
+            @if(in_array(auth()->user() && auth()->user()->role, ['admin', 'penerbitan_berkas']))
             <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6 mb-8">
                 <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-green-50 to-emerald-50 mb-6 -m-6">
                     <h3 class="text-xl font-semibold text-gray-900 flex items-center">
@@ -478,7 +478,7 @@
             @endif
 
             <!-- Kolom TTD -->
-            @if(in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']))
+            @if(in_array(auth()->user() && auth()->user()->role, ['admin', 'penerbitan_berkas']))
             <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6" x-data="{ editTTD: false }">
                 <!-- Header dengan tombol edit -->
                 <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-violet-50 mb-6 -m-6">
@@ -711,7 +711,7 @@
     @endif
 
     <!-- Edit Modal -->
-    @if(in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']))
+    @if(in_array(auth()->user() && auth()->user()->role, ['admin', 'penerbitan_berkas']))
     <div id="editModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
         <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
             <div class="mt-3">
@@ -903,7 +903,7 @@
             toggleJenisBadanUsaha();
 
             // Edit modal functionality (only for authorized users)
-            const userRole = '{{ auth()->user()->role }}';
+            const userRole = '{{ auth()->user() ? auth()->user()->role : "" }}';
             if (['admin', 'penerbitan_berkas'].includes(userRole)) {
                 const editJenisPelakuUsaha = document.getElementById('edit_jenis_pelaku_usaha');
                 const editJenisBadanUsahaContainer = document.getElementById('edit_jenis_badan_usaha_container');
@@ -937,7 +937,7 @@
         });
 
         // Global functions for edit and delete (only for authorized users)
-        const userRole = '{{ auth()->user()->role }}';
+        const userRole = '{{ auth()->user() ? auth()->user()->role : "" }}';
         if (['admin', 'penerbitan_berkas'].includes(userRole)) {
             function editPermohonan(id) {
             // Fetch data via AJAX

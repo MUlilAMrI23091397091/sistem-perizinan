@@ -25,7 +25,7 @@
                             <div class="ml-4 w-0 flex-1">
                                 <dl>
                                     <dt class="text-xs font-medium text-blue-100 truncate">Total Permohonan</dt>
-                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['totalPermohonan']); ?></dd>
+                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['totalPermohonan'] ?? 0); ?></dd>
                                 </dl>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                             <div class="ml-4 w-0 flex-1">
                                 <dl>
                                     <dt class="text-xs font-medium text-green-100 truncate">Diterima</dt>
-                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['diterima']); ?></dd>
+                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['diterima'] ?? 0); ?></dd>
                                 </dl>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                             <div class="ml-4 w-0 flex-1">
                                 <dl>
                                     <dt class="text-xs font-medium text-orange-100 truncate">Dikembalikan</dt>
-                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['dikembalikan']); ?></dd>
+                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['dikembalikan'] ?? 0); ?></dd>
                                 </dl>
                             </div>
                         </div>
@@ -85,7 +85,7 @@
                             <div class="ml-4 w-0 flex-1">
                                 <dl>
                                     <dt class="text-xs font-medium text-red-100 truncate">Ditolak</dt>
-                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['ditolak']); ?></dd>
+                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['ditolak'] ?? 0); ?></dd>
                                 </dl>
                             </div>
                         </div>
@@ -105,7 +105,7 @@
                             <div class="ml-4 w-0 flex-1">
                                 <dl>
                                     <dt class="text-xs font-medium text-gray-200 truncate">Terlambat</dt>
-                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['terlambat']); ?></dd>
+                                    <dd class="text-xl font-bold text-white"><?php echo e($stats['terlambat'] ?? 0); ?></dd>
                                 </dl>
                             </div>
                         </div>

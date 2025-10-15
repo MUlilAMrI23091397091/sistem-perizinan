@@ -1,7 +1,7 @@
 <x-sidebar-layout>
     <x-slot name="header">
         Daftar Permohonan
-        @if(auth()->user()->role === 'pd_teknis' && auth()->user()->sektor)
+        @if(auth()->user() && auth()->user()->role === 'pd_teknis' && auth()->user()->sektor)
             - Sektor {{ auth()->user()->sektor }}
         @endif
     </x-slot>

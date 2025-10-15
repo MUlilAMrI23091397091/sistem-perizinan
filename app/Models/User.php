@@ -53,6 +53,41 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be validated.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            if (empty($user->name)) {
+                throw new \InvalidArgumentException('Name is required');
+            }
+            if (empty($user->email) || !filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
+                throw new \InvalidArgumentException('Valid email is required');
+            }
+            if (empty($user->password) || strlen($user->password) < 8) {
+                throw new \InvalidArgumentException('Password must be at least 8 characters');
+            }
+            if (!in_array($user->role, ['admin', 'dpmptsp', 'pd_teknis', 'penerbitan_berkas'])) {
+                throw new \InvalidArgumentException('Invalid role');
+            }
+        });
+
+        static::updating(function ($user) {
+            if (!empty($user->email) && !filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
+                throw new \InvalidArgumentException('Valid email is required');
+            }
+            if (!empty($user->password) && strlen($user->password) < 8) {
+                throw new \InvalidArgumentException('Password must be at least 8 characters');
+            }
+            if (!empty($user->role) && !in_array($user->role, ['admin', 'dpmptsp', 'pd_teknis', 'penerbitan_berkas'])) {
+                throw new \InvalidArgumentException('Invalid role');
+            }
+        });
+    }
+
+    /**
      * The attributes that should be hidden for serialization.
      *
      * @var list<string>

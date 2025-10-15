@@ -14,7 +14,7 @@
         <nav class="mt-6 px-4">
             <div class="space-y-2">
                 <!-- Dashboard -->
-                @if(auth()->user()->role !== 'penerbitan_berkas')
+                @if(auth()->user() && auth()->user()->role !== 'penerbitan_berkas')
                 <a href="{{ route('dashboard') }}" 
                    class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('dashboard') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -36,7 +36,7 @@
                 @endcan
 
                 <!-- Permohonan -->
-                @if(auth()->user()->role !== 'penerbitan_berkas')
+                @if(auth()->user() && auth()->user()->role !== 'penerbitan_berkas')
                 <a href="{{ route('permohonan.index') }}" 
                    class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('permohonan.*') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -47,7 +47,7 @@
                 @endif
 
                 <!-- Statistik -->
-                @if(auth()->user()->role !== 'penerbitan_berkas')
+                @if(auth()->user() && auth()->user()->role !== 'penerbitan_berkas')
                 <a href="{{ route('statistik') }}" 
                    class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('statistik') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -58,7 +58,7 @@
                 @endif
 
                 <!-- Penerbitan Berkas -->
-                @if(in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']))
+                @if(auth()->user() && in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']))
                 <a href="{{ route('penerbitan-berkas') }}" 
                    class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('penerbitan-berkas') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -108,11 +108,11 @@
                 <!-- Profile Button - Compact -->
                 <button @click="profileOpen = !profileOpen" class="flex items-center space-x-2 w-full p-1 rounded">
                     <div class="w-6 h-6 bg-white/20 rounded-full flex items-center justify-center">
-                        <span class="text-white text-xs font-bold">{{ substr(Auth::user()->name, 0, 2) }}</span>
+                        <span class="text-white text-xs font-bold">{{ Auth::user() ? substr(Auth::user()->name, 0, 2) : 'U' }}</span>
                     </div>
                     <div class="flex-1 min-w-0 text-left">
-                        <p class="text-xs font-medium text-white truncate">{{ Auth::user()->name }}</p>
-                        <p class="text-xs text-white/70 truncate capitalize">{{ Auth::user()->role }}</p>
+                        <p class="text-xs font-medium text-white truncate">{{ Auth::user() ? Auth::user()->name : 'User' }}</p>
+                        <p class="text-xs text-white/70 truncate capitalize">{{ Auth::user() ? Auth::user()->role : 'guest' }}</p>
                     </div>
                     <svg class="w-3 h-3 text-white/60" :class="{ 'rotate-180': profileOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -133,9 +133,9 @@
                     
                     <!-- Profile Info -->
                     <div class="px-3 py-2 border-b border-gray-100">
-                        <p class="text-xs font-medium text-gray-900 truncate">{{ Auth::user()->name }}</p>
-                        <p class="text-xs text-gray-500 truncate">{{ Auth::user()->email }}</p>
-                        <p class="text-xs text-primary-500 capitalize">{{ Auth::user()->role }}</p>
+                        <p class="text-xs font-medium text-gray-900 truncate">{{ Auth::user() ? Auth::user()->name : 'User' }}</p>
+                        <p class="text-xs text-gray-500 truncate">{{ Auth::user() ? Auth::user()->email : 'user@example.com' }}</p>
+                        <p class="text-xs text-primary-500 capitalize">{{ Auth::user() ? Auth::user()->role : 'guest' }}</p>
                     </div>
 
                     <!-- Profile Link -->

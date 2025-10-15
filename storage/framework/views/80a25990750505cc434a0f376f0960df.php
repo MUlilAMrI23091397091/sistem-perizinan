@@ -10,7 +10,7 @@
 <?php $component->withAttributes([]); ?>
      <?php $__env->slot('header', null, []); ?> 
         Daftar Permohonan
-        <?php if(auth()->user()->role === 'pd_teknis' && auth()->user()->sektor): ?>
+        <?php if(auth()->user() && auth()->user()->role === 'pd_teknis' && auth()->user()->sektor): ?>
             - Sektor <?php echo e(auth()->user()->sektor); ?>
 
         <?php endif; ?>

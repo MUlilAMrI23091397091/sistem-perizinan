@@ -91,7 +91,7 @@
                         <div class="ml-5 w-0 flex-1">
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Total Permohonan</dt>
-                                <dd class="text-lg font-medium text-gray-900">{{ $stats['totalPermohonan'] }}</dd>
+                                <dd class="text-lg font-medium text-gray-900">{{ $stats['totalPermohonan'] ?? 0 }}</dd>
                             </dl>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                         <div class="ml-5 w-0 flex-1">
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Diterima</dt>
-                                <dd class="text-lg font-medium text-gray-900">{{ $stats['diterima'] }}</dd>
+                                <dd class="text-lg font-medium text-gray-900">{{ $stats['diterima'] ?? 0 }}</dd>
                             </dl>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                         <div class="ml-5 w-0 flex-1">
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Dikembalikan</dt>
-                                <dd class="text-lg font-medium text-gray-900">{{ $stats['dikembalikan'] }}</dd>
+                                <dd class="text-lg font-medium text-gray-900">{{ $stats['dikembalikan'] ?? 0 }}</dd>
                             </dl>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
                         <div class="ml-5 w-0 flex-1">
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Ditolak</dt>
-                                <dd class="text-lg font-medium text-gray-900">{{ $stats['ditolak'] }}</dd>
+                                <dd class="text-lg font-medium text-gray-900">{{ $stats['ditolak'] ?? 0 }}</dd>
                             </dl>
                         </div>
                     </div>
@@ -171,7 +171,7 @@
                         <div class="ml-5 w-0 flex-1">
                             <dl>
                                 <dt class="text-sm font-medium text-gray-500 truncate">Terlambat</dt>
-                                <dd class="text-lg font-medium text-gray-900">{{ $stats['terlambat'] }}</dd>
+                                <dd class="text-lg font-medium text-gray-900">{{ $stats['terlambat'] ?? 0 }}</dd>
                             </dl>
                         </div>
                     </div>
