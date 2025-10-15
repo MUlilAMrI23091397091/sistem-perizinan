@@ -193,7 +193,8 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 
                 // Add TTD section after data - POSITIONED UNDER SPECIFIC COLUMNS
                 // Gunakan dataEndRow yang sudah dihitung sebelumnya untuk memastikan TTD dimulai setelah data terakhir
-                $ttdRow = $dataEndRow;
+                // Tambahkan 2 baris kosong untuk jarak yang pas
+                $ttdRow = $dataEndRow + 2;
                 
                 // TTD Mengetahui (kiri) - di bawah kolom TANGGAL PERMOHONAN (kolom D)
                 $sheet->setCellValue('D' . $ttdRow, 'Mengetahui');
