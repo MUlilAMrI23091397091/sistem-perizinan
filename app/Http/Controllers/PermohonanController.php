@@ -594,6 +594,26 @@ class PermohonanController extends Controller
     }
 
     /**
+     * Export data permohonan to PDF (Landscape optimized version)
+     */
+    public function exportPdfLandscape()
+    {
+        $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+        
+        $permohonans = $this->getFilteredPermohonans($user);
+        
+        $pdf = Pdf::loadView('permohonan.export-pdf-landscape', compact('permohonans'));
+        $pdf->setPaper('A4', 'landscape');
+        
+        return $pdf->download('data_permohonan_landscape_' . date('Y-m-d_H-i-s') . '.pdf');
+    }
+
+    /**
      * Export data permohonan to PDF (Compact version)
      */
     public function exportPdfCompact()
