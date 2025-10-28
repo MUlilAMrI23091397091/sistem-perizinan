@@ -134,16 +134,13 @@
                 <p class="text-white text-lg">Masukkan Detail Pribadimu!</p>
             </div>
 
-            @if($errors->has('email') || $errors->has('password'))
-                <div class="mb-4 text-red-300 text-sm">
-                    {{ $errors->first('email') ?: $errors->first('password') }}
-                </div>
-            @endif
-
             <form action="{{ route('login') }}" method="POST">
                 @csrf
                 
                 <!-- Email Field -->
+                @if($errors->has('email'))
+                    <div class="mb-2 text-red-400 text-sm">{{ $errors->first('email') }}</div>
+                @endif
                 <div class="input-container">
                     <svg class="input-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
@@ -157,11 +154,11 @@
                         required
                     >
                 </div>
-                @if($errors->has('email'))
-                    <p class="text-red-400 text-sm mt-1">{{ $errors->first('email') }}</p>
-                @endif
 
                 <!-- Password Field -->
+                @if($errors->has('password'))
+                    <div class="mb-2 text-red-400 text-sm">{{ $errors->first('password') }}</div>
+                @endif
                 <div class="input-container">
                     <svg class="input-icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
@@ -181,9 +178,6 @@
                         </svg>
                     </button>
                 </div>
-                @if($errors->has('password'))
-                    <p class="text-red-400 text-sm mt-1">{{ $errors->first('password') }}</p>
-                @endif
 
                 <!-- CAPTCHA Field -->
                 <div class="input-container">
