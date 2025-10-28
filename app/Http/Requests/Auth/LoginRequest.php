@@ -53,9 +53,9 @@ class LoginRequest extends FormRequest
      */
     protected function failedValidation(Validator $validator): void
     {
-        // Jika kredensial salah, tambahkan error auth.failed pada field email
+        // Jika kredensial salah, tambahkan pesan Bahasa Indonesia
         if (! \Illuminate\Support\Facades\Auth::validate($this->only('email', 'password'))) {
-            $validator->errors()->add('email', trans('auth.failed'));
+            $validator->errors()->add('email', 'Email atau password tidak sesuai.');
         }
 
         throw new HttpResponseException($this->response($validator));
@@ -84,7 +84,7 @@ class LoginRequest extends FormRequest
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'email' => 'Email atau password tidak sesuai.',
             ]);
         }
 
