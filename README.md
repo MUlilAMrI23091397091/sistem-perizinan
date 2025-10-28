@@ -1,194 +1,196 @@
-# Sistem Perizinan - Web Application
+# Sistem Perizinan
 
-<p align="center">
-<img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="300" alt="Laravel Logo">
-</p>
+Web application berbasis Laravel untuk pengelolaan proses perizinan usaha secara digital. Sistem ini menyediakan platform terintegrasi bagi berbagai pemangku kepentingan dalam proses perizinan, mulai dari pengajuan hingga penerbitan dokumen resmi.
 
-<p align="center">
-<a heavenly">PHP ^8.2</a>
-<a href="https://laravel.com"><img src="https://img.shields.io/badge/Laravel-11.x-red.svg" alt="Laravel"></a>
-<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
-</p>
+## Deskripsi Sistem
 
-## 📋 Deskripsi
+Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses pengurusan perizinan usaha. Sistem ini mendukung workflow multi-level dengan kontrol akses berdasarkan peran pengguna, memungkinkan pengelolaan yang efisien dari tahap pengajuan hingga persetujuan dan penerbitan dokumen.
 
-**Sistem Perizinan** adalah aplikasi web berbasis Laravel untuk mengelola proses perizinan bisnis secara digital. Sistem ini dirancang untuk memfasilitasi pengurusan perizinan dengan workflow yang terintegrasi antara berbagai pihak terkait.
+## Fitur Utama
 
-## ✨ Fitur Utama
+### Autentikasi dan Keamanan
+- Sistem login dengan validasi CAPTCHA untuk meningkatkan keamanan
+- Role-based access control dengan 4 level akses berbeda
+- Session management dan monitoring aktivitas pengguna
+- Validasi data pada level model dan controller
 
-### 🔐 Autentikasi & Keamanan
-- **Login dengan CAPTCHA** - Perlindungan tambahan untuk semua pengguna
-- **Role-Based Access Control (RBAC)** - 4 level akses dengan permission berbeda
-- **Session Management** - Keamanan dan monitoring aktifitas pengguna
+### Manajemen Pengguna
+- 4 role dengan permission berbeda: Administrator, DPMPTSP, PD Teknis, Penerbitan Berkas
+- User management dengan kontrol penuh untuk administrator
+- Validasi kredensial pada level database dan aplikasi
+- Pengaturan profil pengguna dengan update keamanan
 
-### 👥 User Roles
-1. **Admin** - Full control atas sistem dan user management
-2. **DPMPTSP** - Pengelolaan dan verifikasi permohonan
-3. **PD Teknis** - Verifikasi teknis berdasarkan sektor
-4. **Penerbitan Berkas** - Pengelolaan dokumen resmi dan persetujuan akhir
+### Pengelolaan Permohonan
+- Full CRUD untuk data permohonan
+- Tracking status: Menunggu, Diterima, Ditolak, Dikembalikan, Terlambat
+- Filter multi-kriteria: status, sektor, tanggal, jenis usaha
+- Deteksi otomatis permohonan yang melewati deadline
+- Log aktivitas untuk audit trail
 
-### 📝 Manajemen Permohonan
-- **CRUD Permohonan** - Buat, edit, lihat, dan hapus permohonan
-- **Multi-Status Tracking** - Menunggu, Diterima, Ditolak, Dikembalikan, Terlambat
-- **Filter Dinamis** - Status, Sektor, Tanggal, dan Jenis Usaha
-- **Overdue Detection** - Otomatis deteksi permohonan yang terlambat
+### Dashboard dan Analitik
+- Dashboard khusus untuk setiap role pengguna
+- Statistik real-time dengan visualisasi grafik
+- Chart distribusi status permohonan
+- Filter statistik berdasarkan periode waktu
+- Monitoring kinerja dan metrik operasional
 
-### 📊 Dashboard & Statistik
-- **Role-Based Dashboard** - Dashboard khusus untuk setiap role
-- **Statistik Real-time** - Grafik dan chart distribusi permohonan
-- **Status Visualization** - Visualisasi status dengan bright color gradients
-- **Date Range Filter** - Filter statistik berdasarkan periode
+### Ekspor Data dan Laporan
+- Ekspor data ke format Excel dengan formatting lengkap
+- Ekspor data ke PDF landscape dengan layout tabel optimal
+- Filter custom berdasarkan rentang tanggal
+- Generate dokumen penerbitan berkas dengan signature digital
+- Template PDF yang dapat dikustomisasi
 
-### 📄 Export & Laporan
-- **Excel Export** - Export data ke format Excel (.xlsx)
-- **PDF Export** - Export data ke PDF landscape
-- **Custom Date Range** - Filter data berdasarkan periode
-- **Penerbitan Berkas PDF** - Generate dokumen resmi dengan TTD digital
+### Konfigurasi Sistem
+- Pengaturan tanda tangan digital untuk dokumen resmi
+- Manajemen master data jenis usaha
+- Konfigurasi parameter sistem
+- Pengaturan role dan permission
 
-### ⚙️ Konfigurasi Sistem
-- **Pengaturan TTD** - Konfigurasi tanda tangan digital
-- **Jenis Usaha Management** - Pengelolaan kategori usaha
-- **User Management** - Pengelolaan user dengan validasi model-level
+### User Interface
+- Desain modern menggunakan Tailwind CSS framework
+- Responsive layout untuk berbagai ukuran layar
+- Interaktif dengan Alpine.js untuk interaksi real-time
+- Grafik visualisasi dengan Chart.js
+- Konsistensi warna dan tipografi
 
-### 🎨 UI/UX Features
-- **Modern Design** - Interface dengan Tailwind CSS
-- **Responsive Layout** - Optimal di semua device
-- **Real-time Updates** - Status changes terupdate langsung
-- **Interactive Charts** - Grafik interaktif dengan Chart.js
-
-## 🛠️ Teknologi
+## Stack Teknologi
 
 ### Backend
-- **Framework:** Laravel 11.x
-- **Language:** PHP 8.2+
-- **Database:** MySQL
-- **ORM:** Eloquent ORM
-- **Validation:** Form Request & Model Validation
+- Laravel 11.x
+- PHP 8.2+
+- MySQL Database
+- Eloquent ORM untuk database abstraction
+- Form Request Validation untuk input validation
 
 ### Frontend
-- **CSS Framework:** Tailwind CSS
-- **JavaScript:** Alpine.js
-- **Charts:** Chart.js
-- **Icon:** Heroicons
+- Tailwind CSS untuk styling
+- Alpine.js untuk interaktivitas
+- Chart.js untuk visualisasi data
+- Blade templating engine
 
-### Packages
-- **mews/captcha** - CAPTCHA implementation
-- **maatwebsite/excel** - Excel export functionality
-- **barryvdh/laravel-dompdf** - PDF generation
+### Dependencies
+- mews/captcha: Implementasi CAPTCHA security
+- maatwebsite/excel: Ekspor ke format Excel
+- barryvdh/laravel-dompdf: Generasi dokumen PDF
 
-## 📦 Instalasi
+## Instalasi
 
-### Requirements
-- PHP >= 8.2
-- Composer
-- Node.js & NPM
-- MySQL >= 5.7
+### Prasyarat
+- PHP versi 8.2 atau lebih tinggi
+- Composer untuk dependency management
+- Node.js dan NPM untuk asset compilation
+- MySQL versi 5.7 atau lebih tinggi
+- Web server (Apache/Nginx)
 
-### Setup
+### Langkah Instalasi
 
-1. **Clone repository**
+1. Clone repository ke direktori lokal
 ```bash
 git clone https://github.com/MUlilAMrl23091397091/sistem-perizinan.git
 cd sistem-perizinan
 ```
 
-2. **Install dependencies**
+2. Install PHP dependencies
 ```bash
 composer install
+```
+
+3. Install JavaScript dependencies
+```bash
 npm install
 ```
 
-3. **Setup environment**
+4. Konfigurasi environment
 ```bash
 cp .env.example .env
 php artisan key:generate
 ```
 
-4. **Configure database**
-Edit `.env` file dengan kredensial database Anda:
+5. Konfigurasi database pada file .env
 ```
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=your_database
-DB_USERNAME=your_username
-DB_PASSWORD=your_password
+DB_DATABASE=nama_database
+DB_USERNAME=username
+DB_PASSWORD=password
 ```
 
-5. **Run migrations**
+6. Jalankan database migration
 ```bash
 php artisan migrate
 php artisan db:seed
 ```
 
-6. **Link storage**
+7. Buat symbolic link untuk storage
 ```bash
 php artisan storage:link
 ```
 
-7. **Build assets**
+8. Compile frontend assets
 ```bash
 npm run build
 ```
 
-8. **Optimize application**
+9. Optimasi performa aplikasi
 ```bash
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 ```
 
-9. **Start development server**
+10. Jalankan development server
 ```bash
 php artisan serve
 ```
 
-Akses aplikasi di `http://localhost:8000`
+Aplikasi dapat diakses melalui http://localhost:8000
 
-## 🔑 Default Credentials
+## Struktur Database
 
-Setelah menjalankan seeder, gunakan kredensial berikut:
+Tabel utama dalam sistem:
+- users: Data pengguna dan credential
+- permohonans: Data permohonan perizinan
+- penerbitan_berkas: Data penerbitan dokumen resmi
+- jenis_usaha: Master data kategori usaha
+- ttd_settings: Konfigurasi tanda tangan digital
+- log_permohonans: Log aktivitas permohonan
 
-### Admin
-- Email: `admin@example.com`
-- Password: `password`
+## Optimasi Performa
 
-### DPMPTSP
-- Email: `dpmptsp@example.com`
-- Password: `password`
+Sistem dilengkapi dengan optimasi performa berikut:
+- Database indexing untuk mempercepat query
+- Image compression dan optimization
+- Caching untuk configuration, routes, dan views
+- GZIP compression untuk mengurangi ukuran response
+- Browser caching untuk static assets
+- Memory optimization untuk dataset besar
+- Pagination untuk mengurangi beban memory
 
-DEPERBAIKI kedepannya, sistem ini sudah direncanakan untuk deploy ke server production dengan konfigurasi keamanan yang lebih ketat.
+## Keamanan
 
-## 🚀 Performance Optimizations
+Fitur keamanan yang diimplementasikan:
+- Password hashing menggunakan bcrypt
+- CSRF protection untuk form submission
+- CAPTCHA validation untuk mencegah automated attacks
+- SQL injection prevention melalui Eloquent ORM
+- XSS protection dengan output escaping
+- Role-based authorization untuk kontrol akses
+- Session security dengan regenerate token
 
-- ✅ Database indexing untuk query optimization
-- ✅ Image compression dan optimization
-- ✅ Caching strategies (config, routes, views)
-- ✅ GZIP compression via .htaccess
-- ✅ Browser caching untuk static assets
-- ✅ Memory optimization untuk large datasets
-- ✅ Pagination untuk data besar
+## Kontribusi
 
-## 📱 Screenshots
+Kontribusi untuk pengembangan sistem ini sangat diterima. Silakan buat issue untuk melaporkan bug atau mengajukan fitur baru, atau submit pull request untuk perbaikan dan enhancement.
 
-*(Tambahkan screenshots dashboard, permohonan, dan fitur lainnya)*
+## Lisensi
 
-## 🤝 Contributing
+Proyek ini menggunakan MIT License. Lihat file LICENSE untuk detail lengkap.
 
-Kontribusi dipersilakan! Silakan buat issue atau pull request untuk perbaikan dan fitur baru.
+## Dokumentasi
 
-## 📄 License
-
-Proyek ini menggunakan [MIT License](https://opensource.org/licenses/MIT).
-
-## 👨‍💻 Developer
-
-Dikembangkan dengan ❤️ menggunakan Laravel
-
-## 📞 Support
-
-Untuk pertanyaan atau dukungan, silakan buat issue di GitHub repository ini.
+Untuk dokumentasi lebih lengkap mengenai fitur dan penggunaan sistem, silakan kunjungi Wiki section repository ini.
 
 ---
 
-<p align="center">Made with <span style="color: #e25555;">&hearts;</span> using Laravel</p>
+Dikembangkan menggunakan Laravel Framework
