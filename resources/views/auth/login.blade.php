@@ -134,6 +134,12 @@
                 <p class="text-white text-lg">Masukkan Detail Pribadimu!</p>
             </div>
 
+            @if($errors->has('email') || $errors->has('password'))
+                <div class="mb-4 text-red-300 text-sm">
+                    {{ $errors->first('email') ?: $errors->first('password') }}
+                </div>
+            @endif
+
             <form action="{{ route('login') }}" method="POST">
                 @csrf
                 

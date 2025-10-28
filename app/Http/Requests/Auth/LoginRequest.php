@@ -3,6 +3,8 @@
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Auth\Events\Lockout;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
@@ -42,6 +44,31 @@ class LoginRequest extends FormRequest
             'captcha.required' => 'Captcha harus diisi.',
             'captcha.captcha' => 'Captcha tidak valid. Silakan coba lagi.',
         ];
+    }
+
+    /**
+     * Customize validation failure to also surface credential errors
+     * so pengguna melihat pesan kredensial ketika email/password salah
+     * meskipun captcha tidak valid.
+     */
+    protected function failedValidation(Validator $validator): void
+    {
+        // Jika kredensial salah, tambahkan error auth.failed pada field email
+        if (! \Illuminate\Support\Facades\Auth::validate($this->only('email', 'password'))) {
+            $validator->errors()->add('email', trans('auth.failed'));
+        }
+
+        throw new HttpResponseException($this->response($validator));
+    }
+
+    /**
+     * Build the default failed validation response.
+     */
+    protected function response(Validator $validator)
+    {
+        return redirect()->to($this->getRedirectUrl())
+            ->withInput($this->except($this->dontFlash))
+            ->withErrors($validator->errors(), $this->errorBag);
     }
 
     /**
