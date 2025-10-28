@@ -1,61 +1,194 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistem Perizinan - Web Application
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="300" alt="Laravel Logo">
 </p>
 
-## About Laravel
+<p align="center">
+<a heavenly">PHP ^8.2</a>
+<a href="https://laravel.com"><img src="https://img.shields.io/badge/Laravel-11.x-red.svg" alt="Laravel"></a>
+<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📋 Deskripsi
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+**Sistem Perizinan** adalah aplikasi web berbasis Laravel untuk mengelola proses perizinan bisnis secara digital. Sistem ini dirancang untuk memfasilitasi pengurusan perizinan dengan workflow yang terintegrasi antara berbagai pihak terkait.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ✨ Fitur Utama
 
-## Learning Laravel
+### 🔐 Autentikasi & Keamanan
+- **Login dengan CAPTCHA** - Perlindungan tambahan untuk semua pengguna
+- **Role-Based Access Control (RBAC)** - 4 level akses dengan permission berbeda
+- **Session Management** - Keamanan dan monitoring aktifitas pengguna
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 👥 User Roles
+1. **Admin** - Full control atas sistem dan user management
+2. **DPMPTSP** - Pengelolaan dan verifikasi permohonan
+3. **PD Teknis** - Verifikasi teknis berdasarkan sektor
+4. **Penerbitan Berkas** - Pengelolaan dokumen resmi dan persetujuan akhir
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 📝 Manajemen Permohonan
+- **CRUD Permohonan** - Buat, edit, lihat, dan hapus permohonan
+- **Multi-Status Tracking** - Menunggu, Diterima, Ditolak, Dikembalikan, Terlambat
+- **Filter Dinamis** - Status, Sektor, Tanggal, dan Jenis Usaha
+- **Overdue Detection** - Otomatis deteksi permohonan yang terlambat
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 📊 Dashboard & Statistik
+- **Role-Based Dashboard** - Dashboard khusus untuk setiap role
+- **Statistik Real-time** - Grafik dan chart distribusi permohonan
+- **Status Visualization** - Visualisasi status dengan bright color gradients
+- **Date Range Filter** - Filter statistik berdasarkan periode
 
-## Laravel Sponsors
+### 📄 Export & Laporan
+- **Excel Export** - Export data ke format Excel (.xlsx)
+- **PDF Export** - Export data ke PDF landscape
+- **Custom Date Range** - Filter data berdasarkan periode
+- **Penerbitan Berkas PDF** - Generate dokumen resmi dengan TTD digital
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### ⚙️ Konfigurasi Sistem
+- **Pengaturan TTD** - Konfigurasi tanda tangan digital
+- **Jenis Usaha Management** - Pengelolaan kategori usaha
+- **User Management** - Pengelolaan user dengan validasi model-level
 
-### Premium Partners
+### 🎨 UI/UX Features
+- **Modern Design** - Interface dengan Tailwind CSS
+- **Responsive Layout** - Optimal di semua device
+- **Real-time Updates** - Status changes terupdate langsung
+- **Interactive Charts** - Grafik interaktif dengan Chart.js
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 🛠️ Teknologi
 
-## Contributing
+### Backend
+- **Framework:** Laravel 11.x
+- **Language:** PHP 8.2+
+- **Database:** MySQL
+- **ORM:** Eloquent ORM
+- **Validation:** Form Request & Model Validation
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Frontend
+- **CSS Framework:** Tailwind CSS
+- **JavaScript:** Alpine.js
+- **Charts:** Chart.js
+- **Icon:** Heroicons
 
-## Code of Conduct
+### Packages
+- **mews/captcha** - CAPTCHA implementation
+- **maatwebsite/excel** - Excel export functionality
+- **barryvdh/laravel-dompdf** - PDF generation
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 📦 Instalasi
 
-## Security Vulnerabilities
+### Requirements
+- PHP >= 8.2
+- Composer
+- Node.js & NPM
+- MySQL >= 5.7
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Setup
 
-## License
+1. **Clone repository**
+```bash
+git clone https://github.com/MUlilAMrl23091397091/sistem-perizinan.git
+cd sistem-perizinan
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+2. **Install dependencies**
+```bash
+composer install
+npm install
+```
+
+3. **Setup environment**
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+4. **Configure database**
+Edit `.env` file dengan kredensial database Anda:
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+
+5. **Run migrations**
+```bash
+php artisan migrate
+php artisan db:seed
+```
+
+6. **Link storage**
+```bash
+php artisan storage:link
+```
+
+7. **Build assets**
+```bash
+npm run build
+```
+
+8. **Optimize application**
+```bash
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+9. **Start development server**
+```bash
+php artisan serve
+```
+
+Akses aplikasi di `http://localhost:8000`
+
+## 🔑 Default Credentials
+
+Setelah menjalankan seeder, gunakan kredensial berikut:
+
+### Admin
+- Email: `admin@example.com`
+- Password: `password`
+
+### DPMPTSP
+- Email: `dpmptsp@example.com`
+- Password: `password`
+
+DEPERBAIKI kedepannya, sistem ini sudah direncanakan untuk deploy ke server production dengan konfigurasi keamanan yang lebih ketat.
+
+## 🚀 Performance Optimizations
+
+- ✅ Database indexing untuk query optimization
+- ✅ Image compression dan optimization
+- ✅ Caching strategies (config, routes, views)
+- ✅ GZIP compression via .htaccess
+- ✅ Browser caching untuk static assets
+- ✅ Memory optimization untuk large datasets
+- ✅ Pagination untuk data besar
+
+## 📱 Screenshots
+
+*(Tambahkan screenshots dashboard, permohonan, dan fitur lainnya)*
+
+## 🤝 Contributing
+
+Kontribusi dipersilakan! Silakan buat issue atau pull request untuk perbaikan dan fitur baru.
+
+## 📄 License
+
+Proyek ini menggunakan [MIT License](https://opensource.org/licenses/MIT).
+
+## 👨‍💻 Developer
+
+Dikembangkan dengan ❤️ menggunakan Laravel
+
+## 📞 Support
+
+Untuk pertanyaan atau dukungan, silakan buat issue di GitHub repository ini.
+
+---
+
+<p align="center">Made with <span style="color: #e25555;">&hearts;</span> using Laravel</p>
