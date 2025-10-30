@@ -119,6 +119,15 @@
                                 <div class="hidden">
                                     <input type="hidden" name="page" value="{{ request('page') }}" />
                                 </div>
+                                <!-- Per Page Selector -->
+                                <div class="w-32 flex-shrink-0">
+                                    <select name="per_page" onchange="this.form.submit()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                                        <option value="10" @selected(($perPage ?? 20)==10)>10 per halaman</option>
+                                        <option value="20" @selected(($perPage ?? 20)==20)>20 per halaman</option>
+                                        <option value="50" @selected(($perPage ?? 20)==50)>50 per halaman</option>
+                                        <option value="100" @selected(($perPage ?? 20)==100)>100 per halaman</option>
+                                    </select>
+                                </div>
                                 
                                 <!-- Date Filter Dropdown -->
                                 <div class="w-52 md:w-56 flex-shrink-0">
@@ -191,7 +200,7 @@
                                     <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                         <div class="flex items-center">
                                             <div class="w-2 h-2 bg-primary-500 rounded-full mr-3"></div>
-                                            {{ $index + 1 }}
+                                            {{ (($permohonans->firstItem() ?? 1) + $index) }}
                                         </div>
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -329,6 +338,10 @@
                             @endif
                             </tbody>
                         </table>
+                    </div>
+                    <!-- Pagination -->
+                    <div class="px-6 py-4 border-t border-gray-200 bg-white">
+                        {{ $permohonans->appends(request()->query())->links() }}
                     </div>
                 </div>
 

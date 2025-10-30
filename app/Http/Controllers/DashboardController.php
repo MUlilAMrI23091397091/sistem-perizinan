@@ -281,20 +281,28 @@ class DashboardController extends Controller
             });
         }
 
-        $permohonans = $query->orderBy('created_at', 'asc')->get();
+        // Kumpulan lengkap untuk statistik (tanpa paginasi)
+        $allForStats = (clone $query)->orderBy('tanggal_permohonan', 'asc')->get();
+
+        // Paginasi: per_page dapat dipilih (10/20/50/100)
+        $perPage = (int) ($request->query('per_page', 20));
+        if (!in_array($perPage, [10, 20, 50, 100], true)) {
+            $perPage = 20;
+        }
+        $permohonans = $query->orderBy('tanggal_permohonan', 'asc')->paginate($perPage)->withQueryString();
         
-        // Hitung statistik
+        // Hitung statistik dari seluruh hasil terfilter
         $stats = [
-            'totalPermohonan' => $permohonans->count(),
-            'dikembalikan' => $permohonans->where('status', 'Dikembalikan')->count(),
-            'diterima' => $permohonans->where('status', 'Diterima')->count(),
-            'ditolak' => $permohonans->where('status', 'Ditolak')->count(),
+            'totalPermohonan' => $allForStats->count(),
+            'dikembalikan' => $allForStats->where('status', 'Dikembalikan')->count(),
+            'diterima' => $allForStats->where('status', 'Diterima')->count(),
+            'ditolak' => $allForStats->where('status', 'Ditolak')->count(),
         ];
 
         // Ambil data TTD settings
         $ttdSettings = TtdSetting::getSettings();
 
-        return view('dashboard.penerbitan_berkas', compact('permohonans', 'stats', 'ttdSettings', 'selectedDateFilter', 'customDate', 'search'));
+        return view('dashboard.penerbitan_berkas', compact('permohonans', 'stats', 'ttdSettings', 'selectedDateFilter', 'customDate', 'search', 'perPage'));
     }
 
     public function exportPenerbitanBerkasExcel(Request $request)
@@ -319,35 +327,35 @@ class DashboardController extends Controller
             $now = Carbon::now();
             switch ($selectedDateFilter) {
                 case 'today':
-                    $query->whereDate('created_at', $now->toDateString());
+                    $query->whereDate('tanggal_permohonan', $now->toDateString());
                     break;
                 case 'yesterday':
-                    $query->whereDate('created_at', $now->subDay()->toDateString());
+                    $query->whereDate('tanggal_permohonan', $now->subDay()->toDateString());
                     break;
                 case 'this_week':
-                    $query->whereBetween('created_at', [
+                    $query->whereBetween('tanggal_permohonan', [
                         $now->startOfWeek()->toDateTimeString(),
                         $now->endOfWeek()->toDateTimeString(),
                     ]);
                     break;
                 case 'last_week':
-                    $query->whereBetween('created_at', [
+                    $query->whereBetween('tanggal_permohonan', [
                         $now->subWeek()->startOfWeek()->toDateTimeString(),
                         $now->subWeek()->endOfWeek()->toDateTimeString(),
                     ]);
                     break;
                 case 'this_month':
-                    $query->whereMonth('created_at', $now->month)
-                          ->whereYear('created_at', $now->year);
+                    $query->whereMonth('tanggal_permohonan', $now->month)
+                          ->whereYear('tanggal_permohonan', $now->year);
                     break;
                 case 'last_month':
                     $lastMonth = $now->subMonth();
-                    $query->whereMonth('created_at', $lastMonth->month)
-                          ->whereYear('created_at', $lastMonth->year);
+                    $query->whereMonth('tanggal_permohonan', $lastMonth->month)
+                          ->whereYear('tanggal_permohonan', $lastMonth->year);
                     break;
                 case 'custom':
                     if ($customDate) {
-                        $query->whereDate('created_at', $customDate);
+                        $query->whereDate('tanggal_permohonan', $customDate);
                     }
                     break;
             }
