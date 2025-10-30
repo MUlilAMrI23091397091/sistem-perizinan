@@ -227,40 +227,40 @@ class DashboardController extends Controller
         }
         // Admin melihat semua data penerbitan berkas
 
-        // Filter tanggal
+        // Filter tanggal berdasarkan tanggal_permohonan (bukan created_at)
         if ($selectedDateFilter) {
             $now = Carbon::now();
             switch ($selectedDateFilter) {
                 case 'today':
-                    $query->whereDate('created_at', $now->toDateString());
+                    $query->whereDate('tanggal_permohonan', $now->toDateString());
                     break;
                 case 'yesterday':
-                    $query->whereDate('created_at', $now->subDay()->toDateString());
+                    $query->whereDate('tanggal_permohonan', $now->subDay()->toDateString());
                     break;
                 case 'this_week':
-                    $query->whereBetween('created_at', [
+                    $query->whereBetween('tanggal_permohonan', [
                         $now->startOfWeek()->toDateTimeString(),
                         $now->endOfWeek()->toDateTimeString(),
                     ]);
                     break;
                 case 'last_week':
-                    $query->whereBetween('created_at', [
+                    $query->whereBetween('tanggal_permohonan', [
                         $now->subWeek()->startOfWeek()->toDateTimeString(),
                         $now->subWeek()->endOfWeek()->toDateTimeString(),
                     ]);
                     break;
                 case 'this_month':
-                    $query->whereMonth('created_at', $now->month)
-                          ->whereYear('created_at', $now->year);
+                    $query->whereMonth('tanggal_permohonan', $now->month)
+                          ->whereYear('tanggal_permohonan', $now->year);
                     break;
                 case 'last_month':
                     $lastMonth = $now->subMonth();
-                    $query->whereMonth('created_at', $lastMonth->month)
-                          ->whereYear('created_at', $lastMonth->year);
+                    $query->whereMonth('tanggal_permohonan', $lastMonth->month)
+                          ->whereYear('tanggal_permohonan', $lastMonth->year);
                     break;
                 case 'custom':
                     if ($customDate) {
-                        $query->whereDate('created_at', $customDate);
+                        $query->whereDate('tanggal_permohonan', $customDate);
                     }
                     break;
             }
@@ -353,7 +353,7 @@ class DashboardController extends Controller
             }
         }
 
-        $data = $query->orderBy('created_at', 'asc')->get();
+        $data = $query->orderBy('tanggal_permohonan', 'asc')->get();
         return Excel::download(new PenerbitanBerkasExport($data), 'data_penerbitan_berkas_' . date('Y-m-d_H-i-s') . '.xlsx');
     }
 
@@ -380,41 +380,41 @@ class DashboardController extends Controller
             $now = Carbon::now();
             switch ($selectedDateFilter) {
                 case 'today':
-                    $query->whereDate('created_at', $now->toDateString());
+                    $query->whereDate('tanggal_permohonan', $now->toDateString());
                     break;
                 case 'yesterday':
-                    $query->whereDate('created_at', $now->subDay()->toDateString());
+                    $query->whereDate('tanggal_permohonan', $now->subDay()->toDateString());
                     break;
                 case 'this_week':
-                    $query->whereBetween('created_at', [
+                    $query->whereBetween('tanggal_permohonan', [
                         $now->startOfWeek()->toDateTimeString(),
                         $now->endOfWeek()->toDateTimeString(),
                     ]);
                     break;
                 case 'last_week':
-                    $query->whereBetween('created_at', [
+                    $query->whereBetween('tanggal_permohonan', [
                         $now->subWeek()->startOfWeek()->toDateTimeString(),
                         $now->subWeek()->endOfWeek()->toDateTimeString(),
                     ]);
                     break;
                 case 'this_month':
-                    $query->whereMonth('created_at', $now->month)
-                          ->whereYear('created_at', $now->year);
+                    $query->whereMonth('tanggal_permohonan', $now->month)
+                          ->whereYear('tanggal_permohonan', $now->year);
                     break;
                 case 'last_month':
                     $lastMonth = $now->subMonth();
-                    $query->whereMonth('created_at', $lastMonth->month)
-                          ->whereYear('created_at', $lastMonth->year);
+                    $query->whereMonth('tanggal_permohonan', $lastMonth->month)
+                          ->whereYear('tanggal_permohonan', $lastMonth->year);
                     break;
                 case 'custom':
                     if ($customDate) {
-                        $query->whereDate('created_at', $customDate);
+                        $query->whereDate('tanggal_permohonan', $customDate);
                     }
                     break;
             }
         }
 
-        $penerbitanBerkas = $query->orderBy('created_at', 'asc')->get();
+        $penerbitanBerkas = $query->orderBy('tanggal_permohonan', 'asc')->get();
         $ttdSettings = TtdSetting::getSettings();
         
         $pdf = PDF::loadView('pdf.penerbitan-berkas', compact('penerbitanBerkas', 'ttdSettings'));
