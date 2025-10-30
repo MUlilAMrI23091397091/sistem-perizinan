@@ -219,7 +219,7 @@
                                         <span class="font-mono text-xs">{{ $permohonan->no_proyek ?? '-' }}</span>
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        {{ $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->format('d F Y') : '-' }}
+                                        {{ $permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->locale('id')->translatedFormat('d F Y') : '-' }}
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
                                         <span class="font-mono text-xs">{{ $permohonan->nib ?? '-' }}</span>
@@ -299,7 +299,7 @@
                                         <div class="text-xs">
                                             <p class="font-medium">DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU</p>
                                             <p class="font-mono">No: BAP/OSS/IX/{{ $permohonan->no_permohonan ?? 'N/A' }}/436.7.15/{{ date('Y') }}</p>
-                                            <p class="text-gray-600">tanggal BAP: {{ date('d F Y') }}</p>
+                                            <p class="text-gray-600">tanggal BAP: {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('d F Y') }}</p>
                                         </div>
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
