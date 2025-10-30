@@ -142,19 +142,18 @@
                                 @endif
                                 
                                 <!-- Search Input -->
-                                <div class="flex flex-1 min-w-0 w-full basis-full md:basis-auto order-last md:order-none">
-                                    <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Cari berdasarkan No. Permohonan atau Nama Usaha..." class="flex-1 min-w-0 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
+                                <div class="flex w-full md:w-96 basis-full md:basis-auto order-last md:order-none">
+                                    <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Cari berdasarkan No. Permohonan atau Nama Usaha..." class="w-full min-w-0 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
                                     <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                         </svg>
                                     </button>
+                                     <a href="{{ route('penerbitan-berkas') }}" class="ml-2 inline-flex items-center px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm whitespace-nowrap">Reset</a>
                                 </div>
                                 
                                 <!-- Reset Button -->
-                                <div class="flex-shrink-0 order-last md:order-none">
-                                    <a href="{{ route('penerbitan-berkas') }}" class="inline-block px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm whitespace-nowrap">Reset</a>
-                                </div>
+                                
                             </form>
                         </div>
                     </div>
