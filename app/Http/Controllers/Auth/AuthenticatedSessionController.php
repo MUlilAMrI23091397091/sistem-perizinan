@@ -45,13 +45,13 @@ class AuthenticatedSessionController extends Controller
     {
         try {
             // Logout user
-            Auth::guard('web')->logout();
+        Auth::guard('web')->logout();
 
             // Invalidate session
-            $request->session()->invalidate();
+        $request->session()->invalidate();
 
             // Regenerate CSRF token
-            $request->session()->regenerateToken();
+        $request->session()->regenerateToken();
 
             // Redirect to login page with success message
             return redirect()->route('login')->with('success', 'Anda telah berhasil logout.');

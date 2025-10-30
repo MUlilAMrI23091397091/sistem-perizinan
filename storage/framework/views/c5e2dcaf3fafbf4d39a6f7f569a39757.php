@@ -14,6 +14,22 @@
 
     <?php $__env->startSection('head'); ?>
         <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
+        <style>
+            /* Remove default select arrow to prevent double chevron */
+            select {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23374151' d='M10.293 3.293L6 7.586 1.707 3.293A1 1 0 00.293 4.707l5 5a1 1 0 001.414 0l5-5a1 1 0 10-1.414-1.414z'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: right 0.75rem center;
+                background-size: 1em;
+                padding-right: 2.5rem;
+            }
+            select::-ms-expand {
+                display: none;
+            }
+        </style>
     <?php $__env->stopSection(); ?>
 
     <!-- Header dengan Judul Laporan -->
@@ -75,8 +91,8 @@
             <!-- Tabel Data Permohonan -->
             <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 mb-8">
                 <div class="px-6 py-5 border-b border-gray-200" style="background-color: #F8FAFC;">
-                    <div class="flex items-center gap-8">
-                        <div class="flex items-center gap-4">
+                    <div class="flex flex-col gap-4 md:flex-row md:items-center md:gap-8">
+                        <div class="flex items-center gap-4 flex-shrink-0">
                             <h3 class="text-xl font-semibold text-gray-900 flex items-center">
                                  <svg class="w-6 h-6 text-gray-700 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -84,34 +100,58 @@
                                  Data Permohonan
                             </h3>
                             <!-- Export Buttons -->
-                            <div class="flex gap-2">
-                                <a href="<?php echo e(route('penerbitan-berkas.export.excel')); ?>" 
-                                   class="inline-flex items-center px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-sm">
-                                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                    </svg>
-                                    Export Excel
-                                </a>
-                                <a href="<?php echo e(route('penerbitan-berkas.export.pdf.landscape')); ?>" 
-                                   class="inline-flex items-center px-3 py-1.5 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors text-sm">
-                                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                    </svg>
-                                    Export PDF
-                                </a>
+                            <div class="flex gap-3 flex-shrink-0 flex-wrap">
+                                <!-- Kolom kiri: Excel -->
+                                <div class="flex flex-col gap-2">
+                                    <a href="<?php echo e(route('penerbitan-berkas.export.excel')); ?>" 
+                                       class="inline-flex items-center px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-sm">
+                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        Export Excel (Semua)
+                                    </a>
+                                    <a href="<?php echo e(route('penerbitan-berkas.export.excel', request()->only(['date_filter','custom_date']))); ?>" 
+                                       class="inline-flex items-center px-3 py-1.5 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 transition-colors text-sm">
+                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        Export Excel (Per Tanggal)
+                                    </a>
+                                </div>
+
+                                <!-- Kolom kanan: PDF -->
+                                <div class="flex flex-col gap-2">
+                                    <a href="<?php echo e(route('penerbitan-berkas.export.pdf.landscape')); ?>" 
+                                       class="inline-flex items-center px-3 py-1.5 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors text-sm">
+                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        Export PDF (Semua)
+                                    </a>
+                                    <a href="<?php echo e(route('penerbitan-berkas.export.pdf.landscape', request()->only(['date_filter','custom_date']))); ?>" 
+                                       class="inline-flex items-center px-3 py-1.5 bg-violet-600 text-white rounded-md hover:bg-violet-700 transition-colors text-sm">
+                                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                        Export PDF (Per Tanggal)
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         
-                        <!-- Filter Section with proper spacing -->
-                        <div class="flex-1">
-                            <form method="GET" action="<?php echo e(route('penerbitan-berkas')); ?>" class="flex items-center gap-4">
-                                <div class="hidden">
-                                    <input type="hidden" name="page" value="<?php echo e(request('page')); ?>" />
-                                </div>
-                                
-                                <!-- Date Filter Dropdown -->
-                                <div class="w-48">
-                                    <select name="date_filter" onchange="this.form.submit()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                        <!-- Filter Section - Vertical Stacked Layout -->
+                        <div class="w-full md:pl-4">
+                            <form method="GET" action="<?php echo e(route('penerbitan-berkas')); ?>" class="flex flex-col gap-3">
+                                <!-- Row 1: Per Page & Date Filter -->
+                                <div class="flex items-center gap-3">
+                                    <select name="per_page" onchange="this.form.submit()" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                                        <option value="10" <?php if(($perPage ?? 20)==10): echo 'selected'; endif; ?>>10 per halaman</option>
+                                        <option value="20" <?php if(($perPage ?? 20)==20): echo 'selected'; endif; ?>>20 per halaman</option>
+                                        <option value="50" <?php if(($perPage ?? 20)==50): echo 'selected'; endif; ?>>50 per halaman</option>
+                                        <option value="100" <?php if(($perPage ?? 20)==100): echo 'selected'; endif; ?>>100 per halaman</option>
+                                    </select>
+                                    
+                                    <select name="date_filter" onchange="this.form.submit()" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
                                         <option value="">Semua Periode</option>
                                         <option value="today" <?php if(($selectedDateFilter ?? '')==='today'): echo 'selected'; endif; ?>>Hari Ini</option>
                                         <option value="yesterday" <?php if(($selectedDateFilter ?? '')==='yesterday'): echo 'selected'; endif; ?>>Kemarin</option>
@@ -121,28 +161,26 @@
                                         <option value="last_month" <?php if(($selectedDateFilter ?? '')==='last_month'): echo 'selected'; endif; ?>>Bulan Lalu</option>
                                         <option value="custom" <?php if(($selectedDateFilter ?? '')==='custom'): echo 'selected'; endif; ?>>Custom</option>
                                     </select>
+                                    
+                                    <?php if(($selectedDateFilter ?? '')==='custom'): ?>
+                                    <input type="date" name="custom_date" value="<?php echo e($customDate ?? ''); ?>" onchange="this.form.submit()" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
+                                    <?php endif; ?>
                                 </div>
                                 
-                                <!-- Custom Date Input -->
-                                <?php if(($selectedDateFilter ?? '')==='custom'): ?>
-                                <div class="w-48">
-                                    <input type="date" name="custom_date" value="<?php echo e($customDate ?? ''); ?>" onchange="this.form.submit()" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
-                                </div>
-                                <?php endif; ?>
-                                
-                                <!-- Search Input -->
-                                <div class="flex flex-1 min-w-0">
-                                    <input type="text" name="search" value="<?php echo e($search ?? ''); ?>" placeholder="Cari berdasarkan No. Permohonan atau Nama Usaha..." class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
-                                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                                
-                                <!-- Reset Button -->
-                                <div class="flex-shrink-0">
-                                    <a href="<?php echo e(route('penerbitan-berkas')); ?>" class="inline-block px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm whitespace-nowrap">Reset</a>
+                                <!-- Row 2: Search & Reset -->
+                                <div class="flex items-center gap-3">
+                                    <div class="flex-1 relative">
+                                        <input type="text" name="search" value="<?php echo e($search ?? ''); ?>" placeholder="Cari berdasarkan No. Permohonan atau Nama Usaha..." class="w-full pl-4 pr-12 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
+                                        <button type="submit" class="absolute right-0 top-0 bottom-0 px-4 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700 flex items-center justify-center">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    
+                                    <a href="<?php echo e(route('penerbitan-berkas')); ?>" class="px-5 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm whitespace-nowrap flex items-center justify-center">
+                                        Reset
+                                    </a>
                                 </div>
                             </form>
                         </div>
@@ -181,7 +219,7 @@
                                     <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                         <div class="flex items-center">
                                             <div class="w-2 h-2 bg-primary-500 rounded-full mr-3"></div>
-                                            <?php echo e($index + 1); ?>
+                                            <?php echo e((($permohonans->firstItem() ?? 1) + $index)); ?>
 
                                         </div>
                                     </td>
@@ -192,7 +230,7 @@
                                         <span class="font-mono text-xs"><?php echo e($permohonan->no_proyek ?? '-'); ?></span>
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        <?php echo e($permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->format('d F Y') : '-'); ?>
+                                        <?php echo e($permohonan->tanggal_permohonan ? \Carbon\Carbon::parse($permohonan->tanggal_permohonan)->locale('id')->translatedFormat('d F Y') : '-'); ?>
 
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -276,8 +314,8 @@
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
                                         <div class="text-xs">
                                             <p class="font-medium">DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU</p>
-                                            <p class="font-mono">No: BAP/OSS/IX/<?php echo e($permohonan->no_permohonan ?? 'N/A'); ?>/436.7.15/<?php echo e(date('Y')); ?></p>
-                                            <p class="text-gray-600">tanggal BAP: <?php echo e(date('d F Y')); ?></p>
+                                            <p class="font-mono">No: BAP/OSS/IX/<?php echo e($permohonan->nomor_bap ?? '-'); ?>/436.7.15/<?php echo e(date('Y')); ?></p>
+                                            <p class="text-gray-600">tanggal BAP: <?php echo e($permohonan->tanggal_bap ? \Carbon\Carbon::parse($permohonan->tanggal_bap)->locale('id')->translatedFormat('d F Y') : '-'); ?></p>
                                         </div>
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -325,6 +363,11 @@
                             <?php endif; ?>
                             </tbody>
                         </table>
+                    </div>
+                    <!-- Pagination -->
+                    <div class="px-6 py-4 border-t border-gray-200 bg-white">
+                        <?php echo e($permohonans->appends(request()->query())->links()); ?>
+
                     </div>
                 </div>
 
@@ -1299,6 +1342,134 @@
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['messages' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($errors->get('risiko')),'class' => 'mt-2']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalf94ed9c5393ef72725d159fe01139746)): ?>
+<?php $attributes = $__attributesOriginalf94ed9c5393ef72725d159fe01139746; ?>
+<?php unset($__attributesOriginalf94ed9c5393ef72725d159fe01139746); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalf94ed9c5393ef72725d159fe01139746)): ?>
+<?php $component = $__componentOriginalf94ed9c5393ef72725d159fe01139746; ?>
+<?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
+<?php endif; ?>
+                        </div>
+
+                        <!-- Nomor BAP -->
+                        <div>
+                            <?php if (isset($component)) { $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'nomor_bap','value' => 'Nomor BAP']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('input-label'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['for' => 'nomor_bap','value' => 'Nomor BAP']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
+<?php $attributes = $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
+<?php unset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
+<?php $component = $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
+<?php unset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
+<?php endif; ?>
+                            <?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['id' => 'nomor_bap','class' => 'block mt-1 w-full','type' => 'text','name' => 'nomor_bap','value' => old('nomor_bap'),'required' => true,'placeholder' => 'Contoh: I-202506231211589788945']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('text-input'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['id' => 'nomor_bap','class' => 'block mt-1 w-full','type' => 'text','name' => 'nomor_bap','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('nomor_bap')),'required' => true,'placeholder' => 'Contoh: I-202506231211589788945']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
+<?php $attributes = $__attributesOriginal18c21970322f9e5c938bc954620c12bb; ?>
+<?php unset($__attributesOriginal18c21970322f9e5c938bc954620c12bb); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal18c21970322f9e5c938bc954620c12bb)): ?>
+<?php $component = $__componentOriginal18c21970322f9e5c938bc954620c12bb; ?>
+<?php unset($__componentOriginal18c21970322f9e5c938bc954620c12bb); ?>
+<?php endif; ?>
+                            <?php if (isset($component)) { $__componentOriginalf94ed9c5393ef72725d159fe01139746 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalf94ed9c5393ef72725d159fe01139746 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error','data' => ['messages' => $errors->get('nomor_bap'),'class' => 'mt-2']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('input-error'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['messages' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($errors->get('nomor_bap')),'class' => 'mt-2']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalf94ed9c5393ef72725d159fe01139746)): ?>
+<?php $attributes = $__attributesOriginalf94ed9c5393ef72725d159fe01139746; ?>
+<?php unset($__attributesOriginalf94ed9c5393ef72725d159fe01139746); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalf94ed9c5393ef72725d159fe01139746)): ?>
+<?php $component = $__componentOriginalf94ed9c5393ef72725d159fe01139746; ?>
+<?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
+<?php endif; ?>
+                        </div>
+
+                        <!-- Tanggal BAP -->
+                        <div>
+                            <?php if (isset($component)) { $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'tanggal_bap','value' => 'Tanggal BAP']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('input-label'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['for' => 'tanggal_bap','value' => 'Tanggal BAP']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
+<?php $attributes = $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
+<?php unset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
+<?php $component = $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
+<?php unset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
+<?php endif; ?>
+                            <?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['id' => 'tanggal_bap','class' => 'block mt-1 w-full','type' => 'date','name' => 'tanggal_bap','value' => old('tanggal_bap'),'required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('text-input'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['id' => 'tanggal_bap','class' => 'block mt-1 w-full','type' => 'date','name' => 'tanggal_bap','value' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute(old('tanggal_bap')),'required' => true]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
+<?php $attributes = $__attributesOriginal18c21970322f9e5c938bc954620c12bb; ?>
+<?php unset($__attributesOriginal18c21970322f9e5c938bc954620c12bb); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal18c21970322f9e5c938bc954620c12bb)): ?>
+<?php $component = $__componentOriginal18c21970322f9e5c938bc954620c12bb; ?>
+<?php unset($__componentOriginal18c21970322f9e5c938bc954620c12bb); ?>
+<?php endif; ?>
+                            <?php if (isset($component)) { $__componentOriginalf94ed9c5393ef72725d159fe01139746 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalf94ed9c5393ef72725d159fe01139746 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error','data' => ['messages' => $errors->get('tanggal_bap'),'class' => 'mt-2']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('input-error'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['messages' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($errors->get('tanggal_bap')),'class' => 'mt-2']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalf94ed9c5393ef72725d159fe01139746)): ?>
@@ -2752,6 +2923,94 @@
                                 <option value="Tinggi">Tinggi</option>
                             </select>
                         </div>
+
+                        <!-- Nomor BAP -->
+                        <div>
+                            <?php if (isset($component)) { $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'edit_nomor_bap','value' => 'Nomor BAP']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('input-label'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['for' => 'edit_nomor_bap','value' => 'Nomor BAP']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
+<?php $attributes = $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
+<?php unset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
+<?php $component = $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
+<?php unset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
+<?php endif; ?>
+                            <?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['id' => 'edit_nomor_bap','class' => 'block mt-1 w-full','type' => 'text','name' => 'nomor_bap','required' => true,'placeholder' => 'Contoh: I-202506231211589788945']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('text-input'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['id' => 'edit_nomor_bap','class' => 'block mt-1 w-full','type' => 'text','name' => 'nomor_bap','required' => true,'placeholder' => 'Contoh: I-202506231211589788945']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
+<?php $attributes = $__attributesOriginal18c21970322f9e5c938bc954620c12bb; ?>
+<?php unset($__attributesOriginal18c21970322f9e5c938bc954620c12bb); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal18c21970322f9e5c938bc954620c12bb)): ?>
+<?php $component = $__componentOriginal18c21970322f9e5c938bc954620c12bb; ?>
+<?php unset($__componentOriginal18c21970322f9e5c938bc954620c12bb); ?>
+<?php endif; ?>
+                        </div>
+
+                        <!-- Tanggal BAP -->
+                        <div>
+                            <?php if (isset($component)) { $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'edit_tanggal_bap','value' => 'Tanggal BAP']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('input-label'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['for' => 'edit_tanggal_bap','value' => 'Tanggal BAP']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
+<?php $attributes = $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
+<?php unset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
+<?php $component = $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
+<?php unset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
+<?php endif; ?>
+                            <?php if (isset($component)) { $__componentOriginal18c21970322f9e5c938bc954620c12bb = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal18c21970322f9e5c938bc954620c12bb = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.text-input','data' => ['id' => 'edit_tanggal_bap','class' => 'block mt-1 w-full','type' => 'date','name' => 'tanggal_bap','required' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('text-input'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['id' => 'edit_tanggal_bap','class' => 'block mt-1 w-full','type' => 'date','name' => 'tanggal_bap','required' => true]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal18c21970322f9e5c938bc954620c12bb)): ?>
+<?php $attributes = $__attributesOriginal18c21970322f9e5c938bc954620c12bb; ?>
+<?php unset($__attributesOriginal18c21970322f9e5c938bc954620c12bb); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal18c21970322f9e5c938bc954620c12bb)): ?>
+<?php $component = $__componentOriginal18c21970322f9e5c938bc954620c12bb; ?>
+<?php unset($__componentOriginal18c21970322f9e5c938bc954620c12bb); ?>
+<?php endif; ?>
+                        </div>
                     </div>
 
                     <div class="flex items-center justify-end space-x-4 pt-6">
@@ -2851,6 +3110,8 @@
                     document.getElementById('edit_nama_perizinan').value = data.nama_perizinan || '';
                     document.getElementById('edit_skala_usaha').value = data.skala_usaha || '';
                     document.getElementById('edit_risiko').value = data.risiko || '';
+                    document.getElementById('edit_nomor_bap').value = data.nomor_bap || '';
+                    document.getElementById('edit_tanggal_bap').value = data.tanggal_bap || '';
 
                     // Update form action
                     document.getElementById('editForm').action = `/penerbitan-berkas/${id}`;

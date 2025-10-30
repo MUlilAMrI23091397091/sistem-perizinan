@@ -298,8 +298,8 @@
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
                                         <div class="text-xs">
                                             <p class="font-medium">DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU</p>
-                                            <p class="font-mono">No: BAP/OSS/IX/{{ $permohonan->no_permohonan ?? 'N/A' }}/436.7.15/{{ date('Y') }}</p>
-                                            <p class="text-gray-600">tanggal BAP: {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('d F Y') }}</p>
+                                            <p class="font-mono">No: BAP/OSS/IX/{{ $permohonan->nomor_bap ?? '-' }}/436.7.15/{{ date('Y') }}</p>
+                                            <p class="text-gray-600">tanggal BAP: {{ $permohonan->tanggal_bap ? \Carbon\Carbon::parse($permohonan->tanggal_bap)->locale('id')->translatedFormat('d F Y') : '-' }}</p>
                                         </div>
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
@@ -518,6 +518,20 @@
                                 <option value="Tinggi" @selected(old('risiko') == 'Tinggi')>Tinggi</option>
                             </select>
                             <x-input-error :messages="$errors->get('risiko')" class="mt-2" />
+                        </div>
+
+                        <!-- Nomor BAP -->
+                        <div>
+                            <x-input-label for="nomor_bap" value="Nomor BAP" />
+                            <x-text-input id="nomor_bap" class="block mt-1 w-full" type="text" name="nomor_bap" :value="old('nomor_bap')" required placeholder="Contoh: I-202506231211589788945" />
+                            <x-input-error :messages="$errors->get('nomor_bap')" class="mt-2" />
+                        </div>
+
+                        <!-- Tanggal BAP -->
+                        <div>
+                            <x-input-label for="tanggal_bap" value="Tanggal BAP" />
+                            <x-text-input id="tanggal_bap" class="block mt-1 w-full" type="date" name="tanggal_bap" :value="old('tanggal_bap')" required />
+                            <x-input-error :messages="$errors->get('tanggal_bap')" class="mt-2" />
                         </div>
                     </div>
 
@@ -916,6 +930,18 @@
                                 <option value="Tinggi">Tinggi</option>
                             </select>
                         </div>
+
+                        <!-- Nomor BAP -->
+                        <div>
+                            <x-input-label for="edit_nomor_bap" value="Nomor BAP" />
+                            <x-text-input id="edit_nomor_bap" class="block mt-1 w-full" type="text" name="nomor_bap" required placeholder="Contoh: I-202506231211589788945" />
+                        </div>
+
+                        <!-- Tanggal BAP -->
+                        <div>
+                            <x-input-label for="edit_tanggal_bap" value="Tanggal BAP" />
+                            <x-text-input id="edit_tanggal_bap" class="block mt-1 w-full" type="date" name="tanggal_bap" required />
+                        </div>
                     </div>
 
                     <div class="flex items-center justify-end space-x-4 pt-6">
@@ -1015,6 +1041,8 @@
                     document.getElementById('edit_nama_perizinan').value = data.nama_perizinan || '';
                     document.getElementById('edit_skala_usaha').value = data.skala_usaha || '';
                     document.getElementById('edit_risiko').value = data.risiko || '';
+                    document.getElementById('edit_nomor_bap').value = data.nomor_bap || '';
+                    document.getElementById('edit_tanggal_bap').value = data.tanggal_bap || '';
 
                     // Update form action
                     document.getElementById('editForm').action = `/penerbitan-berkas/${id}`;

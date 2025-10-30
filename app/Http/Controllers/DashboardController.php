@@ -471,6 +471,8 @@ class DashboardController extends Controller
             'risiko' => 'required|string|in:Rendah,Menengah Rendah,Menengah Tinggi,Tinggi',
             'verifikator' => 'nullable|string',
             'status' => 'nullable|string|in:Dikembalikan,Diterima,Ditolak,Menunggu',
+            'nomor_bap' => 'required|string',
+            'tanggal_bap' => 'required|date',
         ];
 
         // Jika jenis pelaku usaha adalah Badan Usaha, jenis_badan_usaha wajib diisi
@@ -552,6 +554,8 @@ class DashboardController extends Controller
             'risiko' => 'required|string|in:Rendah,Menengah Rendah,Menengah Tinggi,Tinggi',
             'verifikator' => 'nullable|string',
             'status' => 'nullable|string|in:Dikembalikan,Diterima,Ditolak,Menunggu',
+            'nomor_bap' => 'required|string',
+            'tanggal_bap' => 'required|date',
         ];
 
         // Jika jenis pelaku usaha adalah Badan Usaha, jenis_badan_usaha wajib diisi
