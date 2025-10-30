@@ -134,14 +134,14 @@
                             <form method="GET" action="{{ route('penerbitan-berkas') }}" class="flex flex-col gap-3">
                                 <!-- Row 1: Per Page & Date Filter -->
                                 <div class="flex items-center gap-3">
-                                    <select name="per_page" onchange="this.form.submit()" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                                    <select name="per_page" onchange="this.form.submit()" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
                                         <option value="10" @selected(($perPage ?? 20)==10)>10 per halaman</option>
                                         <option value="20" @selected(($perPage ?? 20)==20)>20 per halaman</option>
                                         <option value="50" @selected(($perPage ?? 20)==50)>50 per halaman</option>
                                         <option value="100" @selected(($perPage ?? 20)==100)>100 per halaman</option>
                                     </select>
                                     
-                                    <select name="date_filter" onchange="this.form.submit()" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
+                                    <select name="date_filter" onchange="this.form.submit()" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm">
                                         <option value="">Semua Periode</option>
                                         <option value="today" @selected(($selectedDateFilter ?? '')==='today')>Hari Ini</option>
                                         <option value="yesterday" @selected(($selectedDateFilter ?? '')==='yesterday')>Kemarin</option>
@@ -153,7 +153,7 @@
                                     </select>
                                     
                                     @if(($selectedDateFilter ?? '')==='custom')
-                                    <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" onchange="this.form.submit()" class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
+                                    <input type="date" name="custom_date" value="{{ $customDate ?? '' }}" onchange="this.form.submit()" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm" />
                                     @endif
                                 </div>
                                 
