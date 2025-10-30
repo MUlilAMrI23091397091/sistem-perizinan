@@ -74,7 +74,7 @@
                                  Data Permohonan
                             </h3>
                             <!-- Export Buttons -->
-                            <div class="flex gap-2 flex-shrink-0 flex-wrap">
+                            <div class="flex flex-col gap-2 flex-shrink-0">
                                 <!-- Export Excel Semua -->
                                 <a href="{{ route('penerbitan-berkas.export.excel') }}" 
                                    class="inline-flex items-center px-3 py-1.5 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors text-sm">
