@@ -2318,6 +2318,18 @@
                     </button>
                 </div>
                 
+                <!-- Error Display -->
+                <?php if($errors->any()): ?>
+                    <div class="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                        <h4 class="text-red-800 font-semibold mb-2">Terdapat kesalahan:</h4>
+                        <ul class="list-disc list-inside text-sm text-red-700">
+                            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </ul>
+                    </div>
+                <?php endif; ?>
+                
                 <form id="editForm" method="POST" enctype="multipart/form-data">
                     <?php echo csrf_field(); ?>
                     <?php echo method_field('PUT'); ?>
@@ -3208,6 +3220,41 @@
 
         function closeEditModal() {
             document.getElementById('editModal').classList.add('hidden');
+        }
+
+        // Event listener untuk form submit dengan logging dan error handling
+        const editForm = document.getElementById('editForm');
+        if (editForm) {
+            editForm.addEventListener('submit', function(e) {
+                // Log form data sebelum submit
+                const formData = new FormData(editForm);
+                console.log('Form Submit - Action:', editForm.action);
+                console.log('Form Submit - Method:', editForm.method);
+                
+                // Log semua form data
+                const formDataObj = {};
+                for (let [key, value] of formData.entries()) {
+                    formDataObj[key] = value;
+                }
+                console.log('Form Submit - Data:', formDataObj);
+                
+                // Validasi form sebelum submit
+                const form = editForm;
+                if (!form.checkValidity()) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.error('Form validation failed!');
+                    alert('Harap lengkapi semua field yang wajib diisi!');
+                    form.classList.add('was-validated');
+                    return false;
+                }
+                
+                // Log sebelum submit
+                console.log('Submitting form to:', editForm.action);
+                
+                // Submit form (biarkan default behavior)
+                // Form akan submit normal dan redirect
+            });
         }
 
         function deletePermohonan(id) {
