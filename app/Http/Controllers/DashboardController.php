@@ -616,9 +616,27 @@ class DashboardController extends Controller
             $validated['tanggal_bap'] = null;
         }
 
-        // Update dengan fill untuk memastikan semua field ter-update
-        $permohonan->fill($validated);
-        $permohonan->save();
+        // Debug: Log data yang akan di-update
+        \Log::info('Update Penerbitan Berkas', [
+            'id' => $id,
+            'skala_usaha' => $validated['skala_usaha'] ?? 'NOT SET',
+            'risiko' => $validated['risiko'] ?? 'NOT SET',
+            'validated' => $validated
+        ]);
+
+        // Update dengan cara yang lebih eksplisit untuk memastikan semua field ter-update
+        // Gunakan update() langsung untuk memastikan field ter-update
+        $permohonan->update($validated);
+
+        // Debug: Log setelah save
+        $permohonan->refresh();
+        \Log::info('After Update Penerbitan Berkas', [
+            'id' => $id,
+            'skala_usaha' => $permohonan->skala_usaha,
+            'risiko' => $permohonan->risiko,
+            'nomor_bap' => $permohonan->nomor_bap,
+            'tanggal_bap' => $permohonan->tanggal_bap
+        ]);
 
         return redirect()->route('penerbitan-berkas')->with('success', 'Data permohonan berhasil diperbarui!');
     }
