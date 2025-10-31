@@ -1152,38 +1152,97 @@
             document.getElementById('editModal').classList.add('hidden');
         }
 
-        // Event listener untuk form submit dengan logging dan error handling
+        // Event listener untuk form submit dengan AJAX untuk handle error dengan lebih baik
         const editForm = document.getElementById('editForm');
         if (editForm) {
             editForm.addEventListener('submit', function(e) {
-                // Log form data sebelum submit
+                e.preventDefault(); // Prevent default form submit
+                
+                // Get form data
                 const formData = new FormData(editForm);
+                const submitButton = editForm.querySelector('button[type="submit"]');
+                const originalButtonText = submitButton ? submitButton.textContent : 'Simpan';
+                
+                // Disable submit button
+                if (submitButton) {
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Menyimpan...';
+                }
+                
+                // Log form data
+                console.log('=== FORM SUBMIT DEBUG ===');
                 console.log('Form Submit - Action:', editForm.action);
                 console.log('Form Submit - Method:', editForm.method);
                 
-                // Log semua form data
                 const formDataObj = {};
                 for (let [key, value] of formData.entries()) {
                     formDataObj[key] = value;
                 }
                 console.log('Form Submit - Data:', formDataObj);
+                console.log('Tanggal Permohonan:', formDataObj['tanggal_permohonan']);
+                console.log('Skala Usaha:', formDataObj['skala_usaha']);
+                console.log('Risiko:', formDataObj['risiko']);
+                console.log('Nomor BAP:', formDataObj['nomor_bap']);
+                console.log('Tanggal BAP:', formDataObj['tanggal_bap']);
+                console.log('========================');
                 
-                // Validasi form sebelum submit
-                const form = editForm;
-                if (!form.checkValidity()) {
-                    e.preventDefault();
-                    e.stopPropagation();
+                // Validasi form
+                if (!editForm.checkValidity()) {
                     console.error('Form validation failed!');
                     alert('Harap lengkapi semua field yang wajib diisi!');
-                    form.classList.add('was-validated');
+                    editForm.classList.add('was-validated');
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
+                    }
                     return false;
                 }
                 
-                // Log sebelum submit
-                console.log('Submitting form to:', editForm.action);
-                
-                // Submit form (biarkan default behavior)
-                // Form akan submit normal dan redirect
+                // Submit via AJAX
+                fetch(editForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    return response.json().catch(() => response.text());
+                })
+                .then(data => {
+                    console.log('Response data:', data);
+                    
+                    if (data.success || data.message) {
+                        // Success - reload page untuk memastikan data ter-update
+                        alert('Data berhasil diperbarui!');
+                        window.location.reload();
+                    } else if (data.errors) {
+                        // Validation errors
+                        console.error('Validation errors:', data.errors);
+                        let errorMessages = 'Terdapat kesalahan:\n';
+                        for (let field in data.errors) {
+                            errorMessages += `- ${field}: ${data.errors[field].join(', ')}\n`;
+                        }
+                        alert(errorMessages);
+                        if (submitButton) {
+                            submitButton.disabled = false;
+                            submitButton.textContent = originalButtonText;
+                        }
+                    } else {
+                        // Success but no JSON response (normal form redirect)
+                        window.location.reload();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error submitting form:', error);
+                    alert('Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
+                    if (submitButton) {
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalButtonText;
+                    }
+                });
             });
         }
 

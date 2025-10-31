@@ -651,6 +651,16 @@ class DashboardController extends Controller
             'tanggal_bap' => $permohonan->tanggal_bap
         ]);
 
+        // Jika request AJAX, return JSON response
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Data permohonan berhasil diperbarui!',
+                'data' => $permohonan->fresh()
+            ]);
+        }
+        
+        // Jika bukan AJAX, return redirect normal
         return redirect()->route('penerbitan-berkas')->with('success', 'Data permohonan berhasil diperbarui!');
     }
 
