@@ -637,22 +637,38 @@ class DashboardController extends Controller
         ]);
 
         // Update dengan cara yang lebih eksplisit untuk memastikan semua field ter-update
-        // Gunakan update() langsung untuk memastikan field ter-update
-        $permohonan->update($validated);
+        // Gunakan fill() dan save() untuk lebih eksplisit
+        $permohonan->fill($validated);
+        $saved = $permohonan->save();
 
         // Debug: Log setelah save
         $permohonan->refresh();
         \Illuminate\Support\Facades\Log::info('After Update Penerbitan Berkas', [
             'id' => $id,
+            'saved' => $saved,
             'tanggal_permohonan' => $permohonan->tanggal_permohonan,
             'skala_usaha' => $permohonan->skala_usaha,
             'risiko' => $permohonan->risiko,
             'nomor_bap' => $permohonan->nomor_bap,
-            'tanggal_bap' => $permohonan->tanggal_bap
+            'tanggal_bap' => $permohonan->tanggal_bap,
+            'is_dirty' => $permohonan->isDirty(),
+            'get_dirty' => $permohonan->getDirty()
         ]);
 
+        // Cek apakah benar-benar ter-update
+        if (!$saved) {
+            \Illuminate\Support\Facades\Log::error('Update failed for Penerbitan Berkas ID: ' . $id);
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Gagal memperbarui data!'
+                ], 500);
+            }
+            return redirect()->back()->with('error', 'Gagal memperbarui data!');
+        }
+
         // Jika request AJAX, return JSON response
-        if ($request->ajax() || $request->wantsJson()) {
+        if ($request->ajax() || $request->wantsJson() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
             return response()->json([
                 'success' => true,
                 'message' => 'Data permohonan berhasil diperbarui!',
