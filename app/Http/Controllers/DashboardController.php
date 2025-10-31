@@ -626,7 +626,7 @@ class DashboardController extends Controller
         }
 
         // Debug: Log data yang akan di-update
-        Log::info('Update Penerbitan Berkas', [
+        \Illuminate\Support\Facades\Log::info('Update Penerbitan Berkas', [
             'id' => $id,
             'tanggal_permohonan' => $validated['tanggal_permohonan'] ?? 'NOT SET',
             'skala_usaha' => $validated['skala_usaha'] ?? 'NOT SET',
@@ -642,7 +642,7 @@ class DashboardController extends Controller
 
         // Debug: Log setelah save
         $permohonan->refresh();
-        Log::info('After Update Penerbitan Berkas', [
+        \Illuminate\Support\Facades\Log::info('After Update Penerbitan Berkas', [
             'id' => $id,
             'tanggal_permohonan' => $permohonan->tanggal_permohonan,
             'skala_usaha' => $permohonan->skala_usaha,
