@@ -282,14 +282,22 @@ class DashboardController extends Controller
         }
 
         // Kumpulan lengkap untuk statistik (tanpa paginasi)
-        $allForStats = (clone $query)->orderBy('tanggal_permohonan', 'asc')->get();
+        // Order by tanggal_permohonan ASC, kemudian created_at ASC (data baru di bawah)
+        $allForStats = (clone $query)->orderBy('tanggal_permohonan', 'asc')
+                                     ->orderBy('created_at', 'asc')
+                                     ->orderBy('id', 'asc')
+                                     ->get();
 
         // Paginasi: per_page dapat dipilih (10/20/50/100)
         $perPage = (int) ($request->query('per_page', 20));
         if (!in_array($perPage, [10, 20, 50, 100], true)) {
             $perPage = 20;
         }
-        $permohonans = $query->orderBy('tanggal_permohonan', 'asc')->paginate($perPage)->withQueryString();
+        // Order by tanggal_permohonan ASC, kemudian created_at ASC (data baru di bawah)
+        $permohonans = $query->orderBy('tanggal_permohonan', 'asc')
+                            ->orderBy('created_at', 'asc')
+                            ->orderBy('id', 'asc')
+                            ->paginate($perPage)->withQueryString();
         
         // Hitung statistik dari seluruh hasil terfilter
         $stats = [
@@ -361,7 +369,11 @@ class DashboardController extends Controller
             }
         }
 
-        $data = $query->orderBy('tanggal_permohonan', 'asc')->get();
+        // Order by tanggal_permohonan ASC, kemudian created_at ASC (data baru di bawah)
+        $data = $query->orderBy('tanggal_permohonan', 'asc')
+                     ->orderBy('created_at', 'asc')
+                     ->orderBy('id', 'asc')
+                     ->get();
         return Excel::download(new PenerbitanBerkasExport($data), 'data_penerbitan_berkas_' . date('Y-m-d_H-i-s') . '.xlsx');
     }
 
@@ -422,7 +434,11 @@ class DashboardController extends Controller
             }
         }
 
-        $penerbitanBerkas = $query->orderBy('tanggal_permohonan', 'asc')->get();
+        // Order by tanggal_permohonan ASC, kemudian created_at ASC (data baru di bawah)
+        $penerbitanBerkas = $query->orderBy('tanggal_permohonan', 'asc')
+                                 ->orderBy('created_at', 'asc')
+                                 ->orderBy('id', 'asc')
+                                 ->get();
         $ttdSettings = TtdSetting::getSettings();
         
         $pdf = PDF::loadView('pdf.penerbitan-berkas', compact('penerbitanBerkas', 'ttdSettings'));

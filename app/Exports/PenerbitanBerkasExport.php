@@ -35,7 +35,12 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
         if ($this->data !== null) {
             return $this->data;
         }
-        return PenerbitanBerkas::with('user')->orderBy('created_at', 'asc')->get();
+        // Order by tanggal_permohonan ASC, kemudian created_at ASC (data baru di bawah)
+        return PenerbitanBerkas::with('user')
+                                ->orderBy('tanggal_permohonan', 'asc')
+                                ->orderBy('created_at', 'asc')
+                                ->orderBy('id', 'asc')
+                                ->get();
     }
 
     public function headings(): array
