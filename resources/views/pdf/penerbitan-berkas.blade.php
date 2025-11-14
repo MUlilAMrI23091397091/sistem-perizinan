@@ -286,7 +286,7 @@
             <tr>
                 <td colspan="1"></td>
                 <td colspan="3" class="ttd-left">
-                    <div style="height:60px; display: flex; align-items: center; justify-content: center;">
+                    <div style="height:100px; display: flex; align-items: center; justify-content: center;">
                         @php
                             $mengetahuiFile = $ttdSettings->mengetahui_photo ?? null;
                             $mengetahuiBase64 = null;
@@ -307,18 +307,20 @@
                                 
                                 // Convert ke base64 untuk DomPDF
                                 if ($mengetahuiPath && file_exists($mengetahuiPath)) {
-                                    $mengetahuiBase64 = 'data:image/jpeg;base64,' . base64_encode(file_get_contents($mengetahuiPath));
+                                    $imageInfo = getimagesize($mengetahuiPath);
+                                    $mimeType = $imageInfo ? $imageInfo['mime'] : 'image/png';
+                                    $mengetahuiBase64 = 'data:' . $mimeType . ';base64,' . base64_encode(file_get_contents($mengetahuiPath));
                                 }
                             }
                         @endphp
                         @if(!empty($mengetahuiBase64))
-                            <img src="{{ $mengetahuiBase64 }}" alt="TTD Mengetahui" style="max-height: 50px; max-width: 100px; object-fit: contain;">
+                            <img src="{{ $mengetahuiBase64 }}" alt="TTD Mengetahui" style="max-height: 80px; max-width: 200px; object-fit: contain;">
                         @endif
                     </div>
                 </td>
                 <td colspan="8"></td>
                 <td colspan="5" class="ttd-right">
-                    <div style="height:60px; display: flex; align-items: center; justify-content: center;">
+                    <div style="height:100px; display: flex; align-items: center; justify-content: center;">
                         @php
                             $menyetujuiFile = $ttdSettings->menyetujui_photo ?? null;
                             $menyetujuiBase64 = null;
@@ -339,12 +341,14 @@
                                 
                                 // Convert ke base64 untuk DomPDF
                                 if ($menyetujuiPath && file_exists($menyetujuiPath)) {
-                                    $menyetujuiBase64 = 'data:image/jpeg;base64,' . base64_encode(file_get_contents($menyetujuiPath));
+                                    $imageInfo = getimagesize($menyetujuiPath);
+                                    $mimeType = $imageInfo ? $imageInfo['mime'] : 'image/png';
+                                    $menyetujuiBase64 = 'data:' . $mimeType . ';base64,' . base64_encode(file_get_contents($menyetujuiPath));
                                 }
                             }
                         @endphp
                         @if(!empty($menyetujuiBase64))
-                            <img src="{{ $menyetujuiBase64 }}" alt="TTD Menyetujui" style="max-height: 50px; max-width: 100px; object-fit: contain;">
+                            <img src="{{ $menyetujuiBase64 }}" alt="TTD Menyetujui" style="max-height: 80px; max-width: 200px; object-fit: contain;">
                         @endif
                     </div>
                 </td>

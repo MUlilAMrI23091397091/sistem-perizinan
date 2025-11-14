@@ -220,12 +220,8 @@ class DashboardController extends Controller
 
         $query = PenerbitanBerkas::with('user');
 
-        // Filter berdasarkan role
-        if ($user->role === 'penerbitan_berkas') {
-            // Penerbitan Berkas hanya melihat data yang dibuatnya
-            $query->where('user_id', $user->id);
-        }
-        // Admin melihat semua data penerbitan berkas
+        // Role admin dan penerbitan_berkas sama-sama melihat semua data (setara)
+        // Tidak ada filter berdasarkan user_id
 
         // Filter tanggal berdasarkan tanggal_permohonan (bukan created_at)
         if ($selectedDateFilter) {
@@ -327,9 +323,8 @@ class DashboardController extends Controller
         $customDate = $request->query('custom_date');
 
         $query = PenerbitanBerkas::with('user');
-        if ($user->role === 'penerbitan_berkas') {
-            $query->where('user_id', $user->id);
-        }
+        // Role admin dan penerbitan_berkas sama-sama melihat semua data (setara)
+        // Tidak ada filter berdasarkan user_id
 
         if ($selectedDateFilter) {
             $now = Carbon::now();
@@ -392,9 +387,8 @@ class DashboardController extends Controller
         $customDate = $request->query('custom_date');
 
         $query = PenerbitanBerkas::with('user');
-        if ($user->role === 'penerbitan_berkas') {
-            $query->where('user_id', $user->id);
-        }
+        // Role admin dan penerbitan_berkas sama-sama melihat semua data (setara)
+        // Tidak ada filter berdasarkan user_id
 
         if ($selectedDateFilter) {
             $now = Carbon::now();
@@ -626,7 +620,7 @@ class DashboardController extends Controller
         }
 
         // Debug: Log data yang akan di-update
-        \Illuminate\Support\Facades\Log::info('Update Penerbitan Berkas', [
+        Log::info('Update Penerbitan Berkas', [
             'id' => $id,
             'tanggal_permohonan' => $validated['tanggal_permohonan'] ?? 'NOT SET',
             'skala_usaha' => $validated['skala_usaha'] ?? 'NOT SET',
@@ -643,7 +637,7 @@ class DashboardController extends Controller
 
         // Debug: Log setelah save
         $permohonan->refresh();
-        \Illuminate\Support\Facades\Log::info('After Update Penerbitan Berkas', [
+        Log::info('After Update Penerbitan Berkas', [
             'id' => $id,
             'saved' => $saved,
             'tanggal_permohonan' => $permohonan->tanggal_permohonan,
@@ -657,7 +651,7 @@ class DashboardController extends Controller
 
         // Cek apakah benar-benar ter-update
         if (!$saved) {
-            \Illuminate\Support\Facades\Log::error('Update failed for Penerbitan Berkas ID: ' . $id);
+            Log::error('Update failed for Penerbitan Berkas ID: ' . $id);
             if ($request->ajax() || $request->wantsJson()) {
                 return response()->json([
                     'success' => false,

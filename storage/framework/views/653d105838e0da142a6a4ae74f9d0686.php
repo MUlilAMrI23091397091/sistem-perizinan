@@ -202,110 +202,133 @@
             </a>
         </div>
 
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-    
     <script>
-        // Data untuk chart dari PHP
-        const statsData = JSON.parse('<?php echo json_encode($stats); ?>');
+        // Tunggu sampai Chart.js tersedia
+        function initChart() {
+            // Cek apakah Chart sudah tersedia
+            if (typeof Chart === 'undefined' || typeof ChartDataLabels === 'undefined') {
+                // Jika belum, coba lagi setelah 100ms
+                setTimeout(initChart, 100);
+                return;
+            }
 
-        // Data untuk chart
-        const chartData = {
-            labels: ['Total Permohonan', 'Diterima', 'Dikembalikan', 'Ditolak', 'Terlambat'],
-            datasets: [{
-                data: [
-                    statsData.totalPermohonan,
-                    statsData.diterima,
-                    statsData.dikembalikan,
-                    statsData.ditolak,
-                    statsData.terlambat
-                ],
-                backgroundColor: [
-                    '#60A5FA',
-                    '#34D399',
-                    '#FBBF24',
-                    '#F87171',
-                    '#FB923C'
-                ],
-                borderColor: [
-                    '#3B82F6',
-                    '#10B981',
-                    '#F59E0B',
-                    '#EF4444',
-                    '#F97316'
-                ],
-                borderWidth: 2,
-                hoverOffset: 10
-            }]
-        };
+            // Data untuk chart dari PHP
+            const statsData = JSON.parse('<?php echo json_encode($stats); ?>');
 
-        // Konfigurasi chart
-        const config = {
-            type: 'pie',
-            data: chartData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false  // Menyembunyikan legend default karena sudah ada di sebelah kiri
-                    },
-                    tooltip: {
-                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                        titleColor: 'white',
-                        bodyColor: 'white',
-                        borderColor: 'rgba(255, 255, 255, 0.1)',
-                        borderWidth: 1,
-                        cornerRadius: 8,
-                        displayColors: true,
-                        callbacks: {
-                            label: function(context) {
-                                const label = context.label || '';
-                                const value = context.parsed;
+            // Data untuk chart
+            const chartData = {
+                labels: ['Total Permohonan', 'Diterima', 'Dikembalikan', 'Ditolak', 'Terlambat'],
+                datasets: [{
+                    data: [
+                        statsData.totalPermohonan,
+                        statsData.diterima,
+                        statsData.dikembalikan,
+                        statsData.ditolak,
+                        statsData.terlambat
+                    ],
+                    backgroundColor: [
+                        '#60A5FA',
+                        '#34D399',
+                        '#FBBF24',
+                        '#F87171',
+                        '#FB923C'
+                    ],
+                    borderColor: [
+                        '#3B82F6',
+                        '#10B981',
+                        '#F59E0B',
+                        '#EF4444',
+                        '#F97316'
+                    ],
+                    borderWidth: 2,
+                    hoverOffset: 10
+                }]
+            };
+
+            // Konfigurasi chart
+            const config = {
+                type: 'pie',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false  // Menyembunyikan legend default karena sudah ada di sebelah kiri
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleColor: 'white',
+                            bodyColor: 'white',
+                            borderColor: 'rgba(255, 255, 255, 0.1)',
+                            borderWidth: 1,
+                            cornerRadius: 8,
+                            displayColors: true,
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.parsed;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        },
+                        datalabels: {
+                            display: true,
+                            color: 'white',
+                            font: {
+                                weight: 'bold',
+                                size: 14
+                            },
+                            formatter: function(value, context) {
                                 const total = context.dataset.data.reduce((a, b) => a + b, 0);
                                 const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
-                                return `${label}: ${value} (${percentage}%)`;
+                                return percentage + '%';
                             }
                         }
                     },
-                    datalabels: {
-                        display: true,
-                        color: 'white',
-                        font: {
-                            weight: 'bold',
-                            size: 14
-                        },
-                        formatter: function(value, context) {
-                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                            const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
-                            return percentage + '%';
-                        }
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true,
+                        duration: 2000,
+                        easing: 'easeOutQuart'
                     }
-                },
-                animation: {
-                    animateRotate: true,
-                    animateScale: true,
-                    duration: 2000,
-                    easing: 'easeOutQuart'
+                }
+            };
+
+            // Registrasi plugin datalabels (jika belum terdaftar)
+            // Chart.js akan otomatis menangani duplikasi registrasi
+            if (ChartDataLabels) {
+                try {
+                    Chart.register(ChartDataLabels);
+                } catch (e) {
+                    // Plugin mungkin sudah terdaftar, abaikan error
+                    console.log('ChartDataLabels plugin already registered or error:', e);
                 }
             }
-        };
 
-        // Registrasi plugin datalabels
-        Chart.register(ChartDataLabels);
+            // Inisialisasi chart
+            const ctx = document.getElementById('permohonanChart');
+            if (ctx) {
+                new Chart(ctx, config);
 
-        // Inisialisasi chart
-        const ctx = document.getElementById('permohonanChart').getContext('2d');
-        new Chart(ctx, config);
-
-        // Responsive handling
-        window.addEventListener('resize', function() {
-            const chart = Chart.getChart('permohonanChart');
-            if (chart) {
-                chart.resize();
+                // Responsive handling
+                window.addEventListener('resize', function() {
+                    const chart = Chart.getChart('permohonanChart');
+                    if (chart) {
+                        chart.resize();
+                    }
+                });
             }
-        });
+        }
+
+        // Mulai inisialisasi saat DOM ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initChart);
+        } else {
+            initChart();
+        }
     </script>
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>

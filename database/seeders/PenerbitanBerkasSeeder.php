@@ -18,10 +18,11 @@ class PenerbitanBerkasSeeder extends Seeder
     {
         $faker = Faker::create('id_ID');
         
-        // Ambil user dengan role admin atau penerbitan_berkas
-        $users = User::whereIn('role', ['admin', 'penerbitan_berkas'])->get();
+        // Ambil user admin pertama (atau user pertama) untuk semua data
+        $user = User::where('role', 'admin')->first() 
+                ?? User::whereIn('role', ['admin', 'penerbitan_berkas'])->first();
         
-        if ($users->isEmpty()) {
+        if (!$user) {
             $this->command->warn('Tidak ada user dengan role admin atau penerbitan_berkas. Membuat user dummy...');
             $user = User::create([
                 'name' => 'Admin Penerbitan',
@@ -29,8 +30,10 @@ class PenerbitanBerkasSeeder extends Seeder
                 'password' => bcrypt('password'),
                 'role' => 'admin',
             ]);
-            $users = collect([$user]);
         }
+        
+        // Gunakan user_id yang sama untuk semua 10 data
+        $userId = $user->id;
 
         // Data opsi
         $jenisPelakuUsaha = ['Orang Perseorangan', 'Badan Usaha'];
@@ -52,10 +55,10 @@ class PenerbitanBerkasSeeder extends Seeder
         $status = ['Menunggu', 'Diterima', 'Ditolak', 'Dikembalikan'];
         $kbliOptions = ['47111', '47112', '47113', '47114', '47115', '56101', '56102', '70209', '73100', '82301'];
 
-        // Generate 30 data penerbitan berkas
-        $this->command->info('Creating 30 Penerbitan Berkas records...');
+        // Generate 10 data penerbitan berkas
+        $this->command->info('Creating 10 Penerbitan Berkas records...');
 
-        for ($i = 1; $i <= 30; $i++) {
+        for ($i = 1; $i <= 10; $i++) {
             $jenisPelaku = $faker->randomElement($jenisPelakuUsaha);
             $tanggalPermohonan = $faker->dateTimeBetween('-6 months', 'now');
             $tanggalBap = $faker->dateTimeBetween($tanggalPermohonan, 'now');
@@ -64,7 +67,7 @@ class PenerbitanBerkasSeeder extends Seeder
             $nomorBap = 'BAP/OSS/IX/I-' . $faker->numerify('#########') . '/436.7.15/' . $tanggalBap->format('Y');
 
             $data = [
-                'user_id' => $users->random()->id,
+                'user_id' => $userId,
                 'no_permohonan' => 'PB-' . str_pad($i, 6, '0', STR_PAD_LEFT) . '-' . date('Y'),
                 'no_proyek' => 'PROY-' . str_pad($i, 4, '0', STR_PAD_LEFT),
                 'tanggal_permohonan' => $tanggalPermohonan,
@@ -87,12 +90,8 @@ class PenerbitanBerkasSeeder extends Seeder
             ];
 
             PenerbitanBerkas::create($data);
-            
-            if ($i % 10 == 0) {
-                $this->command->info("Created {$i} records...");
-            }
         }
 
-        $this->command->info('✅ Successfully created 30 Penerbitan Berkas records!');
+        $this->command->info('✅ Successfully created 10 Penerbitan Berkas records!');
     }
 }

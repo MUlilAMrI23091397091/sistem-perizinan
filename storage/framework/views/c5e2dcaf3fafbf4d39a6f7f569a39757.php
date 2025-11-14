@@ -327,7 +327,7 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        <?php if(in_array(auth()->user() && auth()->user()->role, ['admin', 'penerbitan_berkas'])): ?>
+                                        <?php if(auth()->user() && in_array(auth()->user()->role, ['admin', 'penerbitan_berkas'])): ?>
                                         <div class="flex items-center space-x-2">
                                             <!-- Edit Button -->
                                             <button data-edit-id="<?php echo e($permohonan->id); ?>" 
@@ -1522,7 +1522,15 @@
 
             <!-- Kolom TTD -->
             <?php if(in_array(auth()->user() && auth()->user()->role, ['admin', 'penerbitan_berkas'])): ?>
-            <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6" x-data="{ editTTD: false }">
+            <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6" 
+                 x-data="{ editTTD: false }"
+                 x-init="
+                    $watch('editTTD', value => {
+                        if (value && typeof initSignaturePads === 'function') {
+                            setTimeout(() => initSignaturePads(), 300);
+                        }
+                    });
+                 ">
                 <!-- Header dengan tombol edit -->
                 <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-violet-50 mb-6 -m-6">
                     <div class="flex justify-between items-center">
@@ -1814,14 +1822,14 @@
                                 <div class="md:col-span-2">
                                     <?php if (isset($component)) { $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'mengetahui_photo','value' => 'Foto TTD Mengetahui']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'mengetahui_photo','value' => 'Tanda Tangan Digital Mengetahui']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['for' => 'mengetahui_photo','value' => 'Foto TTD Mengetahui']); ?>
+<?php $component->withAttributes(['for' => 'mengetahui_photo','value' => 'Tanda Tangan Digital Mengetahui']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
@@ -1832,35 +1840,52 @@
 <?php $component = $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
 <?php unset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
 <?php endif; ?>
-                                    <input id="mengetahui_photo" class="block mt-1 w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100" type="file" name="mengetahui_photo" accept="image/*" />
-                                    <?php if($ttdSettings->mengetahui_photo): ?>
-                                        <div class="mt-2 p-3 bg-gray-50 rounded-lg">
-                                            <p class="text-xs text-gray-500 mb-2">Foto saat ini:</p>
-                                            <div class="flex items-center space-x-3">
-                                                <?php
-                                                    $file = $ttdSettings->mengetahui_photo;
-                                                    $url = null;
-                                                    if ($file) {
-                                                        if (file_exists(public_path('storage/ttd_photos/' . $file))) {
-                                                            $url = asset('storage/ttd_photos/' . $file);
-                                                        } elseif (file_exists(public_path('storage/ttd-photos/' . $file))) {
-                                                            $url = asset('storage/ttd-photos/' . $file);
+                                    
+                                    <!-- Signature Pad Canvas -->
+                                    <div class="mt-2">
+                                        <div class="border-2 border-gray-300 rounded-lg bg-white" style="position: relative;">
+                                            <canvas id="signatureCanvasMengetahui" width="800" height="300" style="display: block; width: 100%; height: 300px; touch-action: none;"></canvas>
+                                        </div>
+                                        <div class="mt-2 flex gap-2">
+                                            <button type="button" id="clearMengetahui" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium">
+                                                Hapus
+                                            </button>
+                                            <button type="button" id="saveMengetahui" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 text-sm font-medium">
+                                                Simpan TTD
+                                            </button>
+                                        </div>
+                                        <input type="hidden" id="mengetahui_photo_base64" name="mengetahui_photo_base64" value="">
+                                        
+                                        <!-- Preview TTD saat ini -->
+                                        <?php if($ttdSettings->mengetahui_photo): ?>
+                                            <div class="mt-3 p-3 bg-gray-50 rounded-lg">
+                                                <p class="text-xs text-gray-500 mb-2">TTD saat ini:</p>
+                                                <div class="flex items-center space-x-3">
+                                                    <?php
+                                                        $file = $ttdSettings->mengetahui_photo;
+                                                        $url = null;
+                                                        if ($file) {
+                                                            if (file_exists(public_path('storage/ttd_photos/' . $file))) {
+                                                                $url = asset('storage/ttd_photos/' . $file);
+                                                            } elseif (file_exists(public_path('storage/ttd-photos/' . $file))) {
+                                                                $url = asset('storage/ttd-photos/' . $file);
+                                                            }
                                                         }
-                                                    }
-                                                ?>
-                                                <?php if($url): ?>
-                                                    <img src="<?php echo e($url); ?>" alt="TTD Mengetahui" class="w-20 h-20 object-cover rounded border">
-                                                <?php endif; ?>
-                                                <div>
-                                                    <p class="text-sm text-gray-700"><?php echo e($ttdSettings->mengetahui_photo); ?></p>
-                                                    <label class="inline-flex items-center mt-2">
-                                                        <input type="checkbox" name="delete_mengetahui_photo" value="1" class="rounded border-gray-300 text-red-600 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50">
-                                                        <span class="ml-2 text-sm text-red-600">Hapus foto ini</span>
-                                                    </label>
+                                                    ?>
+                                                    <?php if($url): ?>
+                                                        <img src="<?php echo e($url); ?>" alt="TTD Mengetahui" class="w-64 h-40 object-contain border border-gray-300 rounded bg-white">
+                                                    <?php endif; ?>
+                                                    <div>
+                                                        <p class="text-sm text-gray-700"><?php echo e($ttdSettings->mengetahui_photo); ?></p>
+                                                        <label class="inline-flex items-center mt-2">
+                                                            <input type="checkbox" name="delete_mengetahui_photo" value="1" class="rounded border-gray-300 text-red-600 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50">
+                                                            <span class="ml-2 text-sm text-red-600">Hapus TTD ini</span>
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    <?php endif; ?>
+                                        <?php endif; ?>
+                                    </div>
                                     <?php if (isset($component)) { $__componentOriginalf94ed9c5393ef72725d159fe01139746 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalf94ed9c5393ef72725d159fe01139746 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error','data' => ['messages' => $errors->get('mengetahui_photo'),'class' => 'mt-2']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -2152,14 +2177,14 @@
                                 <div class="md:col-span-2">
                                     <?php if (isset($component)) { $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'menyetujui_photo','value' => 'Foto TTD Menyetujui']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-label','data' => ['for' => 'menyetujui_photo','value' => 'Tanda Tangan Digital Menyetujui']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-label'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
 <?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['for' => 'menyetujui_photo','value' => 'Foto TTD Menyetujui']); ?>
+<?php $component->withAttributes(['for' => 'menyetujui_photo','value' => 'Tanda Tangan Digital Menyetujui']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginale3da9d84bb64e4bc2eeebaafabfb2581)): ?>
@@ -2170,35 +2195,52 @@
 <?php $component = $__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581; ?>
 <?php unset($__componentOriginale3da9d84bb64e4bc2eeebaafabfb2581); ?>
 <?php endif; ?>
-                                    <input id="menyetujui_photo" class="block mt-1 w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100" type="file" name="menyetujui_photo" accept="image/*" />
-                                    <?php if($ttdSettings->menyetujui_photo): ?>
-                                        <div class="mt-2 p-3 bg-gray-50 rounded-lg">
-                                            <p class="text-xs text-gray-500 mb-2">Foto saat ini:</p>
-                                            <div class="flex items-center space-x-3">
-                                                <?php
-                                                    $file = $ttdSettings->menyetujui_photo;
-                                                    $url = null;
-                                                    if ($file) {
-                                                        if (file_exists(public_path('storage/ttd_photos/' . $file))) {
-                                                            $url = asset('storage/ttd_photos/' . $file);
-                                                        } elseif (file_exists(public_path('storage/ttd-photos/' . $file))) {
-                                                            $url = asset('storage/ttd-photos/' . $file);
+                                    
+                                    <!-- Signature Pad Canvas -->
+                                    <div class="mt-2">
+                                        <div class="border-2 border-gray-300 rounded-lg bg-white" style="position: relative;">
+                                            <canvas id="signatureCanvasMenyetujui" width="800" height="300" style="display: block; width: 100%; height: 300px; touch-action: none;"></canvas>
+                                        </div>
+                                        <div class="mt-2 flex gap-2">
+                                            <button type="button" id="clearMenyetujui" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium">
+                                                Hapus
+                                            </button>
+                                            <button type="button" id="saveMenyetujui" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 text-sm font-medium">
+                                                Simpan TTD
+                                            </button>
+                                        </div>
+                                        <input type="hidden" id="menyetujui_photo_base64" name="menyetujui_photo_base64" value="">
+                                        
+                                        <!-- Preview TTD saat ini -->
+                                        <?php if($ttdSettings->menyetujui_photo): ?>
+                                            <div class="mt-3 p-3 bg-gray-50 rounded-lg">
+                                                <p class="text-xs text-gray-500 mb-2">TTD saat ini:</p>
+                                                <div class="flex items-center space-x-3">
+                                                    <?php
+                                                        $file = $ttdSettings->menyetujui_photo;
+                                                        $url = null;
+                                                        if ($file) {
+                                                            if (file_exists(public_path('storage/ttd_photos/' . $file))) {
+                                                                $url = asset('storage/ttd_photos/' . $file);
+                                                            } elseif (file_exists(public_path('storage/ttd-photos/' . $file))) {
+                                                                $url = asset('storage/ttd-photos/' . $file);
+                                                            }
                                                         }
-                                                    }
-                                                ?>
-                                                <?php if($url): ?>
-                                                    <img src="<?php echo e($url); ?>" alt="TTD Menyetujui" class="w-20 h-20 object-cover rounded border">
-                                                <?php endif; ?>
-                                                <div>
-                                                    <p class="text-sm text-gray-700"><?php echo e($ttdSettings->menyetujui_photo); ?></p>
-                                                    <label class="inline-flex items-center mt-2">
-                                                        <input type="checkbox" name="delete_menyetujui_photo" value="1" class="rounded border-gray-300 text-red-600 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50">
-                                                        <span class="ml-2 text-sm text-red-600">Hapus foto ini</span>
-                                                    </label>
+                                                    ?>
+                                                    <?php if($url): ?>
+                                                        <img src="<?php echo e($url); ?>" alt="TTD Menyetujui" class="w-64 h-40 object-contain border border-gray-300 rounded bg-white">
+                                                    <?php endif; ?>
+                                                    <div>
+                                                        <p class="text-sm text-gray-700"><?php echo e($ttdSettings->menyetujui_photo); ?></p>
+                                                        <label class="inline-flex items-center mt-2">
+                                                            <input type="checkbox" name="delete_menyetujui_photo" value="1" class="rounded border-gray-300 text-red-600 shadow-sm focus:border-red-300 focus:ring focus:ring-red-200 focus:ring-opacity-50">
+                                                            <span class="ml-2 text-sm text-red-600">Hapus TTD ini</span>
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    <?php endif; ?>
+                                        <?php endif; ?>
+                                    </div>
                                     <?php if (isset($component)) { $__componentOriginalf94ed9c5393ef72725d159fe01139746 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalf94ed9c5393ef72725d159fe01139746 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error','data' => ['messages' => $errors->get('menyetujui_photo'),'class' => 'mt-2']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
@@ -2255,6 +2297,232 @@
                     </form>
                 </div>
 
+                <!-- Script untuk Signature Pad -->
+                <script>
+                    // Global variables untuk menyimpan instance signature pad
+                    let signaturePadMengetahui = null;
+                    let signaturePadMenyetujui = null;
+
+                    // Function untuk menginisialisasi signature pad
+                    window.initSignaturePads = function() {
+                        console.log('initSignaturePads called');
+                        
+                        // Tunggu sampai SignaturePad tersedia
+                        if (typeof SignaturePad === 'undefined') {
+                            console.log('SignaturePad belum tersedia, retry...');
+                            setTimeout(initSignaturePads, 100);
+                            return;
+                        }
+                        
+                        console.log('SignaturePad tersedia');
+
+                        // Initialize Signature Pad untuk Mengetahui
+                        const canvasMengetahui = document.getElementById('signatureCanvasMengetahui');
+                        console.log('Canvas Mengetahui:', canvasMengetahui);
+                        
+                        if (canvasMengetahui) {
+                            // Reset instance jika sudah ada
+                            if (signaturePadMengetahui) {
+                                signaturePadMengetahui.clear();
+                                signaturePadMengetahui = null;
+                            }
+                            
+                            // Hapus event listener lama dengan cara yang lebih aman
+                            const clearBtnMengetahui = document.getElementById('clearMengetahui');
+                            const saveBtnMengetahui = document.getElementById('saveMengetahui');
+                            
+                            // Clone dan replace button untuk menghapus event listener lama
+                            if (clearBtnMengetahui) {
+                                const newClearBtn = clearBtnMengetahui.cloneNode(true);
+                                clearBtnMengetahui.parentNode.replaceChild(newClearBtn, clearBtnMengetahui);
+                            }
+                            if (saveBtnMengetahui) {
+                                const newSaveBtn = saveBtnMengetahui.cloneNode(true);
+                                saveBtnMengetahui.parentNode.replaceChild(newSaveBtn, saveBtnMengetahui);
+                            }
+
+                            // Tunggu canvas ter-render
+                            setTimeout(() => {
+                                const rect = canvasMengetahui.getBoundingClientRect();
+                                console.log('Canvas Mengetahui size:', rect.width, rect.height);
+                                
+                                if (rect.width > 0 && rect.height > 0) {
+                                    // Adjust canvas size dulu sebelum membuat SignaturePad
+                                    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                                    canvasMengetahui.width = rect.width * ratio;
+                                    canvasMengetahui.height = rect.height * ratio;
+                                    const ctx = canvasMengetahui.getContext('2d');
+                                    ctx.scale(ratio, ratio);
+                                    
+                                    signaturePadMengetahui = new SignaturePad(canvasMengetahui, {
+                                        backgroundColor: 'rgb(255, 255, 255)',
+                                        penColor: 'rgb(0, 0, 0)',
+                                        minWidth: 1,
+                                        maxWidth: 3,
+                                    });
+                                    
+                                    console.log('SignaturePad Mengetahui initialized', signaturePadMengetahui);
+
+                                    // Clear button
+                                    const clearBtn = document.getElementById('clearMengetahui');
+                                    if (clearBtn) {
+                                        clearBtn.addEventListener('click', function(e) {
+                                            e.preventDefault();
+                                            signaturePadMengetahui.clear();
+                                            document.getElementById('mengetahui_photo_base64').value = '';
+                                            console.log('Canvas Mengetahui cleared');
+                                        });
+                                    }
+
+                                    // Save button
+                                    const saveBtn = document.getElementById('saveMengetahui');
+                                    if (saveBtn) {
+                                        saveBtn.addEventListener('click', function(e) {
+                                            e.preventDefault();
+                                            if (signaturePadMengetahui.isEmpty()) {
+                                                if (typeof Swal !== 'undefined') {
+                                                    Swal.fire({
+                                                        icon: 'warning',
+                                                        title: 'Tanda Tangan Kosong',
+                                                        text: 'Silakan gambar tanda tangan Anda terlebih dahulu.',
+                                                        toast: true,
+                                                        position: 'top-end',
+                                                        showConfirmButton: false,
+                                                        timer: 3000
+                                                    });
+                                                }
+                                                return;
+                                            }
+                                            
+                                            // Simpan dengan resolusi tinggi (2x untuk kualitas lebih baik)
+                                            const dataURL = signaturePadMengetahui.toDataURL('image/png', 1.0);
+                                            document.getElementById('mengetahui_photo_base64').value = dataURL;
+                                            console.log('TTD Mengetahui saved');
+                                            
+                                            if (typeof Swal !== 'undefined') {
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'TTD Tersimpan',
+                                                    text: 'Tanda tangan telah disimpan. Jangan lupa klik "Simpan Pengaturan" untuk menyimpan ke server.',
+                                                    toast: true,
+                                                    position: 'top-end',
+                                                    showConfirmButton: false,
+                                                    timer: 3000
+                                                });
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    console.error('Canvas Mengetahui belum ter-render dengan benar');
+                                }
+                            }, 300);
+                        }
+
+                        // Initialize Signature Pad untuk Menyetujui
+                        const canvasMenyetujui = document.getElementById('signatureCanvasMenyetujui');
+                        console.log('Canvas Menyetujui:', canvasMenyetujui);
+                        
+                        if (canvasMenyetujui) {
+                            // Reset instance jika sudah ada
+                            if (signaturePadMenyetujui) {
+                                signaturePadMenyetujui.clear();
+                                signaturePadMenyetujui = null;
+                            }
+                            
+                            // Hapus event listener lama
+                            const clearBtnMenyetujui = document.getElementById('clearMenyetujui');
+                            const saveBtnMenyetujui = document.getElementById('saveMenyetujui');
+                            
+                            if (clearBtnMenyetujui) {
+                                const newClearBtn = clearBtnMenyetujui.cloneNode(true);
+                                clearBtnMenyetujui.parentNode.replaceChild(newClearBtn, clearBtnMenyetujui);
+                            }
+                            if (saveBtnMenyetujui) {
+                                const newSaveBtn = saveBtnMenyetujui.cloneNode(true);
+                                saveBtnMenyetujui.parentNode.replaceChild(newSaveBtn, saveBtnMenyetujui);
+                            }
+
+                            // Tunggu canvas ter-render
+                            setTimeout(() => {
+                                const rect = canvasMenyetujui.getBoundingClientRect();
+                                console.log('Canvas Menyetujui size:', rect.width, rect.height);
+                                
+                                if (rect.width > 0 && rect.height > 0) {
+                                    // Adjust canvas size dulu sebelum membuat SignaturePad
+                                    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                                    canvasMenyetujui.width = rect.width * ratio;
+                                    canvasMenyetujui.height = rect.height * ratio;
+                                    const ctx = canvasMenyetujui.getContext('2d');
+                                    ctx.scale(ratio, ratio);
+                                    
+                                    signaturePadMenyetujui = new SignaturePad(canvasMenyetujui, {
+                                        backgroundColor: 'rgb(255, 255, 255)',
+                                        penColor: 'rgb(0, 0, 0)',
+                                        minWidth: 1,
+                                        maxWidth: 3,
+                                    });
+                                    
+                                    console.log('SignaturePad Menyetujui initialized', signaturePadMenyetujui);
+
+                                    // Clear button
+                                    const clearBtn = document.getElementById('clearMenyetujui');
+                                    if (clearBtn) {
+                                        clearBtn.addEventListener('click', function(e) {
+                                            e.preventDefault();
+                                            signaturePadMenyetujui.clear();
+                                            document.getElementById('menyetujui_photo_base64').value = '';
+                                            console.log('Canvas Menyetujui cleared');
+                                        });
+                                    }
+
+                                    // Save button
+                                    const saveBtn = document.getElementById('saveMenyetujui');
+                                    if (saveBtn) {
+                                        saveBtn.addEventListener('click', function(e) {
+                                            e.preventDefault();
+                                            if (signaturePadMenyetujui.isEmpty()) {
+                                                if (typeof Swal !== 'undefined') {
+                                                    Swal.fire({
+                                                        icon: 'warning',
+                                                        title: 'Tanda Tangan Kosong',
+                                                        text: 'Silakan gambar tanda tangan Anda terlebih dahulu.',
+                                                        toast: true,
+                                                        position: 'top-end',
+                                                        showConfirmButton: false,
+                                                        timer: 3000
+                                                    });
+                                                }
+                                                return;
+                                            }
+                                            
+                                            // Simpan dengan resolusi tinggi (2x untuk kualitas lebih baik)
+                                            const dataURL = signaturePadMenyetujui.toDataURL('image/png', 1.0);
+                                            document.getElementById('menyetujui_photo_base64').value = dataURL;
+                                            console.log('TTD Menyetujui saved');
+                                            
+                                            if (typeof Swal !== 'undefined') {
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'TTD Tersimpan',
+                                                    text: 'Tanda tangan telah disimpan. Jangan lupa klik "Simpan Pengaturan" untuk menyimpan ke server.',
+                                                    toast: true,
+                                                    position: 'top-end',
+                                                    showConfirmButton: false,
+                                                    timer: 3000
+                                                });
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    console.error('Canvas Menyetujui belum ter-render dengan benar');
+                                }
+                            }, 300);
+                        }
+                    };
+                    
+                    console.log('Signature Pad script loaded');
+                </script>
+
                 <!-- Tampilan TTD -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Mengetahui -->
@@ -2262,7 +2530,7 @@
                         <p class="text-sm text-gray-600 mb-4"><?php echo e($ttdSettings->mengetahui_title); ?></p>
                         <p class="text-sm text-gray-600 mb-2"><?php echo e($ttdSettings->mengetahui_jabatan); ?></p>
                         <p class="text-sm text-gray-600 mb-4"><?php echo e($ttdSettings->mengetahui_unit); ?></p>
-                        <div class="h-20 border-b border-gray-300 mb-2 flex items-center justify-center">
+                        <div class="h-32 border-b border-gray-300 mb-2 flex items-center justify-center">
                             <?php if($ttdSettings->mengetahui_photo): ?>
                                 <?php
                                     $file = $ttdSettings->mengetahui_photo;
@@ -2276,7 +2544,7 @@
                                     }
                                 ?>
                                 <?php if($url): ?>
-                                    <img src="<?php echo e($url); ?>" alt="TTD Mengetahui" class="max-h-16 max-w-32 object-contain">
+                                    <img src="<?php echo e($url); ?>" alt="TTD Mengetahui" class="max-h-32 max-w-64 object-contain">
                                 <?php endif; ?>
                             <?php endif; ?>
                         </div>
@@ -2289,9 +2557,9 @@
                     <div class="text-center">
                         <p class="text-sm text-gray-600 mb-4"><?php echo e($ttdSettings->menyetujui_lokasi ?? 'Surabaya'); ?>, <?php echo e($ttdSettings->menyetujui_tanggal ? \Carbon\Carbon::parse($ttdSettings->menyetujui_tanggal)->format('d F Y') : date('d F Y')); ?></p>
                         <p class="text-sm text-gray-600 mb-2"><?php echo e($ttdSettings->menyetujui_jabatan); ?></p>
-                        <div class="h-20 border-b border-gray-300 mb-2 flex items-center justify-center">
+                        <div class="h-32 border-b border-gray-300 mb-2 flex items-center justify-center">
                             <?php if($ttdSettings->menyetujui_photo): ?>
-                                <img src="<?php echo e(asset('storage/ttd_photos/' . $ttdSettings->menyetujui_photo)); ?>" alt="TTD Menyetujui" class="max-h-16 max-w-32 object-contain">
+                                <img src="<?php echo e(asset('storage/ttd_photos/' . $ttdSettings->menyetujui_photo)); ?>" alt="TTD Menyetujui" class="max-h-32 max-w-64 object-contain">
                             <?php endif; ?>
                         </div>
                         <p class="text-sm font-medium text-gray-900"><?php echo e($ttdSettings->menyetujui_nama); ?></p>
@@ -3132,7 +3400,15 @@
                     // Pastikan ID sesuai
                     if (data.id && parseInt(data.id) !== id) {
                         console.error('ID mismatch! Expected:', id, 'Got:', data.id);
-                        alert('Error: Data ID tidak sesuai!');
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'error',
+                            title: 'Error: Data ID tidak sesuai!',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true
+                        });
                         return;
                     }
                     
@@ -3214,7 +3490,16 @@
                 })
                 .catch(error => {
                     console.error('Error fetching data:', error);
-                    alert('Gagal memuat data permohonan: ' + error.message);
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Gagal memuat data permohonan',
+                        text: error.message,
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true
+                    });
                 });
         }
 
@@ -3259,7 +3544,15 @@
                 // Validasi form
                 if (!editForm.checkValidity()) {
                     console.error('Form validation failed!');
-                    alert('Harap lengkapi semua field yang wajib diisi!');
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'warning',
+                        title: 'Harap lengkapi semua field yang wajib diisi!',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true
+                    });
                     editForm.classList.add('was-validated');
                     if (submitButton) {
                         submitButton.disabled = false;
@@ -3285,17 +3578,37 @@
                     console.log('Response data:', data);
                     
                     if (data.success || data.message) {
-                        // Success - reload page untuk memastikan data ter-update
-                        alert('Data berhasil diperbarui!');
-                        window.location.reload();
+                        // Success - tampilkan notifikasi toast
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'success',
+                            title: data.message || 'Data berhasil diperbarui!',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true
+                        });
+                        // Reload page setelah notifikasi muncul
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 500);
                     } else if (data.errors) {
                         // Validation errors
                         console.error('Validation errors:', data.errors);
-                        let errorMessages = 'Terdapat kesalahan:\n';
+                        let errorMessages = '';
                         for (let field in data.errors) {
-                            errorMessages += `- ${field}: ${data.errors[field].join(', ')}\n`;
+                            errorMessages += `${field}: ${data.errors[field].join(', ')}\n`;
                         }
-                        alert(errorMessages);
+                        Swal.fire({
+                            toast: true,
+                            position: 'top-end',
+                            icon: 'error',
+                            title: 'Terdapat kesalahan validasi',
+                            text: errorMessages.trim(),
+                            showConfirmButton: false,
+                            timer: 4000,
+                            timerProgressBar: true
+                        });
                         if (submitButton) {
                             submitButton.disabled = false;
                             submitButton.textContent = originalButtonText;
@@ -3307,7 +3620,15 @@
                 })
                 .catch(error => {
                     console.error('Error submitting form:', error);
-                    alert('Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
+                    Swal.fire({
+                        toast: true,
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true
+                    });
                     if (submitButton) {
                         submitButton.disabled = false;
                         submitButton.textContent = originalButtonText;

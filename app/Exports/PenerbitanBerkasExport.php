@@ -278,8 +278,8 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
             $drawing->setName('TTD Mengetahui');
             $drawing->setDescription('TTD Mengetahui');
             $drawing->setPath($path);
-            $drawing->setHeight(50);
-            $drawing->setWidth(100);
+            $drawing->setHeight(80);
+            $drawing->setWidth(200);
             // Position under TANGGAL PERMOHONAN column (D)
             $drawing->setCoordinates('D' . ($this->collection()->count() + 9));
             $drawings[] = $drawing;
@@ -296,8 +296,8 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
             $drawing->setName('TTD Menyetujui');
             $drawing->setDescription('TTD Menyetujui');
             $drawing->setPath($path);
-            $drawing->setHeight(50);
-            $drawing->setWidth(100);
+            $drawing->setHeight(80);
+            $drawing->setWidth(200);
             // Position under SKALA USAHA column (O)
             $drawing->setCoordinates('O' . ($this->collection()->count() + 8));
             $drawings[] = $drawing;

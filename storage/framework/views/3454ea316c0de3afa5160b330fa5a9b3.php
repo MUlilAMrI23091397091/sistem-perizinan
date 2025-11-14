@@ -201,7 +201,15 @@
                 <td><?php echo e($item->kbli ?? '-'); ?></td>
                 <td><?php echo e($item->nama_usaha ?? '-'); ?></td>
                 <td><?php echo e($item->inputan_teks ?? '-'); ?></td>
-                <td><?php echo e($item->jenis_pelaku_usaha ?? '-'); ?></td>
+                <td>
+                    <?php if($item->jenis_pelaku_usaha === 'Badan Usaha' && $item->jenis_badan_usaha): ?>
+                        <?php echo e($item->jenis_pelaku_usaha); ?> - <?php echo e($item->jenis_badan_usaha); ?>
+
+                    <?php else: ?>
+                        <?php echo e($item->jenis_pelaku_usaha ?? '-'); ?>
+
+                    <?php endif; ?>
+                </td>
                 <td><?php echo e($item->pemilik ?? '-'); ?></td>
                 <td><?php echo e($item->modal_usaha ? 'Rp ' . number_format($item->modal_usaha, 0, ',', '.') : '-'); ?></td>
                 <td><?php echo e($item->alamat_perusahaan ?? '-'); ?></td>
@@ -210,15 +218,10 @@
                 <td><?php echo e($item->skala_usaha ?? '-'); ?></td>
                 <td><?php echo e($item->risiko ?? '-'); ?></td>
                 <td>
-                    <?php if($item->pemroses_dan_tgl_surat): ?>
-                        <?php echo e($item->pemroses_dan_tgl_surat); ?>
+                    DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU<br>
+                    No: <?php echo e($item->nomor_bap ?? '-'); ?><br>
+                    tanggal BAP: <?php echo e($item->tanggal_bap ? \Carbon\Carbon::parse($item->tanggal_bap)->locale('id')->translatedFormat('d F Y') : '-'); ?>
 
-                    <?php else: ?>
-                        DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU<br>
-                        No: BAP/OSS/IX/PARKIR-341/436.7.15/<?php echo e(date('Y')); ?><br>
-                        tanggal BAP: <?php echo e(date('d')); ?>
-
-                    <?php endif; ?>
                 </td>
             </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

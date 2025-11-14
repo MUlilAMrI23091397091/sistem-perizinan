@@ -51,6 +51,7 @@ class TtdSettingController extends Controller
             'mengetahui_pangkat' => 'required|string|max:255',
             'mengetahui_nip' => 'required|string|max:255',
             'mengetahui_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'mengetahui_photo_base64' => 'nullable|string',
             'menyetujui_lokasi' => 'required|string|max:255',
             'menyetujui_tanggal' => 'required|date',
             'menyetujui_jabatan' => 'required|string|max:255',
@@ -58,13 +59,14 @@ class TtdSettingController extends Controller
             'menyetujui_pangkat' => 'required|string|max:255',
             'menyetujui_nip' => 'required|string|max:255',
             'menyetujui_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'menyetujui_photo_base64' => 'nullable|string',
         ]);
 
         $ttdSettings = TtdSetting::getSettings();
         
-        $data = $request->except(['mengetahui_photo', 'menyetujui_photo']);
+        $data = $request->except(['mengetahui_photo', 'menyetujui_photo', 'mengetahui_photo_base64', 'menyetujui_photo_base64']);
         
-        // Handle upload foto mengetahui
+        // Handle upload foto mengetahui (file upload)
         if ($request->hasFile('mengetahui_photo')) {
             // Hapus foto lama jika ada
             if ($ttdSettings->mengetahui_photo && Storage::disk('public')->exists('ttd_photos/' . $ttdSettings->mengetahui_photo)) {
@@ -83,8 +85,45 @@ class TtdSettingController extends Controller
                 Log::error('TTD Mengetahui upload failed');
             }
         }
+        // Handle base64 signature untuk mengetahui
+        elseif ($request->has('mengetahui_photo_base64') && !empty($request->mengetahui_photo_base64)) {
+            // Hapus foto lama jika ada
+            if ($ttdSettings->mengetahui_photo && Storage::disk('public')->exists('ttd_photos/' . $ttdSettings->mengetahui_photo)) {
+                Storage::disk('public')->delete('ttd_photos/' . $ttdSettings->mengetahui_photo);
+            }
+            
+            try {
+                $base64Image = $request->mengetahui_photo_base64;
+                // Extract base64 data
+                if (preg_match('/^data:image\/(\w+);base64,/', $base64Image, $type)) {
+                    $base64Image = substr($base64Image, strpos($base64Image, ',') + 1);
+                    $type = strtolower($type[1]); // jpg, png, gif, etc.
+                    
+                    if (!in_array($type, ['jpg', 'jpeg', 'png', 'gif'])) {
+                        throw new \Exception('Invalid image type');
+                    }
+                    
+                    $imageData = base64_decode($base64Image);
+                    if ($imageData === false) {
+                        throw new \Exception('Failed to decode base64 image');
+                    }
+                    
+                    $filename = 'mengetahui_ttd_' . time() . '.png';
+                    $path = Storage::disk('public')->put('ttd_photos/' . $filename, $imageData);
+                    
+                    if ($path) {
+                        $data['mengetahui_photo'] = $filename;
+                        Log::info('TTD Mengetahui (signature pad) saved successfully: ' . $filename);
+                    } else {
+                        Log::error('TTD Mengetahui (signature pad) save failed');
+                    }
+                }
+            } catch (\Exception $e) {
+                Log::error('Error saving TTD Mengetahui signature: ' . $e->getMessage());
+            }
+        }
         
-        // Handle upload foto menyetujui
+        // Handle upload foto menyetujui (file upload)
         if ($request->hasFile('menyetujui_photo')) {
             // Hapus foto lama jika ada
             if ($ttdSettings->menyetujui_photo && Storage::disk('public')->exists('ttd_photos/' . $ttdSettings->menyetujui_photo)) {
@@ -101,6 +140,43 @@ class TtdSettingController extends Controller
                 Log::info('TTD Menyetujui uploaded successfully: ' . $filename);
             } else {
                 Log::error('TTD Menyetujui upload failed');
+            }
+        }
+        // Handle base64 signature untuk menyetujui
+        elseif ($request->has('menyetujui_photo_base64') && !empty($request->menyetujui_photo_base64)) {
+            // Hapus foto lama jika ada
+            if ($ttdSettings->menyetujui_photo && Storage::disk('public')->exists('ttd_photos/' . $ttdSettings->menyetujui_photo)) {
+                Storage::disk('public')->delete('ttd_photos/' . $ttdSettings->menyetujui_photo);
+            }
+            
+            try {
+                $base64Image = $request->menyetujui_photo_base64;
+                // Extract base64 data
+                if (preg_match('/^data:image\/(\w+);base64,/', $base64Image, $type)) {
+                    $base64Image = substr($base64Image, strpos($base64Image, ',') + 1);
+                    $type = strtolower($type[1]); // jpg, png, gif, etc.
+                    
+                    if (!in_array($type, ['jpg', 'jpeg', 'png', 'gif'])) {
+                        throw new \Exception('Invalid image type');
+                    }
+                    
+                    $imageData = base64_decode($base64Image);
+                    if ($imageData === false) {
+                        throw new \Exception('Failed to decode base64 image');
+                    }
+                    
+                    $filename = 'menyetujui_ttd_' . time() . '.png';
+                    $path = Storage::disk('public')->put('ttd_photos/' . $filename, $imageData);
+                    
+                    if ($path) {
+                        $data['menyetujui_photo'] = $filename;
+                        Log::info('TTD Menyetujui (signature pad) saved successfully: ' . $filename);
+                    } else {
+                        Log::error('TTD Menyetujui (signature pad) save failed');
+                    }
+                }
+            } catch (\Exception $e) {
+                Log::error('Error saving TTD Menyetujui signature: ' . $e->getMessage());
             }
         }
         
