@@ -357,6 +357,37 @@ class PermohonanController extends Controller
      */
     public function show(Permohonan $permohonan)
     {
+        $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+        
+        // Authorization check berdasarkan role
+        // Admin bisa lihat semua
+        if ($user->role === 'admin') {
+            // Admin bisa lihat semua permohonan
+        } elseif ($user->role === 'dpmptsp') {
+            // DPMPTSP tidak bisa lihat permohonan yang dibuat oleh penerbitan_berkas
+            if ($permohonan->user && $permohonan->user->role === 'penerbitan_berkas') {
+                abort(403, 'Anda tidak memiliki izin untuk melihat permohonan ini.');
+            }
+        } elseif ($user->role === 'pd_teknis') {
+            // PD Teknis hanya bisa lihat permohonan sesuai sektornya (kecuali yang dibuat oleh penerbitan_berkas)
+            if ($permohonan->user && $permohonan->user->role === 'penerbitan_berkas') {
+                abort(403, 'Anda tidak memiliki izin untuk melihat permohonan ini.');
+            }
+            if ($user->sektor && $permohonan->sektor !== $user->sektor) {
+                abort(403, 'Anda tidak memiliki izin untuk melihat permohonan dari sektor lain.');
+            }
+        } elseif ($user->role === 'penerbitan_berkas') {
+            // Penerbitan Berkas hanya bisa lihat permohonan yang dibuat oleh role penerbitan_berkas
+            if (!$permohonan->user || $permohonan->user->role !== 'penerbitan_berkas') {
+                abort(403, 'Anda tidak memiliki izin untuk melihat permohonan ini.');
+            }
+        }
+        
         $logs = LogPermohonan::where('permohonan_id', $permohonan->id)->orderBy('created_at', 'desc')->get();
         return view('permohonan.show', compact('permohonan', 'logs'));
     }
@@ -371,6 +402,30 @@ class PermohonanController extends Controller
         // Check if user is authenticated
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+        
+        // Authorization check berdasarkan role
+        // Admin bisa edit semua
+        if ($user->role === 'admin') {
+            // Admin bisa edit semua permohonan
+        } elseif ($user->role === 'dpmptsp') {
+            // DPMPTSP tidak bisa edit permohonan yang dibuat oleh penerbitan_berkas
+            if ($permohonan->user && $permohonan->user->role === 'penerbitan_berkas') {
+                abort(403, 'Anda tidak memiliki izin untuk mengedit permohonan ini.');
+            }
+        } elseif ($user->role === 'pd_teknis') {
+            // PD Teknis hanya bisa edit permohonan sesuai sektornya (kecuali yang dibuat oleh penerbitan_berkas)
+            if ($permohonan->user && $permohonan->user->role === 'penerbitan_berkas') {
+                abort(403, 'Anda tidak memiliki izin untuk mengedit permohonan ini.');
+            }
+            if ($user->sektor && $permohonan->sektor !== $user->sektor) {
+                abort(403, 'Anda tidak memiliki izin untuk mengedit permohonan dari sektor lain.');
+            }
+        } elseif ($user->role === 'penerbitan_berkas') {
+            // Penerbitan Berkas hanya bisa edit permohonan yang dibuat oleh role penerbitan_berkas
+            if (!$permohonan->user || $permohonan->user->role !== 'penerbitan_berkas') {
+                abort(403, 'Anda tidak memiliki izin untuk mengedit permohonan ini.');
+            }
         }
         
         $verifikators = ['RAMLAN', 'SURYA', 'ALI', 'WILDAN A', 'TYO', 'WILDAN M', 'YOLA', 'NAURA'];
@@ -427,6 +482,30 @@ class PermohonanController extends Controller
         // Check if user is authenticated
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        // Authorization check berdasarkan role
+        // Admin bisa update semua
+        if ($user->role === 'admin') {
+            // Admin bisa update semua permohonan
+        } elseif ($user->role === 'dpmptsp') {
+            // DPMPTSP tidak bisa update permohonan yang dibuat oleh penerbitan_berkas
+            if ($permohonan->user && $permohonan->user->role === 'penerbitan_berkas') {
+                abort(403, 'Anda tidak memiliki izin untuk memperbarui permohonan ini.');
+            }
+        } elseif ($user->role === 'pd_teknis') {
+            // PD Teknis hanya bisa update permohonan sesuai sektornya (kecuali yang dibuat oleh penerbitan_berkas)
+            if ($permohonan->user && $permohonan->user->role === 'penerbitan_berkas') {
+                abort(403, 'Anda tidak memiliki izin untuk memperbarui permohonan ini.');
+            }
+            if ($user->sektor && $permohonan->sektor !== $user->sektor) {
+                abort(403, 'Anda tidak memiliki izin untuk memperbarui permohonan dari sektor lain.');
+            }
+        } elseif ($user->role === 'penerbitan_berkas') {
+            // Penerbitan Berkas hanya bisa update permohonan yang dibuat oleh role penerbitan_berkas
+            if (!$permohonan->user || $permohonan->user->role !== 'penerbitan_berkas') {
+                abort(403, 'Anda tidak memiliki izin untuk memperbarui permohonan ini.');
+            }
         }
 
         $validated = $request->validate([
@@ -556,6 +635,37 @@ class PermohonanController extends Controller
      */
     public function destroy(Permohonan $permohonan)
     {
+        $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+        
+        // Authorization check berdasarkan role
+        // Admin, PD Teknis, dan DPMPTSP bisa hapus semua (kecuali yang dibuat oleh penerbitan_berkas)
+        if ($user->role === 'admin') {
+            // Admin bisa hapus semua permohonan
+        } elseif ($user->role === 'dpmptsp') {
+            // DPMPTSP tidak bisa hapus permohonan yang dibuat oleh penerbitan_berkas
+            if ($permohonan->user && $permohonan->user->role === 'penerbitan_berkas') {
+                abort(403, 'Anda tidak memiliki izin untuk menghapus permohonan ini.');
+            }
+        } elseif ($user->role === 'pd_teknis') {
+            // PD Teknis hanya bisa hapus permohonan sesuai sektornya (kecuali yang dibuat oleh penerbitan_berkas)
+            if ($permohonan->user && $permohonan->user->role === 'penerbitan_berkas') {
+                abort(403, 'Anda tidak memiliki izin untuk menghapus permohonan ini.');
+            }
+            if ($user->sektor && $permohonan->sektor !== $user->sektor) {
+                abort(403, 'Anda tidak memiliki izin untuk menghapus permohonan dari sektor lain.');
+            }
+        } elseif ($user->role === 'penerbitan_berkas') {
+            // Penerbitan Berkas hanya bisa hapus permohonan yang dibuat oleh role penerbitan_berkas
+            if (!$permohonan->user || $permohonan->user->role !== 'penerbitan_berkas') {
+                abort(403, 'Anda tidak memiliki izin untuk menghapus permohonan ini.');
+            }
+        }
+        
         // Simpan data sebelum dihapus
         $permohonanId = $permohonan->id;
         $statusSebelum = $permohonan->status;
@@ -689,6 +799,22 @@ class PermohonanController extends Controller
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
+        // Authorization check berdasarkan role untuk BAP
+        // Semua role bisa akses BAP, tapi tetap perlu cek apakah mereka bisa lihat permohonan tersebut
+        if ($user->role === 'admin') {
+            // Admin bisa akses semua permohonan
+        } elseif ($user->role === 'dpmptsp') {
+            // DPMPTSP tidak bisa akses permohonan yang dibuat oleh penerbitan_berkas
+            if ($permohonan->user && $permohonan->user->role === 'penerbitan_berkas') {
+                abort(403, 'Anda tidak memiliki izin untuk mengakses BAP permohonan ini.');
+            }
+        } elseif ($user->role === 'pd_teknis') {
+            // PD Teknis bisa akses semua permohonan (sesuai kebutuhan BAP)
+            // Tidak perlu filter sektor karena BAP bisa dibuat untuk semua permohonan
+        } elseif ($user->role === 'penerbitan_berkas') {
+            // Penerbitan Berkas bisa akses semua permohonan untuk BAP
+        }
+
         // Load relationships
         $permohonan->load('user');
         
@@ -714,6 +840,22 @@ class PermohonanController extends Controller
         // Check if user is authenticated
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        // Authorization check berdasarkan role untuk generate BAP
+        // Semua role bisa generate BAP, tapi tetap perlu cek apakah mereka bisa lihat permohonan tersebut
+        if ($user->role === 'admin') {
+            // Admin bisa generate BAP untuk semua permohonan
+        } elseif ($user->role === 'dpmptsp') {
+            // DPMPTSP tidak bisa generate BAP untuk permohonan yang dibuat oleh penerbitan_berkas
+            if ($permohonan->user && $permohonan->user->role === 'penerbitan_berkas') {
+                abort(403, 'Anda tidak memiliki izin untuk generate BAP permohonan ini.');
+            }
+        } elseif ($user->role === 'pd_teknis') {
+            // PD Teknis bisa generate BAP untuk semua permohonan (sesuai kebutuhan BAP)
+            // Tidak perlu filter sektor karena BAP bisa dibuat untuk semua permohonan
+        } elseif ($user->role === 'penerbitan_berkas') {
+            // Penerbitan Berkas bisa generate BAP untuk semua permohonan
         }
 
         try {
