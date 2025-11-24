@@ -944,6 +944,8 @@ class PermohonanController extends Controller
                     'hasil_peninjauan_lapangan' => '',
                     'keputusan' => 'Disetujui',
                     'catatan' => '',
+                    'nama_pelaku_usaha' => '',
+                    'alamat_pelaku_usaha' => '',
                     'persyaratan' => [],
                     'ttd_memeriksa' => null,
                     'ttd_menyetujui' => null,
