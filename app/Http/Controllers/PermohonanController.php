@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Permohonan;
 use App\Models\LogPermohonan;
+use App\Models\AppSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -33,7 +34,8 @@ class PermohonanController extends Controller
         $searchQuery = $request->query('search');
         $selectedSektor = $request->query('sektor');
         $selectedDateFilter = $request->query('date_filter');
-        $customDate = $request->query('custom_date');
+        $customDateFrom = $request->query('custom_date_from');
+        $customDateTo = $request->query('custom_date_to');
         $selectedStatus = $request->query('status');
 
         // Query dasar
@@ -74,6 +76,8 @@ class PermohonanController extends Controller
         // Terapkan filter tanggal
         if ($selectedDateFilter) {
             $now = Carbon::now();
+            $customDateFrom = $request->query('custom_date_from');
+            $customDateTo = $request->query('custom_date_to');
             
             switch ($selectedDateFilter) {
                 case 'today':
@@ -104,8 +108,18 @@ class PermohonanController extends Controller
                                ->whereYear('created_at', $lastMonth->year);
                     break;
                 case 'custom':
-                    if ($customDate) {
-                        $permohonans->whereDate('created_at', $customDate);
+                    if ($customDateFrom && $customDateTo) {
+                        // Filter range tanggal
+                        $permohonans->whereBetween('created_at', [
+                            Carbon::parse($customDateFrom)->startOfDay()->toDateTimeString(),
+                            Carbon::parse($customDateTo)->endOfDay()->toDateTimeString()
+                        ]);
+                    } elseif ($customDateFrom) {
+                        // Hanya dari tanggal (sampai hari ini)
+                        $permohonans->whereDate('created_at', '>=', $customDateFrom);
+                    } elseif ($customDateTo) {
+                        // Hanya sampai tanggal (dari awal)
+                        $permohonans->whereDate('created_at', '<=', $customDateTo);
                     }
                     break;
             }
@@ -140,6 +154,7 @@ class PermohonanController extends Controller
             });
         }
 
+        // Urutkan data: data lama di atas, data baru di bawah (untuk semua role)
         $permohonans = $permohonans->orderBy('created_at', 'asc')->get();
         
         // Ambil daftar sektor unik dari database dan gabungkan dengan sektor yang tersedia
@@ -147,7 +162,7 @@ class PermohonanController extends Controller
         $availableSektors = ['Dinkopdag', 'Disbudpar', 'Dinkes', 'Dishub', 'Dprkpp', 'Dkpp', 'Dlh', 'Disperinaker'];
         $sektors = $availableSektors;
 
-        return view('permohonan.index', compact('permohonans', 'sektors', 'selectedSektor', 'searchQuery', 'selectedDateFilter', 'customDate', 'selectedStatus'));
+        return view('permohonan.index', compact('permohonans', 'sektors', 'selectedSektor', 'searchQuery', 'selectedDateFilter', 'customDateFrom', 'customDateTo', 'selectedStatus'));
     }
 
     /**
@@ -652,6 +667,185 @@ class PermohonanController extends Controller
         }
         // Admin melihat semua permohonan secara default
 
+        // Urutkan data: data lama di atas, data baru di bawah (untuk semua role)
         return $permohonans->orderBy('created_at', 'asc')->get();
+    }
+
+    /**
+     * Show BAP form untuk permohonan
+     * 
+     * Akses: Semua user yang sudah login dapat mengakses BAP
+     * - Admin: Bisa akses semua permohonan
+     * - DPMPTSP: Bisa akses semua permohonan
+     * - PD Teknis: Bisa akses semua permohonan
+     * - Penerbitan Berkas: Bisa akses semua permohonan
+     */
+    public function bap(Permohonan $permohonan)
+    {
+        $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        // Load relationships
+        $permohonan->load('user');
+        
+        // Ambil data koordinator dari database
+        $koordinator = AppSetting::getKoordinator();
+        
+        return view('permohonan.bap-form', compact('permohonan', 'koordinator'));
+    }
+
+    /**
+     * Generate BAP PDF dari form
+     * 
+     * Akses: Semua user yang sudah login dapat generate BAP PDF
+     * - Admin: Bisa generate BAP untuk semua permohonan
+     * - DPMPTSP: Bisa generate BAP untuk semua permohonan
+     * - PD Teknis: Bisa generate BAP untuk semua permohonan
+     * - Penerbitan Berkas: Bisa generate BAP untuk semua permohonan
+     */
+    public function generateBap(Request $request, Permohonan $permohonan)
+    {
+        $user = Auth::user();
+        
+        // Check if user is authenticated
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        try {
+            // Validasi form
+            $validated = $request->validate([
+                'nomor_bap' => 'required|string',
+                'tanggal_pemeriksaan' => 'required|date',
+                'nomor_surat_tugas' => 'nullable|string',
+                'tanggal_surat_tugas' => 'nullable|date',
+                'hasil_peninjauan_lapangan' => 'nullable|string',
+                'keputusan' => 'required|in:Disetujui,Perbaikan,Penolakan',
+                'catatan' => 'nullable|string',
+                'persyaratan' => 'required|array|min:1',
+                'persyaratan.*.nama' => 'required|string',
+                'persyaratan.*.status' => 'required|in:Sesuai,Tidak Sesuai',
+                'persyaratan.*.subItems' => 'nullable|array',
+                'persyaratan.*.subItems.*.nama' => 'nullable|string',
+                'persyaratan.*.subItems.*.status' => 'nullable|in:Sesuai,Tidak Sesuai',
+                'ttd_memeriksa' => 'nullable|string',
+                'ttd_menyetujui' => 'nullable|string',
+                'ttd_mengetahui' => 'nullable|string',
+                'nama_memeriksa' => 'nullable|string',
+                'nip_memeriksa' => 'nullable|string',
+                'nama_menyetujui' => 'nullable|string',
+                'nip_menyetujui' => 'nullable|string',
+                'nama_mengetahui' => 'nullable|string',
+                'nip_mengetahui' => 'nullable|string',
+            ], [
+                'persyaratan.required' => 'Mohon tambahkan minimal 1 persyaratan sebelum generate PDF.',
+                'persyaratan.min' => 'Mohon tambahkan minimal 1 persyaratan sebelum generate PDF.',
+                'persyaratan.*.nama.required' => 'Nama persyaratan harus diisi.',
+                'persyaratan.*.status.required' => 'Status persyaratan harus dipilih (Sesuai atau Tidak Sesuai).',
+            ]);
+
+            // Bersihkan subItems yang kosong
+            foreach ($validated['persyaratan'] as &$item) {
+                if (isset($item['subItems']) && is_array($item['subItems'])) {
+                    $item['subItems'] = array_filter($item['subItems'], function($subItem) {
+                        return !empty($subItem['nama']);
+                    });
+                    // Re-index array
+                    $item['subItems'] = array_values($item['subItems']);
+                }
+            }
+
+            // Load relationships
+            $permohonan->load('user');
+            
+            // Pastikan semua data aman sebelum generate PDF
+            $pdfData = [
+                'permohonan' => $permohonan,
+                'data' => array_merge([
+                    'nomor_bap' => '',
+                    'tanggal_pemeriksaan' => now()->format('Y-m-d'),
+                    'nomor_surat_tugas' => '',
+                    'tanggal_surat_tugas' => null,
+                    'hasil_peninjauan_lapangan' => '',
+                    'keputusan' => 'Disetujui',
+                    'catatan' => '',
+                    'persyaratan' => [],
+                    'ttd_memeriksa' => null,
+                    'ttd_menyetujui' => null,
+                    'ttd_mengetahui' => null,
+                    'nama_memeriksa' => null,
+                    'nip_memeriksa' => null,
+                    'nama_menyetujui' => null,
+                    'nip_menyetujui' => null,
+                    'nama_mengetahui' => null,
+                    'nip_mengetahui' => null
+                ], $validated)
+            ];
+            
+            // Log untuk debugging (hapus di production jika tidak diperlukan)
+            \Log::info('BAP PDF Data:', [
+                'persyaratan_count' => count($pdfData['data']['persyaratan'] ?? []),
+                'has_persyaratan' => !empty($pdfData['data']['persyaratan']),
+            ]);
+            
+            // Generate PDF BAP
+            $pdf = Pdf::loadView('permohonan.bap-pdf', $pdfData);
+            $pdf->setPaper('A4', 'portrait');
+            $pdf->setOptions([
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => false,
+                'dpi' => 150,
+                'defaultFont' => 'Times New Roman'
+            ]);
+            
+            // Bersihkan filename dari karakter yang tidak diizinkan
+            $noPermohonan = $permohonan->no_permohonan ?? 'N/A';
+            // Ganti karakter yang tidak diizinkan: / \ : * ? " < > |
+            $noPermohonanClean = preg_replace('/[\/\\\\:\*\?"<>\|]/', '_', $noPermohonan);
+            $filename = 'BAP_' . $noPermohonanClean . '_' . date('Y-m-d') . '.pdf';
+            
+            \Log::info('Generating BAP PDF with filename: ' . $filename);
+            
+            // Generate dan download PDF
+            return $pdf->download($filename);
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()
+                ->withErrors($e->errors())
+                ->withInput();
+        } catch (\Barryvdh\DomPDF\Exception\PdfException $e) {
+            \Log::error('PDF Generation Error: ' . $e->getMessage());
+            \Log::error('Stack trace: ' . $e->getTraceAsString());
+            \Log::error('Request data: ' . json_encode($request->all(), JSON_PRETTY_PRINT));
+            return redirect()->back()
+                ->with('error', 'Terjadi kesalahan saat menghasilkan PDF. Pastikan semua data sudah lengkap dan coba lagi. Error: ' . $e->getMessage())
+                ->withInput();
+        } catch (\Exception $e) {
+            \Log::error('Error generating BAP PDF: ' . $e->getMessage());
+            \Log::error('File: ' . $e->getFile() . ' Line: ' . $e->getLine());
+            \Log::error('Stack trace: ' . $e->getTraceAsString());
+            \Log::error('Request data: ' . json_encode($request->all(), JSON_PRETTY_PRINT));
+            
+            // Tampilkan error yang lebih informatif untuk debugging
+            $errorMessage = 'Terjadi kesalahan saat menghasilkan PDF. ';
+            if (str_contains($e->getMessage(), 'file_get_contents')) {
+                $errorMessage .= 'Logo tidak ditemukan. ';
+            } elseif (str_contains($e->getMessage(), 'parse')) {
+                $errorMessage .= 'Format tanggal tidak valid. ';
+            } elseif (str_contains($e->getMessage(), 'persyaratan')) {
+                $errorMessage .= 'Data persyaratan tidak valid. Pastikan semua persyaratan sudah diisi dengan lengkap. ';
+            } else {
+                $errorMessage .= 'Silakan coba lagi atau hubungi administrator. ';
+            }
+            $errorMessage .= 'Detail: ' . $e->getMessage();
+            
+            return redirect()->back()
+                ->with('error', $errorMessage)
+                ->withInput();
+        }
     }
 }

@@ -66,6 +66,10 @@ Route::middleware('auth')->group(function () {
     // Permohonan (CRUD)
     Route::resource('permohonan', PermohonanController::class);
     
+    // BAP routes
+    Route::get('/permohonan/{permohonan}/bap', [PermohonanController::class, 'bap'])->name('permohonan.bap');
+    Route::post('/permohonan/{permohonan}/bap/generate', [PermohonanController::class, 'generateBap'])->name('permohonan.bap.generate');
+    
     // Export routes
     Route::get('/permohonan/export/excel', [PermohonanController::class, 'exportExcel'])->name('permohonan.export.excel');
     Route::get('/permohonan/export/pdf-landscape', [PermohonanController::class, 'exportPdfLandscape'])->name('permohonan.export.pdf-landscape');

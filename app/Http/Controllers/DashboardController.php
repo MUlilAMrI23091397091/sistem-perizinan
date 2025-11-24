@@ -29,13 +29,13 @@ class DashboardController extends Controller
         // Ambil data permohonan berdasarkan role
         if ($user->role === 'admin') {
             // Admin melihat semua data
-            $permohonans = Permohonan::with('user')->orderBy('created_at', 'asc')->get();
+            $permohonans = Permohonan::with('user')->orderBy('created_at', 'desc')->get();
         } elseif ($user->role === 'dpmptsp') {
             // DPMPTSP melihat semua permohonan kecuali yang dibuat oleh penerbitan_berkas
             $permohonans = Permohonan::with('user')
                 ->whereHas('user', function($query) {
                     $query->where('role', '!=', 'penerbitan_berkas');
-                })->orderBy('created_at', 'asc')->get();
+                })->orderBy('created_at', 'desc')->get();
         } elseif ($user->role === 'pd_teknis') {
             // PD Teknis melihat permohonan sesuai sektornya saja
             if ($user->sektor) {
@@ -43,20 +43,17 @@ class DashboardController extends Controller
                     ->where('sektor', $user->sektor)
                     ->whereHas('user', function($query) {
                         $query->where('role', '!=', 'penerbitan_berkas');
-                    })->orderBy('created_at', 'asc')->get();
+                    })->orderBy('created_at', 'desc')->get();
             } else {
                 // Jika PD Teknis belum ada sektor, tampilkan semua (fallback)
                 $permohonans = Permohonan::with('user')
                     ->whereHas('user', function($query) {
                         $query->where('role', '!=', 'penerbitan_berkas');
-                    })->orderBy('created_at', 'asc')->get();
+                    })->orderBy('created_at', 'desc')->get();
             }
         } elseif ($user->role === 'penerbitan_berkas') {
             // Penerbitan Berkas melihat modul khususnya sendiri (data terpisah)
             return $this->penerbitanBerkas($request);
-        } else {
-            // Default untuk role lain
-            $permohonans = Permohonan::with('user')->orderBy('created_at', 'asc')->get();
         }
         
         // Hitung statistik:
@@ -109,7 +106,8 @@ class DashboardController extends Controller
         
         // Ambil parameter dari request
         $selectedDateFilter = $request->query('date_filter');
-        $customDate = $request->query('custom_date');
+        $customDateFrom = $request->query('custom_date_from');
+        $customDateTo = $request->query('custom_date_to');
         $selectedSektor = $request->query('sektor');
         
         // Query dasar
@@ -180,8 +178,18 @@ class DashboardController extends Controller
                                ->whereYear('created_at', $lastMonth->year);
                     break;
                 case 'custom':
-                    if ($customDate) {
-                        $permohonans->whereDate('created_at', $customDate);
+                    if ($customDateFrom && $customDateTo) {
+                        // Filter range tanggal
+                        $permohonans->whereBetween('created_at', [
+                            Carbon::parse($customDateFrom)->startOfDay()->toDateTimeString(),
+                            Carbon::parse($customDateTo)->endOfDay()->toDateTimeString()
+                        ]);
+                    } elseif ($customDateFrom) {
+                        // Hanya dari tanggal (sampai hari ini)
+                        $permohonans->whereDate('created_at', '>=', $customDateFrom);
+                    } elseif ($customDateTo) {
+                        // Hanya sampai tanggal (dari awal)
+                        $permohonans->whereDate('created_at', '<=', $customDateTo);
                     }
                     break;
             }
@@ -218,7 +226,7 @@ class DashboardController extends Controller
             ];
         }
 
-        return view('statistik', compact('stats', 'selectedDateFilter', 'customDate', 'selectedSektor', 'sektors', 'user'));
+        return view('statistik', compact('stats', 'selectedDateFilter', 'customDateFrom', 'customDateTo', 'selectedSektor', 'sektors', 'user'));
     }
 
     public function penerbitanBerkas(Request $request)
@@ -717,18 +725,24 @@ class DashboardController extends Controller
     }
 
     /**
-     * Get notifications for dikembalikan berkas (for dpmptsp user)
+     * Get notifications for dikembalikan berkas (for dpmptsp and admin user)
      */
     public function getNotifications(Request $request)
     {
         $user = Auth::user();
         
-        if (!$user || $user->role !== 'dpmptsp') {
-            return response()->json(['notifications' => [], 'count' => 0]);
+        if (!$user || !in_array($user->role, ['dpmptsp', 'admin'])) {
+            return response()->json(['notifications' => [], 'count' => 0])
+                ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+                ->header('Pragma', 'no-cache')
+                ->header('Expires', '0');
         }
 
-        // Get permohonan with status "Dikembalikan" that user can see
-        $permohonans = Permohonan::with('user')
+        // Optimasi query: hanya ambil field yang diperlukan
+        $permohonans = Permohonan::with(['user:id,name'])
+            ->select('id', 'no_permohonan', 'nama_usaha', 'status', 'pengembalian', 
+                     'keterangan_pengembalian', 'menghubungi', 'keterangan_menghubungi', 
+                     'updated_at', 'user_id')
             ->where('status', 'Dikembalikan')
             ->whereHas('user', function($query) {
                 $query->where('role', '!=', 'penerbitan_berkas');
@@ -757,7 +771,10 @@ class DashboardController extends Controller
         return response()->json([
             'notifications' => $notifications,
             'count' => $notifications->count()
-        ]);
+        ])
+        ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+        ->header('Pragma', 'no-cache')
+        ->header('Expires', '0');
     }
 
     /**
@@ -767,7 +784,7 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         
-        if (!$user || $user->role !== 'dpmptsp') {
+        if (!$user || !in_array($user->role, ['dpmptsp', 'admin'])) {
             return response()->json(['error' => 'Unauthorized'], 403);
         }
 

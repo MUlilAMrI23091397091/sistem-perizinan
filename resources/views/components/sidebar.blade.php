@@ -11,7 +11,7 @@
         }
     }
 </style>
-<div class="flex h-screen bg-gray-100">
+<div class="flex h-screen bg-gray-100 overflow-hidden">
     <!-- Sidebar -->
     <div class="bg-gradient-sidebar shadow-lg w-64 flex-shrink-0 relative" style="z-index: 10; overflow: visible;" x-data="{ sidebarOpen: true }">
         <!-- Logo Section -->
@@ -83,8 +83,8 @@
             </div>
         </nav>
 
-        <!-- Notifications Section (for dpmptsp user) -->
-        @if(auth()->user() && auth()->user()->role === 'dpmptsp')
+        <!-- Notifications Section (for dpmptsp and admin user) -->
+        @if(auth()->user() && in_array(auth()->user()->role, ['dpmptsp', 'admin']))
         <div class="px-4 mt-4 relative" 
              x-data="{
                 notifications: [],
@@ -92,7 +92,23 @@
                 showDropdown: false,
                 loading: false,
                 refreshInterval: null,
+                isFetching: false,
+                lastFetchTime: 0,
                 async fetchNotifications(showLoading = false) {
+                    // Prevent multiple concurrent requests
+                    if (this.isFetching) {
+                        return;
+                    }
+                    
+                    // Throttle: minimum 2 seconds between requests
+                    const now = Date.now();
+                    if (!showLoading && (now - this.lastFetchTime) < 2000) {
+                        return;
+                    }
+                    
+                    this.isFetching = true;
+                    this.lastFetchTime = now;
+                    
                     if (showLoading) {
                         this.loading = true;
                     }
@@ -100,8 +116,10 @@
                         const response = await fetch('{{ route('api.notifications') }}', {
                             headers: {
                                 'X-Requested-With': 'XMLHttpRequest',
-                                'Accept': 'application/json'
-                            }
+                                'Accept': 'application/json',
+                                'Cache-Control': 'no-cache'
+                            },
+                            cache: 'no-store'
                         });
                         if (!response.ok) {
                             throw new Error(`HTTP error! status: ${response.status}`);
@@ -116,6 +134,7 @@
                         this.notifications = [];
                         this.count = 0;
                     } finally {
+                        this.isFetching = false;
                         if (showLoading) {
                             this.loading = false;
                         }
@@ -136,16 +155,26 @@
                 init() {
                     // Initial load dengan loading indicator
                     this.fetchNotifications(true);
-                    // Auto-refresh every 30 seconds tanpa loading indicator
+                    // Auto-refresh every 60 seconds (diperpanjang dari 30 detik) tanpa loading indicator
                     this.refreshInterval = setInterval(() => {
-                        // Hanya refresh jika modal tidak terbuka untuk menghindari gangguan
-                        if (!this.showDropdown) {
+                        // Hanya refresh jika modal tidak terbuka dan tidak sedang fetching
+                        if (!this.showDropdown && !this.isFetching) {
                             this.fetchNotifications(false);
                         }
-                    }, 30000);
-                    // Listen for refresh event
+                    }, 60000); // 60 detik = 60000ms
+                    
+                    // Listen for refresh event dengan debouncing
+                    let refreshTimeout = null;
                     window.addEventListener('refresh-notifications', () => {
-                        this.fetchNotifications(false);
+                        // Debounce: tunggu 1 detik sebelum refresh
+                        if (refreshTimeout) {
+                            clearTimeout(refreshTimeout);
+                        }
+                        refreshTimeout = setTimeout(() => {
+                            if (!this.isFetching) {
+                                this.fetchNotifications(false);
+                            }
+                        }, 1000);
                     });
                 },
                 destroy() {
@@ -518,17 +547,17 @@
     </div>
 
     <!-- Main Content -->
-    <div class="flex-1 flex flex-col overflow-hidden">
+    <div class="flex-1 flex flex-col overflow-hidden min-h-0">
         <!-- Header -->
-        <header class="bg-white shadow-sm border-b border-gray-200">
+        <header class="bg-white shadow-sm border-b border-gray-200 flex-shrink-0">
             <div class="px-6 py-4">
                 <h1 class="text-2xl font-bold text-gray-900">{{ $header ?? 'Dashboard' }}</h1>
             </div>
         </header>
 
         <!-- Page Content -->
-        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50" style="z-index: 0;">
-            <div class="p-6">
+        <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50" style="z-index: 0; min-height: 0; max-height: 100%;">
+            <div class="p-6 pb-8">
                 {{ $slot }}
             </div>
         </main>
