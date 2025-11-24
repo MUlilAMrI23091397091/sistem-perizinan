@@ -192,7 +192,7 @@
                     <div>
                         <label for="nama_pelaku_usaha" class="block text-sm font-medium text-gray-700 mb-1">Nama Pelaku Usaha <span class="text-red-500">*</span></label>
                         <input type="text" id="nama_pelaku_usaha" name="nama_pelaku_usaha" 
-                               value="{{ old('nama_pelaku_usaha', $permohonan->pemilik ?? $permohonan->user->name ?? '') }}" 
+                               value="{{ old('nama_pelaku_usaha', '') }}" 
                                required
                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                                placeholder="Masukkan nama pelaku usaha">
@@ -200,7 +200,7 @@
                     <div>
                         <label for="alamat_pelaku_usaha" class="block text-sm font-medium text-gray-700 mb-1">Alamat Pelaku Usaha <span class="text-red-500">*</span></label>
                         <input type="text" id="alamat_pelaku_usaha" name="alamat_pelaku_usaha" 
-                               value="{{ old('alamat_pelaku_usaha', $permohonan->alamat_perusahaan ?? '') }}" 
+                               value="{{ old('alamat_pelaku_usaha', '') }}" 
                                required
                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                                placeholder="Masukkan alamat pelaku usaha">
