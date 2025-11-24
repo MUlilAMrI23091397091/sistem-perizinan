@@ -103,7 +103,7 @@
                 Kelola informasi koordinator untuk bagian "Mengetahui" pada dokumen BAP (Berita Acara Pemeriksaan).
             </p>
             
-            <form method="POST" action="{{ route('permohonan.bap.update-ttd') }}" enctype="multipart/form-data" class="space-y-6">
+            <form method="POST" action="{{ route('bap.ttd.update') }}" enctype="multipart/form-data" class="space-y-6">
                 @csrf
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
