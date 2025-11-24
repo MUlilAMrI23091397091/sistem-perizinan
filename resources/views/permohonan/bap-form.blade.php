@@ -139,7 +139,23 @@
                       }
                   }
               }"
-              @submit.prevent="if (validateForm()) { $el.submit(); }">
+              @submit.prevent="
+                  if (validateForm()) {
+                      // Pastikan semua data terkirim
+                      const form = $el;
+                      const formData = new FormData(form);
+                      
+                      // Debug: log form data
+                      console.log('Submitting BAP form...');
+                      console.log('Persyaratan count:', persyaratan.length);
+                      
+                      // Submit form secara normal
+                      form.submit();
+                  } else {
+                      // Validasi gagal, jangan submit
+                      return false;
+                  }
+              ">
             @csrf
 
             <!-- Header Section -->
