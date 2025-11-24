@@ -138,13 +138,14 @@
         
         .doc-table th,
         .doc-table td {
-            border: 1px solid #ffffff;
+            border: none;
             padding: 6px;
             text-align: left;
+            background: transparent;
         }
         
         .doc-table th {
-            background: #ffffff;
+            background: transparent;
             font-weight: bold;
             text-align: center;
             font-size: 11pt;
@@ -154,6 +155,7 @@
         .doc-table td {
             vertical-align: top;
             font-size: 11pt;
+            background: transparent;
         }
         
         .doc-table .text-center {
@@ -330,11 +332,13 @@
         }
         
         .doc-signature-img {
-            max-width: 180px;
+            max-width: 250px;
             max-height: 80px;
             margin: 15px auto 10px auto;
             display: block;
             object-fit: contain;
+            width: auto;
+            height: auto;
         }
         
         .doc-signature-item.left .doc-signature-img,
@@ -421,46 +425,46 @@
         <table class="doc-table">
             <tbody>
                 <tr>
-                    <td style="width: 35%; font-weight: bold; padding: 8px;">Nomor Permohonan</td>
-                    <td style="width: 65%; padding: 8px;">{{ $permohonan->no_permohonan ?? 'N/A' }}</td>
+                    <td style="width: 35%; font-weight: bold; padding: 8px; border: none; background: transparent;">Nomor Permohonan</td>
+                    <td style="width: 65%; padding: 8px; border: none; background: transparent;">{{ $permohonan->no_permohonan ?? 'N/A' }}</td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; padding: 8px;">Tanggal Permohonan</td>
-                    <td style="padding: 8px;">
+                    <td style="font-weight: bold; padding: 8px; border: none; background: transparent;">Tanggal Permohonan</td>
+                    <td style="padding: 8px; border: none; background: transparent;">
                         {{ $permohonan->tanggal_permohonan ? $permohonan->tanggal_permohonan->locale('id')->translatedFormat('d F Y') : ($permohonan->created_at ? $permohonan->created_at->locale('id')->translatedFormat('d F Y') : 'N/A') }}
                     </td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; padding: 8px;">Nama Pelaku Usaha</td>
-                    <td style="padding: 8px;">{{ $data['nama_pelaku_usaha'] ?? 'N/A' }}</td>
+                    <td style="font-weight: bold; padding: 8px; border: none; background: transparent;">Nama Pelaku Usaha</td>
+                    <td style="padding: 8px; border: none; background: transparent;">{{ $data['nama_pelaku_usaha'] ?? 'N/A' }}</td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; padding: 8px;">Alamat Pelaku Usaha</td>
-                    <td style="padding: 8px;">{{ $data['alamat_pelaku_usaha'] ?? 'N/A' }}</td>
+                    <td style="font-weight: bold; padding: 8px; border: none; background: transparent;">Alamat Pelaku Usaha</td>
+                    <td style="padding: 8px; border: none; background: transparent;">{{ $data['alamat_pelaku_usaha'] ?? 'N/A' }}</td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; padding: 8px;">Nama Usaha</td>
-                    <td style="padding: 8px;">{{ $permohonan->nama_usaha ?? 'N/A' }}</td>
+                    <td style="font-weight: bold; padding: 8px; border: none; background: transparent;">Nama Usaha</td>
+                    <td style="padding: 8px; border: none; background: transparent;">{{ $permohonan->nama_usaha ?? 'N/A' }}</td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; padding: 8px;">Alamat Usaha</td>
-                    <td style="padding: 8px;">{{ $permohonan->alamat_perusahaan ?? 'N/A' }}</td>
+                    <td style="font-weight: bold; padding: 8px; border: none; background: transparent;">Alamat Usaha</td>
+                    <td style="padding: 8px; border: none; background: transparent;">{{ $permohonan->alamat_perusahaan ?? 'N/A' }}</td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; padding: 8px;">Nomor Induk Berusaha (NIB)</td>
-                    <td style="padding: 8px;">{{ $permohonan->nib ?? 'N/A' }}</td>
+                    <td style="font-weight: bold; padding: 8px; border: none; background: transparent;">Nomor Induk Berusaha (NIB)</td>
+                    <td style="padding: 8px; border: none; background: transparent;">{{ $permohonan->nib ?? 'N/A' }}</td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; padding: 8px;">KBLI</td>
-                    <td style="padding: 8px;">{{ $permohonan->kbli ?? 'N/A' }}</td>
+                    <td style="font-weight: bold; padding: 8px; border: none; background: transparent;">KBLI</td>
+                    <td style="padding: 8px; border: none; background: transparent;">{{ $permohonan->kbli ?? 'N/A' }}</td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; padding: 8px;">Skala Usaha</td>
-                    <td style="padding: 8px;">{{ $permohonan->skala_usaha ?? 'N/A' }}</td>
+                    <td style="font-weight: bold; padding: 8px; border: none; background: transparent;">Skala Usaha</td>
+                    <td style="padding: 8px; border: none; background: transparent;">{{ $permohonan->skala_usaha ?? 'N/A' }}</td>
                 </tr>
                 <tr>
-                    <td style="font-weight: bold; padding: 8px;">Tingkat Risiko</td>
-                    <td style="padding: 8px;">{{ $permohonan->risiko ?? 'N/A' }}</td>
+                    <td style="font-weight: bold; padding: 8px; border: none; background: transparent;">Tingkat Risiko</td>
+                    <td style="padding: 8px; border: none; background: transparent;">{{ $permohonan->risiko ?? 'N/A' }}</td>
                 </tr>
             </tbody>
         </table>
@@ -472,13 +476,13 @@
     </p>
     
     <!-- Tabel Persyaratan -->
-    <table class="doc-table">
+    <table class="doc-table" style="border: none; background: transparent;">
         <thead>
             <tr>
-                <th class="no-col">No.</th>
-                <th class="nama-col">Jenis Persyaratan</th>
-                <th class="checkbox-col">Sesuai</th>
-                <th class="checkbox-col">Tidak Sesuai</th>
+                <th class="no-col" style="border: none; background: transparent;">No.</th>
+                <th class="nama-col" style="border: none; background: transparent;">Jenis Persyaratan</th>
+                <th class="checkbox-col" style="border: none; background: transparent;">Sesuai</th>
+                <th class="checkbox-col" style="border: none; background: transparent;">Tidak Sesuai</th>
             </tr>
         </thead>
         <tbody>
@@ -503,8 +507,8 @@
                         }
                     @endphp
                     <tr>
-                        <td class="text-center">{{ $no++ }}</td>
-                        <td>
+                        <td class="text-center" style="border: none; background: transparent;">{{ $no++ }}</td>
+                        <td style="border: none; background: transparent;">
                             {{ $item['nama'] ?? '' }}
                             @if(count($subItems) > 0)
                                 <div class="sub-item">
@@ -514,7 +518,7 @@
                                 </div>
                             @endif
                         </td>
-                        <td class="text-center" style="vertical-align: top;">
+                        <td class="text-center" style="vertical-align: top; border: none; background: transparent;">
                             @if(isset($item['status']) && $item['status'] === 'Sesuai')
                                 <div class="checkbox checked">
                                     <span class="checkbox-checkmark">✓</span>
@@ -538,7 +542,7 @@
                                 </div>
                             @endif
                         </td>
-                        <td class="text-center" style="vertical-align: top;">
+                        <td class="text-center" style="vertical-align: top; border: none; background: transparent;">
                             @if(isset($item['status']) && $item['status'] === 'Tidak Sesuai')
                                 <div class="checkbox checked">
                                     <span class="checkbox-checkmark">✓</span>
@@ -641,7 +645,14 @@
                     <p style="font-weight: bold;">Memeriksa,</p>
                     <p style="font-weight: bold;">Verifikator Tim Perizinan</p>
                     @if(isset($data['ttd_memeriksa']) && !empty($data['ttd_memeriksa']))
-                        <img src="{{ $data['ttd_memeriksa'] }}" alt="TTD Memeriksa" class="doc-signature-img">
+                        @php
+                            $ttdMemeriksa = $data['ttd_memeriksa'];
+                            // Pastikan format base64 benar
+                            if (!str_starts_with($ttdMemeriksa, 'data:image')) {
+                                $ttdMemeriksa = 'data:image/png;base64,' . $ttdMemeriksa;
+                            }
+                        @endphp
+                        <img src="{{ $ttdMemeriksa }}" alt="TTD Memeriksa" class="doc-signature-img" style="max-width: 250px; max-height: 80px; object-fit: contain;">
                     @else
                         <div style="height: 80px; margin: 15px 0;"></div>
                     @endif
@@ -654,7 +665,14 @@
                     <p style="font-weight: bold;">Menyetujui,</p>
                     <p style="font-weight: bold;">Validator Tim Perizinan</p>
                     @if(isset($data['ttd_menyetujui']) && !empty($data['ttd_menyetujui']))
-                        <img src="{{ $data['ttd_menyetujui'] }}" alt="TTD Menyetujui" class="doc-signature-img">
+                        @php
+                            $ttdMenyetujui = $data['ttd_menyetujui'];
+                            // Pastikan format base64 benar
+                            if (!str_starts_with($ttdMenyetujui, 'data:image')) {
+                                $ttdMenyetujui = 'data:image/png;base64,' . $ttdMenyetujui;
+                            }
+                        @endphp
+                        <img src="{{ $ttdMenyetujui }}" alt="TTD Menyetujui" class="doc-signature-img" style="max-width: 250px; max-height: 80px; object-fit: contain;">
                     @else
                         <div style="height: 80px; margin: 15px 0;"></div>
                     @endif
@@ -672,7 +690,14 @@
                     <p style="font-weight: bold;">Koordinator Ketua Tim Kerja</p>
                     <p style="font-weight: bold;">Pelayanan Terpadu Satu Pintu</p>
                     @if(isset($data['ttd_mengetahui']) && !empty($data['ttd_mengetahui']))
-                        <img src="{{ $data['ttd_mengetahui'] }}" alt="TTD Mengetahui" class="doc-signature-img">
+                        @php
+                            $ttdMengetahui = $data['ttd_mengetahui'];
+                            // Pastikan format base64 benar
+                            if (!str_starts_with($ttdMengetahui, 'data:image')) {
+                                $ttdMengetahui = 'data:image/png;base64,' . $ttdMengetahui;
+                            }
+                        @endphp
+                        <img src="{{ $ttdMengetahui }}" alt="TTD Mengetahui" class="doc-signature-img" style="max-width: 250px; max-height: 80px; object-fit: contain;">
                     @else
                         <div style="height: 80px; margin: 15px 0;"></div>
                     @endif
