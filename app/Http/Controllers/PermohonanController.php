@@ -871,6 +871,8 @@ class PermohonanController extends Controller
                 'hasil_peninjauan_lapangan' => 'nullable|string',
                 'keputusan' => 'required|in:Disetujui,Perbaikan,Penolakan',
                 'catatan' => 'nullable|string',
+                'nama_pelaku_usaha' => 'required|string|max:255',
+                'alamat_pelaku_usaha' => 'required|string|max:500',
                 'persyaratan' => 'required|array|min:1',
                 'persyaratan.*.nama' => 'required|string',
                 'persyaratan.*.status' => 'required|in:Sesuai,Tidak Sesuai',
@@ -887,6 +889,8 @@ class PermohonanController extends Controller
                 'nama_mengetahui' => 'nullable|string',
                 'nip_mengetahui' => 'nullable|string',
             ], [
+                'nama_pelaku_usaha.required' => 'Nama Pelaku Usaha wajib diisi.',
+                'alamat_pelaku_usaha.required' => 'Alamat Pelaku Usaha wajib diisi.',
                 'persyaratan.required' => 'Mohon tambahkan minimal 1 persyaratan sebelum generate PDF.',
                 'persyaratan.min' => 'Mohon tambahkan minimal 1 persyaratan sebelum generate PDF.',
                 'persyaratan.*.nama.required' => 'Nama persyaratan harus diisi.',

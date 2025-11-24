@@ -432,11 +432,11 @@
                 </tr>
                 <tr>
                     <td style="font-weight: bold; padding: 8px;">Nama Pelaku Usaha</td>
-                    <td style="padding: 8px;">{{ $permohonan->pemilik ?? $permohonan->user->name ?? 'N/A' }}</td>
+                    <td style="padding: 8px;">{{ $data['nama_pelaku_usaha'] ?? 'N/A' }}</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold; padding: 8px;">Alamat Pelaku Usaha</td>
-                    <td style="padding: 8px;">{{ $permohonan->alamat_perusahaan ?? 'N/A' }}</td>
+                    <td style="padding: 8px;">{{ $data['alamat_pelaku_usaha'] ?? 'N/A' }}</td>
                 </tr>
                 <tr>
                     <td style="font-weight: bold; padding: 8px;">Nama Usaha</td>
