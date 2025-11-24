@@ -644,14 +644,16 @@
                 <div class="doc-signature-line">
                     <p style="font-weight: bold;">Memeriksa,</p>
                     <p style="font-weight: bold;">Verifikator Tim Perizinan</p>
-                    @if(isset($data['ttd_memeriksa']) && !empty($data['ttd_memeriksa']))
-                        @php
-                            $ttdMemeriksa = $data['ttd_memeriksa'];
+                    @php
+                        $ttdMemeriksa = $data['ttd_memeriksa'] ?? null;
+                        if ($ttdMemeriksa && !empty($ttdMemeriksa)) {
                             // Pastikan format base64 benar
                             if (!str_starts_with($ttdMemeriksa, 'data:image')) {
                                 $ttdMemeriksa = 'data:image/png;base64,' . $ttdMemeriksa;
                             }
-                        @endphp
+                        }
+                    @endphp
+                    @if($ttdMemeriksa && !empty($ttdMemeriksa))
                         <img src="{{ $ttdMemeriksa }}" alt="TTD Memeriksa" class="doc-signature-img" style="max-width: 250px; max-height: 80px; object-fit: contain;">
                     @else
                         <div style="height: 80px; margin: 15px 0;"></div>
@@ -664,14 +666,16 @@
                 <div class="doc-signature-line">
                     <p style="font-weight: bold;">Menyetujui,</p>
                     <p style="font-weight: bold;">Validator Tim Perizinan</p>
-                    @if(isset($data['ttd_menyetujui']) && !empty($data['ttd_menyetujui']))
-                        @php
-                            $ttdMenyetujui = $data['ttd_menyetujui'];
+                    @php
+                        $ttdMenyetujui = $data['ttd_menyetujui'] ?? null;
+                        if ($ttdMenyetujui && !empty($ttdMenyetujui)) {
                             // Pastikan format base64 benar
                             if (!str_starts_with($ttdMenyetujui, 'data:image')) {
                                 $ttdMenyetujui = 'data:image/png;base64,' . $ttdMenyetujui;
                             }
-                        @endphp
+                        }
+                    @endphp
+                    @if($ttdMenyetujui && !empty($ttdMenyetujui))
                         <img src="{{ $ttdMenyetujui }}" alt="TTD Menyetujui" class="doc-signature-img" style="max-width: 250px; max-height: 80px; object-fit: contain;">
                     @else
                         <div style="height: 80px; margin: 15px 0;"></div>
@@ -689,14 +693,16 @@
                     <p style="font-weight: bold;">Mengetahui,</p>
                     <p style="font-weight: bold;">Koordinator Ketua Tim Kerja</p>
                     <p style="font-weight: bold;">Pelayanan Terpadu Satu Pintu</p>
-                    @if(isset($data['ttd_mengetahui']) && !empty($data['ttd_mengetahui']))
-                        @php
-                            $ttdMengetahui = $data['ttd_mengetahui'];
+                    @php
+                        $ttdMengetahui = $data['ttd_mengetahui'] ?? null;
+                        if ($ttdMengetahui && !empty($ttdMengetahui)) {
                             // Pastikan format base64 benar
                             if (!str_starts_with($ttdMengetahui, 'data:image')) {
                                 $ttdMengetahui = 'data:image/png;base64,' . $ttdMengetahui;
                             }
-                        @endphp
+                        }
+                    @endphp
+                    @if($ttdMengetahui && !empty($ttdMengetahui))
                         <img src="{{ $ttdMengetahui }}" alt="TTD Mengetahui" class="doc-signature-img" style="max-width: 250px; max-height: 80px; object-fit: contain;">
                     @else
                         <div style="height: 80px; margin: 15px 0;"></div>
