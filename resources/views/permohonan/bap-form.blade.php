@@ -635,7 +635,37 @@
                             <div x-ref="editKoordinatorForm" class="hidden mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                                 <h4 class="text-sm font-semibold text-gray-900 mb-3">Edit Nama dan NIP Koordinator</h4>
                                 <p class="text-xs text-gray-600 mb-3">Hanya admin yang dapat mengedit nama dan NIP koordinator. TTD dapat diisi oleh semua role di form utama.</p>
-                                <form method="POST" action="{{ route('bap.ttd.update') }}" class="space-y-3">
+                                <form method="POST" action="{{ route('bap.ttd.update') }}" 
+                                      class="space-y-3"
+                                      @submit.stop.prevent="
+                                          // Mencegah form BAP ikut ter-submit
+                                          const form = $el;
+                                          const formData = new FormData(form);
+                                          
+                                          // Submit form edit koordinator secara terpisah
+                                          fetch(form.action, {
+                                              method: 'POST',
+                                              body: formData,
+                                              headers: {
+                                                  'X-Requested-With': 'XMLHttpRequest',
+                                                  'Accept': 'application/json'
+                                              }
+                                          })
+                                          .then(response => response.json())
+                                          .then(data => {
+                                              if (data.success || data.message) {
+                                                  // Reload halaman untuk update data
+                                                  window.location.reload();
+                                              } else {
+                                                  alert('Gagal menyimpan data koordinator');
+                                              }
+                                          })
+                                          .catch(error => {
+                                              console.error('Error:', error);
+                                              // Fallback: submit form normal
+                                              form.submit();
+                                          });
+                                      ">
                                     @csrf
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                         <div>
@@ -657,7 +687,7 @@
                                     </div>
                                     <div class="flex gap-2 justify-end pt-2">
                                         <button type="button" 
-                                                @click="$refs.editKoordinatorForm.classList.add('hidden')"
+                                                @click.stop="$refs.editKoordinatorForm.classList.add('hidden')"
                                                 class="px-4 py-2 bg-gray-500 text-white text-sm rounded hover:bg-gray-600">
                                             Batal
                                         </button>

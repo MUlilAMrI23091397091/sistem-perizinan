@@ -1094,6 +1094,14 @@ class PermohonanController extends Controller
         
         $koordinator->update($data);
         
+        // Jika request AJAX, return JSON
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Nama dan NIP koordinator berhasil diperbarui.'
+            ]);
+        }
+        
         return redirect()->back()->with('success', 'Nama dan NIP koordinator berhasil diperbarui.');
     }
 }
