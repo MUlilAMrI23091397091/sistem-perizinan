@@ -198,14 +198,13 @@
                       }
                   }
               }"
-              @submit.prevent="
+              @submit="
                   // Validasi client-side
                   if (!validateForm()) {
+                      $event.preventDefault();
                       return false;
                   }
-                  
-                  // Jika validasi berhasil, submit form normal
-                  $el.submit();
+                  // Jika validasi berhasil, biarkan form submit normal (tidak prevent)
               ">
             @csrf
 
