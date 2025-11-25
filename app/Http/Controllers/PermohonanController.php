@@ -862,6 +862,16 @@ class PermohonanController extends Controller
         }
 
         try {
+            // Log request untuk debugging
+            \Log::info('BAP Generate Request:', [
+                'user_id' => $user->id,
+                'user_role' => $user->role,
+                'permohonan_id' => $permohonan->id,
+                'has_persyaratan' => $request->has('persyaratan'),
+                'persyaratan_count' => is_array($request->persyaratan) ? count($request->persyaratan) : 0,
+                'all_request_keys' => array_keys($request->all()),
+            ]);
+            
             // Validasi form
             $validated = $request->validate([
                 'nomor_bap' => 'required|string',
