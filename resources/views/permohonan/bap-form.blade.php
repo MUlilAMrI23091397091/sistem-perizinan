@@ -635,37 +635,8 @@
                             <div x-ref="editKoordinatorForm" class="hidden mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                                 <h4 class="text-sm font-semibold text-gray-900 mb-3">Edit Nama dan NIP Koordinator</h4>
                                 <p class="text-xs text-gray-600 mb-3">Hanya admin yang dapat mengedit nama dan NIP koordinator. TTD dapat diisi oleh semua role di form utama.</p>
-                                <form method="POST" action="{{ route('bap.ttd.update') }}" 
-                                      class="space-y-3"
-                                      @submit.stop.prevent="
-                                          // Mencegah form BAP ikut ter-submit
-                                          const form = $el;
-                                          const formData = new FormData(form);
-                                          
-                                          // Submit form edit koordinator secara terpisah
-                                          fetch(form.action, {
-                                              method: 'POST',
-                                              body: formData,
-                                              headers: {
-                                                  'X-Requested-With': 'XMLHttpRequest',
-                                                  'Accept': 'application/json'
-                                              }
-                                          })
-                                          .then(response => response.json())
-                                          .then(data => {
-                                              if (data.success || data.message) {
-                                                  // Reload halaman untuk update data
-                                                  window.location.reload();
-                                              } else {
-                                                  alert('Gagal menyimpan data koordinator');
-                                              }
-                                          })
-                                          .catch(error => {
-                                              console.error('Error:', error);
-                                              // Fallback: submit form normal
-                                              form.submit();
-                                          });
-                                      ">
+                                <form id="editKoordinatorFormSubmit" method="POST" action="{{ route('bap.ttd.update') }}" 
+                                      class="space-y-3">
                                     @csrf
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                         <div>
@@ -998,6 +969,71 @@
             }
 
             initSignaturePads();
+            
+            // Handle form edit koordinator submit (mencegah form BAP ikut ter-submit)
+            const editKoordinatorForm = document.getElementById('editKoordinatorFormSubmit');
+            if (editKoordinatorForm) {
+                editKoordinatorForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const formData = new FormData(this);
+                    const submitButton = this.querySelector('button[type="submit"]');
+                    const originalText = submitButton ? submitButton.textContent : '';
+                    
+                    // Disable button
+                    if (submitButton) {
+                        submitButton.disabled = true;
+                        submitButton.textContent = 'Menyimpan...';
+                    }
+                    
+                    fetch(this.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || 
+                                          document.querySelector('input[name="_token"]')?.value
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.success || data.message) {
+                            // Show success message
+                            if (typeof Swal !== 'undefined') {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Berhasil',
+                                    text: data.message || 'Nama dan NIP koordinator berhasil diperbarui.',
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                }).then(() => {
+                                    window.location.reload();
+                                });
+                            } else {
+                                alert(data.message || 'Nama dan NIP koordinator berhasil diperbarui.');
+                                window.location.reload();
+                            }
+                        } else {
+                            throw new Error('Invalid response');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('Gagal menyimpan data koordinator. Silakan coba lagi.');
+                        if (submitButton) {
+                            submitButton.disabled = false;
+                            submitButton.textContent = originalText;
+                        }
+                    });
+                });
+            }
             
         });
     </script>
