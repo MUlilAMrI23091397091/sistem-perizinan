@@ -160,7 +160,7 @@
         
         /* Tabel persyaratan dengan background warna */
         .doc-table-persyaratan {
-            border: 1px solid #D1D5DB;
+            border: 1px solid #000000;
         }
         
         .doc-table-persyaratan thead tr {
@@ -169,12 +169,12 @@
         
         .doc-table-persyaratan thead th {
             background-color: #F9FAFB;
-            border: 1px solid #D1D5DB;
+            border: 1px solid #000000;
             padding: 8px;
         }
         
         .doc-table-persyaratan tbody td {
-            border: 1px solid #D1D5DB;
+            border: 1px solid #000000;
             padding: 8px;
             background-color: #FFFFFF;
         }
@@ -607,38 +607,42 @@
         </tbody>
     </table>
 
-    <!-- Hasil Peninjauan Lapangan -->
+    <!-- Hasil Peninjauan Lapangan (Data Tambahan) -->
     @if(isset($data['nomor_surat_tugas']) || isset($data['tanggal_surat_tugas']) || isset($data['hasil_peninjauan_lapangan']))
     <div class="doc-section">
         <p class="doc-paragraph no-indent">
             Terhadap permohonan juga telah dilakukan peninjauan lapangan terhadap lokasi usaha, yaitu:
         </p>
-        @if(isset($data['tanggal_surat_tugas']))
-        <p class="doc-paragraph no-indent" style="margin-bottom: 5px;">
-            <strong>Hari/Tanggal:</strong> 
-            <span style="margin-left: 40px;">
-                @php
-                    try {
-                        echo \Carbon\Carbon::parse($data['tanggal_surat_tugas'])->locale('id')->translatedFormat('d F Y');
-                    } catch (\Exception $e) {
-                        echo $data['tanggal_surat_tugas'];
-                    }
-                @endphp
-            </span>
-        </p>
-        @endif
-        @if(isset($data['nomor_surat_tugas']))
-        <p class="doc-paragraph no-indent" style="margin-bottom: 5px;">
-            <strong>Nomor Surat Perintah Tugas:</strong> 
-            <span style="margin-left: 40px;">{{ $data['nomor_surat_tugas'] }}</span>
-        </p>
-        @endif
-        @if(isset($data['hasil_peninjauan_lapangan']))
-        <p class="doc-paragraph no-indent" style="margin-bottom: 5px;">
-            <strong>Hasil Peninjauan Lapangan:</strong> 
-            <span style="margin-left: 40px;">{{ $data['hasil_peninjauan_lapangan'] }}</span>
-        </p>
-        @endif
+        <table class="doc-table">
+            <tbody>
+                @if(isset($data['tanggal_surat_tugas']))
+                <tr>
+                    <td style="width: 35%; font-weight: bold; padding: 8px; border: none; background: transparent;">Hari/Tanggal</td>
+                    <td style="width: 65%; padding: 8px; border: none; background: transparent;">
+                        @php
+                            try {
+                                echo \Carbon\Carbon::parse($data['tanggal_surat_tugas'])->locale('id')->translatedFormat('d F Y');
+                            } catch (\Exception $e) {
+                                echo $data['tanggal_surat_tugas'];
+                            }
+                        @endphp
+                    </td>
+                </tr>
+                @endif
+                @if(isset($data['nomor_surat_tugas']))
+                <tr>
+                    <td style="font-weight: bold; padding: 8px; border: none; background: transparent;">Nomor Surat Perintah Tugas</td>
+                    <td style="padding: 8px; border: none; background: transparent;">{{ $data['nomor_surat_tugas'] }}</td>
+                </tr>
+                @endif
+                @if(isset($data['hasil_peninjauan_lapangan']))
+                <tr>
+                    <td style="font-weight: bold; padding: 8px; border: none; background: transparent;">Hasil Peninjauan Lapangan</td>
+                    <td style="padding: 8px; border: none; background: transparent;">{{ $data['hasil_peninjauan_lapangan'] }}</td>
+                </tr>
+                @endif
+            </tbody>
+        </table>
     </div>
     @endif
 
