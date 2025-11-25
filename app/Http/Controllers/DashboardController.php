@@ -732,11 +732,12 @@ class DashboardController extends Controller
         $user = Auth::user();
         
         if (!$user || !in_array($user->role, ['dpmptsp', 'admin'])) {
-            return response()->json(['notifications' => [], 'count' => 0])
-                ->header('Content-Type', 'application/json; charset=utf-8')
-                ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
-                ->header('Pragma', 'no-cache')
-                ->header('Expires', '0');
+            return response()->json(['notifications' => [], 'count' => 0], 200, [
+                'Content-Type' => 'application/json; charset=utf-8',
+                'Cache-Control' => 'no-cache, no-store, must-revalidate',
+                'Pragma' => 'no-cache',
+                'Expires' => '0'
+            ]);
         }
 
         // Optimasi query: hanya ambil field yang diperlukan
@@ -769,14 +770,17 @@ class DashboardController extends Controller
             ];
         });
 
-        return response()->json([
+        $response = response()->json([
             'notifications' => $notifications,
             'count' => $notifications->count()
-        ])
-        ->header('Content-Type', 'application/json; charset=utf-8')
-        ->header('Cache-Control', 'no-cache, no-store, must-revalidate')
-        ->header('Pragma', 'no-cache')
-        ->header('Expires', '0');
+        ], 200, [
+            'Content-Type' => 'application/json; charset=utf-8',
+            'Cache-Control' => 'no-cache, no-store, must-revalidate',
+            'Pragma' => 'no-cache',
+            'Expires' => '0'
+        ]);
+        
+        return $response;
     }
 
     /**
