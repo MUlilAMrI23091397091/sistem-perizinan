@@ -734,9 +734,63 @@
         </form>
     </div>
 
-    <!-- Script untuk Signature Pad -->
+    <!-- Script untuk Signature Pad dan Form Submit Fallback -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Fallback form submit handler jika Alpine.js tidak bekerja
+            const bapForm = document.querySelector('form[action*="bap/generate"]');
+            const generateButton = document.getElementById('generateBapButton');
+            
+            if (bapForm && generateButton) {
+                // Tambahkan event listener langsung sebagai fallback
+                bapForm.addEventListener('submit', function(e) {
+                    console.log('Form submit event triggered (fallback handler)');
+                    
+                    // Cek apakah Alpine.js sudah handle
+                    if (e.defaultPrevented) {
+                        console.log('Submit already prevented by Alpine.js');
+                        return;
+                    }
+                    
+                    // Validasi manual jika Alpine.js tidak tersedia
+                    const persyaratanInputs = document.querySelectorAll('input[name^="persyaratan["][name$="[nama]"]');
+                    const persyaratanCount = Array.from(persyaratanInputs).filter(input => input.value.trim()).length;
+                    
+                    console.log('Persyaratan count (fallback):', persyaratanCount);
+                    
+                    if (persyaratanCount === 0) {
+                        e.preventDefault();
+                        alert('Mohon tambahkan minimal 1 persyaratan sebelum generate PDF!');
+                        return false;
+                    }
+                    
+                    // Validasi nama dan alamat pelaku usaha
+                    const namaPelakuUsaha = document.getElementById('nama_pelaku_usaha');
+                    const alamatPelakuUsaha = document.getElementById('alamat_pelaku_usaha');
+                    
+                    if (!namaPelakuUsaha || !namaPelakuUsaha.value || !namaPelakuUsaha.value.trim()) {
+                        e.preventDefault();
+                        alert('Mohon isi Nama Pelaku Usaha!');
+                        namaPelakuUsaha?.focus();
+                        return false;
+                    }
+                    
+                    if (!alamatPelakuUsaha || !alamatPelakuUsaha.value || !alamatPelakuUsaha.value.trim()) {
+                        e.preventDefault();
+                        alert('Mohon isi Alamat Pelaku Usaha!');
+                        alamatPelakuUsaha?.focus();
+                        return false;
+                    }
+                    
+                    console.log('Fallback validation passed, submitting form...');
+                });
+                
+                // Log saat button diklik
+                generateButton.addEventListener('click', function(e) {
+                    console.log('Generate button clicked');
+                });
+            }
+            
             // Tunggu sampai SignaturePad tersedia
             function initSignaturePads() {
                 if (typeof SignaturePad === 'undefined') {
