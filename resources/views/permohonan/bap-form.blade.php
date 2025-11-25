@@ -630,18 +630,16 @@
                         <p class="text-xs text-gray-600 mb-1 text-center">Koordinator Ketua Tim Kerja</p>
                         <p class="text-xs text-gray-600 mb-1 text-center">Pelayanan Terpadu Satu Pintu</p>
                         
-                        <!-- Form Edit Koordinator (Hanya Admin, Hidden by default) -->
+                        <!-- Form Edit Koordinator (Hanya Admin, Hidden by default) - DIPINDAH KELUAR DARI FORM BAP -->
                         @if($canEditKoordinator ?? false)
                             <div x-ref="editKoordinatorForm" class="hidden mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
                                 <h4 class="text-sm font-semibold text-gray-900 mb-3">Edit Nama dan NIP Koordinator</h4>
                                 <p class="text-xs text-gray-600 mb-3">Hanya admin yang dapat mengedit nama dan NIP koordinator. TTD dapat diisi oleh semua role di form utama.</p>
-                                <form id="editKoordinatorFormSubmit" method="POST" action="{{ route('bap.ttd.update') }}" 
-                                      class="space-y-3">
-                                    @csrf
+                                <div class="space-y-3">
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                                         <div>
                                             <label for="edit_nama_mengetahui" class="block text-xs font-medium text-gray-700 mb-1">Nama Koordinator <span class="text-red-500">*</span></label>
-                                            <input type="text" id="edit_nama_mengetahui" name="nama_mengetahui" 
+                                            <input type="text" id="edit_nama_mengetahui" name="edit_nama_mengetahui" 
                                                    value="{{ $koordinator->nama_mengetahui ?? '' }}"
                                                    required
                                                    class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
@@ -649,7 +647,7 @@
                                         </div>
                                         <div>
                                             <label for="edit_nip_mengetahui" class="block text-xs font-medium text-gray-700 mb-1">NIP Koordinator <span class="text-red-500">*</span></label>
-                                            <input type="text" id="edit_nip_mengetahui" name="nip_mengetahui" 
+                                            <input type="text" id="edit_nip_mengetahui" name="edit_nip_mengetahui" 
                                                    value="{{ $koordinator->nip_mengetahui ?? '' }}"
                                                    required
                                                    class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
@@ -662,11 +660,13 @@
                                                 class="px-4 py-2 bg-gray-500 text-white text-sm rounded hover:bg-gray-600">
                                             Batal
                                         </button>
-                                        <button type="submit" class="px-4 py-2 bg-yellow-600 text-white text-sm rounded hover:bg-yellow-700">
+                                        <button type="button" 
+                                                id="saveKoordinatorBtn"
+                                                class="px-4 py-2 bg-yellow-600 text-white text-sm rounded hover:bg-yellow-700">
                                             Simpan Nama & NIP
                                         </button>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         @endif
                         
@@ -970,31 +970,45 @@
 
             initSignaturePads();
             
-            // Handle form edit koordinator submit (mencegah form BAP ikut ter-submit)
-            const editKoordinatorForm = document.getElementById('editKoordinatorFormSubmit');
-            if (editKoordinatorForm) {
-                editKoordinatorForm.addEventListener('submit', function(e) {
+            // Handle button save koordinator (tidak menggunakan form, langsung AJAX)
+            const saveKoordinatorBtn = document.getElementById('saveKoordinatorBtn');
+            if (saveKoordinatorBtn) {
+                saveKoordinatorBtn.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     
-                    const formData = new FormData(this);
-                    const submitButton = this.querySelector('button[type="submit"]');
-                    const originalText = submitButton ? submitButton.textContent : '';
+                    const nama = document.getElementById('edit_nama_mengetahui').value.trim();
+                    const nip = document.getElementById('edit_nip_mengetahui').value.trim();
                     
-                    // Disable button
-                    if (submitButton) {
-                        submitButton.disabled = true;
-                        submitButton.textContent = 'Menyimpan...';
+                    // Validasi
+                    if (!nama || !nip) {
+                        alert('Mohon isi nama dan NIP koordinator!');
+                        return false;
                     }
                     
-                    fetch(this.action, {
+                    const submitButton = this;
+                    const originalText = submitButton.textContent;
+                    
+                    // Disable button
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Menyimpan...';
+                    
+                    // Get CSRF token
+                    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || 
+                                    document.querySelector('input[name="_token"]')?.value;
+                    
+                    // Prepare form data
+                    const formData = new FormData();
+                    formData.append('nama_mengetahui', nama);
+                    formData.append('nip_mengetahui', nip);
+                    formData.append('_token', csrfToken);
+                    
+                    fetch('{{ route("bap.ttd.update") }}', {
                         method: 'POST',
                         body: formData,
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest',
-                            'Accept': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || 
-                                          document.querySelector('input[name="_token"]')?.value
+                            'Accept': 'application/json'
                         }
                     })
                     .then(response => {
@@ -1027,11 +1041,11 @@
                     .catch(error => {
                         console.error('Error:', error);
                         alert('Gagal menyimpan data koordinator. Silakan coba lagi.');
-                        if (submitButton) {
-                            submitButton.disabled = false;
-                            submitButton.textContent = originalText;
-                        }
+                        submitButton.disabled = false;
+                        submitButton.textContent = originalText;
                     });
+                    
+                    return false;
                 });
             }
             
