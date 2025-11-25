@@ -1,3 +1,64 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* CSS Compatibility Fixes */
+@layer base {
+    html,
+    :host {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+    }
+}
+
+/* Backdrop filter support for Safari */
+@layer utilities {
+    .backdrop-blur-sm,
+    .backdrop-blur,
+    .backdrop-blur-md,
+    .backdrop-blur-lg {
+        -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+        backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+    }
+    
+    /* Width stretch support for Edge */
+    .w-stretch {
+        width: -webkit-fill-available;
+        width: stretch;
+    }
+}
+
+/* Custom utility classes to replace inline styles */
+@layer utilities {
+    .z-sidebar {
+        z-index: 10;
+    }
+    
+    .z-content {
+        z-index: 0;
+    }
+    
+    .z-profile-dropdown {
+        z-index: 1;
+    }
+    
+    .bg-header-light {
+        background-color: #F8FAFC;
+    }
+    
+    .bg-status-blue {
+        background-color: #E0E7FF;
+    }
+    
+    .text-status-blue {
+        color: #3B82F6;
+    }
+    
+    .bg-table-header {
+        background-color: #253B7E;
+    }
+    
+    .text-table-header {
+        color: #E0E7FF;
+    }
+}
