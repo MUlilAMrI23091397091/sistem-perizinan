@@ -699,18 +699,20 @@
                             <div>
                                 <label for="nama_mengetahui" class="block text-xs font-medium text-gray-700 mb-1">Nama</label>
                                 <input type="text" id="nama_mengetahui" name="nama_mengetahui" 
-                                       class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                       class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md bg-gray-50 cursor-not-allowed"
                                        value="{{ $koordinator->nama_mengetahui ?? '' }}"
-                                       placeholder="Masukkan nama"
-                                       @if($koordinator->ttd_bap_mengetahui) readonly @endif>
+                                       placeholder="Nama koordinator"
+                                       readonly
+                                       title="Nama koordinator hanya bisa diedit oleh admin melalui tombol 'Edit Koordinator'">
                             </div>
                             <div>
                                 <label for="nip_mengetahui" class="block text-xs font-medium text-gray-700 mb-1">NIP</label>
                                 <input type="text" id="nip_mengetahui" name="nip_mengetahui" 
-                                       class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                       class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md bg-gray-50 cursor-not-allowed"
                                        value="{{ $koordinator->nip_mengetahui ?? '' }}"
-                                       placeholder="Masukkan NIP"
-                                       @if($koordinator->ttd_bap_mengetahui) readonly @endif>
+                                       placeholder="NIP koordinator"
+                                       readonly
+                                       title="NIP koordinator hanya bisa diedit oleh admin melalui tombol 'Edit Koordinator'">
                             </div>
                         </div>
                         <div id="previewMengetahui" class="mt-2 hidden">
