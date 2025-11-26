@@ -13,22 +13,24 @@
 </style>
 <div class="flex h-screen bg-gray-100 overflow-hidden">
     <!-- Sidebar -->
-    <div class="bg-gradient-sidebar shadow-lg w-64 flex-shrink-0 relative z-sidebar overflow-visible" x-data="{ sidebarOpen: true }">
+    <div class="bg-gradient-sidebar shadow-lg w-64 flex-shrink-0 relative z-sidebar overflow-visible gpu-accelerated" x-data="{ sidebarOpen: true }">
         <!-- Logo Section -->
         <div class="flex items-center justify-center h-16 px-4 border-b border-white/20">
             <div class="flex items-center space-x-3">
-                <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="w-8 h-8 rounded-full">
+                <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="w-8 h-8 rounded-full" loading="lazy" decoding="async">
                 <span class="text-lg font-bold text-white">Dashboard Analisa</span>
             </div>
         </div>
 
         <!-- Navigation Menu -->
-        <nav class="mt-6 px-4">
+        <nav class="mt-6 px-4 optimize-rendering">
             <div class="space-y-2">
                 <!-- Dashboard -->
                 @if(auth()->user() && auth()->user()->role !== 'penerbitan_berkas')
                 <a href="{{ route('dashboard') }}" 
-                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('dashboard') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                   rel="prefetch"
+                   onmouseenter="this.rel='prefetch'; if (!this.dataset.prefetched) { const link = document.createElement('link'); link.rel='prefetch'; link.href=this.href; link.as='document'; document.head.appendChild(link); this.dataset.prefetched='true'; }"
+                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('dashboard') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }} transition-colors duration-150">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
                     </svg>
@@ -39,7 +41,9 @@
                 <!-- Manajemen Staff -->
                 @can('admin')
                 <a href="{{ route('users.index') }}" 
-                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('users.*') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                   rel="prefetch"
+                   onmouseenter="this.rel='prefetch'; if (!this.dataset.prefetched) { const link = document.createElement('link'); link.rel='prefetch'; link.href=this.href; link.as='document'; document.head.appendChild(link); this.dataset.prefetched='true'; }"
+                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('users.*') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }} transition-colors duration-150">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
                     </svg>
@@ -50,7 +54,9 @@
                 <!-- Permohonan -->
                 @if(auth()->user() && auth()->user()->role !== 'penerbitan_berkas')
                 <a href="{{ route('permohonan.index') }}" 
-                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('permohonan.*') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                   rel="prefetch"
+                   onmouseenter="this.rel='prefetch'; if (!this.dataset.prefetched) { const link = document.createElement('link'); link.rel='prefetch'; link.href=this.href; link.as='document'; document.head.appendChild(link); this.dataset.prefetched='true'; }"
+                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('permohonan.*') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }} transition-colors duration-150">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
@@ -61,7 +67,9 @@
                 <!-- Statistik -->
                 @if(auth()->user() && auth()->user()->role !== 'penerbitan_berkas')
                 <a href="{{ route('statistik') }}" 
-                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('statistik') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                   rel="prefetch"
+                   onmouseenter="this.rel='prefetch'; if (!this.dataset.prefetched) { const link = document.createElement('link'); link.rel='prefetch'; link.href=this.href; link.as='document'; document.head.appendChild(link); this.dataset.prefetched='true'; }"
+                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('statistik') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }} transition-colors duration-150">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
@@ -72,7 +80,9 @@
                 <!-- Penerbitan Berkas -->
                 @if(auth()->user() && in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']))
                 <a href="{{ route('penerbitan-berkas') }}" 
-                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('penerbitan-berkas') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                   rel="prefetch"
+                   onmouseenter="this.rel='prefetch'; if (!this.dataset.prefetched) { const link = document.createElement('link'); link.rel='prefetch'; link.href=this.href; link.as='document'; document.head.appendChild(link); this.dataset.prefetched='true'; }"
+                   class="flex items-center px-4 py-3 text-sm font-medium rounded-lg {{ request()->routeIs('penerbitan-berkas') ? 'bg-white/20 text-white border-r-2 border-white' : 'text-white/80 hover:bg-white/10 hover:text-white' }} transition-colors duration-150">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                     </svg>
@@ -85,7 +95,7 @@
 
         <!-- Notifications Section (for dpmptsp and admin user) -->
         @if(auth()->user() && in_array(auth()->user()->role, ['dpmptsp', 'admin']))
-        <div class="px-4 mt-4 relative" 
+        <div class="px-4 mt-4" 
              x-data="{
                 notifications: [],
                 count: 0,
@@ -94,7 +104,17 @@
                 refreshInterval: null,
                 isFetching: false,
                 lastFetchTime: 0,
+                countCache: null,
+                countCacheTime: 0,
+                CACHE_DURATION: 30000, // 30 detik cache untuk count
                 async fetchCountOnly() {
+                    // Gunakan cache jika masih valid
+                    const now = Date.now();
+                    if (this.countCache !== null && (now - this.countCacheTime) < this.CACHE_DURATION) {
+                        this.count = this.countCache;
+                        return;
+                    }
+                    
                     // Fetch count saja tanpa loading indicator, untuk mempercepat
                     if (this.isFetching) {
                         return;
@@ -105,11 +125,15 @@
                             headers: {
                                 'X-Requested-With': 'XMLHttpRequest',
                                 'Accept': 'application/json'
-                            }
+                            },
+                            cache: 'default' // Allow browser caching
                         });
                         if (response.ok) {
                             const data = await response.json();
                             this.count = data.count || 0;
+                            // Update cache
+                            this.countCache = this.count;
+                            this.countCacheTime = Date.now();
                         }
                     } catch (error) {
                         // Silent fail, tidak tampilkan error
@@ -182,11 +206,17 @@
                     this.notifications = [];
                     this.loading = false;
                     
-                    // Fetch count saja di awal (ringan, tanpa loading indicator)
-                    // Notifikasi lengkap hanya dimuat saat tombol diklik
-                    setTimeout(() => {
-                        this.fetchCountOnly();
-                    }, 500); // Delay kecil agar tidak mengganggu loading halaman
+                    // Fetch count dengan requestIdleCallback untuk tidak mengganggu rendering
+                    if ('requestIdleCallback' in window) {
+                        requestIdleCallback(() => {
+                            this.fetchCountOnly();
+                        }, { timeout: 2000 });
+                    } else {
+                        // Fallback untuk browser yang tidak support requestIdleCallback
+                        setTimeout(() => {
+                            this.fetchCountOnly();
+                        }, 2000);
+                    }
                 },
                 destroy() {
                     // Cleanup interval saat component di-destroy
@@ -197,8 +227,8 @@
              }"
              @click.away="showDropdown = false">
             <div class="relative">
-                <button @click="showDropdown = !showDropdown; if (showDropdown) fetchNotifications(true);" 
-                        class="flex items-center justify-between w-full px-4 py-3 text-sm font-medium rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition-colors">
+                <button @click="showDropdown = !showDropdown; if (showDropdown) { $nextTick(() => { fetchNotifications(true); }); }" 
+                        class="flex items-center justify-between w-full px-4 py-3 text-sm font-medium rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition-colors duration-150 gpu-accelerated">
                     <div class="flex items-center">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
@@ -213,20 +243,25 @@
 
                 <!-- Modal Notifications (Muncul di Tengah) -->
                 <template x-if="showDropdown">
-                    <div x-transition:enter="transition ease-out duration-300"
+                    <div x-show="showDropdown"
+                         x-cloak
+                         x-init="$watch('showDropdown', value => { if (value) { document.body.style.overflow = 'hidden'; } else { document.body.style.overflow = ''; } })"
+                         class="notification-modal"
+                         style="display: none !important;"
+                         x-transition:enter="transition ease-out duration-300"
                          x-transition:enter-start="opacity-0"
                          x-transition:enter-end="opacity-100"
                          x-transition:leave="transition ease-in duration-200"
                          x-transition:leave-start="opacity-100"
                          x-transition:leave-end="opacity-0"
-                         class="fixed inset-0 z-50 overflow-y-auto"
+                         class="overflow-y-auto"
                          @click.self="showDropdown = false">
                     <!-- Overlay -->
-                    <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
+                    <div class="notification-modal bg-black bg-opacity-50 transition-opacity" style="z-index: 99998 !important;"></div>
                     
                     <!-- Modal Content -->
-                    <div class="flex min-h-full items-center justify-center p-4">
-                        <div class="relative bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[80vh] flex flex-col"
+                    <div class="notification-modal pointer-events-none" style="z-index: 99999 !important; display: flex !important; align-items: center !important; justify-content: center !important; padding: 1rem !important;">
+                        <div class="relative bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[80vh] flex flex-col pointer-events-auto"
                              x-transition:enter="transition ease-out duration-300"
                              x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                              x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
