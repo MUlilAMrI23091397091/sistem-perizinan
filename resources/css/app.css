@@ -95,3 +95,34 @@
         touch-action: none;
     }
 }
+
+/* Loading Overlay Animation */
+@layer components {
+    #page-loading-overlay {
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    }
+    
+    #page-loading-overlay.opacity-0 {
+        visibility: hidden;
+    }
+    
+    #page-loading-overlay.opacity-100 {
+        visibility: visible;
+    }
+    
+    /* Smooth spinner animation */
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    
+    #page-loading-overlay .animate-spin {
+        animation: spin 1s linear infinite;
+    }
+}

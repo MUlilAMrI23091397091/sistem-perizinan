@@ -158,19 +158,20 @@
             background: transparent;
         }
         
-        /* Tabel persyaratan dengan background warna */
+        /* Tabel persyaratan hitam putih */
         .doc-table-persyaratan {
             border: 1px solid #000000;
         }
         
         .doc-table-persyaratan thead tr {
-            background-color: #F9FAFB;
+            background-color: #FFFFFF;
         }
         
         .doc-table-persyaratan thead th {
-            background-color: #F9FAFB;
+            background-color: #FFFFFF;
             border: 1px solid #000000;
             padding: 8px;
+            color: #000000;
         }
         
         .doc-table-persyaratan tbody td {
@@ -180,11 +181,11 @@
         }
         
         .doc-table-persyaratan tbody tr:nth-child(even) {
-            background-color: #F9FAFB;
+            background-color: #FFFFFF;
         }
         
         .doc-table-persyaratan tbody tr:nth-child(even) td {
-            background-color: #F9FAFB;
+            background-color: #FFFFFF;
         }
         
         .doc-table .text-center {
@@ -208,7 +209,7 @@
         .checkbox {
             width: 18px;
             height: 18px;
-            border: 2px solid #ffffff;
+            border: 2px solid #000000;
             display: inline-block;
             margin: 0 auto;
             position: relative;
@@ -221,15 +222,27 @@
         .checkbox.checked {
             background-color: #000;
             color: #fff;
+            border: 2px solid #000000;
         }
         
         .checkbox-checkmark {
-            font-size: 16px;
-            font-weight: bold;
-            color: #fff;
-            display: inline-block;
-            line-height: 18px;
-            vertical-align: middle;
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Centang dibuat dengan CSS border untuk kompatibilitas maksimal */
+        .checkbox-checkmark::after {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 0px;
+            width: 5px;
+            height: 10px;
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
         }
         
         .sub-item {
@@ -550,7 +563,7 @@
                         <td class="text-center" style="vertical-align: top;">
                             @if(isset($item['status']) && $item['status'] === 'Sesuai')
                                 <div class="checkbox checked">
-                                    <span class="checkbox-checkmark">✓</span>
+                                    <span class="checkbox-checkmark"></span>
                                 </div>
                             @else
                                 <div class="checkbox"></div>
@@ -561,7 +574,7 @@
                                         <div style="margin-bottom: 3px;">
                                             @if(isset($subItem['status']) && $subItem['status'] === 'Sesuai')
                                                 <div class="checkbox checked" style="display: inline-block;">
-                                                    <span class="checkbox-checkmark">✓</span>
+                                                    <span class="checkbox-checkmark"></span>
                                                 </div>
                                             @else
                                                 <div class="checkbox" style="display: inline-block;"></div>
@@ -574,7 +587,7 @@
                         <td class="text-center" style="vertical-align: top;">
                             @if(isset($item['status']) && $item['status'] === 'Tidak Sesuai')
                                 <div class="checkbox checked">
-                                    <span class="checkbox-checkmark">✓</span>
+                                    <span class="checkbox-checkmark"></span>
                                 </div>
                             @else
                                 <div class="checkbox"></div>
@@ -585,7 +598,7 @@
                                         <div style="margin-bottom: 3px;">
                                             @if(isset($subItem['status']) && $subItem['status'] === 'Tidak Sesuai')
                                                 <div class="checkbox checked" style="display: inline-block;">
-                                                    <span class="checkbox-checkmark">✓</span>
+                                                    <span class="checkbox-checkmark"></span>
                                                 </div>
                                             @else
                                                 <div class="checkbox" style="display: inline-block;"></div>
@@ -723,9 +736,9 @@
         <div class="doc-signature-row" style="margin-top: 40px;">
             <div class="doc-signature-item center">
                 <div class="doc-signature-line">
-                    <p style="font-weight: bold;">Mengetahui,</p>
-                    <p style="font-weight: bold;">Koordinator Ketua Tim Kerja</p>
-                    <p style="font-weight: bold;">Pelayanan Terpadu Satu Pintu</p>
+                    <p style="font-weight: bold; margin-bottom: 5px; white-space: nowrap;">Mengetahui,</p>
+                    <p style="font-weight: bold; margin-bottom: 5px; white-space: nowrap;">Koordinator Ketua Tim Kerja</p>
+                    <p style="font-weight: bold; margin-bottom: 20px; white-space: nowrap;">Pelayanan Terpadu Satu Pintu</p>
                     @php
                         $ttdMengetahui = $data['ttd_mengetahui'] ?? null;
                         if ($ttdMengetahui && !empty($ttdMengetahui)) {
@@ -736,12 +749,14 @@
                         }
                     @endphp
                     @if($ttdMengetahui && !empty($ttdMengetahui))
-                        <img src="{{ $ttdMengetahui }}" alt="TTD Mengetahui" class="doc-signature-img" style="max-width: 250px; max-height: 80px; object-fit: contain;">
+                        <div style="margin: 25px 0;">
+                            <img src="{{ $ttdMengetahui }}" alt="TTD Mengetahui" class="doc-signature-img" style="max-width: 250px; max-height: 80px; object-fit: contain;">
+                        </div>
                     @else
-                        <div style="height: 80px; margin: 15px 0;"></div>
+                        <div style="height: 80px; margin: 25px 0;"></div>
                     @endif
-                    <p>{{ $data['nama_mengetahui'] ?? '_________________________' }}</p>
-                    <p>NIP: {{ $data['nip_mengetahui'] ?? '_________________________' }}</p>
+                    <p style="font-weight: bold; margin-top: 10px; margin-bottom: 5px; white-space: nowrap;">{{ $data['nama_mengetahui'] ?? '_________________________' }}</p>
+                    <p style="font-weight: bold; margin-top: 5px; white-space: nowrap;">NIP: {{ $data['nip_mengetahui'] ?? '_________________________' }}</p>
                 </div>
             </div>
         </div>

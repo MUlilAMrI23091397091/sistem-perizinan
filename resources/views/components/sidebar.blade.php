@@ -94,6 +94,30 @@
                 refreshInterval: null,
                 isFetching: false,
                 lastFetchTime: 0,
+                async fetchCountOnly() {
+                    // Fetch count saja tanpa loading indicator, untuk mempercepat
+                    if (this.isFetching) {
+                        return;
+                    }
+                    this.isFetching = true;
+                    try {
+                        const response = await fetch('{{ route('api.notifications') }}', {
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                                'Accept': 'application/json'
+                            }
+                        });
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.count = data.count || 0;
+                        }
+                    } catch (error) {
+                        // Silent fail, tidak tampilkan error
+                        this.count = 0;
+                    } finally {
+                        this.isFetching = false;
+                    }
+                },
                 async fetchNotifications(showLoading = false) {
                     // Prevent multiple concurrent requests
                     if (this.isFetching) {
@@ -153,29 +177,16 @@
                     }, 150);
                 },
                 init() {
-                    // Initial load dengan loading indicator
-                    this.fetchNotifications(true);
-                    // Auto-refresh every 60 seconds (diperpanjang dari 30 detik) tanpa loading indicator
-                    this.refreshInterval = setInterval(() => {
-                        // Hanya refresh jika modal tidak terbuka dan tidak sedang fetching
-                        if (!this.showDropdown && !this.isFetching) {
-                            this.fetchNotifications(false);
-                        }
-                    }, 60000); // 60 detik = 60000ms
+                    // PASTIKAN modal TIDAK muncul saat init
+                    this.showDropdown = false;
+                    this.notifications = [];
+                    this.loading = false;
                     
-                    // Listen for refresh event dengan debouncing
-                    let refreshTimeout = null;
-                    window.addEventListener('refresh-notifications', () => {
-                        // Debounce: tunggu 1 detik sebelum refresh
-                        if (refreshTimeout) {
-                            clearTimeout(refreshTimeout);
-                        }
-                        refreshTimeout = setTimeout(() => {
-                            if (!this.isFetching) {
-                                this.fetchNotifications(false);
-                            }
-                        }, 1000);
-                    });
+                    // Fetch count saja di awal (ringan, tanpa loading indicator)
+                    // Notifikasi lengkap hanya dimuat saat tombol diklik
+                    setTimeout(() => {
+                        this.fetchCountOnly();
+                    }, 500); // Delay kecil agar tidak mengganggu loading halaman
                 },
                 destroy() {
                     // Cleanup interval saat component di-destroy
@@ -201,17 +212,15 @@
                 </button>
 
                 <!-- Modal Notifications (Muncul di Tengah) -->
-                <div x-show="showDropdown" 
-                     x-transition:enter="transition ease-out duration-300"
-                     x-transition:enter-start="opacity-0"
-                     x-transition:enter-end="opacity-100"
-                     x-transition:leave="transition ease-in duration-200"
-                     x-transition:leave-start="opacity-100"
-                     x-transition:leave-end="opacity-0"
-                     class="fixed inset-0 z-50 overflow-y-auto"
-                     class="display-none"
-                     x-cloak
-                     @click.self="showDropdown = false">
+                <template x-if="showDropdown">
+                    <div x-transition:enter="transition ease-out duration-300"
+                         x-transition:enter-start="opacity-0"
+                         x-transition:enter-end="opacity-100"
+                         x-transition:leave="transition ease-in duration-200"
+                         x-transition:leave-start="opacity-100"
+                         x-transition:leave-end="opacity-0"
+                         class="fixed inset-0 z-50 overflow-y-auto"
+                         @click.self="showDropdown = false">
                     <!-- Overlay -->
                     <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity"></div>
                     
@@ -446,6 +455,7 @@
                         </div>
                     </div>
                 </div>
+                </template>
             </div>
         </div>
         @endif

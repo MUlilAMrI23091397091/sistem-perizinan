@@ -40,12 +40,17 @@ Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses 
 - Filter custom berdasarkan rentang tanggal
 - Generate dokumen penerbitan berkas dengan signature digital
 - Template PDF yang dapat dikustomisasi
+- Generate Berita Acara Pemeriksaan (BAP) dalam format PDF
+- Form BAP dengan validasi client-side dan server-side
+- Tabel persyaratan dinamis dengan checkbox interaktif
 
 ### Konfigurasi Sistem
 - Pengaturan tanda tangan digital untuk dokumen resmi
 - Manajemen master data jenis usaha
 - Konfigurasi parameter sistem
 - Pengaturan role dan permission
+- Pengaturan koordinator untuk dokumen BAP (nama dan NIP)
+- Edit koordinator khusus untuk administrator
 
 ### User Interface
 - Desain modern menggunakan Tailwind CSS framework
@@ -53,6 +58,31 @@ Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses 
 - Interaktif dengan Alpine.js untuk interaksi real-time
 - Grafik visualisasi dengan Chart.js
 - Konsistensi warna dan tipografi
+- Digital signature pad untuk tanda tangan elektronik
+- Notifikasi real-time untuk berkas dikembalikan
+- Modal notifikasi dengan expand/collapse untuk detail
+- Form validation dengan feedback visual menggunakan SweetAlert2
+
+### Berita Acara Pemeriksaan (BAP)
+- Form BAP dengan validasi lengkap (client-side dan server-side)
+- Tabel persyaratan dinamis yang dapat ditambah/dikurangi
+- Status persyaratan: Sesuai, Tidak Sesuai, Belum Ada
+- Sub-item persyaratan untuk detail lebih lanjut
+- Digital signature pad untuk tanda tangan pemeriksa dan koordinator
+- Generate PDF BAP dengan format profesional
+- Edit nama dan NIP koordinator (khusus admin)
+- Format PDF dengan tabel hitam-putih dan checkmark icon yang kompatibel
+- Layout "Mengetahui" dengan format 3 baris yang rapi
+
+### Notifikasi Sistem
+- Notifikasi real-time untuk berkas yang dikembalikan
+- Badge counter untuk jumlah notifikasi
+- Modal notifikasi dengan detail lengkap
+- Update status notifikasi: Dikembalikan, Dihubungi, Selesai
+- Tracking informasi menghubungi pemohon
+- Keterangan menghubungi dengan template cepat
+- API endpoint untuk fetch dan update notifikasi
+- Filter notifikasi berdasarkan role pengguna
 
 ## Stack Teknologi
 
@@ -68,11 +98,16 @@ Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses 
 - Alpine.js untuk interaktivitas
 - Chart.js untuk visualisasi data
 - Blade templating engine
+- SignaturePad.js untuk digital signature
+- SweetAlert2 untuk alert dan konfirmasi
+- AJAX untuk interaksi tanpa reload halaman
 
 ### Dependencies
 - mews/captcha: Implementasi CAPTCHA security
 - maatwebsite/excel: Ekspor ke format Excel
 - barryvdh/laravel-dompdf: Generasi dokumen PDF
+- signature_pad: Digital signature pad untuk tanda tangan elektronik
+- sweetalert2: Alert dan notification yang user-friendly
 
 ## Instalasi
 
@@ -82,6 +117,24 @@ Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses 
 - Node.js dan NPM untuk asset compilation
 - MySQL versi 5.7 atau lebih tinggi
 - Web server (Apache/Nginx)
+
+## Keamanan
+
+### Implementasi Keamanan
+- ✅ Authentication & Authorization dengan role-based access control
+- ✅ CSRF Protection untuk semua POST requests
+- ✅ Input Validation dengan Laravel Form Request
+- ✅ SQL Injection Protection menggunakan Eloquent ORM
+- ✅ XSS Protection dengan Blade auto-escape
+- ✅ Session Security dengan regeneration dan secure cookies
+- ✅ CAPTCHA untuk form login
+
+### Rekomendasi untuk Production
+- Implement rate limiting untuk API endpoints
+- Gunakan HTTPS untuk semua komunikasi
+- Enable request logging untuk audit trail
+- Pertimbangkan API token authentication untuk mobile apps
+- Implementasi monitoring dan alerting untuk suspicious activities
 
 ---
 
