@@ -360,7 +360,6 @@
                     Chart.register(ChartDataLabels);
                 } catch (e) {
                     // Plugin mungkin sudah terdaftar, abaikan error
-                    console.log('ChartDataLabels plugin already registered or error:', e);
                 }
             }
 

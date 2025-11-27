@@ -25,12 +25,10 @@ class PermohonanController extends Controller
     {
         $user = Auth::user();
 
-        // Check if user is authenticated
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
 
-        // Ambil parameter dari request
         $searchQuery = $request->query('search');
         $selectedSektor = $request->query('sektor');
         $selectedDateFilter = $request->query('date_filter');
@@ -38,10 +36,8 @@ class PermohonanController extends Controller
         $customDateTo = $request->query('custom_date_to');
         $selectedStatus = $request->query('status');
 
-        // Query dasar
         $permohonans = Permohonan::query();
 
-        // Filter berdasarkan peran
         if ($user->role === 'dpmptsp') {
             // DPMPTSP melihat semua permohonan kecuali yang dibuat oleh penerbitan_berkas
             $permohonans->whereHas('user', function($query) {
@@ -66,14 +62,11 @@ class PermohonanController extends Controller
                 $query->where('role', 'penerbitan_berkas');
             });
         }
-        // Admin melihat semua permohonan secara default
 
-        // Terapkan filter sektor
         if ($selectedSektor) {
             $permohonans->where('sektor', $selectedSektor);
         }
 
-        // Terapkan filter tanggal
         if ($selectedDateFilter) {
             $now = Carbon::now();
             $customDateFrom = $request->query('custom_date_from');
@@ -172,7 +165,6 @@ class PermohonanController extends Controller
     {
         $user = Auth::user();
         
-        // Check if user is authenticated
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
@@ -212,7 +204,6 @@ class PermohonanController extends Controller
     {
         $user = Auth::user();
         
-        // Check if user is authenticated
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
@@ -359,7 +350,6 @@ class PermohonanController extends Controller
     {
         $user = Auth::user();
         
-        // Check if user is authenticated
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
@@ -399,7 +389,6 @@ class PermohonanController extends Controller
     {
         $user = Auth::user();
         
-        // Check if user is authenticated
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
@@ -479,7 +468,6 @@ class PermohonanController extends Controller
     {
         $user = Auth::user();
 
-        // Check if user is authenticated
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
@@ -637,7 +625,6 @@ class PermohonanController extends Controller
     {
         $user = Auth::user();
         
-        // Check if user is authenticated
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
@@ -692,7 +679,6 @@ class PermohonanController extends Controller
     {
         $user = Auth::user();
         
-        // Check if user is authenticated
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
@@ -708,7 +694,6 @@ class PermohonanController extends Controller
     {
         $user = Auth::user();
         
-        // Check if user is authenticated
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
@@ -729,7 +714,6 @@ class PermohonanController extends Controller
     {
         $user = Auth::user();
         
-        // Check if user is authenticated
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
@@ -794,7 +778,6 @@ class PermohonanController extends Controller
     {
         $user = Auth::user();
         
-        // Check if user is authenticated
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
@@ -843,7 +826,6 @@ class PermohonanController extends Controller
     {
         $user = Auth::user();
         
-        // Check if user is authenticated
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
@@ -1051,7 +1033,6 @@ class PermohonanController extends Controller
     {
         $user = Auth::user();
         
-        // Check if user is authenticated
         if (!$user) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }

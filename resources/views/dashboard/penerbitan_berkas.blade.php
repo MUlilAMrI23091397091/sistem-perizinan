@@ -786,20 +786,12 @@
 
                     // Function untuk menginisialisasi signature pad
                     window.initSignaturePads = function() {
-                        console.log('initSignaturePads called');
-                        
-                        // Tunggu sampai SignaturePad tersedia
                         if (typeof SignaturePad === 'undefined') {
-                            console.log('SignaturePad belum tersedia, retry...');
                             setTimeout(initSignaturePads, 100);
                             return;
                         }
-                        
-                        console.log('SignaturePad tersedia');
 
-                        // Initialize Signature Pad untuk Mengetahui
                         const canvasMengetahui = document.getElementById('signatureCanvasMengetahui');
-                        console.log('Canvas Mengetahui:', canvasMengetahui);
                         
                         if (canvasMengetahui) {
                             // Reset instance jika sudah ada
@@ -825,7 +817,6 @@
                             // Tunggu canvas ter-render
                             setTimeout(() => {
                                 const rect = canvasMengetahui.getBoundingClientRect();
-                                console.log('Canvas Mengetahui size:', rect.width, rect.height);
                                 
                                 if (rect.width > 0 && rect.height > 0) {
                                     // Adjust canvas size dulu sebelum membuat SignaturePad
@@ -841,8 +832,6 @@
                                         minWidth: 1,
                                         maxWidth: 3,
                                     });
-                                    
-                                    console.log('SignaturePad Mengetahui initialized', signaturePadMengetahui);
 
                                     // Clear button
                                     const clearBtn = document.getElementById('clearMengetahui');
@@ -851,7 +840,6 @@
                                             e.preventDefault();
                                             signaturePadMengetahui.clear();
                                             document.getElementById('mengetahui_photo_base64').value = '';
-                                            console.log('Canvas Mengetahui cleared');
                                         });
                                     }
 
@@ -875,10 +863,8 @@
                                                 return;
                                             }
                                             
-                                            // Simpan dengan resolusi tinggi (2x untuk kualitas lebih baik)
                                             const dataURL = signaturePadMengetahui.toDataURL('image/png', 1.0);
                                             document.getElementById('mengetahui_photo_base64').value = dataURL;
-                                            console.log('TTD Mengetahui saved');
                                             
                                             if (typeof Swal !== 'undefined') {
                                                 Swal.fire({
@@ -893,15 +879,11 @@
                                             }
                                         });
                                     }
-                                } else {
-                                    console.error('Canvas Mengetahui belum ter-render dengan benar');
                                 }
                             }, 300);
                         }
 
-                        // Initialize Signature Pad untuk Menyetujui
                         const canvasMenyetujui = document.getElementById('signatureCanvasMenyetujui');
-                        console.log('Canvas Menyetujui:', canvasMenyetujui);
                         
                         if (canvasMenyetujui) {
                             // Reset instance jika sudah ada
@@ -926,7 +908,6 @@
                             // Tunggu canvas ter-render
                             setTimeout(() => {
                                 const rect = canvasMenyetujui.getBoundingClientRect();
-                                console.log('Canvas Menyetujui size:', rect.width, rect.height);
                                 
                                 if (rect.width > 0 && rect.height > 0) {
                                     // Adjust canvas size dulu sebelum membuat SignaturePad
@@ -942,8 +923,6 @@
                                         minWidth: 1,
                                         maxWidth: 3,
                                     });
-                                    
-                                    console.log('SignaturePad Menyetujui initialized', signaturePadMenyetujui);
 
                                     // Clear button
                                     const clearBtn = document.getElementById('clearMenyetujui');
@@ -952,7 +931,6 @@
                                             e.preventDefault();
                                             signaturePadMenyetujui.clear();
                                             document.getElementById('menyetujui_photo_base64').value = '';
-                                            console.log('Canvas Menyetujui cleared');
                                         });
                                     }
 
@@ -976,10 +954,8 @@
                                                 return;
                                             }
                                             
-                                            // Simpan dengan resolusi tinggi (2x untuk kualitas lebih baik)
                                             const dataURL = signaturePadMenyetujui.toDataURL('image/png', 1.0);
                                             document.getElementById('menyetujui_photo_base64').value = dataURL;
-                                            console.log('TTD Menyetujui saved');
                                             
                                             if (typeof Swal !== 'undefined') {
                                                 Swal.fire({
@@ -994,14 +970,10 @@
                                             }
                                         });
                                     }
-                                } else {
-                                    console.error('Canvas Menyetujui belum ter-render dengan benar');
                                 }
                             }, 300);
                         }
                     };
-                    
-                    console.log('Signature Pad script loaded');
                 </script>
 
                 <!-- Tampilan TTD -->
@@ -1321,13 +1293,10 @@
                     return response.json();
                 })
                 .then(data => {
-                    // Debug: Log ID dan data untuk memastikan sesuai
-                    console.log('Edit ID:', id);
-                    console.log('Data ID:', data.id);
-                    console.log('Skala Usaha:', data.skala_usaha);
-                    console.log('Risiko:', data.risiko);
-                    
-                    // Pastikan ID sesuai
+                    if (data.id !== id) {
+                        console.error('ID mismatch! Expected:', id, 'Got:', data.id);
+                        return;
+                    }
                     if (data.id && parseInt(data.id) !== id) {
                         console.error('ID mismatch! Expected:', id, 'Got:', data.id);
                         Swal.fire({
@@ -1371,8 +1340,6 @@
                         const validValues = ['Mikro', 'Usaha Kecil', 'Usaha Menengah', 'Usaha Besar'];
                         if (validValues.includes(data.skala_usaha)) {
                             skalaUsahaSelect.value = data.skala_usaha;
-                        } else {
-                            console.warn('Invalid skala_usaha value:', data.skala_usaha);
                         }
                     }
                     
@@ -1386,8 +1353,6 @@
                         const validValues = ['Rendah', 'Menengah Rendah', 'Menengah Tinggi', 'Tinggi'];
                         if (validValues.includes(data.risiko)) {
                             risikoSelect.value = data.risiko;
-                        } else {
-                            console.warn('Invalid risiko value:', data.risiko);
                         }
                     }
                     
@@ -1454,9 +1419,7 @@
                     submitButton.textContent = 'Menyimpan...';
                 }
                 
-                // Validasi form
                 if (!editForm.checkValidity()) {
-                    console.error('Form validation failed!');
                     Swal.fire({
                         toast: true,
                         position: 'top-end',
@@ -1484,12 +1447,9 @@
                     }
                 })
                 .then(response => {
-                    console.log('Response status:', response.status);
                     return response.json().catch(() => response.text());
                 })
                 .then(data => {
-                    console.log('Response data:', data);
-                    
                     if (data.success || data.message) {
                         // Success - tampilkan notifikasi toast
                         Swal.fire({
@@ -1507,7 +1467,6 @@
                         }, 500);
                     } else if (data.errors) {
                         // Validation errors
-                        console.error('Validation errors:', data.errors);
                         let errorMessages = '';
                         for (let field in data.errors) {
                             errorMessages += `${field}: ${data.errors[field].join(', ')}\n`;
@@ -1532,7 +1491,6 @@
                     }
                 })
                 .catch(error => {
-                    console.error('Error submitting form:', error);
                     Swal.fire({
                         toast: true,
                         position: 'top-end',
