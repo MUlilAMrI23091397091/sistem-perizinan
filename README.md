@@ -106,6 +106,7 @@ Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses 
 - mews/captcha: Implementasi CAPTCHA security
 - maatwebsite/excel: Ekspor ke format Excel
 - barryvdh/laravel-dompdf: Generasi dokumen PDF
+- doctrine/dbal: Database abstraction layer untuk migration dengan modifikasi kolom
 - signature_pad: Digital signature pad untuk tanda tangan elektronik
 - sweetalert2: Alert dan notification yang user-friendly
 
@@ -117,6 +118,100 @@ Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses 
 - Node.js dan NPM untuk asset compilation
 - MySQL versi 5.7 atau lebih tinggi
 - Web server (Apache/Nginx)
+
+### Langkah Instalasi
+
+1. **Clone repository**
+   ```bash
+   git clone https://github.com/MUlilAMrI23091397091/sistem-perizinan.git
+   cd sistem-perizinan
+   ```
+
+2. **Install dependencies**
+   ```bash
+   composer install
+   npm install
+   ```
+
+3. **Setup environment**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
+
+4. **Konfigurasi database**
+   - Edit file `.env` dan sesuaikan konfigurasi database:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=nama_database
+   DB_USERNAME=username
+   DB_PASSWORD=password
+   ```
+
+5. **Jalankan Migration**
+   ```bash
+   php artisan migrate
+   ```
+
+6. **Seed database (opsional)**
+   ```bash
+   php artisan db:seed
+   ```
+
+7. **Build assets**
+   ```bash
+   npm run build
+   ```
+
+8. **Jalankan aplikasi**
+   ```bash
+   php artisan serve
+   ```
+
+### Catatan Penting tentang Migration
+
+#### Dependencies yang Diperlukan
+- **doctrine/dbal** (v3.8+): Package ini **WAJIB** terinstall untuk migration yang menggunakan method `->change()` untuk memodifikasi kolom. Package ini sudah termasuk dalam `composer.json` dan akan terinstall otomatis saat menjalankan `composer install`.
+
+#### Urutan Migration
+Semua migration telah diurutkan dengan benar berdasarkan timestamp untuk memastikan foreign key constraints berjalan dengan baik:
+- `users` table dibuat terlebih dahulu
+- `permohonans` table dengan foreign key ke `users`
+- `log_permohonans` table dengan foreign key ke `permohonans` dan `users`
+- `jenis_usahas` table dibuat sebelum relasi ke `permohonans`
+- `penerbitan_berkas` table dengan foreign key ke `users` dan `permohonans`
+
+#### Troubleshooting Migration
+
+**Jika migration gagal dengan error "Class 'Doctrine\DBAL\Driver\PDO\MySQL\Driver' not found":**
+```bash
+composer require doctrine/dbal
+php artisan migrate
+```
+
+**Jika migration gagal karena index sudah ada:**
+- Pastikan database dalam kondisi fresh atau rollback migration terlebih dahulu:
+```bash
+php artisan migrate:rollback
+php artisan migrate
+```
+
+**Jika migration gagal karena foreign key constraint:**
+- Pastikan semua tabel parent sudah dibuat sebelum tabel child
+- Urutan migration sudah diatur otomatis berdasarkan timestamp
+
+**Untuk fresh migration (hapus semua dan buat ulang):**
+```bash
+php artisan migrate:fresh
+php artisan db:seed
+```
+
+#### Migration yang Telah Dioptimasi
+- Semua migration menggunakan nama index yang benar untuk kompatibilitas cross-database
+- Migration kosong telah dihapus untuk menghindari error
+- Semua migration memiliki method `down()` yang benar untuk rollback
 
 ## Keamanan
 
