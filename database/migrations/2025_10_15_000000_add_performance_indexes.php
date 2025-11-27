@@ -36,19 +36,19 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('permohonans', function (Blueprint $table) {
-            $table->dropIndex(['status']);
-            $table->dropIndex(['sektor']);
-            $table->dropIndex(['created_at']);
-            $table->dropIndex(['deadline']);
-            $table->dropIndex(['status', 'created_at']);
-            $table->dropIndex(['sektor', 'status']);
-            $table->dropIndex(['user_id', 'status']);
+            $table->dropIndex('permohonans_status_index');
+            $table->dropIndex('permohonans_sektor_index');
+            $table->dropIndex('permohonans_created_at_index');
+            $table->dropIndex('permohonans_deadline_index');
+            $table->dropIndex('permohonans_status_created_at_index');
+            $table->dropIndex('permohonans_sektor_status_index');
+            $table->dropIndex('permohonans_user_id_status_index');
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->dropIndex(['role']);
-            $table->dropIndex(['sektor']);
-            $table->dropIndex(['role', 'sektor']);
+            $table->dropIndex('users_role_index');
+            $table->dropIndex('users_sektor_index');
+            $table->dropIndex('users_role_sektor_index');
         });
     }
 };

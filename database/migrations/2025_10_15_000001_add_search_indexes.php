@@ -33,15 +33,15 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('permohonans', function (Blueprint $table) {
-            $table->dropIndex(['no_permohonan']);
-            $table->dropIndex(['nama_usaha']);
-            $table->dropIndex(['nib']);
-            $table->dropIndex(['kbli']);
-            $table->dropIndex(['pemilik']);
-            $table->dropIndex(['nama_perizinan']);
-            $table->dropIndex(['no_permohonan', 'status']);
-            $table->dropIndex(['nama_usaha', 'status']);
-            $table->dropIndex(['created_at', 'status']);
+            $table->dropIndex('permohonans_no_permohonan_index');
+            $table->dropIndex('permohonans_nama_usaha_index');
+            $table->dropIndex('permohonans_nib_index');
+            $table->dropIndex('permohonans_kbli_index');
+            $table->dropIndex('permohonans_pemilik_index');
+            $table->dropIndex('permohonans_nama_perizinan_index');
+            $table->dropIndex('permohonans_no_permohonan_status_index');
+            $table->dropIndex('permohonans_nama_usaha_status_index');
+            $table->dropIndex('permohonans_created_at_status_index');
         });
     }
 };
