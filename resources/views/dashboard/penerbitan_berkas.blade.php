@@ -1294,11 +1294,9 @@
                 })
                 .then(data => {
                     if (data.id !== id) {
-                        console.error('ID mismatch! Expected:', id, 'Got:', data.id);
                         return;
                     }
                     if (data.id && parseInt(data.id) !== id) {
-                        console.error('ID mismatch! Expected:', id, 'Got:', data.id);
                         Swal.fire({
                             toast: true,
                             position: 'top-end',
@@ -1384,7 +1382,6 @@
                     document.getElementById('editModal').classList.remove('hidden');
                 })
                 .catch(error => {
-                    console.error('Error fetching data:', error);
                     Swal.fire({
                         toast: true,
                         position: 'top-end',
