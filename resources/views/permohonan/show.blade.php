@@ -387,12 +387,12 @@
                         <div class="space-y-4">
                             @forelse ($permohonan->logs ?? [] as $log)
                             @php
-                                $userRole = $log->user->role ?? 'user';
-                                $userName = $log->user->name ?? 'Unknown User';
+                                $userRole = $log->user?->role ?? 'user';
+                                $userName = $log->user?->name ?? 'Akun telah dihapus';
                                 $userInitial = substr($userName, 0, 1);
                                 $currentUser = Auth::user();
                                 $currentUserId = $currentUser->id ?? null;
-                                $logUserId = $log->user->id ?? null;
+                                $logUserId = $log->user?->id ?? null;
                                 
                                 // Tentukan warna berdasarkan role
                                 $roleColors = [

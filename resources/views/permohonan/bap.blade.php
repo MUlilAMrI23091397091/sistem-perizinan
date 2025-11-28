@@ -147,7 +147,7 @@
             </tr>
             <tr>
                 <td class="label">Nama Pemohon</td>
-                <td class="value">: {{ $permohonan->user->name ?? 'N/A' }}</td>
+                <td class="value">: {{ $permohonan->user?->name ?? 'Akun telah dihapus' }}</td>
             </tr>
             <tr>
                 <td class="label">Alamat Usaha</td>
