@@ -26,13 +26,24 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        // Authorization check - user hanya bisa update profile sendiri
+        $user = $request->user();
+        if (!$user) {
+            abort(403, 'Anda tidak memiliki izin untuk melakukan aksi ini.');
         }
 
-        $request->user()->save();
+        // Sanitize input untuk mencegah XSS
+        $validated = $request->validated();
+        $validated['name'] = strip_tags($validated['name']);
+        $validated['email'] = strtolower(trim($validated['email']));
+
+        $user->fill($validated);
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        $user->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

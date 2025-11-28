@@ -78,11 +78,23 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
+        // Authorization check - hanya admin yang bisa edit user
+        $currentUser = Auth::user();
+        if (!$currentUser || $currentUser->role !== 'admin') {
+            abort(403, 'Anda tidak memiliki izin untuk melakukan aksi ini.');
+        }
+
         return view('users.edit', compact('user'));
     }
 
     public function update(Request $request, User $user)
     {
+        // Authorization check - hanya admin yang bisa update user
+        $currentUser = Auth::user();
+        if (!$currentUser || $currentUser->role !== 'admin') {
+            abort(403, 'Anda tidak memiliki izin untuk melakukan aksi ini.');
+        }
+
         $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$user->id],
@@ -105,8 +117,9 @@ class UserController extends Controller
             return back()->withErrors(['role' => 'Role admin sudah ada dan tidak dapat dibuat lagi.']);
         }
 
-        $user->name = $request->name;
-        $user->email = $request->email;
+        // Sanitize input untuk mencegah XSS
+        $user->name = strip_tags($request->name);
+        $user->email = strtolower(trim($request->email));
         $user->role = $request->role;
         
         // Update sektor jika role adalah pd_teknis
