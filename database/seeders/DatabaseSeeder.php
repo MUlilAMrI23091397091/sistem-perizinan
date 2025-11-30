@@ -13,6 +13,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Seeder kosong - data akan diisi manual
+        $this->call([
+            UserSeeder::class,
+        ]);
     }
 }

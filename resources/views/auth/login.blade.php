@@ -363,7 +363,7 @@
                         type="email" 
                         name="email" 
                         class="form-input" 
-                        placeholder="Email"
+                        placeholder="nama@dpmptsp.surabaya.go.id"
                         required
                         value="{{ old('email') }}"
                     >
@@ -436,29 +436,38 @@
     </div>
 
     <script>
-        // Setup CSRF token for AJAX requests
         window.Laravel = {
             csrfToken: document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
         };
         
-        // Update CSRF token in all forms when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-            if (csrfToken) {
-                const csrfInputs = document.querySelectorAll('input[name="_token"]');
-                csrfInputs.forEach(input => {
-                    input.value = csrfToken;
-                });
+            function updateCsrfToken() {
+                const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+                if (csrfToken) {
+                    const csrfInputs = document.querySelectorAll('input[name="_token"]');
+                    csrfInputs.forEach(input => {
+                        input.value = csrfToken;
+                    });
+                }
             }
             
-            // Ensure form has valid CSRF token before submit
+            updateCsrfToken();
+            
             const loginForm = document.querySelector('form[action*="login"]');
             if (loginForm) {
                 loginForm.addEventListener('submit', function(e) {
+                    updateCsrfToken();
+                    
                     const formToken = this.querySelector('input[name="_token"]');
                     const metaToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
                     
-                    if (formToken && metaToken && formToken.value !== metaToken) {
+                    if (!formToken || !metaToken) {
+                        e.preventDefault();
+                        alert('CSRF token tidak ditemukan. Silakan refresh halaman.');
+                        return false;
+                    }
+                    
+                    if (formToken.value !== metaToken) {
                         formToken.value = metaToken;
                     }
                 });

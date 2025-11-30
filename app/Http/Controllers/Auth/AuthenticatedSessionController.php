@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
@@ -16,7 +17,9 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        // Ensure session is started and CSRF token is generated
+        if (!request()->session()->has('_token')) {
+            request()->session()->regenerate();
+        }
         request()->session()->regenerateToken();
         return view('auth.login');
     }
@@ -30,7 +33,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        // Redirect berdasarkan role
         $user = Auth::user();
         switch ($user->role) {
             case 'penerbitan_berkas':
@@ -46,23 +48,12 @@ class AuthenticatedSessionController extends Controller
     public function destroy(Request $request): RedirectResponse
     {
         try {
-            // Logout user
-        Auth::guard('web')->logout();
-
-            // Invalidate session
-        $request->session()->invalidate();
-
-            // Regenerate CSRF token
-        $request->session()->regenerateToken();
-
-            // Redirect to login page with success message
+            Auth::guard('web')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
             return redirect()->route('login')->with('success', 'Anda telah berhasil logout.');
-            
         } catch (\Exception $e) {
-            // Log error if needed
-            \Log::error('Logout error: ' . $e->getMessage());
-            
-            // Force logout and redirect even if there's an error
+            Log::error('Logout error: ' . $e->getMessage());
             Auth::guard('web')->logout();
             return redirect()->route('login')->with('error', 'Terjadi kesalahan saat logout, silakan login kembali.');
         }

@@ -304,8 +304,6 @@
         <div class="branding">
             <h2>Selamat Datang,</h2>
             <h1>MASPATI</h1>
-            <div class="divider"></div>
-            <p class="tagline">Platform Resmi Pemerintah Kota Surabaya</p>
             <p>Monitoring Analisa Sistem Perizinan Terintegrasi</p>
         </div>
     </div>
@@ -351,7 +349,7 @@
                         type="email" 
                         name="email" 
                         class="form-input" 
-                        placeholder="Email"
+                        placeholder="nama@dpmptsp.surabaya.go.id"
                         required
                         value="{{ old('email') }}"
                     >
