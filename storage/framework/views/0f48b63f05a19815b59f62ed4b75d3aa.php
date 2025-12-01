@@ -95,7 +95,7 @@
 
         <!-- Notifications Section (for dpmptsp and admin user) -->
         <?php if(auth()->user() && in_array(auth()->user()->role, ['dpmptsp', 'admin'])): ?>
-        <div class="px-4 mt-4" 
+        <div class="px-4 mt-2" 
              x-data="{
                 notifications: [],
                 count: 0,
@@ -481,7 +481,7 @@
         <?php endif; ?>
 
         <!-- Tentang Kami -->
-        <div class="px-4 mt-4">
+        <div class="px-4 mt-2">
             <a href="<?php echo e(route('about')); ?>" 
                rel="prefetch"
                onmouseenter="this.rel='prefetch'; if (!this.dataset.prefetched) { const link = document.createElement('link'); link.rel='prefetch'; link.href=this.href; link.as='document'; document.head.appendChild(link); this.dataset.prefetched='true'; }"
