@@ -161,7 +161,7 @@ class PermohonanController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         $user = Auth::user();
         
@@ -385,7 +385,7 @@ class PermohonanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Permohonan $permohonan)
+    public function edit(Request $request, Permohonan $permohonan)
     {
         $user = Auth::user();
         

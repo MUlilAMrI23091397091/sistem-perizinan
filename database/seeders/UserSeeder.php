@@ -20,45 +20,55 @@ class UserSeeder extends Seeder
             'email' => 'admin@dpmptsp.surabaya.go.id',
             'password' => Hash::make('Admin@2025'),
             'role' => 'admin',
+            'email_verified_at' => now(),
         ]);
 
         User::create([
-            'name' => 'nama1',
-            'email' => 'nama1@dpmptsp.surabaya.go.id',
+            'name' => 'dpmptsp',
+            'email' => 'dpmptsp@dpmptsp.surabaya.go.id',
             'password' => Hash::make('Dpmptsp@2025'),
             'role' => 'dpmptsp',
+            'email_verified_at' => now(),
         ]);
 
         $sektorList = [
-            'Dinkopdag' => 'nama2',
-            'Disbudpar' => 'nama3',
-            'Dinkes' => 'nama4',
-            'Dishub' => 'nama5',
-            'Dprkpp' => 'nama6',
-            'Dkpp' => 'nama7',
-            'Dlh' => 'nama8',
-            'Disperinaker' => 'nama9',
+            'Dinkopdag',
+            'Disbudpar',
+            'Dinkes',
+            'Dishub',
+            'Dprkpp',
+            'Dkpp',
+            'Dlh',
+            'Disperinaker',
         ];
 
-        foreach ($sektorList as $sektor => $name) {
+        foreach ($sektorList as $sektor) {
             User::create([
-                'name' => $name,
-                'email' => $name . '@dpmptsp.surabaya.go.id',
+                'name' => $sektor,
+                'email' => strtolower($sektor) . '@dpmptsp.surabaya.go.id',
                 'password' => Hash::make('PdTeknis@2025'),
                 'role' => 'pd_teknis',
                 'sektor' => $sektor,
+                'email_verified_at' => now(),
             ]);
         }
 
         User::create([
-            'name' => 'nama10',
-            'email' => 'nama10@dpmptsp.surabaya.go.id',
+            'name' => 'penerbitan',
+            'email' => 'penerbitan@dpmptsp.surabaya.go.id',
             'password' => Hash::make('Penerbitan@2025'),
             'role' => 'penerbitan_berkas',
+            'email_verified_at' => now(),
         ]);
 
         $this->command->info('✅ User berhasil dibuat!');
-        $this->command->info('📧 Format email: nama@dpmptsp.surabaya.go.id');
+        $this->command->info('📧 Format email: [nama]@dpmptsp.surabaya.go.id');
         $this->command->info('🔑 Password default: [Role]@2025');
+        $this->command->info('');
+        $this->command->info('📋 Daftar User:');
+        $this->command->info('  - Admin: admin@dpmptsp.surabaya.go.id');
+        $this->command->info('  - DPMPTSP: dpmptsp@dpmptsp.surabaya.go.id');
+        $this->command->info('  - PD Teknis: [sektor]@dpmptsp.surabaya.go.id (contoh: dinkopdag@dpmptsp.surabaya.go.id)');
+        $this->command->info('  - Penerbitan Berkas: penerbitan@dpmptsp.surabaya.go.id');
     }
 }

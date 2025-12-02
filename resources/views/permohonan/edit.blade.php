@@ -1,18 +1,12 @@
 {{-- FILE: resources/views/permohonan/edit.blade.php --}}
 {{-- PERBAIKAN: Menyesuaikan hak akses edit (readonly/disabled) untuk setiap field sesuai peran --}}
 
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Ubah Data Permohonan (Dinamis Sesuai Role)
-        </h2>
-    </x-slot>
-
-
-    <div class="py-12 {{ $cssClasses }}">
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+<x-form-only-layout>
+    <div class="min-h-screen py-8 {{ $cssClasses }}">
+        <div class="w-full px-6 sm:px-8 lg:px-12 xl:px-16">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 md:p-8 text-gray-900">
+                <div class="p-8 md:p-10 lg:p-12 text-gray-900">
+
                     @if ($errors->any())
                         <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
                             <p class="font-bold">Oops! Ada beberapa hal yang perlu diperbaiki:</p>
@@ -488,19 +482,19 @@
 
                         {{-- Tombol Aksi --}}
                         <div class="flex items-center justify-end mt-8 pt-6 border-t">
-                            <a href="{{ route('permohonan.show', $permohonan) }}"
-                                class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md mr-2 hover:bg-gray-300">Batal</a>
+                            <button type="button" onclick="window.history.back()"
+                                class="bg-gray-200 text-gray-800 px-4 py-2 rounded-md mr-2 hover:bg-gray-300">Batal</button>
                             <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                 {{ __('Update Data') }}
                             </button>
                         </div>
                     </form>
                     {{-- END: Form --}}
-                </div> {{-- END: p-6 md:p-8 text-gray-900 --}}
+                </div> {{-- END: p-6 md:p-8 lg:p-10 text-gray-900 --}}
             </div> {{-- END: bg-white overflow-hidden shadow-sm sm:rounded-lg --}}
-        </div> {{-- END: max-w-6xl mx-auto sm:px-6 lg:px-8 --}}
-    </div> {{-- END: py-12 --}}
-</x-app-layout>
+        </div> {{-- END: w-full px-4 sm:px-6 lg:px-8 --}}
+    </div> {{-- END: min-h-screen py-8 --}}
+</x-form-only-layout>
 
 <script>
 function toggleOptionalFields() {
