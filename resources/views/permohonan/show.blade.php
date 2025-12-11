@@ -248,11 +248,11 @@
                                             </svg>
                                             <span class="font-medium">{{ $permohonan->deadline->locale('id')->translatedFormat('d/m/Y') }}</span>
                                             @if($deadlineStatus == 'overdue')
-                                                <span class="ml-2 text-xs font-bold">TERLAMBAT!</span>
+                                                <span class="ml-2 text-xs font-medium">Melewati batas waktu</span>
                                             @elseif($deadlineStatus == 'due_today')
-                                                <span class="ml-2 text-xs font-bold">HARI INI!</span>
+                                                <span class="ml-2 text-xs font-medium">Batas waktu hari ini</span>
                                             @elseif($deadlineStatus == 'due_soon')
-                                                <span class="ml-2 text-xs font-bold">Mendekati jatuh tempo</span>
+                                                <span class="ml-2 text-xs font-medium">Mendekati jatuh tempo</span>
                                             @endif
                                         </div>
                                     @else

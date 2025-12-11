@@ -57,7 +57,7 @@ class CheckDeadlineNotifications extends Command
                             'user_id' => 1, // System user
                             'status_sebelum' => $permohonan->status ?? 'Diterima',
                             'status_sesudah' => 'Terlambat',
-                            'keterangan' => "⚠️ PERINGATAN: Permohonan telah melewati deadline ({$permohonan->deadline->format('d/m/Y')})",
+                            'keterangan' => "Permohonan telah melewati batas waktu ({$permohonan->deadline->format('d/m/Y')})",
                             'action' => 'deadline_overdue',
                             'old_data' => null,
                             'new_data' => json_encode(['deadline' => $permohonan->deadline->toDateString()])
@@ -79,7 +79,7 @@ class CheckDeadlineNotifications extends Command
                             'user_id' => 1, // System user
                             'status_sebelum' => $permohonan->status ?? 'Diterima',
                             'status_sesudah' => $permohonan->status ?? 'Diterima',
-                            'keterangan' => "⏰ PERINGATAN: Permohonan deadline hari ini ({$permohonan->deadline->format('d/m/Y')})",
+                            'keterangan' => "Batas waktu permohonan hari ini ({$permohonan->deadline->format('d/m/Y')})",
                             'action' => 'deadline_due_today',
                             'old_data' => null,
                             'new_data' => json_encode(['deadline' => $permohonan->deadline->toDateString()])

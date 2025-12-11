@@ -203,7 +203,7 @@ class Permohonan extends Model
                 'user_id' => Auth::id() ?? 1,
                 'status_sebelum' => $this->status ?? 'Diterima',
                 'status_sesudah' => $this->status ?? 'Diterima',
-                'keterangan' => "⚠️ PERINGATAN: Permohonan telah melewati deadline ({$this->getAttribute('deadline')->locale('id')->translatedFormat('d/m/Y')})",
+                'keterangan' => "Permohonan telah melewati batas waktu ({$this->getAttribute('deadline')->locale('id')->translatedFormat('d/m/Y')})",
                 'action' => 'deadline_overdue',
                 'old_data' => null,
                 'new_data' => json_encode(['deadline' => $this->getAttribute('deadline')->toDateString()])
@@ -234,7 +234,7 @@ class Permohonan extends Model
                 'user_id' => 1, // System user
                 'status_sebelum' => $statusSebelum ?? 'Diterima',
                 'status_sesudah' => 'Terlambat',
-                'keterangan' => "🔄 Status otomatis diubah ke Terlambat karena melewati deadline ({$this->getAttribute('deadline')->locale('id')->translatedFormat('d/m/Y')})",
+                'keterangan' => "Status otomatis diubah karena melewati batas waktu ({$this->getAttribute('deadline')->locale('id')->translatedFormat('d/m/Y')})",
                 'action' => 'auto_status_update',
                 'old_data' => json_encode(['status' => $statusSebelum]),
                 'new_data' => json_encode(['status' => 'Terlambat'])
