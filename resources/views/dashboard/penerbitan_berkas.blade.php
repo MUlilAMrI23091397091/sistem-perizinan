@@ -663,9 +663,9 @@
                                                         $url = null;
                                                         if ($file) {
                                                             if (file_exists(public_path('storage/ttd_photos/' . $file))) {
-                                                                $url = asset('storage/ttd_photos/' . $file);
+                                                                $url = secure_asset('storage/ttd_photos/' . $file);
                                                             } elseif (file_exists(public_path('storage/ttd-photos/' . $file))) {
-                                                                $url = asset('storage/ttd-photos/' . $file);
+                                                                $url = secure_asset('storage/ttd-photos/' . $file);
                                                             }
                                                         }
                                                     @endphp
@@ -752,9 +752,9 @@
                                                         $url = null;
                                                         if ($file) {
                                                             if (file_exists(public_path('storage/ttd_photos/' . $file))) {
-                                                                $url = asset('storage/ttd_photos/' . $file);
+                                                                $url = secure_asset('storage/ttd_photos/' . $file);
                                                             } elseif (file_exists(public_path('storage/ttd-photos/' . $file))) {
-                                                                $url = asset('storage/ttd-photos/' . $file);
+                                                                $url = secure_asset('storage/ttd-photos/' . $file);
                                                             }
                                                         }
                                                     @endphp
@@ -1002,9 +1002,9 @@
                                     $url = null;
                                     if ($file) {
                                         if (file_exists(public_path('storage/ttd_photos/' . $file))) {
-                                            $url = asset('storage/ttd_photos/' . $file);
+                                            $url = secure_asset('storage/ttd_photos/' . $file);
                                         } elseif (file_exists(public_path('storage/ttd-photos/' . $file))) {
-                                            $url = asset('storage/ttd-photos/' . $file);
+                                            $url = secure_asset('storage/ttd-photos/' . $file);
                                         }
                                     }
                                 @endphp
@@ -1029,9 +1029,9 @@
                                     $url = null;
                                     if ($file) {
                                         if (file_exists(public_path('storage/ttd_photos/' . $file))) {
-                                            $url = asset('storage/ttd_photos/' . $file);
+                                            $url = secure_asset('storage/ttd_photos/' . $file);
                                         } elseif (file_exists(public_path('storage/ttd-photos/' . $file))) {
-                                            $url = asset('storage/ttd-photos/' . $file);
+                                            $url = secure_asset('storage/ttd-photos/' . $file);
                                         }
                                     }
                                 @endphp

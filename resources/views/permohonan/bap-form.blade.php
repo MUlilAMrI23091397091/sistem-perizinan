@@ -963,7 +963,7 @@
                     formData.append('nip_mengetahui', nip);
                     formData.append('_token', csrfToken);
                     
-                    fetch('{{ route("bap.ttd.update") }}', {
+                    fetch('/bap/ttd/update', {
                         method: 'POST',
                         body: formData,
                         headers: {
