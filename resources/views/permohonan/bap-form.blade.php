@@ -209,7 +209,7 @@
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
                 <div class="text-center mb-6">
                     <div class="flex items-center justify-center mb-4">
-                        <img src="{{ asset('images/BAP.jpg') }}" alt="Logo Surabaya" class="h-20 w-auto">
+                        <img src="{{ secure_asset('images/BAP.jpg') }}" alt="Logo Surabaya" class="h-20 w-auto">
                     </div>
                     <h2 class="text-xl font-bold text-gray-900 mb-2">PEMERINTAH KOTA SURABAYA</h2>
                     <h3 class="text-lg font-bold text-gray-800 mb-1">DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU</h3>
