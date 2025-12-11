@@ -119,7 +119,7 @@
                     }
                     this.isFetching = true;
                     try {
-                        const response = await fetch('{{ route('api.notifications') }}', {
+                        const response = await fetch('/api/notifications', {
                             headers: {
                                 'X-Requested-With': 'XMLHttpRequest',
                                 'Accept': 'application/json'
@@ -155,7 +155,7 @@
                         this.loading = true;
                     }
                     try {
-                        const response = await fetch('{{ route('api.notifications') }}', {
+                        const response = await fetch('/api/notifications', {
                             headers: {
                                 'X-Requested-With': 'XMLHttpRequest',
                                 'Accept': 'application/json',
@@ -301,7 +301,7 @@
                                                 async saveChanges() {
                                                     this.saving = true;
                                                     try {
-                                                        const response = await fetch(`{{ url('/api/notifications') }}/${notification.id}/update`, {
+                                                        const response = await fetch(`/api/notifications/${notification.id}/update`, {
                                                             method: 'POST',
                                                             headers: {
                                                                 'Content-Type': 'application/json',
