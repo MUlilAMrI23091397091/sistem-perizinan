@@ -36,6 +36,7 @@ class SecurityHeaders
                    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.bunny.net; " .
                    "font-src 'self' https://fonts.gstatic.com https://fonts.bunny.net data:; " .
                    "img-src 'self' data: https:; " .
+                   "media-src 'self' data:; " .
                    "connect-src 'self' http://perizinan.dpmptsp-surabaya.my.id https://perizinan.dpmptsp-surabaya.my.id https://static.cloudflareinsights.com; " .
                    "frame-ancestors 'self';";
             $response->headers->set('Content-Security-Policy', $csp);
