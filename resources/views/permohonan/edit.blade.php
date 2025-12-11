@@ -47,7 +47,7 @@
                         @endphp
 
                         <!-- Role-based CSS -->
-                        <link rel="stylesheet" href="{{ asset('css/role-based.css') }}">
+                        <link rel="stylesheet" href="{{ secure_asset('css/role-based.css') }}">
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                             {{-- KOLOM KIRI --}}

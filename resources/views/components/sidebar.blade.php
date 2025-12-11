@@ -17,7 +17,7 @@
         <!-- Logo Section -->
         <div class="flex items-center justify-center h-16 px-4 border-b border-white/20">
             <div class="flex items-center space-x-3">
-                <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="w-8 h-8 rounded-full" loading="lazy" decoding="async">
+                <img src="{{ secure_asset('images/logo.jpg') }}" alt="Logo" class="w-8 h-8 rounded-full" loading="lazy" decoding="async">
                 <span class="text-lg font-bold text-white">Dashboard Analisa</span>
             </div>
         </div>

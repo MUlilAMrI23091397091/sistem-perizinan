@@ -99,7 +99,7 @@
         </div>
 
         <div class="illustration-image">
-            <img src="{{ asset('images/welcome-illustration.png') }}" alt="Ilustrasi Selamat Datang">
+            <img src="{{ secure_asset('images/welcome-illustration.png') }}" alt="Ilustrasi Selamat Datang">
         </div>
     </div>
 </body>

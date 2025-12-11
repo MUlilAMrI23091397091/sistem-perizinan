@@ -299,7 +299,7 @@
     <!-- Left Section - Branding -->
     <div class="left-section">
         <div class="logo-container">
-            <img src="{{ asset('images/dpmptsp-removebg.png') }}" alt="DPMPTSP Logo" class="logo">
+            <img src="{{ secure_asset('images/dpmptsp-removebg.png') }}" alt="DPMPTSP Logo" class="logo">
         </div>
         <div class="branding">
             <h2>Selamat Datang,</h2>

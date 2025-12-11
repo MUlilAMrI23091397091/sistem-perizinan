@@ -5,7 +5,7 @@
         <!-- Logo Section -->
         <div class="flex items-center justify-center h-16 px-4 border-b border-gray-200">
             <div class="flex items-center space-x-3">
-                <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="w-8 h-8 rounded-full">
+                <img src="{{ secure_asset('images/logo.jpg') }}" alt="Logo" class="w-8 h-8 rounded-full">
                 <span class="text-lg font-bold text-gray-800">Dashboard Analisa</span>
             </div>
         </div>
