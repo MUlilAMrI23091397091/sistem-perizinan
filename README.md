@@ -141,12 +141,34 @@ Sistem Perizinan adalah aplikasi web yang dirancang untuk mengoptimalkan proses 
 ## Database Seeding
 
 ### User Seeder
-Seeder telah dikosongkan. Semua data user akan diisi manual melalui aplikasi.
+UserSeeder berisi 11 user default yang akan dibuat saat menjalankan seeder:
+
+**Admin:**
+- Email: `admin@dpmptsp.surabaya.go.id`
+- Password: `Admin@2025`
+
+**DPMPTSP:**
+- Email: `dpmptsp@dpmptsp.surabaya.go.id`
+- Password: `Dpmptsp@2025`
+
+**PD Teknis (8 user):**
+- Email: `[sektor]@dpmptsp.surabaya.go.id` (contoh: `dinkopdag@dpmptsp.surabaya.go.id`)
+- Password: `PdTeknis@2025`
+- Sektor: Dinkopdag, Disbudpar, Dinkes, Dishub, Dprkpp, Dkpp, Dlh, Disperinaker
+
+**Penerbitan Berkas:**
+- Email: `penerbitan@dpmptsp.surabaya.go.id`
+- Password: `Penerbitan@2025`
+
+**Cara Menjalankan Seeder:**
+```bash
+php artisan db:seed --class=UserSeeder
+```
 
 **Catatan:**
-- Tidak ada data default yang di-seed otomatis
-- User pertama harus dibuat melalui registrasi atau langsung di database
-- Semua data akan diisi oleh user melalui aplikasi
+- Seeder tidak berjalan otomatis saat pull dari GitHub
+- Seeder hanya berjalan jika dijalankan manual
+- Tidak ada seeder untuk data permohonan dan penerbitan_berkas (semua data akan diisi manual)
 
 ## Struktur Database
 
