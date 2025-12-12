@@ -7,6 +7,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\JenisUsahaController; // ✅ Tambahkan ini
 use App\Http\Controllers\TtdSettingController;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 // Redirect root to login page
@@ -71,20 +74,20 @@ Route::middleware('auth')->group(function () {
 
     // Permohonan (CRUD)
     Route::resource('permohonan', PermohonanController::class);
-    
+
     // BAP routes
     Route::get('/permohonan/{permohonan}/bap', [PermohonanController::class, 'bap'])->name('permohonan.bap');
     Route::post('/permohonan/{permohonan}/bap/generate', [PermohonanController::class, 'generateBap'])->name('permohonan.bap.generate');
-    
+
     // BAP TTD Settings (Semua role kecuali penerbitan_berkas)
     Route::middleware('auth')->group(function () {
         Route::post('/bap/ttd/update', [PermohonanController::class, 'updateBapTtd'])->name('bap.ttd.update');
     });
-    
+
     // Export routes
     Route::get('/permohonan/export/excel', [PermohonanController::class, 'exportExcel'])->name('permohonan.export.excel');
     Route::get('/permohonan/export/pdf-landscape', [PermohonanController::class, 'exportPdfLandscape'])->name('permohonan.export.pdf-landscape');
-Route::get('/permohonan/export/pdf-penerbitan', [PermohonanController::class, 'exportPdfPenerbitan'])->name('permohonan.export.pdf-penerbitan');
+    Route::get('/permohonan/export/pdf-penerbitan', [PermohonanController::class, 'exportPdfPenerbitan'])->name('permohonan.export.pdf-penerbitan');
 
     // ✅ Rute untuk Ekspor (Excel/PDF)
     Route::get('/export/{type}/{format}', [ExportController::class, 'export'])->name('export');
@@ -107,10 +110,44 @@ Route::get('/permohonan/export/pdf-penerbitan', [PermohonanController::class, 'e
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // Fallback logout route (emergency)
 Route::get('/logout', function () {
     Auth::logout();
     return redirect()->route('login')->with('success', 'Anda telah berhasil logout.');
 })->name('logout.get');
+
+Route::get('/deploy/{token}', function ($token) {
+
+    // Validasi secret token dari URL parameter
+    if ($token !== config('app.deploy_token')) {
+        abort(403, 'Unauthorized');
+    }
+
+    $path = base_path();
+
+    // Jalankan git pull
+    $output = [];
+    $returnVar = 0;
+
+    exec("cd {$path} && git pull 2>&1", $output, $returnVar);
+
+    Log::info('GIT PULL DEPLOY', ['output' => $output]);
+
+    // Jalankan artisan optimize:clear
+    Artisan::call('optimize:clear');
+    $clearOutput = Artisan::output();
+
+    // Jalankan artisan optimize
+    Artisan::call('optimize');
+    $optOutput = Artisan::output();
+    Artisan::call('migrate');
+
+    return [
+        'status' => $returnVar === 0 ? 'success' : 'error',
+        'git_output' => $output,
+        'optimize_clear' => $clearOutput,
+        'optimize' => $optOutput,
+    ];
+});
