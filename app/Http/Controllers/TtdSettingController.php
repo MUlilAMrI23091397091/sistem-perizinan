@@ -66,6 +66,16 @@ class TtdSettingController extends Controller
         
         $data = $request->except(['mengetahui_photo', 'menyetujui_photo', 'mengetahui_photo_base64', 'menyetujui_photo_base64']);
         
+        // Sanitize input teks untuk mencegah XSS
+        $textFields = ['mengetahui_title', 'mengetahui_jabatan', 'mengetahui_unit', 'mengetahui_nama', 
+                      'mengetahui_pangkat', 'mengetahui_nip', 'menyetujui_lokasi', 'menyetujui_jabatan', 
+                      'menyetujui_nama', 'menyetujui_pangkat', 'menyetujui_nip'];
+        foreach ($textFields as $field) {
+            if (isset($data[$field]) && is_string($data[$field])) {
+                $data[$field] = strip_tags($data[$field]);
+            }
+        }
+        
         // Handle upload foto mengetahui (file upload)
         if ($request->hasFile('mengetahui_photo')) {
             // Hapus foto lama jika ada

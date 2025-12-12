@@ -452,6 +452,16 @@ class DashboardController extends Controller
 
         $validated = $request->validate($rules);
         
+        // Sanitize input teks untuk mencegah XSS
+        $textFields = ['no_permohonan', 'no_proyek', 'nib', 'kbli', 'nama_usaha', 'inputan_teks', 
+                      'jenis_badan_usaha', 'pemilik', 'alamat_perusahaan', 'jenis_proyek', 
+                      'nama_perizinan', 'skala_usaha', 'risiko', 'verifikator', 'status', 'nomor_bap'];
+        foreach ($textFields as $field) {
+            if (isset($validated[$field]) && is_string($validated[$field])) {
+                $validated[$field] = strip_tags($validated[$field]);
+            }
+        }
+        
         // Tambahkan user_id ke data yang akan disimpan
         $validated['user_id'] = $user->id;
         
@@ -565,6 +575,16 @@ class DashboardController extends Controller
 
         $validated = $request->validate($rules);
         
+        // Sanitize input teks untuk mencegah XSS
+        $textFields = ['no_permohonan', 'no_proyek', 'nib', 'kbli', 'nama_usaha', 'inputan_teks', 
+                      'jenis_badan_usaha', 'pemilik', 'alamat_perusahaan', 'jenis_proyek', 
+                      'nama_perizinan', 'skala_usaha', 'risiko', 'verifikator', 'status', 'nomor_bap'];
+        foreach ($textFields as $field) {
+            if (isset($validated[$field]) && is_string($validated[$field])) {
+                $validated[$field] = strip_tags($validated[$field]);
+            }
+        }
+        
         // Jika jenis_pelaku_usaha adalah 'Orang Perseorangan', set jenis_badan_usaha ke null
         if ($validated['jenis_pelaku_usaha'] === 'Orang Perseorangan') {
             $validated['jenis_badan_usaha'] = null;
@@ -648,10 +668,16 @@ class DashboardController extends Controller
             return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk melakukan aksi ini.');
         }
         
-        $permohonan = PenerbitanBerkas::findOrFail($id);
-        $permohonan->delete();
+        try {
+            $permohonan = PenerbitanBerkas::findOrFail($id);
+            $permohonan->delete();
 
-        return redirect()->route('penerbitan-berkas')->with('success', 'Data permohonan berhasil dihapus!');
+            return redirect()->route('penerbitan-berkas')
+                ->with('success', 'Data permohonan berhasil dihapus!');
+        } catch (\Exception $e) {
+            return redirect()->route('penerbitan-berkas')
+                ->with('error', 'Gagal menghapus data: ' . $e->getMessage());
+        }
     }
 
     /**

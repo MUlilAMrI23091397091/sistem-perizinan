@@ -287,6 +287,17 @@ class PermohonanController extends Controller
             $validated['nik'] = null;
         }
         
+        // Sanitize input teks untuk mencegah XSS
+        $textFields = ['no_permohonan', 'nama_usaha', 'nama_perusahaan', 'pemilik', 'alamat_perusahaan', 
+                      'kbli', 'inputan_teks', 'no_proyek', 'nama_perizinan', 'skala_usaha', 'risiko', 
+                      'verifikator', 'keterangan_pengembalian', 'keterangan_menghubungi', 'status_menghubungi',
+                      'keterangan_perbaikan', 'keterangan_terbit', 'pemroses_dan_tgl_surat', 'keterangan'];
+        foreach ($textFields as $field) {
+            if (isset($validated[$field]) && is_string($validated[$field])) {
+                $validated[$field] = strip_tags($validated[$field]);
+            }
+        }
+        
         // LOGIKA KHUSUS UNTUK DPMPTSP
         
         // Jika DPMPTSP dan no_permohonan kosong, buat nomor draft
@@ -579,6 +590,17 @@ class PermohonanController extends Controller
             $validated['nik'] = null;
         }
 
+        // Sanitize input teks untuk mencegah XSS
+        $textFields = ['no_permohonan', 'nama_usaha', 'nama_perusahaan', 'pemilik', 'alamat_perusahaan', 
+                      'kbli', 'inputan_teks', 'no_proyek', 'nama_perizinan', 'skala_usaha', 'risiko', 
+                      'verifikator', 'keterangan_pengembalian', 'keterangan_menghubungi', 'status_menghubungi',
+                      'keterangan_perbaikan', 'keterangan_terbit', 'pemroses_dan_tgl_surat', 'keterangan'];
+        foreach ($textFields as $field) {
+            if (isset($validated[$field]) && is_string($validated[$field])) {
+                $validated[$field] = strip_tags($validated[$field]);
+            }
+        }
+
         $dataSebelum = $permohonan->getOriginal();
         
         $permohonan->update($validated);
@@ -670,23 +692,28 @@ class PermohonanController extends Controller
             }
         }
         
-        // Simpan data sebelum dihapus
-        $permohonanId = $permohonan->id;
-        $statusSebelum = $permohonan->status;
-        
-        // Buat log sebelum menghapus
-        LogPermohonan::create([
-            'permohonan_id' => $permohonanId,
-            'user_id' => Auth::id(),
-            'status_sebelum' => $statusSebelum,
-            'status_sesudah' => 'Dihapus',
-            'keterangan' => 'Permohonan dihapus',
-        ]);
+        try {
+            // Simpan data sebelum dihapus
+            $permohonanId = $permohonan->id;
+            $statusSebelum = $permohonan->status;
+            
+            // Buat log sebelum menghapus
+            LogPermohonan::create([
+                'permohonan_id' => $permohonanId,
+                'user_id' => Auth::id(),
+                'status_sebelum' => $statusSebelum,
+                'status_sesudah' => 'Dihapus',
+                'keterangan' => 'Permohonan dihapus',
+            ]);
 
-        // Hapus permohonan setelah log dibuat
-        $permohonan->delete();
+            // Hapus permohonan setelah log dibuat
+            $permohonan->delete();
 
-        return redirect()->route('dashboard')->with('success', 'Permohonan berhasil dihapus!');
+            return redirect()->route('dashboard')->with('success', 'Permohonan berhasil dihapus!');
+        } catch (\Exception $e) {
+            return redirect()->route('dashboard')
+                ->with('error', 'Gagal menghapus permohonan: ' . $e->getMessage());
+        }
     }
 
     /**

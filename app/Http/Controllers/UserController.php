@@ -141,8 +141,35 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        $user->delete();
-        return redirect()->route('users.index')->with('success', 'User berhasil dihapus.');
+        // Authorization check - hanya admin yang bisa hapus user
+        $currentUser = Auth::user();
+        if (!$currentUser || $currentUser->role !== 'admin') {
+            abort(403, 'Anda tidak memiliki izin untuk melakukan aksi ini.');
+        }
+
+        // Pencegahan hapus admin (hanya boleh ada 1 admin)
+        if ($user->role === 'admin') {
+            return redirect()->route('users.index')
+                ->with('error', 'User admin tidak dapat dihapus. Sistem memerlukan minimal 1 admin.');
+        }
+
+        // Pencegahan hapus diri sendiri
+        if ($user->id === $currentUser->id) {
+            return redirect()->route('users.index')
+                ->with('error', 'Anda tidak dapat menghapus akun Anda sendiri. Gunakan fitur hapus akun di halaman profil.');
+        }
+
+        try {
+            // Hapus user (dengan SET NULL, data terkait akan tetap aman)
+            // user_id di tabel permohonans, log_permohonans, dan penerbitan_berkas akan menjadi NULL
+            $user->delete();
+            
+            return redirect()->route('users.index')
+                ->with('success', 'User berhasil dihapus. Data yang sudah di-entry tetap aman di database.');
+        } catch (\Exception $e) {
+            return redirect()->route('users.index')
+                ->with('error', 'Gagal menghapus user: ' . $e->getMessage());
+        }
     }
 
     /**
