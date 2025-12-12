@@ -711,8 +711,11 @@ class PermohonanController extends Controller
 
             return redirect()->route('dashboard')->with('success', 'Permohonan berhasil dihapus!');
         } catch (\Exception $e) {
+            Log::error('Error deleting permohonan: ' . $e->getMessage(), [
+                'permohonan_id' => $permohonan->id
+            ]);
             return redirect()->route('dashboard')
-                ->with('error', 'Gagal menghapus permohonan: ' . $e->getMessage());
+                ->with('error', 'Gagal menghapus permohonan. Silakan coba lagi atau hubungi administrator jika masalah berlanjut.');
         }
     }
 

@@ -675,8 +675,11 @@ class DashboardController extends Controller
             return redirect()->route('penerbitan-berkas')
                 ->with('success', 'Data permohonan berhasil dihapus!');
         } catch (\Exception $e) {
+            Log::error('Error deleting penerbitan berkas: ' . $e->getMessage(), [
+                'penerbitan_berkas_id' => $id
+            ]);
             return redirect()->route('penerbitan-berkas')
-                ->with('error', 'Gagal menghapus data: ' . $e->getMessage());
+                ->with('error', 'Gagal menghapus data. Silakan coba lagi atau hubungi administrator jika masalah berlanjut.');
         }
     }
 

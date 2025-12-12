@@ -8,6 +8,7 @@ use App\Models\JenisUsaha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules;
 
 class UserController extends Controller
@@ -167,8 +168,12 @@ class UserController extends Controller
             return redirect()->route('users.index')
                 ->with('success', 'User berhasil dihapus. Data yang sudah di-entry tetap aman di database.');
         } catch (\Exception $e) {
+            Log::error('Error deleting user: ' . $e->getMessage(), [
+                'user_id' => $user->id,
+                'user_email' => $user->email
+            ]);
             return redirect()->route('users.index')
-                ->with('error', 'Gagal menghapus user: ' . $e->getMessage());
+                ->with('error', 'Gagal menghapus user. Silakan coba lagi atau hubungi administrator jika masalah berlanjut.');
         }
     }
 
