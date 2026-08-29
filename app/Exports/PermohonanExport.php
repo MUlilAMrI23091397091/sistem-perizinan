@@ -100,7 +100,8 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             'KETERANGAN TERBIT',
             'PEMROSES DAN TGL E-SURAT DAN TGL PERTEK',
             'VERIFIKATOR',
-            'STATUS'
+            'STATUS',
+            'MASA BERLAKU'
         ];
     }
 
@@ -174,7 +175,9 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             // VERIFIKATOR
             $permohonan->verifikator ?? '',
             // STATUS
-            $permohonan->status ?? ''
+            $permohonan->status ?? '',
+            // MASA BERLAKU
+            $permohonan->masa_berlaku ?? ''
         ];
     }
 
@@ -239,6 +242,7 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
             'AD' => 25, // PEMROSES
             'AE' => 12, // VERIFIKATOR
             'AF' => 10, // STATUS
+            'AG' => 20, // MASA BERLAKU
         ];
     }
 
@@ -252,19 +256,19 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
                 $sheet = $event->sheet->getDelegate();
                 
                 // Set all cells to wrap text and center alignment
-                $sheet->getStyle('A:AF')->getAlignment()->setWrapText(true);
-                $sheet->getStyle('A:AF')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('A:AF')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->getStyle('A:AG')->getAlignment()->setWrapText(true);
+                $sheet->getStyle('A:AG')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('A:AG')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 
                 // Special styling for header row
-                $sheet->getStyle('A1:AF1')->getAlignment()->setWrapText(true);
-                $sheet->getStyle('A1:AF1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('A1:AF1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->getStyle('A1:AG1')->getAlignment()->setWrapText(true);
+                $sheet->getStyle('A1:AG1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('A1:AG1')->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
                 
                 // Set font size 10 for data rows (excluding header)
                 $highestRow = $sheet->getHighestRow();
                 if ($highestRow > 1) {
-                    $sheet->getStyle('A2:AF' . $highestRow)->getFont()->setSize(10);
+                    $sheet->getStyle('A2:AG' . $highestRow)->getFont()->setSize(10);
                 }
                 
                 // Set row height for header (wider)
@@ -279,11 +283,12 @@ class PermohonanExport implements FromCollection, WithHeadings, WithMapping, Wit
                 }
                 
                 // Set borders for all data
-                $sheet->getStyle('A1:AF' . $highestRow)->getBorders()->getAllBorders()
+                $sheet->getStyle('A1:AG' . $highestRow)->getBorders()->getAllBorders()
                     ->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                 
                 // Auto-fit columns
-                foreach (range('A', 'AF') as $column) {
+                $columns = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG'];
+                foreach ($columns as $column) {
                     $sheet->getColumnDimension($column)->setAutoSize(false);
                 }
             },

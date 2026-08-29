@@ -73,7 +73,7 @@
         .col-30 { width: 4%; }
         .col-31 { width: 3%; }
         .col-32 { width: 3%; }
-        .col-33 { width: 2%; }
+        .col-33 { width: 3%; }
     </style>
 </head>
 <body>
@@ -113,6 +113,7 @@
                     <th class="col-30">PEMROSES DAN TGL E-SURAT DAN TGL PERTEK</th>
                     <th class="col-31">VERIFIKATOR</th>
                     <th class="col-32">STATUS</th>
+                    <th class="col-33">MASA BERLAKU</th>
                 </tr>
             </thead>
             <tbody>
@@ -150,6 +151,7 @@
                         <td class="col-30">{{ $permohonan->created_at ? \Carbon\Carbon::parse($permohonan->created_at)->locale('id')->translatedFormat('d/m/Y') : '' }}</td>
                         <td class="col-31">{{ $permohonan->verifikator ?? '' }}</td>
                         <td class="col-32">{{ $permohonan->status ?? '' }}</td>
+                        <td class="col-33">{{ $permohonan->masa_berlaku ?? '' }}</td>
                     </tr>
                 @endforeach
             </tbody>

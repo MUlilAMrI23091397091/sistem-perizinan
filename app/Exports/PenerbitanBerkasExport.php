@@ -62,7 +62,8 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
             'NAMA PERIZINAN',
             'SKALA USAHA',
             'RISIKO',
-            'PEMROSES DAN TGL. E SURAT DAN TGL PERTEK'
+            'PEMROSES DAN TGL. E SURAT DAN TGL PERTEK',
+            'MASA BERLAKU'
         ];
     }
 
@@ -102,7 +103,8 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
             $row->nama_perizinan ?? '-',
             $row->skala_usaha ?? '-',
             $row->risiko ?? '-',
-            $pemroses
+            $pemroses,
+            $row->masa_berlaku ?? '-'
         ];
     }
 
@@ -132,6 +134,7 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
             'O' => 12,  // SKALA USAHA (dipersempit dari 15)
             'P' => 15,  // RISIKO (dipersempit dari 20)
             'Q' => 50,  // PEMROSES DAN TGL. E SURAT DAN TGL PERTEK
+            'R' => 20,  // MASA BERLAKU
         ];
     }
 
@@ -146,13 +149,13 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 
                 // Tulis judul multi-baris
                 $sheet->setCellValue('A1', 'PERIZINAN BERUSAHA DISETUJUI');
-                $sheet->mergeCells('A1:Q1');
+                $sheet->mergeCells('A1:R1');
                 $sheet->setCellValue('A2', 'DINAS PENANAMAN MODAL DAN PELAYANAN TERPADU SATU PINTU');
-                $sheet->mergeCells('A2:Q2');
+                $sheet->mergeCells('A2:R2');
                 $sheet->setCellValue('A3', 'KOTA SURABAYA');
-                $sheet->mergeCells('A3:Q3');
+                $sheet->mergeCells('A3:R3');
                 $sheet->setCellValue('A4', 'TAHUN ' . date('Y'));
-                $sheet->mergeCells('A4:Q4');
+                $sheet->mergeCells('A4:R4');
                 
                 // Style judul
                 $sheet->getStyle('A1:A4')->getFont()->setBold(true)->setSize(12);
@@ -174,21 +177,21 @@ class PenerbitanBerkasExport implements FromCollection, WithHeadings, WithMappin
                 
                 // Set text wrapping hanya untuk area tabel yang ada datanya
                 $dataEndRow = $headerRow + $this->collection()->count();
-                $sheet->getStyle('A' . $headerRow . ':Q' . $dataEndRow)->getAlignment()->setWrapText(true);
+                $sheet->getStyle('A' . $headerRow . ':R' . $dataEndRow)->getAlignment()->setWrapText(true);
                 
                 // Set row height (lebih tinggi agar teks tidak tertutup)
                 $sheet->getDefaultRowDimension()->setRowHeight(24);
                 
                 // Add borders hanya untuk area yang ada datanya (header + data rows)
                 $dataEndRow = $headerRow + $this->collection()->count();
-                $sheet->getStyle('A' . $headerRow . ':Q' . $dataEndRow)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+                $sheet->getStyle('A' . $headerRow . ':R' . $dataEndRow)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
                 
                 // Center align all data di area tabel yang ada datanya
-                $sheet->getStyle('A' . ($headerRow + 1) . ':Q' . $dataEndRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-                $sheet->getStyle('A' . ($headerRow + 1) . ':Q' . $dataEndRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+                $sheet->getStyle('A' . ($headerRow + 1) . ':R' . $dataEndRow)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $sheet->getStyle('A' . ($headerRow + 1) . ':R' . $dataEndRow)->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
 
                 // Styling header tabel (baris 5) polos dan bold
-                $sheet->getStyle('A' . $headerRow . ':Q' . $headerRow)->applyFromArray([
+                $sheet->getStyle('A' . $headerRow . ':R' . $headerRow)->applyFromArray([
                     'font' => [
                         'bold' => true,
                         'color' => ['rgb' => '000000'],

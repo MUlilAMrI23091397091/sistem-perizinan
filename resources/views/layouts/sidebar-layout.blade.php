@@ -23,7 +23,7 @@
     <x-notification-popup />
     <script>
         let inactivityTimer;
-        let timeout = 300000;
+        let timeout = 3600000; // 1 jam
         let debounceTimer;
         const DEBOUNCE_DELAY = 1000;
 
@@ -38,7 +38,7 @@
         function logoutUser() {
             Swal.fire({
                 title: 'Sesi Berakhir',
-                text: 'Anda tidak aktif selama 5 menit dan akan dikeluarkan dari sistem demi keamanan.',
+                text: 'Anda tidak aktif selama 1 jam dan akan dikeluarkan dari sistem demi keamanan.',
                 icon: 'warning',
                 confirmButtonText: 'OK',
                 allowOutsideClick: false,

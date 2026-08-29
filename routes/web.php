@@ -78,6 +78,7 @@ Route::middleware('auth')->group(function () {
     // BAP routes
     Route::get('/permohonan/{permohonan}/bap', [PermohonanController::class, 'bap'])->name('permohonan.bap');
     Route::post('/permohonan/{permohonan}/bap/generate', [PermohonanController::class, 'generateBap'])->name('permohonan.bap.generate');
+    Route::post('/permohonan/{permohonan}/bap/save', [PermohonanController::class, 'saveBap'])->name('permohonan.bap.save');
 
     // BAP TTD Settings (Semua role kecuali penerbitan_berkas)
     Route::middleware('auth')->group(function () {

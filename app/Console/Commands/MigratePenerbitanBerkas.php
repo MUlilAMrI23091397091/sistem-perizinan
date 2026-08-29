@@ -63,6 +63,7 @@ class MigratePenerbitanBerkas extends Command
                     'nama_perizinan' => $row->nama_perizinan,
                     'skala_usaha' => $row->skala_usaha,
                     'risiko' => $row->risiko,
+                    'masa_berlaku' => $row->masa_berlaku,
                     'status' => $row->status ?? 'Menunggu',
                 ]);
 

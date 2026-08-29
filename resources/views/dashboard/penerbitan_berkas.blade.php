@@ -209,6 +209,7 @@
                                 <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 8%;">SKALA USAHA</th>
                                   <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 8%;">RISIKO</th>
                                   <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 15%;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
+                                  <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 10%;">MASA BERLAKU</th>
                                   @if(in_array(auth()->user() && auth()->user()->role, ['admin', 'penerbitan_berkas']))
                                   <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-table-header" style="width: 8%;">AKSI</th>
                                   @endif
@@ -320,6 +321,9 @@
                                             <p class="font-mono">No: {{ $permohonan->nomor_bap ?? '-' }}</p>
                                             <p class="text-gray-600">tanggal BAP: {{ $permohonan->tanggal_bap ? \Carbon\Carbon::parse($permohonan->tanggal_bap)->locale('id')->translatedFormat('d F Y') : '-' }}</p>
                                         </div>
+                                    </td>
+                                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {{ $permohonan->masa_berlaku ?? '-' }}
                                     </td>
                                     <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
                                         @if(auth()->user() && in_array(auth()->user()->role, ['admin', 'penerbitan_berkas']))
@@ -551,6 +555,13 @@
                             <x-input-label for="tanggal_bap" value="Tanggal BAP" />
                             <x-text-input id="tanggal_bap" class="block mt-1 w-full" type="date" name="tanggal_bap" :value="old('tanggal_bap')" required />
                             <x-input-error :messages="$errors->get('tanggal_bap')" class="mt-2" />
+                        </div>
+
+                        <!-- Masa Berlaku -->
+                        <div>
+                            <x-input-label for="masa_berlaku" value="Masa Berlaku" />
+                            <x-text-input id="masa_berlaku" class="block mt-1 w-full" type="text" name="masa_berlaku" :value="old('masa_berlaku')" placeholder="Masukkan masa berlaku" />
+                            <x-input-error :messages="$errors->get('masa_berlaku')" class="mt-2" />
                         </div>
                     </div>
 
@@ -1228,6 +1239,12 @@
                             <x-text-input id="edit_tanggal_bap" class="block mt-1 w-full" type="date" name="tanggal_bap" />
                             <p class="mt-1 text-xs text-gray-500">Opsional untuk data lama</p>
                         </div>
+
+                        <!-- Masa Berlaku -->
+                        <div>
+                            <x-input-label for="edit_masa_berlaku" value="Masa Berlaku" />
+                            <x-text-input id="edit_masa_berlaku" class="block mt-1 w-full" type="text" name="masa_berlaku" placeholder="Masukkan masa berlaku" />
+                        </div>
                     </div>
 
                     <div class="flex items-center justify-end space-x-4 pt-6">
@@ -1381,6 +1398,7 @@
                     
                     document.getElementById('edit_nomor_bap').value = data.nomor_bap || '';
                     document.getElementById('edit_tanggal_bap').value = data.tanggal_bap || '';
+                    document.getElementById('edit_masa_berlaku').value = data.masa_berlaku || '';
                     
                     // Trigger change event untuk memastikan select ter-update
                     skalaUsahaSelect.dispatchEvent(new Event('change', { bubbles: true }));

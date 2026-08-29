@@ -135,7 +135,7 @@ class PermohonanController extends Controller
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
         }
         
-        $verifikators = ['RAMLAN', 'SURYA', 'ALI', 'WILDAN A', 'TYO', 'WILDAN M', 'YOLA', 'NAURA'];
+        $verifikators = ['STEFANUS', 'SURYA', 'ALI', 'WILDAN A', 'TYO', 'WILDAN M', 'YOLA', 'NAURA'];
         $sektors = ['Dinkopdag', 'Disbudpar', 'Dinkes', 'Dishub', 'Dprkpp', 'Dkpp', 'Dlh', 'Disperinaker'];
         $jenisPelakuUsahas = ['Orang Perseorangan', 'Badan Usaha'];
         
@@ -196,6 +196,7 @@ class PermohonanController extends Controller
             'skala_usaha' => 'nullable|string',
             'risiko' => 'nullable|string',
             'jangka_waktu' => 'nullable|integer|min:1',
+            'masa_berlaku' => 'nullable|string',
             'no_telephone' => 'nullable|string|max:100',
             'deadline' => 'nullable|date|after_or_equal:today', // CREATE: deadline harus >= hari ini
             'verifikator' => 'nullable|string',
@@ -291,7 +292,7 @@ class PermohonanController extends Controller
         $textFields = ['no_permohonan', 'nama_usaha', 'nama_perusahaan', 'pemilik', 'alamat_perusahaan', 
                       'kbli', 'inputan_teks', 'no_proyek', 'nama_perizinan', 'skala_usaha', 'risiko', 
                       'verifikator', 'keterangan_pengembalian', 'keterangan_menghubungi', 'status_menghubungi',
-                      'keterangan_perbaikan', 'keterangan_terbit', 'pemroses_dan_tgl_surat', 'keterangan'];
+                      'keterangan_perbaikan', 'keterangan_terbit', 'pemroses_dan_tgl_surat', 'keterangan', 'masa_berlaku'];
         foreach ($textFields as $field) {
             if (isset($validated[$field]) && is_string($validated[$field])) {
                 $validated[$field] = strip_tags($validated[$field]);
@@ -445,7 +446,7 @@ class PermohonanController extends Controller
             }
         }
         
-        $verifikators = ['RAMLAN', 'SURYA', 'ALI', 'WILDAN A', 'TYO', 'WILDAN M', 'YOLA', 'NAURA'];
+        $verifikators = ['STEFANUS', 'SURYA', 'ALI', 'WILDAN A', 'TYO', 'WILDAN M', 'YOLA', 'NAURA'];
         $sektors = ['Dinkopdag', 'Disbudpar', 'Dinkes', 'Dishub', 'Dprkpp', 'Dkpp', 'Dlh', 'Disperinaker'];
         $jenisPelakuUsahas = ['Orang Perseorangan', 'Badan Usaha'];
         
@@ -549,6 +550,7 @@ class PermohonanController extends Controller
             'skala_usaha' => 'nullable|string',
             'risiko' => 'nullable|string',
             'jangka_waktu' => 'nullable|integer|min:1',
+            'masa_berlaku' => 'nullable|string',
             'no_telephone' => 'nullable|string|max:100',
             'deadline' => 'nullable|date', // UPDATE: deadline boleh apa saja (termasuk yang sudah terlewat)
             // verifikator tidak wajib pada update (khususnya untuk PD Teknis)
@@ -594,7 +596,7 @@ class PermohonanController extends Controller
         $textFields = ['no_permohonan', 'nama_usaha', 'nama_perusahaan', 'pemilik', 'alamat_perusahaan', 
                       'kbli', 'inputan_teks', 'no_proyek', 'nama_perizinan', 'skala_usaha', 'risiko', 
                       'verifikator', 'keterangan_pengembalian', 'keterangan_menghubungi', 'status_menghubungi',
-                      'keterangan_perbaikan', 'keterangan_terbit', 'pemroses_dan_tgl_surat', 'keterangan'];
+                      'keterangan_perbaikan', 'keterangan_terbit', 'pemroses_dan_tgl_surat', 'keterangan', 'masa_berlaku'];
         foreach ($textFields as $field) {
             if (isset($validated[$field]) && is_string($validated[$field])) {
                 $validated[$field] = strip_tags($validated[$field]);
@@ -1070,6 +1072,91 @@ class PermohonanController extends Controller
             return redirect()->back()
                 ->with('error', $errorMessage)
                 ->withInput();
+        }
+    }
+
+    /**
+     * Save BAP draft data to permohonan.
+     * 
+     * Akses: Semua user yang dapat mengakses BAP permohonan
+     */
+    public function saveBap(Request $request, Permohonan $permohonan)
+    {
+        $user = Auth::user();
+        
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'Silakan login terlebih dahulu.'], 401);
+        }
+
+        // Authorization check
+        if ($user->role === 'dpmptsp') {
+            if ($permohonan->user && $permohonan->user->role === 'penerbitan_berkas') {
+                return response()->json(['success' => false, 'message' => 'Anda tidak memiliki izin untuk mengedit BAP permohonan ini.'], 403);
+            }
+        }
+
+        try {
+            // Karena ini draf, buat hampir semua input nullable
+            $validated = $request->validate([
+                'nomor_bap' => 'nullable|string',
+                'tanggal_pemeriksaan' => 'nullable|date',
+                'nomor_surat_tugas' => 'nullable|string',
+                'tanggal_surat_tugas' => 'nullable|date',
+                'hasil_peninjauan_lapangan' => 'nullable|string',
+                'keputusan' => 'nullable|in:Disetujui,Perbaikan,Penolakan',
+                'catatan' => 'nullable|string',
+                'nama_pelaku_usaha' => 'nullable|string|max:255',
+                'alamat_pelaku_usaha' => 'nullable|string|max:500',
+                'persyaratan' => 'nullable|array',
+                'persyaratan.*.nama' => 'nullable|string',
+                'persyaratan.*.status' => 'nullable|in:Sesuai,Tidak Sesuai',
+                'persyaratan.*.subItems' => 'nullable|array',
+                'persyaratan.*.subItems.*.nama' => 'nullable|string',
+                'persyaratan.*.subItems.*.status' => 'nullable|in:Sesuai,Tidak Sesuai',
+                'ttd_memeriksa' => 'nullable|string',
+                'ttd_menyetujui' => 'nullable|string',
+                'ttd_mengetahui' => 'nullable|string',
+                'nama_memeriksa' => 'nullable|string',
+                'nip_memeriksa' => 'nullable|string',
+                'nama_menyetujui' => 'nullable|string',
+                'nip_menyetujui' => 'nullable|string',
+                'nama_mengetahui' => 'nullable|string',
+                'nip_mengetahui' => 'nullable|string',
+            ]);
+
+            // Simpan data draf BAP ke kolom bap_data di database
+            $permohonan->update([
+                'bap_data' => $validated
+            ]);
+
+            // Catat log
+            $permohonan->logs()->create([
+                'user_id' => $user->id,
+                'status_sebelum' => $permohonan->status ?? 'Menunggu',
+                'status_sesudah' => $permohonan->status ?? 'Menunggu',
+                'keterangan' => 'Draf BAP berhasil disimpan.',
+                'action' => 'save_bap_draft',
+                'old_data' => null,
+                'new_data' => json_encode($validated)
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Draf BAP berhasil disimpan.'
+            ]);
+            
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validasi draf gagal.',
+                'errors' => $e->errors()
+            ], 422);
+        } catch (\Exception $e) {
+            Log::error('BAP Save Draft Error: ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan sistem saat menyimpan draf BAP.'
+            ], 500);
         }
     }
 

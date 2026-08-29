@@ -1,4 +1,7 @@
-@props(['id', 'title', 'size' => 'max-w-6xl'])
+@props(['id' => null, 'name' => null, 'title' => '', 'size' => 'max-w-6xl'])
+@php
+    $id = $id ?? $name ?? 'modal-' . uniqid();
+@endphp
 
 <div id="{{ $id }}" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="{{ $id }}-title" role="dialog" aria-modal="true">
     <!-- Background overlay -->

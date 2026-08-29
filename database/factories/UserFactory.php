@@ -27,6 +27,7 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
+            'role' => 'admin', // Default role for testing compatibility with Model validation
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];

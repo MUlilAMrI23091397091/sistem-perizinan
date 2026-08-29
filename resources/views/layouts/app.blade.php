@@ -37,7 +37,7 @@
         <x-notification-popup />
         <script>
             let inactivityTimer;
-            let timeout = 300000; // 5 menit
+            let timeout = 3600000; // 1 jam
 
             function resetTimer() {
                 clearTimeout(inactivityTimer);
@@ -47,7 +47,7 @@
             function logoutUser() {
                 Swal.fire({
                     title: 'Sesi Berakhir',
-                    text: 'Anda tidak aktif selama 5 menit dan akan dikeluarkan dari sistem demi keamanan.',
+                    text: 'Anda tidak aktif selama 1 jam dan akan dikeluarkan dari sistem demi keamanan.',
                     icon: 'warning',
                     confirmButtonText: 'OK',
                     allowOutsideClick: false,

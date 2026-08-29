@@ -188,6 +188,7 @@
                 <th style="width: 5%;">SKALA USAHA</th>
                 <th style="width: 5%;">RISIKO</th>
                 <th style="width: 12%;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
+                <th style="width: 8%;">MASA BERLAKU</th>
             </tr>
         </thead>
         <tbody>
@@ -220,6 +221,7 @@
                     No: {{ $item->nomor_bap ?? '-' }}<br>
                     tanggal BAP: {{ $item->tanggal_bap ? \Carbon\Carbon::parse($item->tanggal_bap)->locale('id')->translatedFormat('d F Y') : '-' }}
                 </td>
+                <td>{{ $item->masa_berlaku ?? '-' }}</td>
             </tr>
             @endforeach
         </tbody>

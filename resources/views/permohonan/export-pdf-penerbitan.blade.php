@@ -120,6 +120,7 @@
                     <th style="width: 8%;">SKALA USAHA</th>
                     <th style="width: 8%;">RISIKO</th>
                     <th style="width: 15%;">PEMROSES DAN TGL. E SURAT DAN TGL PERTEK</th>
+                    <th style="width: 10%;">MASA BERLAKU</th>
                 </tr>
             </thead>
             <tbody>
@@ -146,6 +147,7 @@
                         No: BAP/OSS/IX/{{ $permohonan->no_permohonan ?? 'N/A' }}/436.7.15/{{ date('Y') }}<br>
                         tanggal BAP: {{ date('d F Y') }}
                     </td>
+                    <td>{{ $permohonan->masa_berlaku ?? '-' }}</td>
                 </tr>
                 @endforeach
             </tbody>

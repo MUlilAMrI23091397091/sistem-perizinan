@@ -58,6 +58,7 @@ class PenerbitanBerkas extends Model
         'skala_usaha',
         'risiko',
         'status',
+        'masa_berlaku',
         'pemroses_dan_tgl_surat',
         'nomor_bap',
         'tanggal_bap',

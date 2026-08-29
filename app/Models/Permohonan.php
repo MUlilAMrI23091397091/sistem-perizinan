@@ -96,6 +96,8 @@ class Permohonan extends Model
         'keterangan_terbit',
         'pemroses_dan_tgl_surat',
         'keterangan',
+        'bap_data',
+        'masa_berlaku',
     ];
 
     /**
@@ -113,6 +115,7 @@ class Permohonan extends Model
         // Tambahkan juga untuk created_at dan updated_at jika ingin eksplisit meskipun sudah default
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'bap_data' => 'array',
     ];
 
     // Jika kamu memiliki `$dates` sebelumnya, sebaiknya pindahkan semua ke `$casts`

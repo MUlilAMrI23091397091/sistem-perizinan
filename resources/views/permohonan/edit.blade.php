@@ -306,7 +306,8 @@
                                         class="block mt-1 w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm">
                                         <option value="">Pilih Risiko</option>
                                         <option value="Rendah" @selected(old('risiko', $permohonan->risiko) == 'Rendah')>Rendah</option>
-                                        <option value="Sedang" @selected(old('risiko', $permohonan->risiko) == 'Sedang')>Sedang</option>
+                                        <option value="Menengah Rendah" @selected(old('risiko', $permohonan->risiko) == 'Menengah Rendah')>Menengah Rendah</option>
+                                        <option value="Menengah Tinggi" @selected(old('risiko', $permohonan->risiko) == 'Menengah Tinggi')>Menengah Tinggi</option>
                                         <option value="Tinggi" @selected(old('risiko', $permohonan->risiko) == 'Tinggi')>Tinggi</option>
                                     </select>
                                     @error('risiko')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
@@ -327,6 +328,16 @@
                                     value="{{ old('deadline', $permohonan->deadline?->format('Y-m-d')) }}" />
                                 @error('deadline')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
                             </div>
+                            
+                            @if(in_array($user->role, ['admin', 'dpmptsp']))
+                            <div class="sm:col-span-2">
+                                <label for="masa_berlaku" class="block font-medium text-sm text-gray-700">Masa Berlaku</label>
+                                <input id="masa_berlaku" name="masa_berlaku" type="text"
+                                    class="mt-1 block w-full border-gray-300 focus:border-primary-500 focus:ring-primary-500 rounded-md shadow-sm"
+                                    value="{{ old('masa_berlaku', $permohonan->masa_berlaku) }}" placeholder="Masukkan masa berlaku" />
+                                @error('masa_berlaku')<p class="text-sm text-red-600 mt-2">{{ $message }}</p>@enderror
+                            </div>
+                            @endif
                         </div>
 
                                 <div>

@@ -17,6 +17,25 @@ class SecurityHeaders
     {
         $response = $next($request);
 
+        // Fix mews/captcha compatibility with Laravel 12 / Intervention Image v3
+        // EncodedImage implements JsonSerializable, which causes Laravel to automatically
+        // serialize the Response content to a JSON string and overwrite the Content-Type to application/json.
+        if ($request->is('captcha*')) {
+            $content = $response->getContent();
+            if (is_string($content) && str_starts_with($content, '"data:image')) {
+                $decoded = json_decode($content);
+                if (is_string($decoded) && str_starts_with($decoded, 'data:image/')) {
+                    $base64 = substr($decoded, strpos($decoded, ',') + 1);
+                    $binary = base64_decode($base64);
+                    if ($binary !== false) {
+                        $response->setContent($binary);
+                        $response->headers->set('Content-Type', 'image/jpeg');
+                        $response->headers->set('Content-Disposition', 'inline; filename="image.jpg"');
+                    }
+                }
+            }
+        }
+
         // Security Headers
         $response->headers->set('X-Content-Type-Options', 'nosniff');
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');

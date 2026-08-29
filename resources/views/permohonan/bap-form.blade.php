@@ -85,7 +85,7 @@
 
         <form method="POST" action="{{ route('permohonan.bap.generate', $permohonan) }}" 
               x-data="{
-                  persyaratan: [],
+                  persyaratan: {{ json_encode(old('persyaratan', $permohonan->bap_data['persyaratan'] ?? [])) }},
                   addPersyaratan() {
                       this.persyaratan.push({ nama: '', status: '', subItems: [] });
                   },
@@ -223,13 +223,14 @@
                         <div class="flex items-center justify-center gap-4">
                             <label for="nomor_bap" class="text-sm font-medium text-gray-700">Nomor BAP:</label>
                             <input type="text" id="nomor_bap" name="nomor_bap" required
+                                   value="{{ old('nomor_bap', $permohonan->bap_data['nomor_bap'] ?? '') }}"
                                    class="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
                                    placeholder="BAP/OSS/X/PARKIR-377/436.7.15/2025">
                         </div>
                         <div class="flex items-center justify-center gap-4">
                             <label for="tanggal_pemeriksaan" class="text-sm font-medium text-gray-700">Hari/Tanggal Pemeriksaan:</label>
                             <input type="date" id="tanggal_pemeriksaan" name="tanggal_pemeriksaan" required
-                                   value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}"
+                                   value="{{ old('tanggal_pemeriksaan', $permohonan->bap_data['tanggal_pemeriksaan'] ?? \Carbon\Carbon::now()->format('Y-m-d')) }}"
                                    class="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
                         </div>
                     </div>
@@ -255,7 +256,7 @@
                     <div>
                         <label for="nama_pelaku_usaha" class="block text-sm font-medium text-gray-700 mb-1">Nama Pelaku Usaha <span class="text-red-500">*</span></label>
                         <input type="text" id="nama_pelaku_usaha" name="nama_pelaku_usaha" 
-                               value="{{ old('nama_pelaku_usaha', '') }}" 
+                               value="{{ old('nama_pelaku_usaha', $permohonan->bap_data['nama_pelaku_usaha'] ?? ($permohonan->pemilik ?? '')) }}" 
                                required
                                autocomplete="off"
                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
@@ -264,7 +265,7 @@
                     <div>
                         <label for="alamat_pelaku_usaha" class="block text-sm font-medium text-gray-700 mb-1">Alamat Pelaku Usaha <span class="text-red-500">*</span></label>
                         <input type="text" id="alamat_pelaku_usaha" name="alamat_pelaku_usaha" 
-                               value="{{ old('alamat_pelaku_usaha', '') }}" 
+                               value="{{ old('alamat_pelaku_usaha', $permohonan->bap_data['alamat_pelaku_usaha'] ?? ($permohonan->alamat_perusahaan ?? '')) }}" 
                                required
                                autocomplete="off"
                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
@@ -457,18 +458,20 @@
                     <div>
                         <label for="nomor_surat_tugas" class="block text-sm font-medium text-gray-700 mb-1">Nomor Surat Perintah Tugas</label>
                         <input type="text" id="nomor_surat_tugas" name="nomor_surat_tugas"
+                               value="{{ old('nomor_surat_tugas', $permohonan->bap_data['nomor_surat_tugas'] ?? '') }}"
                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
                     </div>
                     <div>
                         <label for="tanggal_surat_tugas" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Surat Perintah Tugas</label>
                         <input type="date" id="tanggal_surat_tugas" name="tanggal_surat_tugas"
+                               value="{{ old('tanggal_surat_tugas', $permohonan->bap_data['tanggal_surat_tugas'] ?? '') }}"
                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm">
                     </div>
                     <div class="md:col-span-2">
                         <label for="hasil_peninjauan_lapangan" class="block text-sm font-medium text-gray-700 mb-1">Hasil Peninjauan Lapangan</label>
                         <textarea id="hasil_peninjauan_lapangan" name="hasil_peninjauan_lapangan" rows="3"
                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                                  placeholder="Masukkan hasil peninjauan lapangan"></textarea>
+                                  placeholder="Masukkan hasil peninjauan lapangan">{{ old('hasil_peninjauan_lapangan', $permohonan->bap_data['hasil_peninjauan_lapangan'] ?? '') }}</textarea>
                     </div>
                 </div>
             </div>
@@ -484,22 +487,23 @@
                         </p>
                         <div class="flex gap-4 mb-3">
                             <label class="flex items-center">
-                                <input type="radio" id="keputusan_disetujui" name="keputusan" value="Disetujui" required class="mr-2" x-on:change="toggleCatatan()">
+                                <input type="radio" id="keputusan_disetujui" name="keputusan" value="Disetujui" required class="mr-2" x-on:change="toggleCatatan()" {{ old('keputusan', $permohonan->bap_data['keputusan'] ?? '') === 'Disetujui' ? 'checked' : '' }}>
                                 <span class="text-sm">Disetujui</span>
                             </label>
                             <label class="flex items-center">
-                                <input type="radio" id="keputusan_perbaikan" name="keputusan" value="Perbaikan" required class="mr-2" x-on:change="toggleCatatan()">
+                                <input type="radio" id="keputusan_perbaikan" name="keputusan" value="Perbaikan" required class="mr-2" x-on:change="toggleCatatan()" {{ old('keputusan', $permohonan->bap_data['keputusan'] ?? '') === 'Perbaikan' ? 'checked' : '' }}>
                                 <span class="text-sm">Perbaikan</span>
                             </label>
                             <label class="flex items-center">
-                                <input type="radio" id="keputusan_penolakan" name="keputusan" value="Penolakan" required class="mr-2" x-on:change="toggleCatatan()">
+                                <input type="radio" id="keputusan_penolakan" name="keputusan" value="Penolakan" required class="mr-2" x-on:change="toggleCatatan()" {{ old('keputusan', $permohonan->bap_data['keputusan'] ?? '') === 'Penolakan' ? 'checked' : '' }}>
                                 <span class="text-sm">Penolakan Perizinan</span>
                             </label>
                         </div>
-                        <div id="catatan-container" class="hidden">
+                        <div id="catatan-container" class="{{ old('keputusan', $permohonan->bap_data['keputusan'] ?? 'Disetujui') === 'Disetujui' ? 'hidden' : '' }}">
                             <textarea id="catatan" name="catatan" rows="4"
+                                      {{ old('keputusan', $permohonan->bap_data['keputusan'] ?? 'Disetujui') !== 'Disetujui' ? 'required' : '' }}
                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-                                      placeholder="Masukkan catatan..."></textarea>
+                                      placeholder="Masukkan catatan...">{{ old('catatan', $permohonan->bap_data['catatan'] ?? '') }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -526,24 +530,26 @@
                                 Simpan TTD
                             </button>
                         </div>
-                        <input type="hidden" id="ttd_memeriksa" name="ttd_memeriksa" value="">
+                        <input type="hidden" id="ttd_memeriksa" name="ttd_memeriksa" value="{{ old('ttd_memeriksa', $permohonan->bap_data['ttd_memeriksa'] ?? '') }}">
                         <div class="mt-3 space-y-2">
                             <div>
                                 <label for="nama_memeriksa" class="block text-xs font-medium text-gray-700 mb-1">Nama</label>
                                 <input type="text" id="nama_memeriksa" name="nama_memeriksa" 
+                                       value="{{ old('nama_memeriksa', $permohonan->bap_data['nama_memeriksa'] ?? '') }}"
                                        class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                        placeholder="Masukkan nama">
                             </div>
                             <div>
                                 <label for="nip_memeriksa" class="block text-xs font-medium text-gray-700 mb-1">NIP</label>
                                 <input type="text" id="nip_memeriksa" name="nip_memeriksa" 
+                                       value="{{ old('nip_memeriksa', $permohonan->bap_data['nip_memeriksa'] ?? '') }}"
                                        class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                                        placeholder="Masukkan NIP">
                             </div>
                         </div>
-                        <div id="previewMemeriksa" class="mt-2 hidden text-center">
+                        <div id="previewMemeriksa" class="mt-2 {{ old('ttd_memeriksa', $permohonan->bap_data['ttd_memeriksa'] ?? '') ? '' : 'hidden' }} text-center">
                             <p class="text-xs text-gray-600 mb-1">Preview:</p>
-                            <img id="previewImgMemeriksa" src="" alt="TTD Preview" class="max-h-20 border border-gray-300 rounded mx-auto">
+                            <img id="previewImgMemeriksa" src="{{ old('ttd_memeriksa', $permohonan->bap_data['ttd_memeriksa'] ?? '') }}" alt="TTD Preview" class="max-h-20 border border-gray-300 rounded mx-auto">
                         </div>
                     </div>
 
@@ -562,22 +568,26 @@
                                 Simpan TTD
                             </button>
                         </div>
-                        <input type="hidden" id="ttd_menyetujui" name="ttd_menyetujui" value="">
+                        <input type="hidden" id="ttd_menyetujui" name="ttd_menyetujui" value="{{ old('ttd_menyetujui', $permohonan->bap_data['ttd_menyetujui'] ?? '') }}">
                         <div class="mt-3 space-y-2">
                             <div>
                                 <label for="nama_menyetujui" class="block text-xs font-medium text-gray-700 mb-1">Nama</label>
                                 <input type="text" id="nama_menyetujui" name="nama_menyetujui" 
-                                       class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                       value="{{ old('nama_menyetujui', $permohonan->bap_data['nama_menyetujui'] ?? '') }}"
+                                       class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                       placeholder="Masukkan nama">
                             </div>
                             <div>
                                 <label for="nip_menyetujui" class="block text-xs font-medium text-gray-700 mb-1">NIP</label>
                                 <input type="text" id="nip_menyetujui" name="nip_menyetujui" 
-                                       class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                       value="{{ old('nip_menyetujui', $permohonan->bap_data['nip_menyetujui'] ?? '') }}"
+                                       class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                       placeholder="Masukkan NIP">
                             </div>
                         </div>
-                        <div id="previewMenyetujui" class="mt-2 hidden text-center">
+                        <div id="previewMenyetujui" class="mt-2 {{ old('ttd_menyetujui', $permohonan->bap_data['ttd_menyetujui'] ?? '') ? '' : 'hidden' }} text-center">
                             <p class="text-xs text-gray-600 mb-1">Preview:</p>
-                            <img id="previewImgMenyetujui" src="" alt="TTD Preview" class="max-h-20 border border-gray-300 rounded mx-auto">
+                            <img id="previewImgMenyetujui" src="{{ old('ttd_menyetujui', $permohonan->bap_data['ttd_menyetujui'] ?? '') }}" alt="TTD Preview" class="max-h-20 border border-gray-300 rounded mx-auto">
                         </div>
                     </div>
                 </div>
@@ -666,13 +676,13 @@
                                 </button>
                             @endif
                         </div>
-                        <input type="hidden" id="ttd_mengetahui" name="ttd_mengetahui" value="{{ $koordinator->ttd_bap_mengetahui ?? '' }}">
+                        <input type="hidden" id="ttd_mengetahui" name="ttd_mengetahui" value="{{ old('ttd_mengetahui', $permohonan->bap_data['ttd_mengetahui'] ?? ($koordinator->ttd_bap_mengetahui ?? '')) }}">
                         <div class="mt-3 space-y-2">
                             <div>
                                 <label for="nama_mengetahui" class="block text-xs font-medium text-gray-700 mb-1">Nama</label>
                                 <input type="text" id="nama_mengetahui" name="nama_mengetahui" 
                                        class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md bg-gray-50 cursor-not-allowed"
-                                       value="{{ $koordinator->nama_mengetahui ?? '' }}"
+                                       value="{{ old('nama_mengetahui', $permohonan->bap_data['nama_mengetahui'] ?? ($koordinator->nama_mengetahui ?? '')) }}"
                                        placeholder="Nama koordinator"
                                        readonly
                                        title="Nama koordinator hanya bisa diedit oleh admin melalui tombol 'Edit Koordinator'">
@@ -681,15 +691,15 @@
                                 <label for="nip_mengetahui" class="block text-xs font-medium text-gray-700 mb-1">NIP</label>
                                 <input type="text" id="nip_mengetahui" name="nip_mengetahui" 
                                        class="w-full px-2 py-1 text-xs border border-gray-300 rounded-md bg-gray-50 cursor-not-allowed"
-                                       value="{{ $koordinator->nip_mengetahui ?? '' }}"
+                                       value="{{ old('nip_mengetahui', $permohonan->bap_data['nip_mengetahui'] ?? ($koordinator->nip_mengetahui ?? '')) }}"
                                        placeholder="NIP koordinator"
                                        readonly
                                        title="NIP koordinator hanya bisa diedit oleh admin melalui tombol 'Edit Koordinator'">
                             </div>
                         </div>
-                        <div id="previewMengetahui" class="mt-2 hidden">
+                        <div id="previewMengetahui" class="mt-2 {{ old('ttd_mengetahui', $permohonan->bap_data['ttd_mengetahui'] ?? ($koordinator->ttd_bap_mengetahui ?? '')) ? '' : 'hidden' }} text-center">
                             <p class="text-xs text-gray-600 mb-1">Preview:</p>
-                            <img id="previewImgMengetahui" src="" alt="TTD Preview" class="max-h-20 border border-gray-300 rounded mx-auto">
+                            <img id="previewImgMengetahui" src="{{ old('ttd_mengetahui', $permohonan->bap_data['ttd_mengetahui'] ?? ($koordinator->ttd_bap_mengetahui ?? '')) }}" alt="TTD Preview" class="max-h-20 border border-gray-300 rounded mx-auto">
                         </div>
                     </div>
                 </div>
@@ -701,6 +711,13 @@
                    class="px-6 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors">
                     Batal
                 </a>
+                <button type="button" id="saveDraftBtn"
+                        class="px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
+                    </svg>
+                    Simpan Draft
+                </button>
                 <button type="submit"
                         class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
                     Generate PDF BAP
@@ -712,6 +729,11 @@
     <!-- Script untuk Signature Pad dan Form Submit Fallback -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Signature pad instances made accessible for save draft logic
+            let signaturePadMemeriksa = null;
+            let signaturePadMenyetujui = null;
+            let signaturePadMengetahui = null;
+
             // Fallback form submit handler jika Alpine.js tidak bekerja
             const bapForm = document.querySelector('form[action*="bap/generate"]');
             const generateButton = document.getElementById('generateBapButton');
@@ -764,7 +786,6 @@
 
                 // Initialize Signature Pad untuk Memeriksa
                 const canvasMemeriksa = document.getElementById('signatureCanvasMemeriksa');
-                let signaturePadMemeriksa = null;
 
                 if (canvasMemeriksa) {
                     setTimeout(() => {
@@ -819,7 +840,6 @@
 
                 // Initialize Signature Pad untuk Menyetujui
                 const canvasMenyetujui = document.getElementById('signatureCanvasMenyetujui');
-                let signaturePadMenyetujui = null;
 
                 if (canvasMenyetujui) {
                     setTimeout(() => {
@@ -874,7 +894,6 @@
 
                 // Initialize Signature Pad untuk Mengetahui
                 const canvasMengetahui = document.getElementById('signatureCanvasMengetahui');
-                let signaturePadMengetahui = null;
 
                 if (canvasMengetahui) {
                     setTimeout(() => {
@@ -1026,6 +1045,101 @@
                     });
                     
                     return false;
+                });
+            }
+
+            // Save Draft button handler
+            const saveDraftBtn = document.getElementById('saveDraftBtn');
+            if (saveDraftBtn) {
+                saveDraftBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Copy signatures if not already saved
+                    if (signaturePadMemeriksa && !signaturePadMemeriksa.isEmpty()) {
+                        const dataURL = signaturePadMemeriksa.toDataURL('image/png', 1.0);
+                        document.getElementById('ttd_memeriksa').value = dataURL;
+                    }
+                    if (signaturePadMenyetujui && !signaturePadMenyetujui.isEmpty()) {
+                        const dataURL = signaturePadMenyetujui.toDataURL('image/png', 1.0);
+                        document.getElementById('ttd_menyetujui').value = dataURL;
+                    }
+                    if (signaturePadMengetahui && !signaturePadMengetahui.isEmpty()) {
+                        const dataURL = signaturePadMengetahui.toDataURL('image/png', 1.0);
+                        document.getElementById('ttd_mengetahui').value = dataURL;
+                    }
+
+                    // Show loading state
+                    const originalText = saveDraftBtn.innerHTML;
+                    saveDraftBtn.disabled = true;
+                    saveDraftBtn.innerHTML = `
+                        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Menyimpan...
+                    `;
+
+                    const form = document.querySelector('form[action*="bap/generate"]');
+                    const formData = new FormData(form);
+
+                    fetch('{{ route("permohonan.bap.save", $permohonan) }}', {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            'Accept': 'application/json'
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.json().then(err => { throw err; });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        saveDraftBtn.disabled = false;
+                        saveDraftBtn.innerHTML = originalText;
+
+                        if (data.success) {
+                            if (typeof Swal !== 'undefined') {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Draf Disimpan',
+                                    text: data.message || 'Draf BAP berhasil disimpan.',
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 3000,
+                                    timerProgressBar: true
+                                });
+                            } else {
+                                alert(data.message || 'Draf BAP berhasil disimpan.');
+                            }
+                        } else {
+                            throw data;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Save Draft Error:', error);
+                        saveDraftBtn.disabled = false;
+                        saveDraftBtn.innerHTML = originalText;
+
+                        let errorMsg = 'Terjadi kesalahan sistem saat menyimpan draf.';
+                        if (error && error.message) {
+                            errorMsg = error.message;
+                        }
+
+                        if (typeof Swal !== 'undefined') {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal Menyimpan',
+                                text: errorMsg,
+                                confirmButtonText: 'OK'
+                            });
+                        } else {
+                            alert(errorMsg);
+                        }
+                    });
                 });
             }
             

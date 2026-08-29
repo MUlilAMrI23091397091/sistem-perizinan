@@ -111,6 +111,11 @@
                                     <label class="text-sm font-medium text-gray-500 block mb-2">Alamat Perusahaan</label>
                                     <p class="text-gray-900">{{ $permohonan->alamat_perusahaan ?? '-' }}</p>
                                 </div>
+
+                                <div class="group">
+                                     <label class="text-sm font-medium text-gray-500 block mb-2">Masa Berlaku</label>
+                                     <p class="text-gray-900 font-semibold text-blue-700 bg-blue-50/50 px-3 py-1.5 rounded-lg inline-block border border-blue-100">{{ $permohonan->masa_berlaku ?? '-' }}</p>
+                                 </div>
                                 
                                 <div class="group">
                                     <label class="text-sm font-medium text-gray-500 block mb-2">Sektor</label>
@@ -204,7 +209,8 @@
                                         @php
                                             $risikoClass = match($permohonan->risiko) {
                                                 'Rendah' => 'bg-green-100 text-green-800',
-                                                'Sedang' => 'bg-yellow-100 text-yellow-800',
+                                                'Menengah Rendah' => 'bg-blue-100 text-blue-800',
+                                                'Menengah Tinggi' => 'bg-yellow-100 text-yellow-800',
                                                 'Tinggi' => 'bg-red-100 text-red-800',
                                                 default => 'bg-gray-100 text-gray-600'
                                             };
