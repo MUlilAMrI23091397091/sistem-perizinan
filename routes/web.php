@@ -119,6 +119,14 @@ Route::get('/logout', function () {
     return redirect()->route('login')->with('success', 'Anda telah berhasil logout.');
 })->name('logout.get');
 
+/*
+|--------------------------------------------------------------------------
+| PERINGATAN KEAMANAN: Rute Deploy Otomatis (Disabled)
+|--------------------------------------------------------------------------
+| Rute di bawah ini dinonaktifkan secara default demi keamanan (mencegah RCE).
+| Direkomendasikan menggunakan CI/CD Pipeline (GitHub Actions/GitLab CI)
+| dibanding memicu command git pull dari web server process.
+|
 Route::get('/deploy/{token}', function ($token) {
 
     // Validasi secret token dari URL parameter
@@ -152,3 +160,5 @@ Route::get('/deploy/{token}', function ($token) {
         'optimize' => $optOutput,
     ];
 });
+*/
+

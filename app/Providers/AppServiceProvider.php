@@ -24,8 +24,9 @@ class AppServiceProvider extends ServiceProvider
         // Posted by Amitesh Bharti, modified by community. See post 'Timeline' for change history
         // Retrieved 2025-12-10, License - CC BY-SA 4.0
 
-        if (config('app.environment') == "production") {
+        if (config('app.env') === 'production') {
             URL::forceScheme('https');
         }
     }
 }
+
