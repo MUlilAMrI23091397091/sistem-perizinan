@@ -172,7 +172,7 @@ return [
     |
     */
 
-    'secure' => env('SESSION_SECURE_COOKIE', false), // Set to true in production (HTTPS only)
+    'secure' => env('SESSION_SECURE_COOKIE', true), // Set to true in production (HTTPS only)
 
     /*
     |--------------------------------------------------------------------------
@@ -218,3 +218,4 @@ return [
     'partitioned' => env('SESSION_PARTITIONED_COOKIE', false),
 
 ];
+
