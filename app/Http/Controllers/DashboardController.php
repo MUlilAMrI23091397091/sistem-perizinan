@@ -253,19 +253,19 @@ class DashboardController extends Controller
         // Role admin dan penerbitan_berkas sama-sama melihat semua data (setara)
         // Tidak ada filter berdasarkan user_id
 
-        // Filter custom tanggal langsung tanpa perlu dropdown
+        // Filter custom tanggal berdasarkan tanggal entri berkas (created_at)
         if ($customDateFrom && $customDateTo) {
             // Filter range tanggal
-            $query->whereBetween('tanggal_permohonan', [
+            $query->whereBetween('created_at', [
                 Carbon::parse($customDateFrom)->startOfDay()->toDateTimeString(),
                 Carbon::parse($customDateTo)->endOfDay()->toDateTimeString()
             ]);
         } elseif ($customDateFrom) {
             // Hanya dari tanggal (sampai hari ini)
-            $query->whereDate('tanggal_permohonan', '>=', $customDateFrom);
+            $query->whereDate('created_at', '>=', $customDateFrom);
         } elseif ($customDateTo) {
             // Hanya sampai tanggal (dari awal)
-            $query->whereDate('tanggal_permohonan', '<=', $customDateTo);
+            $query->whereDate('created_at', '<=', $customDateTo);
         }
 
         // Pencarian bebas
@@ -284,9 +284,8 @@ class DashboardController extends Controller
         }
 
         // Kumpulan lengkap untuk statistik (tanpa paginasi)
-        // Order by tanggal_permohonan ASC, kemudian created_at ASC (data baru di bawah)
-        $allForStats = (clone $query)->orderBy('tanggal_permohonan', 'asc')
-                                     ->orderBy('created_at', 'asc')
+        // Order by created_at ASC (data baru di bawah)
+        $allForStats = (clone $query)->orderBy('created_at', 'asc')
                                      ->orderBy('id', 'asc')
                                      ->get();
 
@@ -295,9 +294,8 @@ class DashboardController extends Controller
         if (!in_array($perPage, [10, 20, 50, 100], true)) {
             $perPage = 20;
         }
-        // Order by tanggal_permohonan ASC, kemudian created_at ASC (data baru di bawah)
-        $permohonans = $query->orderBy('tanggal_permohonan', 'asc')
-                            ->orderBy('created_at', 'asc')
+        // Order by created_at ASC (data baru di bawah)
+        $permohonans = $query->orderBy('created_at', 'asc')
                             ->orderBy('id', 'asc')
                             ->paginate($perPage)->withQueryString();
         
@@ -332,24 +330,23 @@ class DashboardController extends Controller
         // Role admin dan penerbitan_berkas sama-sama melihat semua data (setara)
         // Tidak ada filter berdasarkan user_id
 
-        // Filter custom tanggal langsung tanpa perlu dropdown
+        // Filter custom tanggal berdasarkan tanggal entri berkas (created_at)
         if ($customDateFrom && $customDateTo) {
             // Filter range tanggal
-            $query->whereBetween('tanggal_permohonan', [
+            $query->whereBetween('created_at', [
                 Carbon::parse($customDateFrom)->startOfDay()->toDateTimeString(),
                 Carbon::parse($customDateTo)->endOfDay()->toDateTimeString()
             ]);
         } elseif ($customDateFrom) {
             // Hanya dari tanggal (sampai hari ini)
-            $query->whereDate('tanggal_permohonan', '>=', $customDateFrom);
+            $query->whereDate('created_at', '>=', $customDateFrom);
         } elseif ($customDateTo) {
             // Hanya sampai tanggal (dari awal)
-            $query->whereDate('tanggal_permohonan', '<=', $customDateTo);
+            $query->whereDate('created_at', '<=', $customDateTo);
         }
 
-        // Order by tanggal_permohonan ASC, kemudian created_at ASC (data baru di bawah)
-        $data = $query->orderBy('tanggal_permohonan', 'asc')
-                     ->orderBy('created_at', 'asc')
+        // Order by created_at ASC (data baru di bawah)
+        $data = $query->orderBy('created_at', 'asc')
                      ->orderBy('id', 'asc')
                      ->get();
         return Excel::download(new PenerbitanBerkasExport($data), 'data_penerbitan_berkas_' . date('Y-m-d_H-i-s') . '.xlsx');
@@ -373,24 +370,23 @@ class DashboardController extends Controller
         // Role admin dan penerbitan_berkas sama-sama melihat semua data (setara)
         // Tidak ada filter berdasarkan user_id
 
-        // Filter custom tanggal langsung tanpa perlu dropdown
+        // Filter custom tanggal berdasarkan tanggal entri berkas (created_at)
         if ($customDateFrom && $customDateTo) {
             // Filter range tanggal
-            $query->whereBetween('tanggal_permohonan', [
+            $query->whereBetween('created_at', [
                 Carbon::parse($customDateFrom)->startOfDay()->toDateTimeString(),
                 Carbon::parse($customDateTo)->endOfDay()->toDateTimeString()
             ]);
         } elseif ($customDateFrom) {
             // Hanya dari tanggal (sampai hari ini)
-            $query->whereDate('tanggal_permohonan', '>=', $customDateFrom);
+            $query->whereDate('created_at', '>=', $customDateFrom);
         } elseif ($customDateTo) {
             // Hanya sampai tanggal (dari awal)
-            $query->whereDate('tanggal_permohonan', '<=', $customDateTo);
+            $query->whereDate('created_at', '<=', $customDateTo);
         }
 
-        // Order by tanggal_permohonan ASC, kemudian created_at ASC (data baru di bawah)
-        $penerbitanBerkas = $query->orderBy('tanggal_permohonan', 'asc')
-                                 ->orderBy('created_at', 'asc')
+        // Order by created_at ASC (data baru di bawah)
+        $penerbitanBerkas = $query->orderBy('created_at', 'asc')
                                  ->orderBy('id', 'asc')
                                  ->get();
         $ttdSettings = TtdSetting::getSettings();

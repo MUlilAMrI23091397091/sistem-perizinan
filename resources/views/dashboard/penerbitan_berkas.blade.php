@@ -38,7 +38,7 @@
 
             <!-- Notifikasi Success/Error -->
             @if(session('success'))
-                <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg relative" role="alert" id="success-notification">
+                <div class="mb-4 bg-gray-100 border border-gray-300 text-gray-800 px-4 py-3 rounded-lg relative" role="alert" id="success-notification">
                     <div class="flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
@@ -57,7 +57,7 @@
             @endif
 
             @if(session('error'))
-                <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
+                <div class="mb-4 bg-gray-50 border border-gray-300 text-gray-800 px-4 py-3 rounded-lg relative" role="alert">
                     <div class="flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
@@ -68,7 +68,7 @@
             @endif
 
             @if($errors->any())
-                <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
+                <div class="mb-4 bg-gray-50 border border-gray-300 text-gray-800 px-4 py-3 rounded-lg relative" role="alert">
                     <div class="flex items-start">
                         <svg class="w-5 h-5 mr-2 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
@@ -101,28 +101,28 @@
                         <!-- Export Buttons - Horizontal Layout -->
                         <div class="flex flex-wrap gap-2">
                             <a href="{{ route('penerbitan-berkas.export.excel') }}" 
-                               class="inline-flex items-center px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium">
+                               class="inline-flex items-center px-3 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition-colors text-sm font-medium">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
                                 Export Excel (Semua)
                             </a>
                             <a href="{{ route('penerbitan-berkas.export.excel', request()->only(['custom_date_from','custom_date_to'])) }}" 
-                               class="inline-flex items-center px-3 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-sm font-medium">
+                               class="inline-flex items-center px-3 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition-colors text-sm font-medium">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
                                 Export Excel (Per Tanggal)
                             </a>
                             <a href="{{ route('penerbitan-berkas.export.pdf.landscape') }}" 
-                               class="inline-flex items-center px-3 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm font-medium">
+                               class="inline-flex items-center px-3 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition-colors text-sm font-medium">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
                                 Export PDF (Semua)
                             </a>
                             <a href="{{ route('penerbitan-berkas.export.pdf.landscape', request()->only(['custom_date_from','custom_date_to'])) }}" 
-                               class="inline-flex items-center px-3 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors text-sm font-medium">
+                               class="inline-flex items-center px-3 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition-colors text-sm font-medium">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
@@ -141,7 +141,7 @@
                                         <input type="text" name="search" value="{{ $search ?? '' }}" 
                                                placeholder="Cari berdasarkan No. Permohonan atau Nama Usaha..."
                                                class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                                        <button type="submit" class="px-4 bg-indigo-600 text-white rounded-r-lg hover:bg-indigo-700 flex items-center justify-center">
+                                        <button type="submit" class="px-4 bg-gray-900 text-white rounded-r-lg hover:bg-gray-800 flex items-center justify-center">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                             </svg>
@@ -159,17 +159,18 @@
                                         <option value="100" @selected(($perPage ?? 20)==100)>100 per halaman</option>
                                     </select>
                                     
-                                    <!-- Custom Date Range - Dikelompokkan dalam satu container -->
+                                    <!-- Custom Date Range - Filter Berdasarkan Tanggal Entri -->
                                     <div class="flex flex-col gap-2">
                                         <div class="flex items-center gap-2 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg">
                                             <svg class="w-4 h-4 text-gray-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                             </svg>
-                                            <label class="text-xs font-medium text-gray-700 whitespace-nowrap">Dari:</label>
+                                            <span class="text-xs font-semibold text-gray-700 whitespace-nowrap mr-1">Tgl Entri:</span>
+                                            <label class="text-xs font-medium text-gray-600 whitespace-nowrap">Dari</label>
                                             <input type="date" name="custom_date_from" value="{{ $customDateFrom ?? '' }}" 
                                                    onchange="this.form.submit()"
                                                    class="h-9 px-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white min-w-[140px]">
-                                            <label class="text-xs font-medium text-gray-700 whitespace-nowrap ml-1">Sampai:</label>
+                                            <label class="text-xs font-medium text-gray-600 whitespace-nowrap ml-1">Sampai</label>
                                             <input type="date" name="custom_date_to" value="{{ $customDateTo ?? '' }}" 
                                                    onchange="this.form.submit()"
                                                    class="h-9 px-2 border border-gray-300 rounded focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm bg-white min-w-[140px]">
@@ -218,10 +219,10 @@
                             <tbody class="bg-white divide-y divide-gray-200">
                             @if($permohonans->count() > 0)
                                 @foreach($permohonans as $index => $permohonan)
-                                <tr class="hover:bg-primary-50 transition-colors duration-200">
+                                <tr class="hover:bg-gray-50 transition-colors duration-200">
                                     <td class="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                         <div class="flex items-center">
-                                            <div class="w-2 h-2 bg-primary-500 rounded-full mr-3"></div>
+                                            <div class="w-2 h-2 bg-gray-700 rounded-full mr-3"></div>
                                             {{ (($permohonans->firstItem() ?? 1) + $index) }}
                                         </div>
                                     </td>
@@ -330,7 +331,7 @@
                                         <div class="flex items-center space-x-2">
                                             <!-- Edit Button -->
                                             <button data-edit-id="{{ $permohonan->id }}" 
-                                                    class="edit-btn inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                                    class="edit-btn inline-flex items-center px-2 py-1 border border-transparent text-xs font-medium rounded text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
                                                 <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                 </svg>
@@ -380,7 +381,7 @@
             <!-- Form Input Data Baru -->
             @if(in_array(auth()->user() && auth()->user()->role, ['admin', 'penerbitan_berkas']))
             <div class="bg-white rounded-xl shadow-lg border border-gray-100 p-6 mb-8">
-                <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-green-50 to-emerald-50 mb-6 -m-6">
+                <div class="px-6 py-5 border-b border-gray-200 bg-gray-100 mb-6 -m-6">
                     <h3 class="text-xl font-semibold text-gray-900 flex items-center">
                         <svg class="w-6 h-6 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -587,7 +588,7 @@
                     });
                  ">
                 <!-- Header dengan tombol edit -->
-                <div class="px-6 py-5 border-b border-gray-200 bg-gradient-to-r from-purple-50 to-violet-50 mb-6 -m-6">
+                <div class="px-6 py-5 border-b border-gray-200 bg-gray-100 from-purple-50 to-violet-50 mb-6 -m-6">
                     <div class="flex justify-between items-center">
                         <h3 class="text-xl font-semibold text-gray-900 flex items-center">
                             <svg class="w-6 h-6 text-purple-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -658,7 +659,7 @@
                                             <button type="button" id="clearMengetahui" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium">
                                                 Hapus
                                             </button>
-                                            <button type="button" id="saveMengetahui" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 text-sm font-medium">
+                                            <button type="button" id="saveMengetahui" class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 text-sm font-medium">
                                                 Simpan TTD
                                             </button>
                                         </div>
@@ -674,9 +675,9 @@
                                                         $url = null;
                                                         if ($file) {
                                                             if (file_exists(public_path('storage/ttd_photos/' . $file))) {
-                                                                $url = secure_asset('storage/ttd_photos/' . $file);
+                                                                $url = asset('storage/ttd_photos/' . $file);
                                                             } elseif (file_exists(public_path('storage/ttd-photos/' . $file))) {
-                                                                $url = secure_asset('storage/ttd-photos/' . $file);
+                                                                $url = asset('storage/ttd-photos/' . $file);
                                                             }
                                                         }
                                                     @endphp
@@ -747,7 +748,7 @@
                                             <button type="button" id="clearMenyetujui" class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 text-sm font-medium">
                                                 Hapus
                                             </button>
-                                            <button type="button" id="saveMenyetujui" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 text-sm font-medium">
+                                            <button type="button" id="saveMenyetujui" class="px-4 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 text-sm font-medium">
                                                 Simpan TTD
                                             </button>
                                         </div>
@@ -763,9 +764,9 @@
                                                         $url = null;
                                                         if ($file) {
                                                             if (file_exists(public_path('storage/ttd_photos/' . $file))) {
-                                                                $url = secure_asset('storage/ttd_photos/' . $file);
+                                                                $url = asset('storage/ttd_photos/' . $file);
                                                             } elseif (file_exists(public_path('storage/ttd-photos/' . $file))) {
-                                                                $url = secure_asset('storage/ttd-photos/' . $file);
+                                                                $url = asset('storage/ttd-photos/' . $file);
                                                             }
                                                         }
                                                     @endphp
@@ -1013,9 +1014,9 @@
                                     $url = null;
                                     if ($file) {
                                         if (file_exists(public_path('storage/ttd_photos/' . $file))) {
-                                            $url = secure_asset('storage/ttd_photos/' . $file);
+                                            $url = asset('storage/ttd_photos/' . $file);
                                         } elseif (file_exists(public_path('storage/ttd-photos/' . $file))) {
-                                            $url = secure_asset('storage/ttd-photos/' . $file);
+                                            $url = asset('storage/ttd-photos/' . $file);
                                         }
                                     }
                                 @endphp
@@ -1040,9 +1041,9 @@
                                     $url = null;
                                     if ($file) {
                                         if (file_exists(public_path('storage/ttd_photos/' . $file))) {
-                                            $url = secure_asset('storage/ttd_photos/' . $file);
+                                            $url = asset('storage/ttd_photos/' . $file);
                                         } elseif (file_exists(public_path('storage/ttd-photos/' . $file))) {
-                                            $url = secure_asset('storage/ttd-photos/' . $file);
+                                            $url = asset('storage/ttd-photos/' . $file);
                                         }
                                     }
                                 @endphp

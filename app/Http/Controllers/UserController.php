@@ -50,7 +50,19 @@ class UserController extends Controller
             $rules['sektor'] = ['required', 'in:Dinkopdag,Disbudpar,Dinkes,Dishub,Dprkpp,Dkpp,Dlh,Disperinaker'];
         }
 
-        $request->validate($rules);
+        $messages = [
+            'name.required' => 'Nama lengkap wajib diisi.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah terdaftar pada sistem.',
+            'password.required' => 'Password wajib diisi.',
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
+            'role.required' => 'Role wajib dipilih.',
+            'sektor.required' => 'Untuk role PD Teknis, Sektor wajib dipilih.',
+            'sektor.in' => 'Sektor yang dipilih tidak valid.',
+        ];
+
+        $request->validate($rules, $messages);
 
         // Cek apakah sudah ada admin
         $adminExists = User::where('role', 'admin')->exists();
@@ -71,6 +83,8 @@ class UserController extends Controller
         // Tambahkan sektor jika role adalah pd_teknis
         if ($request->role === 'pd_teknis' && $request->sektor) {
             $userData['sektor'] = $request->sektor;
+        } else {
+            $userData['sektor'] = null;
         }
 
         User::create($userData);
@@ -109,7 +123,18 @@ class UserController extends Controller
             $rules['sektor'] = ['required', 'in:Dinkopdag,Disbudpar,Dinkes,Dishub,Dprkpp,Dkpp,Dlh,Disperinaker'];
         }
 
-        $request->validate($rules);
+        $messages = [
+            'name.required' => 'Nama lengkap wajib diisi.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah digunakan oleh user lain.',
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
+            'role.required' => 'Role wajib dipilih.',
+            'sektor.required' => 'Untuk role PD Teknis, Sektor wajib dipilih.',
+            'sektor.in' => 'Sektor yang dipilih tidak valid.',
+        ];
+
+        $request->validate($rules, $messages);
 
         // Cek apakah sudah ada admin dan user yang diupdate bukan admin yang sudah ada
         $adminExists = User::where('role', 'admin')->where('id', '!=', $user->id)->exists();
@@ -127,7 +152,7 @@ class UserController extends Controller
         // Update sektor jika role adalah pd_teknis
         if ($request->role === 'pd_teknis' && $request->sektor) {
             $user->sektor = $request->sektor;
-        } elseif ($request->role !== 'pd_teknis') {
+        } else {
             // Hapus sektor jika role bukan pd_teknis
             $user->sektor = null;
         }
